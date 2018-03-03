@@ -16,7 +16,8 @@ remainder of this work.
 Perhaps the most fundamental axiom of quantum mechanics is in that for every physical
 system, there is associated a seperable complex Hilbert space, $\mathcal{H}$, such that
 the vectors of said Hilbert space represent the quantum states 
-of the system \cite{VonNeumann55_book}. Such vectors are referred to as wave functions.
+of the system \cite{VonNeumann55_book}. Such vectors are referred to as wave functions
+and the inner product on $\mathcal{H}$ is referred to as an expectation value.
 As the primary focus of this work will be the treatment of the many--body electronic
 problem in molecular quantum mechanics, one might remark that the physical system
 in question is a \emph{composite} system consisting of many, indistinguishable 
@@ -24,7 +25,7 @@ particles (electrons). Denoting the Hilbert space of a composite system consisti
 of $N$ particles as $\mathcal{H}^N$, we know that as $\mathcal{H}^N$ is seperable,
 it may be decomposed into a direct product space consisting of the Hilbert spaces
 which describe its constituant parts, namely those spaces which describe a
-single particle system: $\mathcal{H}^1$,
+single particle system: $\mathcal{H}^1$,\co{Needs more consideration, might just be a basis}
 \begin{equation}
   \label{eq:SepHilbert}
   \mathcal{H}^N = \bigotimes_{i = 1}^N \mathcal{H}^1.
@@ -69,7 +70,7 @@ where $D_I\in\mathbb C$ is the complex expansion coefficient of the $I$-th confi
 and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\mathcal{C}$.
 The fact that the set of all Slater determinants forms a basis for $\mathcal{H}^N_-$
 serves ad the primary foundataion for the majority of approximate quantum mechanical methods regarding molecular
-systems. In the following, we will assume $\ket{\Psi^N}$, $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are normalized 
+systems. In the following, we will assume $\ket{\Psi^N}$, $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are orthonormal
 with respect to the metric on their respective Hilbert spaces.
 
 While the Hilbert space representation of the wave function is the most illuminating description for the development of
@@ -85,9 +86,10 @@ projects the vectors of the Hilbert space onto a convineient basis.
   \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
     \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i),
 \end{equation}
+\co{Define as spatial wave function}
 \co{This is great because, unlike the tensor product definition, $\phi_k$'s commute}
 
-\subsection{Linear Operators}
+\subsection{Linear Operators and Expectation Values}
 \label{sec:LO}
 
 Fundamental to the formulation of any quantum mechanical theory is the identification of linear operators on $\mathcal{H}^N$
@@ -102,8 +104,44 @@ i.e. in general, these operators need not exist soley as direct products of oper
 that $N$--particle operators \emph{cannot} adopt a product structure, just that it is not a requirement, and indeed
 if often not the case. However, the notion that some $N$--particle operators \emph{can} adopt a product structure indicates the need
 to describe the action of $M$--particle operators on $\mathcal{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
-In general, such an operator may be specified 
+To demonstrate this state of affairs, it is convieniant to examine the action of such an operator, $\mathscr{O}$, on a 
+spatial wave function of the form \cref{eq:SlaterDetSpace},
+\begin{align}
+  \label{eq:MOpSpace}
+  &\mathscr{O}(i,j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
+    \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
+    \left(\mathscr{O}(i,j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
+    \prod_{k \neq (i,j,\ldots) }^{N} \phi_{\xi(k)}(\vc{x}_k),
+\end{align}
+where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particle upon which it acts.
+In this work, we will typically be concerned with operators which act on no more than two particles at a time.
 
+It will be often the case in this work that $N$--particle operators may be expressed as sums over one and
+two particle operators. In this context , the realization of \cref{eq:MOpSpace} is of exceptional utility in that,
+for an expectation value involving a particular Slater determinant,
+\begin{subequations}
+  \label{eq:SlaterCondon}
+\begin{align}
+  &\innerop{\Phi^N_I}{\sum_i\mathscr{O}(i)}{\Phi^N_I} = \sum_{i\in\mathcal{K}^N_I} \innerop{\phi_i}{\mathscr{O}(1)}{\phi_i},\\
+  &\innerop{\Phi^N_I}{\sum_{i\neq j} \mathscr{O}(i,j)}{\Phi^N_I} = 
+    \sum_{i\neq j \in\mathcal{K}^N_I} 
+      \innerop{\phi_i \phi_j }{\mathscr{O}(1,2)}{\phi_i \phi_j} - 
+      \innerop{\phi_i \phi_j }{\mathscr{O}(1,2)}{\phi_j \phi_i},
+\end{align}
+\end{subequations}
+where, in the case of spin--1/2 fermions represented in the coordinate basis of \co{add Eq ref},
+\begin{subequations}
+  \label{eq:DiracInts}
+\begin{align}
+  &\innerop{\phi_p}{\mathscr{O}(1)}{\phi_q} = 
+    \sum_{\sigma_1} \int_{\mathbb{R}^3} \phi_p^*(\vc{r}_1,\sigma_1) \mathscr{O}(1) \phi_q(\vc{r}_1,\sigma_1) \dd^3 \vc{r}_1,\\
+  &\innerop{\phi_p \phi_q }{\mathscr{O}(1,2)}{\phi_r \phi_s} = \nonumber \\ &\qquad
+    \sum_{\sigma_1 \sigma_2} \iint_{\mathbb{R}^3} 
+      \phi_p^*(\vc{r}_1,\sigma_1) \phi_q^*(\vc{r}_2,\sigma_2) \mathscr{O}(1,2) 
+      \phi_r(\vc{r}_1,\sigma_1) \phi_s(\vc{r}_2,\sigma_2) \dd^3 \vc{r}_1 \dd^3 \vc{r}_2.
+\end{align}
+\end{subequations}
+%The identities outlined in \cref{eq:SlaterCondon,eq:DiracInts} will be used extensively in the subsequent developments.
 
 
 \subsection{Second Quantization}
@@ -116,10 +154,10 @@ which aims to greatly simplify the construction and manipulation of antisymmetri
 \cref{eq:SlaterDet}. The primary hallmark of second quantization is in the representation of a Slater determininant 
 as an array of integers known as \emph{occupation numbers}, denoted $\ket{[n_p^I]}$, indicate the inclusion (or \emph{occupation}) of elements
 of $\mathcal{C}$ in the configuration which describes the determininant. As such, the length of said array is $\vert \mathcal{C} \vert$
-and the sum of its elements is the number of particles in the system. Due to the fact that electrons are fermions,
+and the sum of its elements is the number of particles in the system ($N$). Due to the fact that electrons are fermions,
 there is a further resriction on the possible values of the occupations numbers due to the Pauli exclusion principle,
 namely that a particle can be occupied ($n^I_p=1$) or unoccupied ($n^I_p=0$). To avoid confusion in the subsequent developments,
-we will define $\mathcal{H}^N_O$ as the Hilbert space which contains $\ket{[n_p^I]}$ as operators on $\mathcal{H}^N$ 
+we will define $\mathcal{H}^N_O$ as the Hilbert space which admits $\{\ket{[n_p^I]}\}$ as a basis, as operators on $\mathcal{H}^N$ 
 \emph{do not} act on $\mathcal{H}^N_O$, but rather may act indirectly through the obvious isomorphism 
 $\mathcal{H}^N \leftrightarrow \mathcal{H}^N_O$.
 
@@ -132,7 +170,7 @@ the vacuum, $\Vac$, such that
 \begin{align}
   &\Vac = \ket{[0_1, 0_2, \ldots, 0_{\vert C \vert}]}, \\
   &c_p^\dagger \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{n_p-1}{\sqrt{N+1}} \ket{[n_1, n_2, \ldots, 1_p, \ldots, n_{\vert C \vert}]},\\
-  &c_p \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{n_p}{\sqrt{N}} \ket{[n_1, n_2, \ldots, 0_p, \ldots, n_{\vert C \vert}]},
+  &c_p \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = {n_p}{\sqrt{N}} \ket{[n_1, n_2, \ldots, 0_p, \ldots, n_{\vert C \vert}]},
 \end{align}
 \end{subequations}
 where $N$ is the number of particles in the determininant \emph{before} action, and
@@ -141,11 +179,14 @@ where $N$ is the number of particles in the determininant \emph{before} action, 
 \begin{align}
   &[c_p^\dagger, c_q^\dagger]_+ = 0,\\
   &[c_p, c_q]_+ = 0,\\
-  &[c_p, c_q^\dagger]_+ = \delta_{pq},
+  &[c_p^\dagger, c_q]_+ = \delta_{pq},
 \end{align}
 \end{subequations}
 where $[\cdot,\cdot]_+$ is the anti--comutator and $\delta_{pq}$ is the Kronecker delta. The action of strings consisting on any number of these 
-operators may be derived inductively from \cref{eq:SeQuantAction,eq:SeQuantComm}. As such, we may recast
+operators may be derived inductively from \cref{eq:SeQuantAction,eq:SeQuantComm}. As such, we may recast \cref{eq:SlaterDet} as
+\begin{equation}
+  \ket{\Phi^N_I} \mapsto \left(\prod_{i \in \mathcal{K}^N_I} c_i^\dagger\right) \Vac
+\end{equation}
 
 % Non--Relativistic Hamiltonian
 \subsection{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
