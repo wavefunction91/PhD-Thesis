@@ -1,0 +1,170 @@
+\chapter{Theoretical Basis}
+\label{ch:Theory}
+
+In this chapter, I will outline the theoretical preliminaries which will serve as the basis
+for the subsequent development of relativistic electronic structure theory. Further, this
+chapter will serve as the primary source of notation which will be used throughout the
+remainder of this work. 
+
+% Quantum Mechanics
+\section{Quantum Mechanical Preliminaries}
+\label{sec:QM}
+
+\subsection{The Physical Hilbert Space and The Slater Determinant}
+\label{sec:SD}
+
+Perhaps the most fundamental axiom of quantum mechanics is in that for every physical
+system, there is associated a seperable complex Hilbert space, $\mathcal{H}$, such that
+the vectors of said Hilbert space represent the quantum states 
+of the system \cite{VonNeumann55_book}. Such vectors are referred to as wave functions.
+As the primary focus of this work will be the treatment of the many--body electronic
+problem in molecular quantum mechanics, one might remark that the physical system
+in question is a \emph{composite} system consisting of many, indistinguishable 
+particles (electrons). Denoting the Hilbert space of a composite system consisting
+of $N$ particles as $\mathcal{H}^N$, we know that as $\mathcal{H}^N$ is seperable,
+it may be decomposed into a direct product space consisting of the Hilbert spaces
+which describe its constituant parts, namely those spaces which describe a
+single particle system: $\mathcal{H}^1$,
+\begin{equation}
+  \label{eq:SepHilbert}
+  \mathcal{H}^N = \bigotimes_{i = 1}^N \mathcal{H}^1.
+\end{equation}
+The seperability condition of \cref{eq:SepHilbert} is crutial to the following developments
+as it allows one to construct a simple basis for vectors in $\mathcal{H}^N$
+as $N$--fold tensor products of single--particle wave functions which form a basis for $\mathcal{H}^1$, 
+i.e. $\mathcal{C} = \set{\ket{\phi_p}}  \subset \mathcal{H}^1$ such that 
+$\mathcal{H}^1 = \Span{\mathcal{C}}$. In the following, vectors in $\mathcal{H}^1$, in particular elements of $\mathcal{C}$,
+will be refered to as orbitals.
+
+As the electron is the moiety of interest in this work, vectors in $\mathcal{H}^N$ must adhere to certain additional 
+criteria in order for them to represent physically realizable wave functions. In the case of electrons, which are 
+fermions, physically relevant elements of $\mathcal{H}^N$, which we will denote $\mathcal{H}^N_- \subset \mathcal{H}^N$, must 
+adhere to Fermi--Dirac statistics, namely that they must exhibit antisymmetric behaviour under particle permutation
+\cite{Walecka12_book,Schuck04_book}, i.e.
+\begin{equation}
+  \label{eq:FermiDirac}
+  \mathcal{P}_{ij} \ket{\Phi^N} = -\ket{\Phi^N}, \qquad \ket{\Phi^N} \in \mathcal{H}^N_-,
+\end{equation} 
+where $\mathcal{P}_{ij}$ is the particle permutation operator which interchanges particle $i$ and $j$ 
+(for a more thorough discussion on linear operators acting on $\mathcal{H}^N$, see \cref{sec:LO}). Remark
+that this notion of particle iterchange is intimately related to \cref{eq:SepHilbert}. With this additional
+constraint, we may construct a basis for $\mathcal{H}^N_-$ with elements
+\begin{equation}
+  \label{eq:SlaterDet}
+  \ket{\Phi^N_I} = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } \bigotimes_{i = 1 }^N \ket{\phi_{\xi(i)}},
+\end{equation}
+where $\mathcal{K}_I^N$ is an $N$--element subset of $\mathcal{C}$ and $S_N(\mathcal{K}_I^N)$ is the symmetric group
+of $\mathcal{K}_I^N$ which consists of all permutations of its elements, which are denoted here as permutation
+functions $\xi$. $\Sign{\xi} \in \{ \pm 1 \}$ denotes the sign of the permutation and ensures the antisymmety of
+the overall wave function. \Cref{eq:SlaterDet} introduces a number of concepts with are typically jargonized 
+in the quantum chemistry community. In this work, $\mathcal{K}_I^N$ will be refered to as an $N$--particle
+configuration (or simply a configuration when $N$ is to be understood from the context), and $\ket{\Phi^N_I}$
+will be refered to as a Slater determinant. It is important to note that $\ket{\Phi^N_I}$ is completely 
+determined by $\mathcal{K}_I^N$. As a basis for $\mathcal{H}^N_-$, any vector $\ket{\Psi^N} \in \mathcal{H}^N_-$
+may be written as \cite{Ostlund12_book}
+\begin{equation}
+\ket{\Psi^N} = \sum_I D_I \ket{\Phi^N_I},
+\end{equation}
+where $D_I\in\mathbb C$ is the complex expansion coefficient of the $I$-th configuration in the overall wave function,
+and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\mathcal{C}$.
+The fact that the set of all Slater determinants forms a basis for $\mathcal{H}^N_-$
+serves ad the primary foundataion for the majority of approximate quantum mechanical methods regarding molecular
+systems. In the following, we will assume $\ket{\Psi^N}$, $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are normalized 
+with respect to the metric on their respective Hilbert spaces.
+
+While the Hilbert space representation of the wave function is the most illuminating description for the development of
+general quantum mechanical theory, it is often advantageous from the perspective of practical calculations that one
+projects the vectors of the Hilbert space onto a convineient basis. 
+\todo{Explain the spacial/spin bases, why its complete, direct product space, etc}
+\begin{equation}
+  \inner{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}{\Phi^N} \equiv \Phi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N).
+\end{equation}
+\co{As $\ket{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}$ exists in a direct product space...}
+\begin{equation}
+  \label{eq:SlaterDetSpace}
+  \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
+    \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i),
+\end{equation}
+\co{This is great because, unlike the tensor product definition, $\phi_k$'s commute}
+
+\subsection{Linear Operators}
+\label{sec:LO}
+
+Fundamental to the formulation of any quantum mechanical theory is the identification of linear operators on $\mathcal{H}^N$
+which represent the physical observables of the system. In this work we will refer to such observables as properties. A
+more precise identification of the operators relevant to this work will be presented later 
+(see \cref{sec:NRH,sec:RELH,sec:SCLMI} for instance), however in this section we will focus on the general presentation
+of these operators and how they will typically manifest in the context of \cref{eq:SepHilbert}. 
+
+Despite to the fact that $\mathcal{H}^N$ may be described as a direct product space consisting of $N$ single particle
+Hilbert spaces, operators which act upon $\mathcal{H}^N$ (which we will refer to as $N$--particle operators) need not carry the same structure, 
+i.e. in general, these operators need not exist soley as direct products of operators on $\mathcal{H}^1$. This is not to say
+that $N$--particle operators \emph{cannot} adopt a product structure, just that it is not a requirement, and indeed
+if often not the case. However, the notion that some $N$--particle operators \emph{can} adopt a product structure indicates the need
+to describe the action of $M$--particle operators on $\mathcal{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
+In general, such an operator may be specified 
+
+
+
+\subsection{Second Quantization}
+\label{sec:SQ}
+
+While \cref{eq:SlaterDet} provides the basic structure for the many--body fermionic wave function, its explicit form
+is a bit unwildly and thus its use for pratical calculation of moieteis such as expectation values is somewhat limited.
+To this end we introduce a formalism known as second quantization, or the occupation number formalism \cite{Walecka12_book},
+which aims to greatly simplify the construction and manipulation of antisymmetric wave functions such as those in 
+\cref{eq:SlaterDet}. The primary hallmark of second quantization is in the representation of a Slater determininant 
+as an array of integers known as \emph{occupation numbers}, denoted $\ket{[n_p^I]}$, indicate the inclusion (or \emph{occupation}) of elements
+of $\mathcal{C}$ in the configuration which describes the determininant. As such, the length of said array is $\vert \mathcal{C} \vert$
+and the sum of its elements is the number of particles in the system. Due to the fact that electrons are fermions,
+there is a further resriction on the possible values of the occupations numbers due to the Pauli exclusion principle,
+namely that a particle can be occupied ($n^I_p=1$) or unoccupied ($n^I_p=0$). To avoid confusion in the subsequent developments,
+we will define $\mathcal{H}^N_O$ as the Hilbert space which contains $\ket{[n_p^I]}$ as operators on $\mathcal{H}^N$ 
+\emph{do not} act on $\mathcal{H}^N_O$, but rather may act indirectly through the obvious isomorphism 
+$\mathcal{H}^N \leftrightarrow \mathcal{H}^N_O$.
+
+One may construct wave functions of the form \cref{eq:SlaterDet} is a consistent manner in this formalism through
+the introduction of two sets of operators, $\{ c_p^\dagger \}$ and $\{ c_p \}$, which map $\mathcal{H}^N_O \mapsto \mathcal{H}^N_O$ 
+and are refered to as creation and annihilation operators respectively, and the notion of a zero particle determininant known as 
+the vacuum, $\Vac$, such that
+\begin{subequations}
+  \label{eq:SeQuantAction}
+\begin{align}
+  &\Vac = \ket{[0_1, 0_2, \ldots, 0_{\vert C \vert}]}, \\
+  &c_p^\dagger \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{n_p-1}{\sqrt{N+1}} \ket{[n_1, n_2, \ldots, 1_p, \ldots, n_{\vert C \vert}]},\\
+  &c_p \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{n_p}{\sqrt{N}} \ket{[n_1, n_2, \ldots, 0_p, \ldots, n_{\vert C \vert}]},
+\end{align}
+\end{subequations}
+where $N$ is the number of particles in the determininant \emph{before} action, and
+\begin{subequations}
+  \label{eq:SeQuantComm}
+\begin{align}
+  &[c_p^\dagger, c_q^\dagger]_+ = 0,\\
+  &[c_p, c_q]_+ = 0,\\
+  &[c_p, c_q^\dagger]_+ = \delta_{pq},
+\end{align}
+\end{subequations}
+where $[\cdot,\cdot]_+$ is the anti--comutator and $\delta_{pq}$ is the Kronecker delta. The action of strings consisting on any number of these 
+operators may be derived inductively from \cref{eq:SeQuantAction,eq:SeQuantComm}. As such, we may recast
+
+% Non--Relativistic Hamiltonian
+\subsection{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
+\label{sec:NRH}
+
+% Relativistic Hamiltonian
+\subsection{Approximate Relativistic Hamiltonians: The Dirac--Coulomb Equation}
+\label{sec:RELH}
+
+
+
+% Semi--Classical Light Matter
+\section{Semi--Classical Light--Matter Interaction}
+\label{sec:SCLMI}
+
+% Polarization Propagator
+\subsection{The Resonant Convergant Polarization Propagator}
+\label{sec:PolarProp}
+
+% Absorption Cross Section
+\subsection{The Linear Absorption Cross Section}
+\label{sec:AbsorptionTheory}

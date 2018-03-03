@@ -1,0 +1,47 @@
+\documentclass [11pt, proquest] {uwthesis}[2016/11/22]
+
+\setcounter{tocdepth}{1}  % Print the chapter and sections to the toc
+
+\usepackage{math} % My math functions
+
+\usepackage[user=DBWY]{trkchg}
+
+
+
+\usepackage[capitalize]{cleveref}
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+
+
+\begin{document}
+
+\include{prelims} % Prelims
+
+
+
+%
+% ==========      Text pages
+%
+
+\textpages
+ 
+% Start chapters
+\include{intro}
+\include{theory}
+\include{relscf}
+\include{relpscf}
+\include{mor}
+
+
+
+\bibliographystyle{plain}
+\bibliography{my_refs}
+
+
+\end{document}
