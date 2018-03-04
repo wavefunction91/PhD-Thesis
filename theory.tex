@@ -23,12 +23,13 @@ problem in molecular quantum mechanics, one might remark that the physical syste
 in question is a \emph{composite} system consisting of many, indistinguishable 
 particles (electrons). Denoting the Hilbert space of a composite system consisting
 of $N$ particles as $\mathcal{H}^N$, we know that as $\mathcal{H}^N$ is seperable,
-it may be decomposed into a direct product space consisting of the Hilbert spaces
+it must admit a countable, dense basis \cite{Lee03_book}.
+The direct product space consisting of the Hilbert spaces
 which describe its constituant parts, namely those spaces which describe a
-single particle system: $\mathcal{H}^1$,\co{Needs more consideration, might just be a basis}
+single particle system: $\mathcal{H}^1$, provides a convinenent basis for $\mathcal{H}^N$ such that
 \begin{equation}
   \label{eq:SepHilbert}
-  \mathcal{H}^N = \bigotimes_{i = 1}^N \mathcal{H}^1.
+  \mathcal{H}^N = \Span{\bigotimes_{i = 1}^N \mathcal{H}^1}.
 \end{equation}
 The seperability condition of \cref{eq:SepHilbert} is crutial to the following developments
 as it allows one to construct a simple basis for vectors in $\mathcal{H}^N$
@@ -69,14 +70,29 @@ may be written as \cite{Ostlund12_book}
 where $D_I\in\mathbb C$ is the complex expansion coefficient of the $I$-th configuration in the overall wave function,
 and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\mathcal{C}$.
 The fact that the set of all Slater determinants forms a basis for $\mathcal{H}^N_-$
-serves ad the primary foundataion for the majority of approximate quantum mechanical methods regarding molecular
-systems. In the following, we will assume $\ket{\Psi^N}$, $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are orthonormal
+serves as the primary foundataion for the majority of approximate quantum mechanical methods regarding molecular
+systems. In the following, we will assume both $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are orthonormal
 with respect to the metric on their respective Hilbert spaces.
 
 While the Hilbert space representation of the wave function is the most illuminating description for the development of
 general quantum mechanical theory, it is often advantageous from the perspective of practical calculations that one
 projects the vectors of the Hilbert space onto a convineient basis. 
-\todo{Explain the spacial/spin bases, why its complete, direct product space, etc}
+To this end, we consider a specific single particle coordinate basis, $\ket{\vc{x}} \equiv \ket{\vc{r},\sigma}$, 
+which consists of the simultaneous eigenfunctions
+of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$ respectively,
+such that
+\begin{align}
+  \op{\vc{r}}\ket{\vc{x}} &= \vc{r}\ket{\vc{x}}, \qquad \vc{r}\in\mathbb{R}^3, \\
+  \op{S}_z\ket{\vc{x}}    &= \sigma\ket{\vc{x}}, \qquad \sigma \in \set{\pm\frac{1}{2}}.
+\end{align}
+Here, we have denoted the particle's position and $z$--axis spin projection as $\vc{r}$ and $\sigma$, respectively.
+Namely, if $\mathcal{H}^1$ represents a spin--1/2 fermion, $\ket{\vc{x}}$ forms a complete basis for $\mathcal{H}^1$ 
+and admits the following orthonormality  condition on the $\mathcal{H}^1$ inner product,
+\begin{equation}
+  \inner{\vc{x}'}{\vc{x}} = \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'},
+\end{equation}
+where $\delta^3$ and $\delta_{\sigma\sigma'}$ are the Dirac delta function and Kronecker delta tensor, respectively.
+
 \begin{equation}
   \inner{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}{\Phi^N} \equiv \Phi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N).
 \end{equation}
@@ -104,13 +120,13 @@ i.e. in general, these operators need not exist soley as direct products of oper
 that $N$--particle operators \emph{cannot} adopt a product structure, just that it is not a requirement, and indeed
 if often not the case. However, the notion that some $N$--particle operators \emph{can} adopt a product structure indicates the need
 to describe the action of $M$--particle operators on $\mathcal{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
-To demonstrate this state of affairs, it is convieniant to examine the action of such an operator, $\mathscr{O}$, on a 
+To demonstrate this state of affairs, it is convieniant to examine the action of such an operator, $\op{O}$, on a 
 spatial wave function of the form \cref{eq:SlaterDetSpace},
 \begin{align}
   \label{eq:MOpSpace}
-  &\mathscr{O}(i,j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
+  &\op{O}(i,j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
     \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
-    \left(\mathscr{O}(i,j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
+    \left(\op{O}(i,j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
     \prod_{k \neq (i,j,\ldots) }^{N} \phi_{\xi(k)}(\vc{x}_k),
 \end{align}
 where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particle upon which it acts.
@@ -122,26 +138,25 @@ for an expectation value involving a particular Slater determinant,
 \begin{subequations}
   \label{eq:SlaterCondon}
 \begin{align}
-  &\innerop{\Phi^N_I}{\sum_i\mathscr{O}(i)}{\Phi^N_I} = \sum_{i\in\mathcal{K}^N_I} \innerop{\phi_i}{\mathscr{O}(1)}{\phi_i},\\
-  &\innerop{\Phi^N_I}{\sum_{i\neq j} \mathscr{O}(i,j)}{\Phi^N_I} = 
-    \sum_{i\neq j \in\mathcal{K}^N_I} 
-      \innerop{\phi_i \phi_j }{\mathscr{O}(1,2)}{\phi_i \phi_j} - 
-      \innerop{\phi_i \phi_j }{\mathscr{O}(1,2)}{\phi_j \phi_i},
+  &\innerop{\Phi^N_I}{\sum_i\op{O}(i)}{\Phi^N_I} = \sum_{i\in\mathcal{K}^N_I} O_{ii},\\
+  &\innerop{\Phi^N_I}{\sum_{i\neq j} \op{O}(i,j)}{\Phi^N_I} = 
+    \sum_{i\neq j \in\mathcal{K}^N_I} O_{ijij} - O_{ijji},
 \end{align}
 \end{subequations}
 where, in the case of spin--1/2 fermions represented in the coordinate basis of \co{add Eq ref},
 \begin{subequations}
   \label{eq:DiracInts}
 \begin{align}
-  &\innerop{\phi_p}{\mathscr{O}(1)}{\phi_q} = 
-    \sum_{\sigma_1} \int_{\mathbb{R}^3} \phi_p^*(\vc{r}_1,\sigma_1) \mathscr{O}(1) \phi_q(\vc{r}_1,\sigma_1) \dd^3 \vc{r}_1,\\
-  &\innerop{\phi_p \phi_q }{\mathscr{O}(1,2)}{\phi_r \phi_s} = \nonumber \\ &\qquad
+  &O_{pq} \equiv \innerop{\phi_p}{\op{O}(1)}{\phi_q} = 
+    \sum_{\sigma_1} \int_{\mathbb{R}^3} \phi_p^*(\vc{r}_1,\sigma_1) \op{O}(1) \phi_q(\vc{r}_1,\sigma_1) \dd^3 \vc{r}_1,\\
+  &O_{pqrs} \equiv \innerop{\phi_p \phi_q }{\op{O}(1,2)}{\phi_r \phi_s} = \nonumber \\ &\qquad
     \sum_{\sigma_1 \sigma_2} \iint_{\mathbb{R}^3} 
-      \phi_p^*(\vc{r}_1,\sigma_1) \phi_q^*(\vc{r}_2,\sigma_2) \mathscr{O}(1,2) 
+      \phi_p^*(\vc{r}_1,\sigma_1) \phi_q^*(\vc{r}_2,\sigma_2) \op{O}(1,2) 
       \phi_r(\vc{r}_1,\sigma_1) \phi_s(\vc{r}_2,\sigma_2) \dd^3 \vc{r}_1 \dd^3 \vc{r}_2.
 \end{align}
 \end{subequations}
-%The identities outlined in \cref{eq:SlaterCondon,eq:DiracInts} will be used extensively in the subsequent developments.
+Namely, $M$--particle operators may be represented as rank--$2M$ tensors on $\mathcal{H}^1$; a fact which will
+be used extensively in the following developments.
 
 
 \subsection{Second Quantization}
