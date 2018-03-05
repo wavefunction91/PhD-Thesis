@@ -33,7 +33,7 @@ single particle system: $\mathcal{H}^1$, provides a convenient basis for $\mathc
 \end{equation}
 The separability condition of \cref{eq:SepHilbert} is crucial to the following developments
 as it allows one to construct a simple basis for vectors in $\mathcal{H}^N$
-as $N$--fold tensor products of single--particle wave functions which form a basis for $\mathcal{H}^1$, 
+as $N$--fold tensor products of single--particle wave functions which form a countable basis for $\mathcal{H}^1$, 
 i.e. $\mathcal{C} = \set{\ket{\phi_p}}  \subset \mathcal{H}^1$ such that 
 $\mathcal{H}^1 = \Span{\mathcal{C}}$. In the following, vectors in $\mathcal{H}^1$, in particular elements of $\mathcal{C}$,
 will be referred to as orbitals.
@@ -77,33 +77,77 @@ with respect to the metric on their respective Hilbert spaces.
 While the Hilbert space representation of the wave function is the most illuminating description for the development of
 general quantum mechanical theory, it is often advantageous from the perspective of practical calculations that one
 projects the vectors of the Hilbert space onto a convenient basis. 
-To this end, we consider a specific single particle coordinate basis, $\ket{\vc{x}} \equiv \ket{\vc{r},\sigma}$, 
+To this end, we consider a specific single particle coordinate basis, $\set{\ket{\vc{r},\sigma}}$, 
 which consists of the simultaneous eigenfunctions
 of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$ respectively,
 such that
+\begin{subequations}
 \begin{align}
-  \op{\vc{r}}\ket{\vc{x}} &= \vc{r}\ket{\vc{x}}, \qquad \vc{r}\in\mathbb{R}^3, \\
-  \op{S}_z\ket{\vc{x}}    &= \sigma\ket{\vc{x}}, \qquad \sigma \in \set{\pm\frac{1}{2}}.
+  \op{\vc{r}}\ket{\vc{r},\sigma} &= \ket{\vc{r},\sigma}\vc{r}, \qquad \vc{r}\in\mathbb{R}^3, \\
+  \op{S}_z\ket{\vc{r},\sigma}    &= \ket{\vc{r},\sigma}\sigma, \qquad \sigma \in \set{\pm\frac{1}{2}}.
 \end{align}
+\end{subequations}
 Here, we have denoted the particle's position and $z$--axis spin projection as $\vc{r}$ and $\sigma$, respectively.
-Namely, if $\mathcal{H}^1$ represents a spin--1/2 fermion, $\ket{\vc{x}}$ forms a complete basis for $\mathcal{H}^1$ 
+Namely, if $\mathcal{H}^1$ represents a spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\mathcal{H}^1$ 
 and admits the following orthonormality  condition on the $\mathcal{H}^1$ inner product,
 \begin{equation}
-  \inner{\vc{x}'}{\vc{x}} = \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'},
+  \label{eq:SpatialInner}
+  \inner{\vc{r}',\sigma'}{\vc{r},\sigma} = \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'},
 \end{equation}
 where $\delta^3$ and $\delta_{\sigma\sigma'}$ are the Dirac delta function and Kronecker delta tensor, respectively.
-
+As $\set{\ket{\vc{r},\sigma}}$ is continuous, i.e. its spectrum is continuous, its cardinality is uncountable. Thus,
+its utility does not manifest as it does in the context of countable bases, such as is required by \cref{eq:SlaterDet},
+but rather in the fact that it allows for the casting of inner products on $\mathcal{H}^1$ as integrals through the resolution
+of the identity on $\mathcal{H}^1$ via
 \begin{equation}
+  \label{eq:H1Identity}
+  \op{1}_1 = \sum_\sigma \int_{\mathbb R ^3} \ket{\vc{r},\sigma}\bra{\vc{r},\sigma} \dd^3\vc{r}.
+\end{equation}
+As such, for arbitrary $\ket{\phi},\ket{\phi'}\in\mathcal{H}^1$ we may cast the inner product as
+\begin{equation}
+\inner{\phi}{\phi'} = \sum_\sigma \int_{\mathbb R ^3} \phi^*(\vc{r},\sigma) \phi'(\vc{r},\sigma) \dd^3\vc{r},
+\end{equation}
+where we have defined
+\begin{equation}
+  \label{eq:SpatialOrbital}
+  \inner{\vc{r},\sigma}{\phi} \equiv \phi(\vc{r},\sigma).
+\end{equation}
+In general, single particle wave functions of the form \cref{eq:SpatialOrbital} will be referred to as spatial orbitals.
+
+As a basis for $\mathcal{H}^1$, we may construct a basis for $\mathcal{H}^N$ through $N$--fold tensor products 
+of the elements of $\set{\ket{\vc{r},\sigma}}$ via \cref{eq:SepHilbert}. Denoting $\ket{\vc{x}_i} \equiv \ket{\vc{r}_i,\sigma_i}$ as
+a specific element of $\set{\ket{\vc{r},\sigma}}$, the vectors
+\begin{equation}
+  \label{eq:MBSpatialBasis}
+  \ket{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \bigotimes_{i = 1}^N \ket{\vc{x}_i}
+\end{equation}
+form a basis form a basis for $\mathcal{H}^N$. Extending \cref{eq:SpatialInner,eq:H1Identity} in a similar manner, we may state
+\begin{equation}
+  \inner{\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N}{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \prod_{i=1}^N \delta^3(\vc{r}'_i - \vc{r}_i)\delta_{\sigma_i\sigma'_i},
+\end{equation}
+\begin{equation}
+  \op{1}_N = \sum_{\sigma_1\cdots\sigma_N}\idotsint_{\mathbb R^3} \bigotimes_{i=1}^N \ket{\vc{r}_i,\sigma_i} \bra{\vc{r}_i,\sigma_i} \dd^3\vc{r}_i,
+\end{equation}
+such that for $\ket{\Phi^N},\ket{\Psi^N} \in \mathcal{H}^N$,
+\begin{align}
+&\inner{\Phi^N}{\Psi^N} = \nonumber \\&\quad \sum_{\sigma_1\cdots\sigma_N}\idotsint_{\mathbb R^3} 
+  \Phi^{N*}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \Psi^{N}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \dd^3\vc{r}_1 \cdots \dd^3\vc{r}_N,
+\end{align}
+where we have denoted
+\begin{equation}
+  \label{eq:SpatialWfn}
   \inner{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}{\Phi^N} \equiv \Phi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N).
 \end{equation}
-\co{As $\ket{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}$ exists in a direct product space...}
+In this work, Many--body wave functions of the form \cref{eq:SpatialWfn} will be referred to as spatial wave functions.
+In particular, the utility of such as basis expansion manifests in the context of Slater determinants, such that as
+a direct consequence of \cref{eq:SlaterDet,eq:MBSpatialBasis,eq:SpatialOrbital} we may express
 \begin{equation}
   \label{eq:SlaterDetSpace}
   \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
-    \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i),
+    \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i).
 \end{equation}
-\co{Define as spatial wave function}
-\co{This is great because, unlike the tensor product definition, $\phi_k$'s commute}
+Unlike the tensor product definition of \cref{eq:SlaterDet}, the expression of the Slater determinant in will prove to be of 
+much of practical utility due to the fact that the spatial orbital basis is commutative.
 
 \subsection{Linear Operators and Expectation Values}
 \label{sec:LO}
@@ -127,7 +171,7 @@ spatial wave function of the form \cref{eq:SlaterDetSpace},
   &\op{O}(i,j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
     \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
     \left(\op{O}(i,j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
-    \prod_{k \neq (i,j,\ldots) }^{N} \phi_{\xi(k)}(\vc{x}_k),
+    \prod_{k \neq (i,j,\ldots) }^{N-M} \phi_{\xi(k)}(\vc{x}_k),
 \end{align}
 where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particle upon which it acts.
 In this work, we will typically be concerned with operators which act on no more than two particles at a time.
@@ -143,7 +187,7 @@ for an expectation value involving a particular Slater determinant,
     \sum_{i\neq j \in\mathcal{K}^N_I} O_{ijij} - O_{ijji},
 \end{align}
 \end{subequations}
-where, in the case of spin--1/2 fermions represented in the coordinate basis of \co{add Eq ref},
+where, in the case of spin--1/2 fermions represented in the coordinate basis of \cref{eq:SpatialOrbital},
 \begin{subequations}
   \label{eq:DiracInts}
 \begin{align}
@@ -155,15 +199,16 @@ where, in the case of spin--1/2 fermions represented in the coordinate basis of 
       \phi_r(\vc{r}_1,\sigma_1) \phi_s(\vc{r}_2,\sigma_2) \dd^3 \vc{r}_1 \dd^3 \vc{r}_2.
 \end{align}
 \end{subequations}
-Namely, $M$--particle operators may be represented as rank--$2M$ tensors on $\mathcal{H}^1$; a fact which will
+Namely, $M$--particle on operators on $\mathcal{H}^N$ may be represented as rank--$2M$ tensors on $\mathcal{H}^1$; a fact which will
 be used extensively in the following developments.
 
 
 \subsection{Second Quantization}
 \label{sec:SQ}
 
-While \cref{eq:SlaterDet} provides the basic structure for the many--body fermionic wave function, its explicit form
-is a bit unwieldy and thus its use for practical calculation of moieties such as expectation values is somewhat limited.
+While \cref{eq:SlaterDet,eq:SlaterDetSpace} provide the basic structure for the many--body fermionic wave function, its explicit form
+is a bit unwieldy and thus its use for practical calculation of moieties such as expectation values more complicated than \cref{eq:SlaterCondon} 
+is somewhat limited.
 To this end we introduce a formalism known as second quantization, or the occupation number formalism \cite{Walecka12_book},
 which aims to greatly simplify the construction and manipulation of anti-symmetric wave functions such as those in 
 \cref{eq:SlaterDet}. The primary hallmark of second quantization is in the representation of a Slater determinant 
@@ -177,9 +222,9 @@ we will define $\mathcal{H}^N_O$ as the Hilbert space which admits $\{\ket{[n_p^
 $\mathcal{H}^N \leftrightarrow \mathcal{H}^N_O$.
 
 One may construct wave functions of the form \cref{eq:SlaterDet} is a consistent manner in this formalism through
-the introduction of two sets of operators, $\{ c_p^\dagger \}$ and $\{ c_p \}$, which map $\mathcal{H}^N_O \mapsto \mathcal{H}^N_O$ 
-and are referred to as creation and annihilation operators respectively, and the notion of a zero particle determinant known as 
-the vacuum, $\Vac$, such that
+the introduction of two sets of operators, ${\{ c_p^\dagger : \mathcal{H}^N_O \mapsto \mathcal{H}^{N+1}_O\}}$ and 
+${\{ c_p : \mathcal{H}^N_O \mapsto \mathcal{H}^{N-1}_O \}}$, which are referred to as creation and annihilation operators 
+respectively, and the notion of a zero particle determinant known as the vacuum, $\Vac \in \mathcal{H}^0_O$, such that
 \begin{subequations}
   \label{eq:SeQuantAction}
 \begin{align}
