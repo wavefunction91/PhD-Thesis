@@ -14,70 +14,74 @@ remainder of this work.
 \label{sec:SD}
 
 Perhaps the most fundamental axiom of quantum mechanics is in that for every physical
-system, there is associated a separable complex Hilbert space, $\mathcal{H}$, such that
+system, there is associated a separable complex Hilbert space, $\hilb{H}$, such that
 the vectors of said Hilbert space represent the quantum states 
 of the system \cite{VonNeumann55_book}. Such vectors are referred to as wave functions
-and the inner product on $\mathcal{H}$ is referred to as an expectation value.
+and the inner product on $\hilb{H}$ is referred to as an expectation value.
 As the primary focus of this work will be the treatment of the many--body electronic
 problem in molecular quantum mechanics, one might remark that the physical system
 in question is a \emph{composite} system consisting of many, indistinguishable 
 particles (electrons). Denoting the Hilbert space of a composite system consisting
-of $N$ particles as $\mathcal{H}^N$, we know that as $\mathcal{H}^N$ is separable,
+of $N$ particles as $\hilb{H}^N$, we know that as $\hilb{H}^N$ is separable,
 it must admit a countable, dense basis \cite{Lee03_book}.
 The direct product space consisting of the Hilbert spaces
 which describe its constituent parts, namely those spaces which describe a
-single particle system: $\mathcal{H}^1$, provides a convenient basis for $\mathcal{H}^N$ such that
+single particle system: $\hilb{H}^1$, provides a convenient basis for $\hilb{H}^N$ such that
 \begin{equation}
   \label{eq:SepHilbert}
-  \mathcal{H}^N = \Span{\bigotimes_{i = 1}^N \mathcal{H}^1}.
+  \hilb{H}^N = \Span{\bigotimes_{i = 1}^N \hilb{H}^1}.
 \end{equation}
 The separability condition of \cref{eq:SepHilbert} is crucial to the following developments
-as it allows one to construct a simple basis for vectors in $\mathcal{H}^N$
-as $N$--fold tensor products of single--particle wave functions which form a countable basis for $\mathcal{H}^1$, 
-i.e. $\mathcal{C} = \set{\ket{\phi_p}}  \subset \mathcal{H}^1$ such that 
-$\mathcal{H}^1 = \Span{\mathcal{C}}$. In the following, vectors in $\mathcal{H}^1$, in particular elements of $\mathcal{C}$,
+as it allows one to construct a simple basis for vectors in $\hilb{H}^N$
+as $N$--fold tensor products of single--particle wave functions which form a countable basis for $\hilb{H}^1$, 
+i.e. $\hilb{C} = \set{\ket{\phi_p}}  \subset \hilb{H}^1$ such that 
+$\hilb{H}^1 = \Span{\hilb{C}}$. In the following, vectors in $\hilb{H}^1$, in particular elements of $\hilb{C}$,
 will be referred to as orbitals.
 
-As the electron is the moiety of interest in this work, vectors in $\mathcal{H}^N$ must adhere to certain additional 
+As the electron is the moiety of interest in this work, vectors in $\hilb{H}^N$ must adhere to certain additional 
 criteria in order for them to represent physically realizable wave functions. In the case of electrons, which are 
-fermions, physically relevant elements of $\mathcal{H}^N$, which we will denote $\mathcal{H}^N_- \subset \mathcal{H}^N$, must 
+fermions, physically relevant elements of $\hilb{H}^N$, which we will denote $\hilb{H}^N_- \subset \hilb{H}^N$, must 
 adhere to Fermi--Dirac statistics, namely that they must exhibit anti-symmetric behavior under particle permutation
 \cite{Walecka12_book,Schuck04_book}, i.e.
 \begin{equation}
   \label{eq:FermiDirac}
-  \mathcal{P}_{ij} \ket{\Phi^N} = -\ket{\Phi^N}, \qquad \ket{\Phi^N} \in \mathcal{H}^N_-,
+  \hilb{P}_{ij} \ket{\Phi^N} = -\ket{\Phi^N}, \qquad \ket{\Phi^N} \in \hilb{H}^N_-,
 \end{equation} 
-where $\mathcal{P}_{ij}$ is the particle permutation operator which interchanges particle $i$ and $j$ 
-(for a more thorough discussion on linear operators acting on $\mathcal{H}^N$, see \cref{sec:LO}). Remark
+where $\hilb{P}_{ij}$ is the particle permutation operator which interchanges particle $i$ and $j$ 
+(for a more thorough discussion on linear operators acting on $\hilb{H}^N$, see \cref{sec:LO}). Remark
 that this notion of particle interchange is intimately related to \cref{eq:SepHilbert}. With this additional
-constraint, we may construct a basis for $\mathcal{H}^N_-$ with elements
+constraint, we may construct a basis for $\hilb{H}^N_-$ with elements
 \begin{equation}
   \label{eq:SlaterDet}
-  \ket{\Phi^N_I} = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } \bigotimes_{i = 1 }^N \ket{\phi_{\xi(i)}},
+  \ket{\Phi^N_I} = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } \bigotimes_{i = 1 }^N \ket{\phi_{\xi(i)}},
 \end{equation}
-where $\mathcal{K}_I^N$ is an $N$--element subset of $\mathcal{C}$ and $S_N(\mathcal{K}_I^N)$ is the symmetric group
-of $\mathcal{K}_I^N$ which consists of all permutations of its elements, which are denoted here as permutation
+where $\hilb{K}_I^N$ is an $N$--element subset of $\hilb{C}$ and $S_N(\hilb{K}_I^N)$ is the symmetric group
+of $\hilb{K}_I^N$ which consists of all permutations of its elements, which are denoted here as permutation
 functions $\xi$. $\Sign{\xi} \in \{ \pm 1 \}$ denotes the sign of the permutation and ensures the anti--symmetry of
 the overall wave function. \Cref{eq:SlaterDet} introduces a number of concepts with are typically jargonized 
-in the quantum chemistry community. In this work, $\mathcal{K}_I^N$ will be referred to as an $N$--particle
+in the quantum chemistry community. In this work, $\hilb{K}_I^N$ will be referred to as an $N$--particle
 configuration (or simply a configuration when $N$ is to be understood from the context), and $\ket{\Phi^N_I}$
 will be referred to as a Slater determinant. It is important to note that $\ket{\Phi^N_I}$ is completely 
-determined by $\mathcal{K}_I^N$. As a basis for $\mathcal{H}^N_-$, any vector $\ket{\Psi^N} \in \mathcal{H}^N_-$
-may be written as \cite{Ostlund12_book}
+determined by $\hilb{K}_I^N$. The $N$--fold tensor product on the right hand side of \cref{eq:SlaterDet}
+if referred to as a Hartree product, and while not a valid fermionic wave function in and of itself,
+it provides an important building block for constructing such wave functions and will be the primary
+moiety with which we will develop the arithmetic of many body quantum theory.
+
+As a basis for $\hilb{H}^N_-$, any vector $\ket{\Psi^N} \in \hilb{H}^N_-$ may be written as \cite{Ostlund12_book}
 \begin{equation}
 \ket{\Psi^N} = \sum_I D_I \ket{\Phi^N_I},
 \end{equation}
 where $D_I\in\mathbb C$ is the complex expansion coefficient of the $I$-th configuration in the overall wave function,
-and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\mathcal{C}$.
-The fact that the set of all Slater determinants forms a basis for $\mathcal{H}^N_-$
+and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\hilb{C}$.
+The fact that the set of all Slater determinants forms a basis for $\hilb{H}^N_-$
 serves as the primary foundation for the majority of approximate quantum mechanical methods regarding molecular
-systems. In the following, we will assume both $\ket{\Phi^N_I}$ and the elements of $\mathcal{C}$ are orthonormal
+systems. In the following, we will assume both $\ket{\Phi^N_I}$ and the elements of $\hilb{C}$ are orthonormal
 with respect to the metric on their respective Hilbert spaces.
 
 While the Hilbert space representation of the wave function is the most illuminating description for the development of
 general quantum mechanical theory, it is often advantageous from the perspective of practical calculations that one
 projects the vectors of the Hilbert space onto a convenient basis. 
-To this end, we consider a specific single particle coordinate basis, $\set{\ket{\vc{r},\sigma}}$, 
+To this end, we consider a specific single particle spinor basis, $\set{\ket{\vc{r},\sigma} = \ket{\vc{r}}\otimes\ket{\sigma}}$, 
 which consists of the simultaneous eigenfunctions
 of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$ respectively,
 such that
@@ -88,89 +92,184 @@ such that
 \end{align}
 \end{subequations}
 Here, we have denoted the particle's position and $z$--axis spin projection as $\vc{r}$ and $\sigma$, respectively.
-Namely, if $\mathcal{H}^1$ represents a spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\mathcal{H}^1$ 
-and admits the following orthonormality  condition on the $\mathcal{H}^1$ inner product,
+Namely, if $\hilb{H}^1$ represents a spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\hilb{H}^1$ 
+and admits the following orthonormality  condition on the $\hilb{H}^1$ inner product,
 \begin{equation}
-  \label{eq:SpatialInner}
+  \label{eq:SpinorInner}
   \inner{\vc{r}',\sigma'}{\vc{r},\sigma} = \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'},
 \end{equation}
 where $\delta^3$ and $\delta_{\sigma\sigma'}$ are the Dirac delta function and Kronecker delta tensor, respectively.
 As $\set{\ket{\vc{r},\sigma}}$ is continuous, i.e. its spectrum is continuous, its cardinality is uncountable. Thus,
 its utility does not manifest as it does in the context of countable bases, such as is required by \cref{eq:SlaterDet},
-but rather in the fact that it allows for the casting of inner products on $\mathcal{H}^1$ as integrals through the resolution
-of the identity on $\mathcal{H}^1$ via
+but rather in the fact that it allows for the casting of inner products on $\hilb{H}^1$ as integrals through the resolution
+of the identity on $\hilb{H}^1$ via
 \begin{equation}
   \label{eq:H1Identity}
   \op{1}_1 = \sum_\sigma \int_{\mathbb R ^3} \ket{\vc{r},\sigma}\bra{\vc{r},\sigma} \dd^3\vc{r}.
 \end{equation}
-As such, for arbitrary $\ket{\phi},\ket{\phi'}\in\mathcal{H}^1$ we may cast the inner product as
+As such, for arbitrary $\ket{\phi},\ket{\phi'}\in\hilb{H}^1$ we may cast the inner product as
 \begin{equation}
 \inner{\phi}{\phi'} = \sum_\sigma \int_{\mathbb R ^3} \phi^*(\vc{r},\sigma) \phi'(\vc{r},\sigma) \dd^3\vc{r},
 \end{equation}
 where we have defined
 \begin{equation}
-  \label{eq:SpatialOrbital}
-  \inner{\vc{r},\sigma}{\phi} \equiv \phi(\vc{r},\sigma).
+  \label{eq:SpinorOrbital}
+  \inner{\vc{r},\sigma}{\phi} \equiv \phi(\vc{r},\sigma), \quad \mathrm{s.t.} \quad \phi : \mathbb F \mapsto \mathbb C,
 \end{equation}
-In general, single particle wave functions of the form \cref{eq:SpatialOrbital} will be referred to as spatial orbitals.
+and $\mathbb F = \mathbb R^3 \times \set{\pm1/2}$. 
+\Cref{eq:SpinorOrbital}, as a projection onto
+an element of a product space, may be further separated onto the spin basis, $\set{\alpha,\beta}$,
+\begin{align}
+  \phi(\vc{r},\sigma) = \phi^\alpha(\vc{r})\alpha(\sigma) + \phi^\beta(\vc{r})\beta(\sigma),
+\end{align}
+such that
+\begin{align}
+  &\alpha(\sigma) = \begin{cases} 1 & \sigma = +\frac{1}{2} \\ 0 & \sigma = -\frac{1}{2} \end{cases}, \\ 
+  &\beta(\sigma)  = \begin{cases} 0 & \sigma = +\frac{1}{2} \\ 1 & \sigma = -\frac{1}{2} \end{cases}.
+\end{align}
+In general, single particle wave functions of the form \cref{eq:SpinorOrbital} will be referred to as spinor orbitals, or simply spinors.
+For brevity in the following, we will denote $\ket{\vc{x}} \equiv \ket{\vc{r},\sigma}$ such that
+\begin{subequations}
+\begin{align}
+\int_{\mathbb F} f(\vc{x}) \dd^4 \vc{x} &\equiv \sum_\sigma \int_{\mathrm{R}^3} f(\vc{r},\sigma) \dd^3 \vc{r},\\
+\delta^4(\vc{x} - \vc{x}') &\equiv \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'}
+\end{align}
+\end{subequations}
 
-As a basis for $\mathcal{H}^1$, we may construct a basis for $\mathcal{H}^N$ through $N$--fold tensor products 
-of the elements of $\set{\ket{\vc{r},\sigma}}$ via \cref{eq:SepHilbert}. Denoting $\ket{\vc{x}_i} \equiv \ket{\vc{r}_i,\sigma_i}$ as
-a specific element of $\set{\ket{\vc{r},\sigma}}$, the vectors
+As a basis for $\hilb{H}^1$, we may construct a basis for $\hilb{H}^N$ through $N$--fold tensor products 
+of the elements of $\set{\ket{\vc{x}}}$ via \cref{eq:SepHilbert}. Denoting $\ket{\vc{x}_i}$ as
+a specific element of $\set{\ket{\vc{x}}}$, the vectors
 \begin{equation}
-  \label{eq:MBSpatialBasis}
+  \label{eq:MBSpinorBasis}
   \ket{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \bigotimes_{i = 1}^N \ket{\vc{x}_i}
 \end{equation}
-form a basis form a basis for $\mathcal{H}^N$. Extending \cref{eq:SpatialInner,eq:H1Identity} in a similar manner, we may state
+form a basis form a basis for $\hilb{H}^N$. Extending \cref{eq:SpinorInner,eq:H1Identity} in a similar manner, we may state
 \begin{equation}
   \inner{\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N}{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \prod_{i=1}^N \delta^3(\vc{r}'_i - \vc{r}_i)\delta_{\sigma_i\sigma'_i},
 \end{equation}
 \begin{equation}
-  \op{1}_N = \sum_{\sigma_1\cdots\sigma_N}\idotsint_{\mathbb R^3} \bigotimes_{i=1}^N \ket{\vc{r}_i,\sigma_i} \bra{\vc{r}_i,\sigma_i} \dd^3\vc{r}_i,
+  \op{1}_N = \idotsint_{\mathbb F} \bigotimes_{i=1}^N \ket{\vc{x}_i} \bra{\vc{x}_i} \dd^4\vc{x}_i,
 \end{equation}
-such that for $\ket{\Phi^N},\ket{\Psi^N} \in \mathcal{H}^N$,
+such that for $\ket{\Phi^N},\ket{\Psi^N} \in \hilb{H}^N$,
 \begin{align}
-&\inner{\Phi^N}{\Psi^N} = \nonumber \\&\quad \sum_{\sigma_1\cdots\sigma_N}\idotsint_{\mathbb R^3} 
-  \Phi^{N*}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \Psi^{N}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \dd^3\vc{r}_1 \cdots \dd^3\vc{r}_N,
+&\inner{\Phi^N}{\Psi^N} = \nonumber \\&\quad \idotsint_{\mathbb F} 
+  \Phi^{N*}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \Psi^{N}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \dd^4\vc{x}_1 \cdots \dd^4\vc{x}_N,
 \end{align}
 where we have denoted
 \begin{equation}
-  \label{eq:SpatialWfn}
+  \label{eq:SpinorWfn}
   \inner{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}{\Phi^N} \equiv \Phi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N).
 \end{equation}
-In this work, Many--body wave functions of the form \cref{eq:SpatialWfn} will be referred to as spatial wave functions.
+In this work, many--body wave functions of the form \cref{eq:SpinorWfn} will be referred to as spinor wave functions.
 In particular, the utility of such as basis expansion manifests in the context of Slater determinants, such that as
-a direct consequence of \cref{eq:SlaterDet,eq:MBSpatialBasis,eq:SpatialOrbital} we may express
+a direct consequence of \cref{eq:SlaterDet,eq:MBSpinorBasis,eq:SpinorOrbital} we may express
 \begin{equation}
   \label{eq:SlaterDetSpace}
-  \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
+  \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } 
     \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i).
 \end{equation}
 Unlike the tensor product definition of \cref{eq:SlaterDet}, the expression of the Slater determinant in will prove to be of 
-much of practical utility due to the fact that the spatial orbital basis is commutative.
+much of practical utility due to the fact that the spinor orbital basis is commutative.
 
-\subsection{Linear Operators and Expectation Values}
+\subsection{Representation of Linear Operators and Expectation Values}
 \label{sec:LO}
 
-Fundamental to the formulation of any quantum mechanical theory is the identification of linear operators on $\mathcal{H}^N$
+Fundamental to the formulation of any quantum mechanical theory is the identification of linear operators on $\hilb{H}^N$
 which represent the physical observables of the system. In this work we will refer to such observables as properties. A
 more precise identification of the operators relevant to this work will be presented later 
 (see \cref{sec:NRH,sec:RELH,sec:SCLMI} for instance), however in this section we will focus on the general presentation
 of these operators and how they will typically manifest in the context of \cref{eq:SepHilbert}. 
 
-Despite to the fact that $\mathcal{H}^N$ may be described as a direct product space consisting of $N$ single particle
-Hilbert spaces, operators which act upon $\mathcal{H}^N$ (which we will refer to as $N$--particle operators) need not carry the same structure, 
-i.e. in general, these operators need not exist solely as direct products of operators on $\mathcal{H}^1$. This is not to say
+In this work, linear operators which act on $\hilb{H}^N$, $\op{O}^N : \hilb{H}^N \mapsto \hilb{H}^N$, will be referred to as 
+$N$--particle operators. As was the case for the state vectors of $\hilb{H}^N$, the general description of $\op{O}^N$
+as an operator on a Hilbert space is indeed the most illuminating treatement for general manipulations of quantum mechanical
+operators which is independent of coordinate projection; however, it will often be the case that we must examine the
+projection of these operators onto a coordinate space in order to perform practical calculations. To demonstrate this, we examine
+the action of an operator $\op{O}^1$ on the spinor basis $\set{\ket{\vc{x}}}$ from \cref{sec:SD} through the identity resolvent in
+\cref{eq:H1Identity},
+\begin{align}
+  \op{O}^1 = \op{1}_1 \op{O}^1 \op{1}_1 = \iint_{\mathbb F} 
+    \ket{\vc{x}} \innerop{\vc{x}}{\op{O}^1}{\vc{x}'}\bra{\vc{x}'} \dd^4\vc{x} \dd^4\vc{x}',
+\end{align}
+such that for $\ket{\psi_1},\ket{\psi_2} \in \hilb{H}^1$,
+\begin{align}
+  \label{eq:SpinorOpInner1}
+  \innerop{\psi_1}{\op{O}^1}{\psi_2} &= \iint_{\mathbb F}
+    \psi_1^*(\vc{x}) \innerop{\vc{x}}{\op{O}^1}{\vc{x}'} \psi_2({\vc{x}'}) \dd^4\vc{x} \dd^4\vc{x}' \nonumber \\
+  &= \int_{\mathbb R^3} 
+    \begin{bmatrix}
+      \psi_1^\alpha(\vc{r}) \\
+      \psi_1^\beta(\vc{r})
+    \end{bmatrix}^\dagger
+    \begin{bmatrix}
+      \op{O}^{1,\alpha\alpha}({\vc{r}}) & \op{O}^{1,\alpha\beta}({\vc{r}}) \\
+      \op{O}^{1,\beta\alpha} ({\vc{r}}) & \op{O}^{1,\beta\beta} ({\vc{r}})
+    \end{bmatrix}
+    \begin{bmatrix}
+      \psi_2^\alpha(\vc{r}) \\
+      \psi_2^\beta(\vc{r})
+    \end{bmatrix} \dd^3\vc{r},
+\end{align}
+where 
+\begin{equation}
+  \label{eq:LocalSpinorOp1}
+\innerop{\vc{x}}{\op{O}^1}{\vc{x}'}  \equiv \innerop{\vc{r},\sigma}{\op{O}^1}{\vc{r}',\sigma'} = \delta^3(\vc{r} - \vc{r'}) \op{O}^{1,\sigma\sigma'}(\vc{r}').
+\end{equation}
+For the remainder of this work, we will refer to the projections $\op{O}^{1,\sigma\sigma'}(\vc{r})$ as 
+spinor representations of $\op{O}^1$. It is important to note that spinor representations
+of $N$--particle operators are still \emph{operators}, i.e. they still continue to act to the right
+to complete their operation. The utility of \cref{eq:LocalSpinorOp1} is in that it allows one to
+form operators compatible with spinor representations of the wave function as opposed to the general, 
+abstract Hilbert space definition. 
+
+This notion may be generalized to $N$--particle operators in a similar manner through resolution of $\op{1}_N$,
+\begin{align}
+  \op{O}^N &= \op{1}_N \op{O}^N \op{1}_N 
+  = \idotsint_{\mathbb F}
+    \dd^4\vc{x}_1 \cdots   \dd^4\vc{x}_N
+    \idotsint_{\mathbb F}
+    \dd^4\vc{x}'_1 \cdots  \dd^4\vc{x}'_N \times \nonumber\\
+    &\qquad\ket{\vc{x}_1,\ldots,\vc{x}_N} \innerop{\vc{x}_1,\ldots,\vc{x}_N}{\op{O}^{N}}{\vc{x}'_1,\ldots,\vc{x}'_N}\bra{\vc{x}'_1,\ldots,\vc{x}'_N} 
+\end{align}
+such that for arbitrary $N$--body Hartree products constructed from $\set{\ket{\psi_p}},\set{\ket{\chi_p}} \subset \hilb{H}^N$
+\begin{align}
+  \label{eq:SpinorOpInnerN}
+  &\innerop{\psi_1\psi_2,\ldots,\psi_N}{\op{O}^N}{\chi_1\chi_2,\ldots,\chi_N} =  
+  \sum_{\sigma_1\cdots\sigma_N}\sum_{\tau_1\cdots\tau_N} \idotsint_{\mathbb R^3} 
+    \dd^3\vc{r}_1\cdots\dd^3\vc{r}_N  \nonumber \times \\ &\qquad \qquad
+    \psi_1^{\sigma_1*}(\vc{r}_1) \cdots \psi_N^{\sigma_N*}(\vc{r}_N) ~ \op{O}^{N,\sigma_1\cdots\sigma_N\tau_1\cdots\tau_N}(\vc{r}_1,\ldots,\vc{r}_N) ~ 
+    \chi_1^{\tau_1}(\vc{r}_1) \cdots \chi_N^{\tau_N}(\vc{r}_N),
+\end{align}
+where
+\begin{equation}
+  \label{eq:LocalSpinorOpN}
+  \innerop{\vc{x}_1,\ldots,\vc{x}_N}{\op{O}^{N}}{\vc{x}'_1,\ldots,\vc{x}'_N} = 
+    \left(\prod_{i=1}^N\delta^3(\vc{r}_i - \vc{r}'_i)\right) 
+    \op{O}^{1,\sigma_1\cdots\sigma_N\sigma_1'\cdots\sigma_N'}(\vc{r}_1',\ldots,\vc{r}_N').
+\end{equation}
+For brevity, spinor representations of $N$ particle operators will 
+often be interpreted as rank--2$N$ tensors in the basis of spin eigenfunctions, 
+\begin{equation}
+\spop{O}^N (\vc{x}_1,\ldots,\vc{x}_N) \equiv \op{O}^{N,\sigma_1\cdots\sigma_N\sigma'_1\cdots\sigma'_N}(\vc{r}_1,\ldots,\vc{r}_N), 
+\end{equation}
+where the product operation of operators denoted $\spop{O}^N(\vc{x}_1,\ldots,\vc{x}_N)$ and their action onto spinor wave functions will be a
+rank-$N$ tensor contraction over spin indicies as depicted in \cref{eq:SpinorOpInner1} and more generally in \cref{eq:SpinorOpInnerN}.
+
+
+
+Despite to the fact that $\hilb{H}^N$ may be described as a direct product space consisting of $N$ single particle
+Hilbert spaces, $N$--particle operators need not carry the same structure, 
+i.e. in general, these operators need not exist solely as direct products of operators on $\hilb{H}^1$. This is not to say
 that $N$--particle operators \emph{cannot} adopt a product structure, just that it is not a requirement, and indeed
 if often not the case. However, the notion that some $N$--particle operators \emph{can} adopt a product structure indicates the need
-to describe the action of $M$--particle operators on $\mathcal{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
-To demonstrate this state of affairs, it is convenient to examine the action of such an operator, $\op{O}$, on a 
-spatial wave function of the form \cref{eq:SlaterDetSpace},
+to describe the action of $M$--particle operators on $\hilb{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
+To demonstrate this state of affairs, it is convenient to examine the action of such an operator, $\op{O}^M(i,j,\ldots)$, on a 
+spinor wave function of the form \cref{eq:SlaterDetSpace},
 \begin{align}
   \label{eq:MOpSpace}
-  &\op{O}(i,j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
-    \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\mathcal{K}^N_I)} \Sign{\xi} \text{ } 
-    \left(\op{O}(i,j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
+  &\spop{O}^M(\vc{x}_i,\vc{x}_j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
+    \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } 
+    \left(\spop{O}^M(\vc{x}_i,\vc{x}_j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
     \prod_{k \neq (i,j,\ldots) }^{N-M} \phi_{\xi(k)}(\vc{x}_k),
 \end{align}
 where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particle upon which it acts.
@@ -178,30 +277,29 @@ In this work, we will typically be concerned with operators which act on no more
 
 It will be often the case in this work that $N$--particle operators may be expressed as sums over one and
 two particle operators. In this context , the realization of \cref{eq:MOpSpace} is of exceptional utility in that,
-for an expectation value involving a particular Slater determinant,
+for an expectation value involving a particular Slater determinant described by configuration $\mathcal{K}_I^N$,
 \begin{subequations}
   \label{eq:SlaterCondon}
 \begin{align}
-  &\innerop{\Phi^N_I}{\sum_i\op{O}(i)}{\Phi^N_I} = \sum_{i\in\mathcal{K}^N_I} O_{ii},\\
-  &\innerop{\Phi^N_I}{\sum_{i\neq j} \op{O}(i,j)}{\Phi^N_I} = 
-    \sum_{i\neq j \in\mathcal{K}^N_I} O_{ijij} - O_{ijji},
+  &\innerop{\Phi^N_I}{\sum_i\op{O}^1(i)}{\Phi^N_I} = \sum_{i\in\hilb{K}^N_I} O^1_{ii},\\
+  &\innerop{\Phi^N_I}{\sum_{i\neq j} \op{O}^2(i,j)}{\Phi^N_I} = 
+    \sum_{i\neq j \in\hilb{K}^N_I} O^2_{ijij} - O^2_{ijji},
 \end{align}
 \end{subequations}
-where, in the case of spin--1/2 fermions represented in the coordinate basis of \cref{eq:SpatialOrbital},
+where for the $\hilb{H}^1$ basis $\mathcal{C} = \set{\ket{\phi_p}}$ from the previous section,
 \begin{subequations}
   \label{eq:DiracInts}
 \begin{align}
-  &O_{pq} \equiv \innerop{\phi_p}{\op{O}(1)}{\phi_q} = 
-    \sum_{\sigma_1} \int_{\mathbb{R}^3} \phi_p^*(\vc{r}_1,\sigma_1) \op{O}(1) \phi_q(\vc{r}_1,\sigma_1) \dd^3 \vc{r}_1,\\
-  &O_{pqrs} \equiv \innerop{\phi_p \phi_q }{\op{O}(1,2)}{\phi_r \phi_s} = \nonumber \\ &\qquad
-    \sum_{\sigma_1 \sigma_2} \iint_{\mathbb{R}^3} 
-      \phi_p^*(\vc{r}_1,\sigma_1) \phi_q^*(\vc{r}_2,\sigma_2) \op{O}(1,2) 
-      \phi_r(\vc{r}_1,\sigma_1) \phi_s(\vc{r}_2,\sigma_2) \dd^3 \vc{r}_1 \dd^3 \vc{r}_2.
+  &O^1_{pq} \equiv \innerop{\phi_p}{\op{O}^1(1)}{\phi_q} = 
+    \int_{\mathbb F} \phi_p^*(\vc{x}_1) \spop{O}^1(\vc{x}_1) \phi_q(\vc{x}_1) \dd^4 \vc{x}_1,\\
+  &O^2_{pqrs} \equiv \innerop{\phi_p \phi_q }{\op{O}(1,2)}{\phi_r \phi_s} = \nonumber \\ &\qquad
+    \iint_{\mathbb F} 
+      \phi_p^*(\vc{x}_1) \phi_q^*(\vc{x}_2) \spop{O}^2(\vc{x}_1,\vc{x}_2) 
+      \phi_r(\vc{x}_1) \phi_s(\vc{x}_2) \dd^4 \vc{x}_1 \dd^4 \vc{x}_2.
 \end{align}
 \end{subequations}
-Namely, $M$--particle on operators on $\mathcal{H}^N$ may be represented as rank--$2M$ tensors on $\mathcal{H}^1$; a fact which will
+Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$2M$ tensors on $\hilb{H}^1$; a fact which will
 be used extensively in the following developments.
-
 
 \subsection{Second Quantization}
 \label{sec:SQ}
@@ -213,18 +311,18 @@ To this end we introduce a formalism known as second quantization, or the occupa
 which aims to greatly simplify the construction and manipulation of anti-symmetric wave functions such as those in 
 \cref{eq:SlaterDet}. The primary hallmark of second quantization is in the representation of a Slater determinant 
 as an array of integers known as \emph{occupation numbers}, denoted $\ket{[n_p^I]}$, indicate the inclusion (or \emph{occupation}) of elements
-of $\mathcal{C}$ in the configuration which describes the determinant. As such, the length of said array is $\vert \mathcal{C} \vert$
+of $\hilb{C}$ in the configuration which describes the $I$-th determinant. As such, the length of said array is $\vert \hilb{C} \vert$
 and the sum of its elements is the number of particles in the system ($N$). Due to the fact that electrons are fermions,
 there is a further restriction on the possible values of the occupations numbers due to the Pauli exclusion principle,
 namely that a particle can be occupied ($n^I_p=1$) or unoccupied ($n^I_p=0$). To avoid confusion in the subsequent developments,
-we will define $\mathcal{H}^N_O$ as the Hilbert space which admits $\{\ket{[n_p^I]}\}$ as a basis, as operators on $\mathcal{H}^N$ 
-\emph{do not} act on $\mathcal{H}^N_O$, but rather may act indirectly through the obvious isomorphism 
-$\mathcal{H}^N \leftrightarrow \mathcal{H}^N_O$.
+we will define $\hilb{H}^N_O$ as the Hilbert space which admits $\{\ket{[n_p^I]}\}$ as a basis, as operators on $\hilb{H}^N$ 
+\emph{do not} act on $\hilb{H}^N_O$, but rather may act indirectly through the obvious isomorphism 
+$\hilb{H}^N \leftrightarrow \hilb{H}^N_O$.
 
 One may construct wave functions of the form \cref{eq:SlaterDet} is a consistent manner in this formalism through
-the introduction of two sets of operators, ${\{ c_p^\dagger : \mathcal{H}^N_O \mapsto \mathcal{H}^{N+1}_O\}}$ and 
-${\{ c_p : \mathcal{H}^N_O \mapsto \mathcal{H}^{N-1}_O \}}$, which are referred to as creation and annihilation operators 
-respectively, and the notion of a zero particle determinant known as the vacuum, $\Vac \in \mathcal{H}^0_O$, such that
+the introduction of two sets of operators, ${\{ c_p^\dagger : \hilb{H}^N_O \mapsto \hilb{H}^{N+1}_O\}}$ and 
+${\{ c_p : \hilb{H}^N_O \mapsto \hilb{H}^{N-1}_O \}}$, which are referred to as creation and annihilation operators 
+respectively, and the notion of a zero particle determinant known as the vacuum, $\Vac \in \hilb{H}^0_O$, such that
 \begin{subequations}
   \label{eq:SeQuantAction}
 \begin{align}
@@ -242,20 +340,102 @@ where $N$ is the number of particles in the determinant \emph{before} action, an
   &[c_p^\dagger, c_q]_+ = \delta_{pq},
 \end{align}
 \end{subequations}
-where $[\cdot,\cdot]_+$ is the anti--commutator and $\delta_{pq}$ is the Kronecker delta. The action of strings consisting on any number of these 
+where $[\cdot,\cdot]_+$ is the anti--commutator. The action of strings consisting on any number of these 
 operators may be derived inductively from \cref{eq:SeQuantAction,eq:SeQuantComm}. As such, we may recast \cref{eq:SlaterDet} as
 \begin{equation}
-  \ket{\Phi^N_I} \mapsto \left(\prod_{i \in \mathcal{K}^N_I} c_i^\dagger\right) \Vac
+  \ket{\Phi^N_I} \mapsto \left(\prod_{i \in \hilb{K}^N_I} c_i^\dagger\right) \Vac
 \end{equation}
+
+
+
+
+
+\begin{subequations}
+\begin{align}
+  &\op{O}^1 \mapsto \sum_{pq}   O^1_{pq} c^\dagger_p c_q,\\
+  &\op{O}^2 \mapsto \sum_{pqrs} O^2_{qprs} c^\dagger _p c^\dagger _q c_r c_s
+\end{align}
+\end{subequations}
+
+\begin{equation}
+  \ket{\Phi^N_I} = t^I_0\ket{0} + \sum_{ai} t^I_{ai} \ket{0}_i^a + \sum_{abij} t^I_{abij} \ket{0}_{ij}^{ab} + \sum_{abcijk} t^I_{abcijk} \ket{0}_{ijk}^{abc} + \cdots
+\end{equation}
+
+\co{Note: no dependence on choice of single particle basis, depends solely on definition of inner product and evaluation of SQ strings}
+
+
+
+
 
 % Non--Relativistic Hamiltonian
 \subsection{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
 \label{sec:NRH}
 
+\todo{Born--Oppenheimer -> nuclear density + hamiltonian partitioning}
+\todo{Schroedinger equation}
+\todo{ What SE is missing}
+
+Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
+molecular Hamiltonian, $\op{H}^\mathrm{NR} : \hilb{H}^{NR} \mapsto \hilb{H}^\mathrm{NR}$, where $\hilb{H}^\mathrm{NR}$ describes a quantum
+system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei. $\op{H}^\mathrm{NR}$ is so fundamental to the description
+of quantum molecular systems in that it is the linear operator on $\hilb{H}^\mathrm{NR}$ which represents the non--relativistic 
+total energy of the system.  In the case of a finite, non--periodic system 
+(i.e. the boundary conditions pin the wave function to zero at infinite distance) in the absence of external fields, $\op{H}^\mathrm{NR}$ takes the form 
+(in atomic units)
+\begin{equation}
+  \op{H}^\mathrm{NR} = \op{H}_{el}^\mathrm{NR} + \op{H}_{nuc}^\mathrm{NR} + \op{H}_{mix}^\mathrm{NR}
+\end{equation}
+where \co{Consider reformatting these equations into columns to free up white space}
+\begin{subequations}
+\begin{align}
+  &\op{H}_{el}^\mathrm{NR} = \op{T}^\mathrm{NR}_{el} + \op{V}^\mathrm{NR}_{ee}, \\
+  &\op{T}^\mathrm{NR}_{el} = \frac{1}{2} \sum_i^{N_\mathrm{el}} \op{\vc{p}}(i) \cdot \op{\vc{p}}(i), \\
+  &\op{V}^\mathrm{NR}_{ee} = \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}^C(i,j), 
+\end{align}
+\end{subequations}
+\begin{subequations}
+\begin{align}
+  &\op{H}_{nuc}^\mathrm{NR} = \op{T}^\mathrm{NR}_{nuc} + \op{V}^\mathrm{NR}_{nn}, \\
+  &\op{T}^\mathrm{NR}_{nuc} = \sum_A^{N_\mathrm{nuc}} \frac{\op{\vc{p}}(A) \cdot \op{\vc{p}}(A)}{2M_A}, \\
+  &\op{V}^\mathrm{NR}_{nn} = \frac{1}{2}\sum_{A \neq B}^N \op{g}^C(A,B), 
+\end{align}
+\end{subequations}
+\begin{align}
+  &\op{H}^\mathrm{NR}_{mix} = \op{V}^\mathrm{NR}_{ne} = -\sum_i^N \sum_A^{N_\mathrm{nuc}} \op{g}^C(i,A).
+\end{align}
+Here, a number of definitions have been made which will be extensively used in all of the following developments:
+$\op{\vc{p}}$ is the one body linear momentum operator, and $\op{g}^C$ is the two body Coulomb operator
+which describes the electrostatic interaction between charged particles. $M_A$ is the mass of the
+$A$-th nucleus, and $\op{T}^\mathrm{NR}_{el}$ and $\op{T}^\mathrm{NR}_{nuc}$ are the non--relativistic electronic 
+and nuclear kinetic energy operators which describe the kinetic energy of the electrons and the nuclei, repectively.
+
+\begin{align}
+&\op{V}_{ne} = \sum_i^N \int_{\mathbb R^3} \frac{\rho_\mathrm{nuc}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\\
+&\op{V}_{nn} = \iint_{\mathbb R^3} \frac{\rho_\mathrm{nuc}(\vc{R})\rho_\mathrm{nuc}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'\\
+\end{align}
+
+
+
+
 % Relativistic Hamiltonian
-\subsection{Approximate Relativistic Hamiltonians: The Dirac--Coulomb Equation}
+\subsection{Approximate Relativistic Hamiltonians: The Dirac Equations and Two--Component Variants}
 \label{sec:RELH}
 
+\todo{Dirac Hamiltonian + why it fixes things}
+\todo{DCB Hamiltoninan}
+\todo{BP hamiltonian from DCB}
+\todo{NR limit of BP}
+\todo{General Two component}
+\todo{X2C (why its better), possibly appendix on implementation?}
+\todo{Uncontracted basis?}
+
+
+
+
+
+
+\subsection{Mean--Field Quantum Mechanics and Density Functional Theory}
+\label{sec:MF}
 
 
 % Semi--Classical Light Matter
