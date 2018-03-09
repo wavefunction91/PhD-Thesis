@@ -315,14 +315,13 @@ of $\hilb{C}$ in the configuration which describes the $I$-th determinant. As su
 and the sum of its elements is the number of particles in the system ($N$). Due to the fact that electrons are fermions,
 there is a further restriction on the possible values of the occupations numbers due to the Pauli exclusion principle,
 namely that a particle can be occupied ($n^I_p=1$) or unoccupied ($n^I_p=0$). To avoid confusion in the subsequent developments,
-we will define $\hilb{H}^N_O$ as the Hilbert space which admits $\{\ket{[n_p^I]}\}$ as a basis, as operators on $\hilb{H}^N$ 
-\emph{do not} act on $\hilb{H}^N_O$, but rather may act indirectly through the obvious isomorphism 
-$\hilb{H}^N \leftrightarrow \hilb{H}^N_O$.
+we will define $\hilb{F}$ as the Hilbert space which admits $\{\ket{[n_p^I]}\}$ as elements, as operators on $\hilb{H}^N$ 
+\emph{do not} act on $\hilb{F}$, but rather may act indirectly through the injective map
+$\hilb{H}^N \rightarrow \hilb{F}$. $\hilb{F}$ is commonly referred to as the Fock space.
 
 One may construct wave functions of the form \cref{eq:SlaterDet} is a consistent manner in this formalism through
-the introduction of two sets of operators, ${\{ c_p^\dagger : \hilb{H}^N_O \mapsto \hilb{H}^{N+1}_O\}}$ and 
-${\{ c_p : \hilb{H}^N_O \mapsto \hilb{H}^{N-1}_O \}}$, which are referred to as creation and annihilation operators 
-respectively, and the notion of a zero particle determinant known as the vacuum, $\Vac \in \hilb{H}^0_O$, such that
+the introduction of two sets of operators, $\set{ c_p^\dagger}$ and $\set{ c_p }$, which are referred to as creation and annihilation operators 
+respectively, and the notion of a zero particle determinant known as the vacuum, $\Vac \in \hilb{F}$, such that
 \begin{subequations}
   \label{eq:SeQuantAction}
 \begin{align}
