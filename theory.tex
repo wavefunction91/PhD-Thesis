@@ -21,6 +21,7 @@ and the inner product on $\hilb{H}$ is referred to as an expectation value.
 The formal structure of $\hilb{H}$ is dictated by the Hamiltonian
 for the physical system, $\op{H} : \hilb{H} \rightarrow \hilb{H}$, through the wave equation
 \begin{equation}
+  \label{eq:QWave}
 \op{H} \ket{\Psi(t)} = \ii \partial_t \ket{\Psi(t)}, 
   \qquad \ket{\Psi(t)} \in \hilb H.
 \end{equation}
@@ -299,10 +300,10 @@ An explicit derivation for the form of the general rank--$2N$ transformation is 
 one particle spinor operators as it will provide the basis for many of the manipulations in subsequent developments,
 \begin{subequations}
 \begin{align}
-&\op{O}^{1,0}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\alpha}(\vc{r}) + \op{O}^{1,\alpha\alpha}(\vc{r}) \right),\\
+&\op{O}^{1,0}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\alpha}(\vc{r}) + \op{O}^{1,\beta\beta}(\vc{r}) \right),\\
 &\op{O}^{1,1}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\beta}(\vc{r}) + \op{O}^{1,\beta\alpha}(\vc{r}) \right),\\
 &\op{O}^{1,2}(\vc{r}) = \frac{\ii}{2} \left( \op{O}^{1,\alpha\beta}(\vc{r}) - \op{O}^{1,\beta\alpha}(\vc{r}) \right),\\
-&\op{O}^{1,3}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\alpha}(\vc{r}) - \op{O}^{1,\alpha\alpha}(\vc{r}) \right).
+&\op{O}^{1,3}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\alpha}(\vc{r}) - \op{O}^{1,\beta\beta}(\vc{r}) \right).
 \end{align}
 \end{subequations}
 
@@ -323,7 +324,7 @@ spinor wave function of the form \cref{eq:SlaterDetSpace},
     \left(\spop{O}^M(\vc{x}_i,\vc{x}_j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
     \prod_{k \neq (i,j,\ldots) }^{N-M} \phi_{\xi(k)}(\vc{x}_k),
 \end{align}
-where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particle upon which it acts.
+where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particles upon which it acts.
 In this work, we will typically be concerned with operators which act on no more than two particles at a time.
 
 It will be often the case in this work that $N$--particle operators may be expressed as sums over one and
@@ -352,6 +353,29 @@ where for the $\hilb{H}^1$ basis $\mathcal{C} = \set{\ket{\phi_p}}$ from the pre
 \end{subequations}
 Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$2M$ tensors on $\hilb{H}^1$; a fact which will
 be used extensively in the following developments.
+
+\co{Consolidate this section}
+To demonstrate this point, we consider the spinor density operator,
+\begin{equation}
+  \spop{\vc{\rho}}(\vc{r}) = \sum_K \spop \rho^K(\vc{x}) \pauli{K},
+\end{equation}
+where
+\begin{equation}
+  \spop \rho^K(\vc{x}) = \sum_i \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K}.
+\end{equation}
+For a particular Slater determinant, \cref{eq:SlaterCondon,eq:DiracInts} yield
+\begin{equation}
+  \vc{\rho}(\vc{r}) = \sum_K \innerop{\Phi^N_I}{\spop{\rho}^K(\vc{x})}{\Phi^N_I}\pauli{K} = 
+    \sum_K \sum_{i \in \hilb{K}_I^N} \rho_{ii}^K(\vc{r}) \pauli{K}
+\end{equation}
+
+\todo{Get to this point}
+In this work, we define $\rho_I^0(\vc{r})$ as the \emph{scalar density} and 
+$\vc{m}_I(\vc{r}) = \set{ \rho_I^1(\vc{r}), \rho_I^2(\vc{r}), \rho_I^3(\vc{r})}$ as
+the \emph{magnetization density} for configuration $I$.
+
+
+
 
 \subsection{Second Quantization}
 \label{sec:SQ}
@@ -385,15 +409,15 @@ Here, $\op{1}_\hilb{F}$ is the identity operator on $\hilb{F}$. $\hilb{F}$ is co
 %\emph{do not} act on $\hilb{F}$, but rather may act indirectly through the injective map
 %$\hilb{H}^N \rightarrow \hilb{F}$.
 
-One may construct representations of Slater determinants (\cref{eq:SlaterDet}) is a consistent manner in this formalism through
+One may construct representations of Slater determinants (\cref{eq:SlaterDet}) in a consistent manner in this formalism through
 the introduction of two sets of operators, $\set{ c_p^\dagger : \hilb{F} \rightarrow \hilb{F}}$ and $\set{ c_p : \hilb{F} \rightarrow \hilb{F} }$, which are referred to as creation and annihilation operators 
-respectively, and the notion of a zero particle occupation vector known as the vacuum, $\Vac \in \hilb{F}$, such that
+respectively, and the notion of a zero particle occupation vector known as the physical vacuum, $\Vac \in \hilb{F}$, such that
 \begin{subequations}
   \label{eq:SeQuantAction}
 \begin{align}
   &\Vac = \ket{[0_1, 0_2, \ldots, 0_{\vert C \vert}]}, \\
-  &c_p^\dagger \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{n_p-1}{\sqrt{N+1}} \ket{[n_1, n_2, \ldots, 1_p, \ldots, n_{\vert C \vert}]},\\
-  &c_p \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = {n_p}{\sqrt{N}} \ket{[n_1, n_2, \ldots, 0_p, \ldots, n_{\vert C \vert}]}.
+  &c_p^\dagger \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = \frac{\delta_{n_p0}}{\sqrt{N+1}} \ket{[n_1, n_2, \ldots, 1_p, \ldots, n_{\vert C \vert}]},\\
+  &c_p \ket{[n_1, n_2, \ldots, n_p, \ldots, n_{\vert C \vert}]} = {\delta_{n_p1}}{\sqrt{N}} \ket{[n_1, n_2, \ldots, 0_p, \ldots, n_{\vert C \vert}]}.
 \end{align}
 \end{subequations}
 Here, $N$ is the number of particles in the occupation vector \emph{before} action. To ensure anti-symmetry in the representation of
@@ -410,21 +434,25 @@ where $[\cdot,\cdot]_+$ is the anti--commutator. The action of products consisti
 operators may be derived inductively from \cref{eq:SeQuantAction,eq:SeQuantComm}. Such products are often referred to as
 strings. As such, we may recast \cref{eq:SlaterDet} as a string of creation operators,
 \begin{equation}
+  \label{eq:SeQuantSlaterDet}
   \ket{\Phi^N_I} \mapsto \ket{\Phi^N_I}_\hilb{F}  = \left(\prod_{i \in \hilb{K}^N_I} c_i^\dagger\right) \Vac,
 \end{equation}
 where $\ket{\Phi^N_I}_\hilb{F} \in \hilb{F}$ is the occupation vector representation of $\ket{\Phi^N_I}$.
 
 
+\todo{Wicks thm (mention)}
+\todo{Thouless thm}
 
-
-
-
+Perhaps the most remarkable result of second quantization for many--body quantum theory, at least in the 
+context of practical utility, is in the representation of $M$--particle operators on $\hilb{H}^N$ as 
+scalar contractions of $2M$--element operator strings with rank--$2M$ tensors on $\hilb{H}^1$,
 \begin{subequations}
 \begin{align}
-  &\op{O}^1 \mapsto \sum_{pq}   O^1_{pq} c^\dagger_p c_q,\\
-  &\op{O}^2 \mapsto \sum_{pqrs} O^2_{qprs} c^\dagger _p c^\dagger _q c_r c_s
+  &\sum_i \op{O}^1(i) \mapsto \op{O}_\hilb{F}^1 = \sum_{pq}   O^1_{pq} c^\dagger_p c_q,\\
+  &\sum_{i\neq j}\op{O}^2(i,j) \mapsto \op{O}_\hilb{F}^2 = \sum_{pqrs} O^2_{qprs} c^\dagger _p c^\dagger _q c_r c_s.
 \end{align}
 \end{subequations}
+The tensors $O^1_{pq}$ and $O^2_{qprs}$ are defined as in \cref{eq:DiracInts}.
 
 \begin{equation}
   \ket{\Phi^N_I} = t^I_0\ket{0} + \sum_{ai} t^I_{ai} \ket{0}_i^a + \sum_{abij} t^I_{abij} \ket{0}_{ij}^{ab} + \sum_{abcijk} t^I_{abcijk} \ket{0}_{ijk}^{abc} + \cdots
@@ -440,59 +468,70 @@ where $\ket{\Phi^N_I}_\hilb{F} \in \hilb{F}$ is the occupation vector representa
 \subsection{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
 \label{sec:NRH}
 
-\todo{Born--Oppenheimer -> nuclear density + hamiltonian partitioning}
-\todo{Schroedinger equation}
-\todo{ What SE is missing}
-
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
-molecular Hamiltonian, $\op{H}^\mathrm{NR} : \hilb{H}^{NR} \mapsto \hilb{H}^\mathrm{NR}$, where $\hilb{H}^\mathrm{NR}$ describes a quantum
-system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei. $\op{H}^\mathrm{NR}$ is so fundamental to the description
-of quantum molecular systems in that it is the linear operator on $\hilb{H}^\mathrm{NR}$ which represents the non--relativistic 
-total energy of the system.  In the case of a finite, non--periodic system 
-(i.e. the boundary conditions pin the wave function to zero at infinite distance) in the absence of external fields, $\op{H}^\mathrm{NR}$ takes the form
+molecular Hamiltonian, $\op{H}^\NR : \hilb{H}^\NR \mapsto \hilb{H}^\NR$, where $\hilb{H}^\NR$ describes a quantum
+system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei. $\op{H}^\NR$ is so fundamental to the description
+of quantum molecular systems in that it is the linear operator on $\hilb{H}^\NR$ which represents the non--relativistic 
+total energy of the system.  In the absence of external fields, $\op{H}^\NR$ takes the form
 \begin{equation}
-  \op{H}^\mathrm{NR} = \op{H}_{el}^\mathrm{NR} + \op{H}_{nuc}^\mathrm{NR} + \op{H}_{mix}^\mathrm{NR}
+  \label{eq:FullHNR}
+  \op{H}^\NR = \op{H}_{el}^\NR + \op{H}_{nuc}^\NR + \op{H}_{mix}^\NR
 \end{equation}
-where, in atomic units\co{Glossary}, \co{Consider reformatting these equations into columns to free up white space}
+where 
 \begin{subequations}
 \begin{align}
-  &\op{H}_{el}^\mathrm{NR} = \op{T}^\mathrm{NR}_{el} + \op{V}^\mathrm{NR}_{ee}, \\
-  &\op{T}^\mathrm{NR}_{el} = \frac{1}{2} \sum_i^{N_\mathrm{el}} \op{\vc{p}}(i) \cdot \op{\vc{p}}(i), \\
-  &\op{V}^\mathrm{NR}_{ee} = \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}^C(i,j), 
+  &\op{H}_{el}^\NR  = \sum_i^{N_\mathrm{el}}\op{T}^\NR(i) + \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}^C(i,j),\\ 
+  &\op{H}_{nuc}^\NR = \sum_A^{N_\mathrm{nuc}}\op{T}^\NR(A) + \frac{1}{2}\sum_{A \neq B}^{N_\mathrm{nuc}} \op{g}^C(A,B),\\ 
+  &\op{H}^\NR_{mix} = -\sum_i^{N_\mathrm{el}} \sum_A^{N_\mathrm{nuc}} \op{g}^C(i,A).
 \end{align}
 \end{subequations}
-\begin{subequations}
+Here we have denoted operator action onto the electronic degrees of freedom as $i,j$ and $A,B$ for the nuclear degrees of
+freedom. For a general (electronic or nuclear) coordinate, $\xi$, the non--relativistic kinetic energy operator, 
+$\op{T}^\NR$, is given by
 \begin{align}
-  &\op{H}_{nuc}^\mathrm{NR} = \op{T}^\mathrm{NR}_{nuc} + \op{V}^\mathrm{NR}_{nn}, \\
-  &\op{T}^\mathrm{NR}_{nuc} = \sum_A^{N_\mathrm{nuc}} \frac{\op{\vc{p}}(A) \cdot \op{\vc{p}}(A)}{2M_A}, \\
-  &\op{V}^\mathrm{NR}_{nn} = \frac{1}{2}\sum_{A \neq B}^N \op{g}^C(A,B), 
+  \op{T}^\NR(\xi) = \frac{1}{2m_\xi} \op{\vc{p}}(\xi) \cdot \op{\vc{p}}(\xi),
 \end{align}
-\end{subequations}
-\begin{align}
-  &\op{H}^\mathrm{NR}_{mix} = \op{V}^\mathrm{NR}_{ne} = -\sum_i^N \sum_A^{N_\mathrm{nuc}} \op{g}^C(i,A).
-\end{align}
-Here, a number of definitions have been made which will be extensively used in all of the following developments:
-$\op{\vc{p}}$ is the one body linear momentum operator, and $\op{g}^C$ is the two body Coulomb operator
-which describes the electrostatic interaction between charged particles. $M_A$ is the mass of the
-$A$-th nucleus, and $\op{T}^\mathrm{NR}_{el}$ and $\op{T}^\mathrm{NR}_{nuc}$ are the non--relativistic electronic 
-and nuclear kinetic energy operators which describe the kinetic energy of the electrons and the nuclei, respectively.
-In the spinor representation of \cref{eq:SpinorOpPauli}, these operators are given in Cartesian coordinates by \todo{fix typesettting here},
-\begin{align}
-&\spop{\vc{p}}(\vc{x}_\xi) = \frac{\ii}{2} \nabla_{\vc{r}_\xi} \otimes \pauli{0}, \label{eq:MomentumSpinor}\\
-&\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = \frac{1}{4} \frac{1}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert } \otimes \pauli{0} \otimes \pauli{0},
-  \label{eq:CoulombSpinor}
-\end{align}
-where $\xi$ and $\zeta$ can be either electronic or nuclear coordinates. 
-\begin{align}
-  \spop{T}_{el}(\vc{x}_1, \vc{x}_2,\ldots) = \frac{1}{4}\sum_i^{N_\mathrm{el}} \Delta_{\vc{x}_i} \otimes \pauli{0}
-  \spop{T}_{nuc}(\vc{x}_1, \vc{x}_2,\ldots) = \frac{1}{4}\sum_i^{N_\mathrm{el}} \Delta_{\vc{x}_i} \otimes \pauli{0}
-\end{align}
+where $\op{\vc{p}}$ is the linear momentum operator and $m_\xi$ is the mass of the $\xi$-th particle.
+$\op{g}^C$ is the two body Coulomb operator which describes the electrostatic interaction between charged particles.
 
-
-
+In the spinor representation, these operators take the general form\todo{fix typesettting here}
 \begin{align}
-&\op{V}_{ne} = \sum_i^N \int_{\mathbb R^3} \frac{\rho_\mathrm{nuc}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\\
-&\op{V}_{nn} = \iint_{\mathbb R^3} \frac{\rho_\mathrm{nuc}(\vc{R})\rho_\mathrm{nuc}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'\\
+  \label{eq:SpinorKinMom}
+  &\spop{\vc{p}}(\vc{x}_\xi) = -\ii \nabla_\xi \otimes \op{I}_S(\xi) \quad \Longrightarrow \quad 
+  \spop{T}^\NR(\vc{x}_\xi) = - \frac{1}{2} \Delta_\xi \otimes \op{I}_S(\xi),
+\end{align}
+\begin{align}
+  \label{eq:SpinorCoulomb}
+  &\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = 
+    \frac{1}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
+\end{align}
+where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
+repsectively. $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
+careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
+\emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure. For electrons, $\op{I}_S=\pauli{0}$.
+The presence of $\op{I}_S$ in \cref{eq:SpinorKinMom,eq:SpinorCoulomb} may be interpreted as the action of these operators 
+\emph{do not} manipulate the spin degrees of freedom of the total wave function.
+
+As has been previously stated on numerous occasions, the primary focus of this work is to treat the many body
+electronic problem for molecular systems, not the quantum nature of the nuclei. The combined quantum treatment
+of \cref{eq:FullHNR} obfuscates this point in that the presence of $\op{H}^\NR_{mix}$ intimately couples the
+electronic and nuclear degrees of freedom. Thus it would be of practical utility to, in some way, decouple
+the quantum treatment of the electrons and the nuclei such that they may be treated separately. To this end,
+we will work within the Born--Oppenheimer approximation \todo{cite} for the molecular Hamiltonian such that
+we will consider a single tensor product ansatz for the total molecular wave function $\ket{\Psi_{tot}}$,
+\begin{equation}
+  \ket{\Psi_{tot}} = \ket{\Psi_{el}} \otimes \ket{\Theta_{nuc}}.
+\end{equation}
+
+\todo{Talk about BO approximation}
+
+\begin{equation}
+  \label{eq:BOH}
+  \op{H}^\NR_{el} - E_{nn} \approx \sum_i \op{T}^\NR(i) + \op{V}_{ne}(i) + \sum_{i\neq j} \op{g}^C(i,j)
+\end{equation}
+\begin{align}
+  &\op{V}_{ne}(\vc{x}_i) = \left(\int_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0} \\
+&E_{nn} = \iint_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})\rho^0_\mathrm{nuc}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'
 \end{align}
 
 
