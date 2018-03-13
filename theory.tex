@@ -356,28 +356,38 @@ be used extensively in the following developments.
 
 
 \co{Consolidate this section}
-In the case where $\op{O}^N$ does not contain differential operators, i.e. its spatial component is scalar multiplicitive,
-it will be useful to define the so called density operator, $\op{\rho}(\hilb{K}^N_I)$, for a particular configuration 
+In the following, it will be useful to define the tensor density operator,
+\begin{equation}
+\op{\vc{\rho}}(\vc{r};\vc{x}_i)  = \begin{bmatrix} \op{\rho}^0(\vc{r};\vc{x}_i) \\ \op{\rho}^1 (\vc{r};\vc{x}_i)\\\op{\rho}^2(\vc{r};\vc{x}_i) \\ \op{\rho}^3(\vc{r};\vc{x}_i) \end{bmatrix},
+\end{equation}
 such that
 \begin{equation}
-\op{\rho}(\hilb{K}^N_I) = \ket{\Phi^N_I} \bra{\Phi^N_I}
+\op{\rho}^K(\vc{r};\vc{x}_i) = \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K}.
 \end{equation}
-
-
-To demonstrate this point, we consider the spinor density operator,
+Action of $\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)$ generates a tensor field on $\mathbb R^3$. Applying \cref{eq:SlaterCondon,eq:DiracInts}, 
+for a particular Slater determininant we obtain,
 \begin{equation}
-  \spop{{\rho}}(\vc{r}; \vc{x}_1, \vc{x}_2, \ldots, \vc{x}_N) = \sum_i \sum_K \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K},
+\vc{\rho}_I(\vc{r}) = \innerop{\Phi_I^N}{\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)}{\Phi_I^N} = 
+\begin{bmatrix} {\rho_I^0}(\vc{r}) \\ {\rho_I^1} (\vc{r})\\{\rho_I^2}(\vc{r}) \\ {\rho_I^3}(\vc{r}) \end{bmatrix},
 \end{equation}
-For a particular Slater determinant, \cref{eq:SlaterCondon,eq:DiracInts} yield
-\begin{equation}
-  \rho(\vc{r}) = \innerop{\Phi^N_I}{\spop{\rho}(\vc{r}; \vc{x}_1, \vc{x}_2, \ldots, \vc{x}_N)}{\Phi^N_I} = 
-    \sum_K \sum_{i \in \hilb{K}_I^N} \rho_{I}^K(\vc{r}) \pauli{K}
-\end{equation}
-
-\todo{Get to this point}
+where
+\begin{subequations}
+\begin{align}
+  &\rho_I^0(\vc{r}) = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha*}_i(\vc{r})\phi^{\alpha}_i(\vc{r}) + \phi^{\beta*}_i(\vc{r})\phi^{\beta}_i(\vc{r}) \right), \\
+  &\rho_I^1(\vc{r}) = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha*}_i(\vc{r})\phi^{\beta}_i(\vc{r}) + \phi^{\beta*}_i(\vc{r})\phi^{\alpha}_i(\vc{r}) \right), \\
+  &\rho_I^2(\vc{r}) = \frac{\ii}{2} \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha*}_i(\vc{r})\phi^{\beta}_i(\vc{r}) - \phi^{\beta*}_i(\vc{r})\phi^{\alpha}_i(\vc{r}) \right), \\
+  &\rho_I^3(\vc{r}) = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha*}_i(\vc{r})\phi^{\alpha}_i(\vc{r}) - \phi^{\beta*}_i(\vc{r})\phi^{\beta}_i(\vc{r}) \right). 
+\end{align}
+\end{subequations}
 In this work, we define $\rho_I^0(\vc{r})$ as the \emph{scalar density} and 
 $\vc{m}_I(\vc{r}) = \set{ \rho_I^1(\vc{r}), \rho_I^2(\vc{r}), \rho_I^3(\vc{r})}$ as
-the \emph{magnetization density} for configuration $I$.
+the \emph{magnetization density} for the Slater determinant $I$. These definitions
+prove to be of great practical utility
+in the case where $\op{O}^1(i)$ does not contain differential operators, i.e. its spatial component is scalar
+multiplicitive. In such cases, expectation values in the $I$-th Slater determinant admit a simple form,
+\begin{equation}
+  \innerop{\Phi^N_I}{\sum_i\op{O}^1(i)}{\Phi^N_I} = 2\sum_K \int_{\mathbb R^3} \op{O}^{1,K}(\vc{r}) \rho^K(\vc{r}) \dd^3\vc{r}.
+\end{equation}
 
 
 
