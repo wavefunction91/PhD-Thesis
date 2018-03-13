@@ -355,9 +355,9 @@ Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$
 be used extensively in the following developments.
 
 
-\co{Consolidate this section}
 In the following, it will be useful to define the tensor density operator,
 \begin{equation}
+  \label{eq:TensorDensity}
 \op{\vc{\rho}}(\vc{r};\vc{x}_i)  = \begin{bmatrix} \op{\rho}^0(\vc{r};\vc{x}_i) \\ \op{\rho}^1 (\vc{r};\vc{x}_i)\\\op{\rho}^2(\vc{r};\vc{x}_i) \\ \op{\rho}^3(\vc{r};\vc{x}_i) \end{bmatrix},
 \end{equation}
 such that
@@ -381,13 +381,17 @@ where
 \end{subequations}
 In this work, we define $\rho_I^0(\vc{r})$ as the \emph{scalar density} and 
 $\vc{m}_I(\vc{r}) = \set{ \rho_I^1(\vc{r}), \rho_I^2(\vc{r}), \rho_I^3(\vc{r})}$ as
-the \emph{magnetization density} for the Slater determinant $I$. These definitions
+the \emph{magnetization density} for the Slater determinant $I$.
+These definitions
 prove to be of great practical utility
 in the case where $\op{O}^1(i)$ does not contain differential operators, i.e. its spatial component is scalar
 multiplicitive. In such cases, expectation values in the $I$-th Slater determinant admit a simple form,
 \begin{equation}
+  \label{eq:DensityInner}
   \innerop{\Phi^N_I}{\sum_i\op{O}^1(i)}{\Phi^N_I} = 2\sum_K \int_{\mathbb R^3} \op{O}^{1,K}(\vc{r}) \rho^K(\vc{r}) \dd^3\vc{r}.
 \end{equation}
+
+
 
 
 
@@ -497,7 +501,7 @@ where
 \begin{align}
   &\op{H}_{el}^\NR  = \sum_i^{N_\mathrm{el}}\op{T}^\NR(i) + \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}^C(i,j),\\ 
   &\op{H}_{nuc}^\NR = \sum_A^{N_\mathrm{nuc}}\op{T}^\NR(A) + \frac{1}{2}\sum_{A \neq B}^{N_\mathrm{nuc}} \op{g}^C(A,B),\\ 
-  &\op{H}^\NR_{mix} = -\sum_i^{N_\mathrm{el}} \sum_A^{N_\mathrm{nuc}} \op{g}^C(i,A).
+  &\op{H}^\NR_{mix} = \sum_i^{N_\mathrm{el}} \sum_A^{N_\mathrm{nuc}} \op{g}^C(i,A).
 \end{align}
 \end{subequations}
 Here we have denoted operator action onto the electronic degrees of freedom as $i,j$ and $A,B$ for the nuclear degrees of
@@ -518,10 +522,12 @@ In the spinor representation, these operators take the general form (in atomic u
 \begin{align}
   \label{eq:SpinorCoulomb}
   &\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = 
-    \frac{1}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
+    \frac{L_\xi L_\zeta}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
-repsectively. $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
+repsectively. $L_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electons and 
+$Z_A$ for the $A$--th nucleus, where $Z_A$ is the number of protons in said nucleaus. 
+$\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
 careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
 \emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \todo{cite}. For electrons, $\op{I}_S=\pauli{0}$.
 The presence of $\op{I}_S$ in \cref{eq:SpinorKinMom,eq:SpinorCoulomb} may be interpreted as the action of these operators 
@@ -541,38 +547,93 @@ that it may be written as a single tensor product of an electronic and nuclear w
   \ket{\Psi_{tot}} \approx \ket{\Psi_{el}} \otimes \ket{\Theta_{nuc}}.
 \end{equation}
 Due to a large disperigy in mass between electrons and nuclei, the energic regimes which describe their respective
-dynamics are typically well separated. As such, we will be operating under the assumption that the energic
-contributions arising from nuclear motion, i.e. the nuclear kinetic energy, may be safely ignored in our
-treatment of the electronic degrees of freedom,
+dynamics are typically well separated. Namely, from the inertial frame of the electrons, one might approximate
+the nuclear kinetic energy to be negligible, i.e.
 \begin{equation}
 \innerop{\Psi_{tot}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{tot}} \approx 0.
 \end{equation}
 This assumption is referred to as the Born--Oppenheimer approximation (a concept distict from from the 
-Born--Oppenheimer ansatz for the molecular wave function). One should remark that this approximation
-only makes sense from the inertial frame of the electrons, i.e. from the electrons' perspective, they
-only feel a scalar potential of a fixed nuclear configuration due to a large disperigy in relative 
-velocities between themselves and the nuclei. The nuclei are still permitted to move within this approximation;
-the primary assumption being that such dynamics occurs an a time scale which allows for approximately 
-instantaneous response of the electronic degrees of freedom from the inertial frame of the nuclei.
-Within this approximation, we may separate the wave equation of \cref{eq:QWave} into two coupled
-non--linear differential equations, such that for a particular time $t$
-\begin{align}
-&\op{H}^\BO_{el}(t) \ket{\Psi_{el}(t)} = \ii \partial_t \ket{\Psi_{el}(t)},\\
-&\op{H}^\BO_{nuc}(t) \ket{\Theta_{nuc}(t)} = \ii \partial_t \ket{\Theta_{nuc}(t)},
-\end{align}
+Born--Oppenheimer ansatz for the molecular wave function) \todo{cite}. This is typically a safe assumption for reasonably
+heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
+the ratio of the electronic and nuclear masses, $\approx 10^{4}$. Thus, from the electronic perspective,
+the nuclear configuration is approximately static, and the electons only ,,feel" the electrostatic
+potential of a fixed nuclear wave function at any given time. Denoting a particular fixed nuclear wave
+function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian one acts on the electronic 
+component of the wave function and is valid in the inertial frame of the electrons,
+\begin{equation}
+\label{eq:NRBOH}
+\op{H}^\BO_{el} = \innerop{\Theta_{nuc}^{fix}}{\op{H}^\NR - \sum_A^{N_\mathrm{nuc}}\op{T}^\NR(A)}{\Theta_{nuc}^{fix}}
+=E_{nn} + \sum_i^{N_\mathrm{el}} \op{T}^\NR(i) + \op{V}_{ne}(i) + \sum_{i\neq j}^{N_\mathrm{el}} \op{g}^C(i,j),
+\end{equation}
 where
 \begin{align}
-&\op{H}^\BO_{el}(t)  %&= \innerop{\Theta_{nuc}(t)}{\op{H}^\NR - \sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A)}{\Theta_{nuc}(t)} \nonumber\\
-  = E_{nn}(t) + \sum_i^{N_\mathrm{el}} \op{T}^\NR(i) + \op{V}_{ne}(t;i) + \sum_{i\neq j}^{N_\mathrm{el}} \op{g}^C(i,j)\\
-&\op{H}^\BO_{nuc}(t) = \sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) + E_{el}(t)\\
-&E_{el}(t) = \innerop{\Psi_{el}(t)}{\op{H}^\BO_{el}(t)}{\Psi_{el}(t)}
+  &\op{V}_{ne}(\vc{x}_i) = 
+    -\sum^{N_\mathrm{nuc}}_A \left(\int_{\mathbb R^3} \frac{Z_A\rho^0_\mathrm{nuc,A}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0}, \\
+&E_{nn} = \frac{1}{2} \sum^{N_\mathrm{nuc}}_{A\neq B} \iint_{\mathbb R^3} \frac{Z_AZ_B\rho^0_\mathrm{nuc,A}(\vc{R})\rho^0_\mathrm{nuc,B}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'.
 \end{align}
+$\rho^0_{nuc,A}(\vc{R})$ is the scalar density of the $A$--the nucleaus defined through a proper generalization of
+\cref{eq:TensorDensity,eq:DensityInner} for non spin--1/2 fermions. The explicit form of $\rho^0_{nuc,A}(\vc{R})$ immaterial
+to this work except for the property,
+\begin{equation}
+\sum_A^{N_\mathrm{nuc}} \int_{\mathbb R^3} \rho_{nuc,A}^0(\vc{R}) \dd^3\vc{R} = N_\mathrm{nuc}.
+\end{equation}
+This critera is clearly met if $\rho_{nuc,A}(\vc{R})$ is a normalized function. In this work, we will approximate
+$\rho_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \todo{cite},
+\begin{equation}
+\rho_{nuc,A}(\vc{R}) = \mathcal{N} e^{-\gamma_A(\vc{R} - \vc{R}_A)^2},
+\end{equation}
+where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
 
 
-\begin{align}
-  &\op{V}_{ne}(\vc{x}_i) = \left(\int_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0} \\
-&E_{nn} = \iint_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})\rho^0_\mathrm{nuc}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'
-\end{align}
+The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QWave} is given by
+\begin{equation}
+\label{eq:NRSCH}
+\op{H}^\BO_{el} \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)}
+\end{equation}
+and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \todo{cite}.
+In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
+equation due to the explcit presence of the kinetic energy operator in the Hamiltonian. This is due to the fact that they
+are specialization of the original Schr\"{o}dinger Hamiltoninan of the form
+\begin{equation}
+\label{eq:SchHam}
+\op{H}(t) = \op{T}^\NR + \op{V}(t).
+\end{equation}
+There are a number of problems inherent in the form of \cref{eq:SchHam,eq:NRBOH}. The first problem that is of interest to this work,
+and perhaps the most glaring in the context of molecular calculations envolving the quantum treatment of electrons,
+is that in the limit of electrostatics in the absence of external fields there is only trivial action of the
+Hamiltonian onto the spin components of the electronic  wave function. To be clear, electronic spin is inherient in any quantum
+treatment of electrons as it manifests naturally through the irredicuble representations of the Galiei group
+which governs non--relativistic mechanics \todo{cite}. Phenomenologically, one may introduce non--trival spin manipulation into the non--relativistic
+Hamiltoninan through the interaction with an external magnetic field, $\vc{B}$, via the spin--Zeeman term,
+\begin{equation}
+\op{H}^\BO_{el} \mapsto  \op{H}^\BO_{el} + \op{H}^\mathrm{Zeeman}, \qquad \op{H}^\mathrm{Zeeman}  = \frac{1}{2} \sum_{k=1}^3 B^k \pauli{k},
+\end{equation}
+due to observation of the linear relationship between the magnetic field strength and energy level splittings in the Stern--Gerlach 
+experiment\todo{cite Sakurai}. However, it is well known that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
+of the electronic spin degrees of freedom in the strong field limit \todo{cite}, and clearly yields no mechanism to treat
+intrinsics effects such as zero--field splitting of electronic energy levels.
+
+The second, perhaps more subtle problem relating specifically to the forms of \cref{eq:SchHam,eq:NRSCH} is that they are manifestly
+incapible of adhering to the laws of special relatively, i.e. it is impossible to write down a Hamiltoninan of the form in
+\cref{eq:SchHam} which is Lorentz covariant. This problem is easily identified through recognizing that the Schr\"{o}dinger
+equation is quadratic in spatial coordinates through $\op{T}^\NR$ and linear in time, and thus incabible of being compatible with Lorentz boosts. At first glance,
+one might be tempted to think in terms of a classical picture for a quantum analogue, where for velocities much lower than the speed of light,
+the dynamics of classical bodies is approximately governed by Newtonian mechanics. Thus, within such a mindset, one might consider
+relativistic effects as only being important for heavy elements, such as Gold or Uranium, due to the fact that their core electrons
+move at velocities which are a considerable fraction of the speed of light. However, as is often the case with the quantization
+of classical mechanics, such a simplistic assumption yields qualitatively incorrect model physics even for light elements such as Carbon and Oxygen\todo{cite Pyyko}.
+The realization of relativstic effects in light elements typically manifests in context of the \emph{ab initio} introduction of spin couplings
+into the Hamiltoninan, which not surptisingly also solves the aformentioned problem with treating electronic spin non--relativistically. 
+The following section provides a brief overview of the treatement of relativistic effects in molecular quantum mechanics.
+
+
+
+%Note that in the absence of external fields and within the approximation that the nuclei are stationary, $\op{H}^\BO_{el}$ 
+%is time--independent, and thus has the general solution\todo{cite Sakurai}
+%\begin{equation}
+%\ket{\Psi_{el}(t)} = \exp \left[ -\ii \Delta t \op{H}^\BO_{el} \right]\ket{\Psi_{el}(t_0)}, \qquad \Delta t = t - t_0,
+%\end{equation}
+%where $t_0$ is a reference time for which one may specify an initial condition for $\ket{\Psi_{el}(t)}$.
 
 
 
