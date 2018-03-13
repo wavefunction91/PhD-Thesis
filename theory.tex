@@ -22,7 +22,7 @@ The formal structure of $\hilb{H}$ is dictated by the Hamiltonian
 for the physical system, $\op{H} : \hilb{H} \rightarrow \hilb{H}$, through the wave equation
 \begin{equation}
   \label{eq:QWave}
-\op{H} \ket{\Psi(t)} = \ii \partial_t \ket{\Psi(t)}, 
+\op{H}(t) \ket{\Psi(t)} = \ii \partial_t \ket{\Psi(t)}, 
   \qquad \ket{\Psi(t)} \in \hilb H.
 \end{equation}
 Here, $t$ is the proper time of the quantum system and $\partial_t$ is the partial derivative
@@ -354,19 +354,24 @@ where for the $\hilb{H}^1$ basis $\mathcal{C} = \set{\ket{\phi_p}}$ from the pre
 Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$2M$ tensors on $\hilb{H}^1$; a fact which will
 be used extensively in the following developments.
 
+
 \co{Consolidate this section}
+In the case where $\op{O}^N$ does not contain differential operators, i.e. its spatial component is scalar multiplicitive,
+it will be useful to define the so called density operator, $\op{\rho}(\hilb{K}^N_I)$, for a particular configuration 
+such that
+\begin{equation}
+\op{\rho}(\hilb{K}^N_I) = \ket{\Phi^N_I} \bra{\Phi^N_I}
+\end{equation}
+
+
 To demonstrate this point, we consider the spinor density operator,
 \begin{equation}
-  \spop{\vc{\rho}}(\vc{r}) = \sum_K \spop \rho^K(\vc{x}) \pauli{K},
-\end{equation}
-where
-\begin{equation}
-  \spop \rho^K(\vc{x}) = \sum_i \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K}.
+  \spop{{\rho}}(\vc{r}; \vc{x}_1, \vc{x}_2, \ldots, \vc{x}_N) = \sum_i \sum_K \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K},
 \end{equation}
 For a particular Slater determinant, \cref{eq:SlaterCondon,eq:DiracInts} yield
 \begin{equation}
-  \vc{\rho}(\vc{r}) = \sum_K \innerop{\Phi^N_I}{\spop{\rho}^K(\vc{x})}{\Phi^N_I}\pauli{K} = 
-    \sum_K \sum_{i \in \hilb{K}_I^N} \rho_{ii}^K(\vc{r}) \pauli{K}
+  \rho(\vc{r}) = \innerop{\Phi^N_I}{\spop{\rho}(\vc{r}; \vc{x}_1, \vc{x}_2, \ldots, \vc{x}_N)}{\Phi^N_I} = 
+    \sum_K \sum_{i \in \hilb{K}_I^N} \rho_{I}^K(\vc{r}) \pauli{K}
 \end{equation}
 
 \todo{Get to this point}
@@ -494,11 +499,11 @@ $\op{T}^\NR$, is given by
 where $\op{\vc{p}}$ is the linear momentum operator and $m_\xi$ is the mass of the $\xi$-th particle.
 $\op{g}^C$ is the two body Coulomb operator which describes the electrostatic interaction between charged particles.
 
-In the spinor representation, these operators take the general form\todo{fix typesettting here}
+In the spinor representation, these operators take the general form (in atomic units)
 \begin{align}
   \label{eq:SpinorKinMom}
   &\spop{\vc{p}}(\vc{x}_\xi) = -\ii \nabla_\xi \otimes \op{I}_S(\xi) \quad \Longrightarrow \quad 
-  \spop{T}^\NR(\vc{x}_\xi) = - \frac{1}{2} \Delta_\xi \otimes \op{I}_S(\xi),
+  \spop{T}^\NR(\vc{x}_\xi) = - \frac{1}{2m_\xi} \Delta_\xi \otimes \op{I}_S(\xi),
 \end{align}
 \begin{align}
   \label{eq:SpinorCoulomb}
@@ -508,7 +513,7 @@ In the spinor representation, these operators take the general form\todo{fix typ
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
 repsectively. $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
 careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
-\emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure. For electrons, $\op{I}_S=\pauli{0}$.
+\emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \todo{cite}. For electrons, $\op{I}_S=\pauli{0}$.
 The presence of $\op{I}_S$ in \cref{eq:SpinorKinMom,eq:SpinorCoulomb} may be interpreted as the action of these operators 
 \emph{do not} manipulate the spin degrees of freedom of the total wave function.
 
@@ -516,19 +521,44 @@ As has been previously stated on numerous occasions, the primary focus of this w
 electronic problem for molecular systems, not the quantum nature of the nuclei. The combined quantum treatment
 of \cref{eq:FullHNR} obfuscates this point in that the presence of $\op{H}^\NR_{mix}$ intimately couples the
 electronic and nuclear degrees of freedom. Thus it would be of practical utility to, in some way, decouple
-the quantum treatment of the electrons and the nuclei such that they may be treated separately. To this end,
-we will work within the Born--Oppenheimer approximation \todo{cite} for the molecular Hamiltonian such that
-we will consider a single tensor product ansatz for the total molecular wave function $\ket{\Psi_{tot}}$,
+the quantum treatment of the electrons and the nuclei such that they may be treated separately. 
+%To this end,
+%we will work within the Born--Oppenheimer approximation \todo{cite} for the molecular Hamiltonian such that
+%we will consider a single tensor product ansatz for the total molecular wave function $\ket{\Psi_{tot}}$,
+To this end, we will work within the Born--Oppenheimer ansatz for the molecular wave function \todo{cite} such
+that it may be written as a single tensor product of an electronic and nuclear wave function,
 \begin{equation}
-  \ket{\Psi_{tot}} = \ket{\Psi_{el}} \otimes \ket{\Theta_{nuc}}.
+  \ket{\Psi_{tot}} \approx \ket{\Psi_{el}} \otimes \ket{\Theta_{nuc}}.
 \end{equation}
-
-\todo{Talk about BO approximation}
-
+Due to a large disperigy in mass between electrons and nuclei, the energic regimes which describe their respective
+dynamics are typically well separated. As such, we will be operating under the assumption that the energic
+contributions arising from nuclear motion, i.e. the nuclear kinetic energy, may be safely ignored in our
+treatment of the electronic degrees of freedom,
 \begin{equation}
-  \label{eq:BOH}
-  \op{H}^\NR_{el} - E_{nn} \approx \sum_i \op{T}^\NR(i) + \op{V}_{ne}(i) + \sum_{i\neq j} \op{g}^C(i,j)
+\innerop{\Psi_{tot}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{tot}} \approx 0.
 \end{equation}
+This assumption is referred to as the Born--Oppenheimer approximation (a concept distict from from the 
+Born--Oppenheimer ansatz for the molecular wave function). One should remark that this approximation
+only makes sense from the inertial frame of the electrons, i.e. from the electrons' perspective, they
+only feel a scalar potential of a fixed nuclear configuration due to a large disperigy in relative 
+velocities between themselves and the nuclei. The nuclei are still permitted to move within this approximation;
+the primary assumption being that such dynamics occurs an a time scale which allows for approximately 
+instantaneous response of the electronic degrees of freedom from the inertial frame of the nuclei.
+Within this approximation, we may separate the wave equation of \cref{eq:QWave} into two coupled
+non--linear differential equations, such that for a particular time $t$
+\begin{align}
+&\op{H}^\BO_{el}(t) \ket{\Psi_{el}(t)} = \ii \partial_t \ket{\Psi_{el}(t)},\\
+&\op{H}^\BO_{nuc}(t) \ket{\Theta_{nuc}(t)} = \ii \partial_t \ket{\Theta_{nuc}(t)},
+\end{align}
+where
+\begin{align}
+&\op{H}^\BO_{el}(t)  %&= \innerop{\Theta_{nuc}(t)}{\op{H}^\NR - \sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A)}{\Theta_{nuc}(t)} \nonumber\\
+  = E_{nn}(t) + \sum_i^{N_\mathrm{el}} \op{T}^\NR(i) + \op{V}_{ne}(t;i) + \sum_{i\neq j}^{N_\mathrm{el}} \op{g}^C(i,j)\\
+&\op{H}^\BO_{nuc}(t) = \sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) + E_{el}(t)\\
+&E_{el}(t) = \innerop{\Psi_{el}(t)}{\op{H}^\BO_{el}(t)}{\Psi_{el}(t)}
+\end{align}
+
+
 \begin{align}
   &\op{V}_{ne}(\vc{x}_i) = \left(\int_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0} \\
 &E_{nn} = \iint_{\mathbb R^3} \frac{\rho^0_\mathrm{nuc}(\vc{R})\rho^0_\mathrm{nuc}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'
@@ -548,6 +578,8 @@ we will consider a single tensor product ansatz for the total molecular wave fun
 \todo{General Two component}
 \todo{X2C (why its better), possibly appendix on implementation?}
 \todo{Uncontracted basis?}
+
+
 
 
 
