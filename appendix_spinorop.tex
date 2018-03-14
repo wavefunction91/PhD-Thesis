@@ -1,6 +1,115 @@
 \chapter{Spin Algebra on Even Rank Spinors}
 \label{apx:SpinorOp}
 
+In this section, we review the necessary spin--algebra to supplement the development of non--collinear electronic structure methods.
+Let $\spinor{2}{X}$ be a rank-2 spinor, such that
 \begin{equation}
-jjj
+\label{eq:XSpinBlock}
+\spinor{2}{X} = 
+  \begin{bmatrix}
+    \spinor{2}{X}^{\alpha\alpha} & \spinor{2}{X}^{\alpha\beta} \\
+    \spinor{2}{X}^{\beta\alpha}  & \spinor{2}{X}^{\beta\beta} \\
+  \end{bmatrix}, 
 \end{equation}
+where $\left\lbrace\spinor{2}{X}^{\sigma\sigma'} \in \GL{C}{N}
+\text{ }\vert\text{ } \sigma,\sigma' \in \{\alpha,\beta\} \right\rbrace$ is a
+set of $N$-by-$N$ complex matrices. Thus $\spinor{2}{X} \in \GL{C}{N} \times \GL{C}{2}$.
+Choosing the standard basis of $\GL{C}{2}$ as $U^2 \times U^2$,
+we may recast \cref{eq:XSpinBlock} as
+\begin{equation}
+\label{eq:XSpinComp}
+  \spinor{2}{X} = \sum_{\sigma\sigma'} \spinor{2}{X}^{\sigma\sigma'} \otimes \mathbf{e}_\sigma \otimes \mathbf{e}_{\sigma'} 
+  \qquad 
+  \mathbf{e}_\alpha = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad 
+  \mathbf{e}_\beta  = \begin{bmatrix} 0 \\ 1 \end{bmatrix},
+\end{equation}
+and such is the standard treatment of spin non--collinearity in the literature, exemplified by treating the binary spin 
+blocks of $\spinor{2}{X}$ explicitly.
+
+In this work, we rely on a change of basis to simplify the subsequent derivations and arithmetic in the development
+of non--collinear electronic structure. We choose the basis of the Pauli matricies (\cref{eq:pauli}), for which it may
+be shown that 
+%\begin{equation}
+%\mathrm{span}\left[ \{ \vc{I}_2, \vc{\sigma}_z, \vc{\sigma}_y, \vc{\sigma}_x \} \right] = \GL{C}{2},
+%\end{equation}
+i.e. $\{ \vc{I}_2 \} \cup \left\lbrace \vc{\sigma}_k \text{ }\vert\text{ } k \in \{x,y,z\} \right\rbrace$ forms a basis of  $\GL{C}{2}$.
+Because the Pauli matricies form a basis for $\GL{C}{2}$, there must exist $\{ \spinor{2}{X}^S, \spinor{2}{X}^z, \spinor{2}{X}^y, \spinor{2}{X}^x \}$
+such that
+\begin{equation}
+\label{eq:XPauliBasis}
+\spinor{2}{X} = \spinor{2}{X}^S \otimes \vc{I}_2 + \sum_{k \in \{x,y,z\} } \spinor{2}{X}^k \otimes \vc{\sigma}_k \quad.
+\end{equation}
+From the definitions in \cref{eq:pauli}, we may define linear transformations ($\mathscr{T}$ and $\mathscr{T}^{-1}$) between the two bases and their
+components (the other being that of \cref{eq:XSpinComp}),
+\begin{subequations}
+\begin{align}
+% Basis transformation
+\label{eq:BasisTrans}
+&\begin{bmatrix}
+  \vc{I}_2 \\
+  \vc{\sigma}_z \\
+  \vc{\sigma}_y \\
+  \vc{\sigma}_x
+\end{bmatrix} = \mathscr{T} 
+\begin{bmatrix}
+  \mathbf{e}_\alpha \otimes \mathbf{e}_\alpha  \\
+  \mathbf{e}_\alpha \otimes \mathbf{e}_\beta  \\
+  \mathbf{e}_\beta  \otimes \mathbf{e}_\alpha   \\
+  \mathbf{e}_\beta  \otimes \mathbf{e}_\beta
+\end{bmatrix} \qquad
+%
+\mathscr{T} = 
+\begin{bmatrix}
+1 &  0 & 0 &  1 \\
+1 &  0 & 0 & -1 \\
+0 & -i & i &  0 \\
+0 &  1 & 1 &  0 \\
+\end{bmatrix} \quad, \\
+\nonumber\\
+% Component transformation
+\label{eq:CompTrans}
+&\begin{bmatrix}
+  \spinor{2}{X}^S \\
+  \spinor{2}{X}^z \\
+  \spinor{2}{X}^y \\
+  \spinor{2}{X}^x
+\end{bmatrix} = \mathscr{T}^{-T} 
+\begin{bmatrix}
+  \spinor{2}{X}^{\alpha \alpha}  \\
+  \spinor{2}{X}^{\alpha \beta} \\
+  \spinor{2}{X}^{\beta  \alpha}   \\
+  \spinor{2}{X}^{\beta  \beta}
+\end{bmatrix} \qquad
+%
+\mathscr{T}^{-1} = \frac{1}{2} \mathscr{T}^\dagger \quad.
+%\begin{bmatrix}
+%1 &  1 &  0 & 0 \\
+%0 &  0 &  i & 1 \\
+%0 &  0 & -i & 1 \\
+%1 & -1 &  0 & 0 \\
+%\end{bmatrix}
+\end{align}
+\end{subequations}
+By resolving the identity with $\mathscr{T}$ in \cref{eq:XSpinComp}, we arrive at \cref{eq:XPauliBasis}.
+
+As a consequence of \cref{eq:XPauliBasis,eq:BasisTrans,eq:CompTrans}, and number of properties are immediately evident. Firstly,
+suppose there is another rank-2 spinor $\spinor{2}{Y}$ described as in \cref{eq:XPauliBasis}, the product of $\spinor{2}{X}$ and 
+$\spinor{2}{Y}$ takes on a component form
+\begin{align}
+\label{eq:XYSpinorProd}
+\spinor{2}{XY} &= \left(\spinor{2}{X}^S \spinor{2}{Y}^S +  \sum_{k \in \{x,y,z\} } \spinor{2}{X}^I \spinor{2}{Y}^I\right) \otimes \vc{I}_2   \nonumber \\
+&\quad  + \sum_{k \in \{x,y,z\}} \left( \spinor{2}{X}^S \spinor{2}{Y}^k + \spinor{2}{X}^k \spinor{2}{Y}^S + \sum_{j,l \in \{x,y,z\}} i\epsilon_{kjl}\spinor{2}{X}^j \spinor{2}{Y}^l \right) 
+    \otimes \vc{\sigma}_k
+    \quad.
+\end{align}
+This form is convenient for a number of reasons, however in the context of electronic structure, \cref{eq:XYSpinorProd} exhibits particular utility in the
+context of operator traces, i.e. property evaluation. Using the product ansatz of \cref{eq:XYSpinorProd}, we may write the trace of $\spinor{2}{X}$ and
+$\spinor{2}{Y}$ (denoted $\mathrm{Tr}[\spinor{2}{X}\spinor{2}{Y}]$) simply as
+\begin{equation}
+\mathrm{Tr}[\spinor{2}{X}\spinor{2}{Y}] = 2\left( \mathrm{Tr}\left[\spinor{2}{X}^S\spinor{2}{Y}^S\right] + \sum_{k \in \{x,y,z\} } \mathrm{Tr}\left[\spinor{2}{X}^k\spinor{2}{Y}^k\right]\right) 
+\end{equation}
+This simplicity of this expression is due to the fact that the trace operation over the Kronecker product is given by
+\begin{equation}
+\mathrm{Tr}[\mathbf{A} \otimes \mathbf{B}] = \mathrm{Tr}[\mathbf{A}]\mathrm{Tr}[\mathbf{B}]
+\end{equation}
+and that the Pauli matricies are traceless with the exception of $\vc{I}_2$ which has a trace of 2.
