@@ -489,7 +489,10 @@ The tensors $O^1_{pq}$ and $O^2_{qprs}$ are defined as in \cref{eq:DiracInts}.
 
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
 molecular Hamiltonian, $\op{H}^\NR : \hilb{H}^\NR \mapsto \hilb{H}^\NR$, where $\hilb{H}^\NR$ describes a quantum
-system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei. $\op{H}^\NR$ is so fundamental to the description
+system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the absense of relativistic effects. As such,
+it is an approximation to the true Hilbert space which describes the physical state of affairs exactly, but it often
+provides a sufficient model for systems when effects such as those which arise from special relativity are unimportant.
+$\op{H}^\NR$ is so fundamental to the description
 of quantum molecular systems in that it is the linear operator on $\hilb{H}^\NR$ which represents the non--relativistic 
 total energy of the system.  In the absence of external fields, $\op{H}^\NR$ takes the form
 \begin{equation}
@@ -541,7 +544,7 @@ the quantum treatment of the electrons and the nuclei such that they may be trea
 %To this end,
 %we will work within the Born--Oppenheimer approximation \todo{cite} for the molecular Hamiltonian such that
 %we will consider a single tensor product ansatz for the total molecular wave function $\ket{\Psi_{tot}}$,
-To this end, we will work within the Born--Oppenheimer ansatz for the molecular wave function \todo{cite} such
+To this end, we will work within the Born--Oppenheimer ansatz for the molecular wave function \cite{Oppenheimer27_457,Tully98_407} such
 that it may be written as a single tensor product of an electronic and nuclear wave function,
 \begin{equation}
   \ket{\Psi_{tot}} \approx \ket{\Psi_{el}} \otimes \ket{\Theta_{nuc}}.
@@ -553,7 +556,7 @@ the nuclear kinetic energy to be negligible, i.e.
 \innerop{\Psi_{tot}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{tot}} \approx 0.
 \end{equation}
 This assumption is referred to as the Born--Oppenheimer approximation (a concept distinct from from the 
-Born--Oppenheimer ansatz for the molecular wave function) \todo{cite}. This is typically a safe assumption for reasonably
+Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
 the ratio of the electronic and nuclear masses, $\approx 10^{4}$. Thus, from the electronic perspective,
 the nuclear configuration is approximately static, and the electrons only ,,feel" the electrostatic
@@ -590,7 +593,7 @@ The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QW
 \label{eq:NRSCH}
 \op{H}^\BO_{el} \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)}
 \end{equation}
-and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \todo{cite}.
+and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \cite{Tully98_407}.
 In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
 equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. This is due to the fact that they
 are specialization of the original Schr\"{o}dinger Hamiltonian of the form
@@ -603,13 +606,13 @@ and perhaps the most glaring in the context of molecular calculations involving 
 is that in the limit of electrostatics in the absence of external fields there is only trivial action of the
 Hamiltonian onto the spin components of the electronic  wave function. To be clear, electronic spin is inherent in any quantum
 treatment of electrons as it manifests naturally through the irreducible representations of the Galilean group
-which governs non--relativistic mechanics \todo{cite}. Phenomenologically, one may introduce non--trivial spin manipulation into the non--relativistic
+which governs non--relativistic mechanics \cite{Levy67_286}. \co{Shure up or remove} Phenomenologically, one may introduce non--trivial spin manipulation into the non--relativistic
 Hamiltonian through the interaction with an external magnetic field, $\vc{B}$, via the spin--Zeeman term,
 \begin{equation}
 \op{H}^\BO_{el} \mapsto  \op{H}^\BO_{el} + \op{H}^\mathrm{Zeeman}, \qquad \op{H}^\mathrm{Zeeman}  = \frac{1}{2} \sum_{k=1}^3 B^k \pauli{k},
 \end{equation}
 due to observation of the linear relationship between the magnetic field strength and energy level splittings in the Stern--Gerlach 
-experiment\todo{cite Sakurai}. However, it is well known that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
+experiment\cite{Napolitano17_book}. However, it is well known that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
 of the electronic spin degrees of freedom in the strong field limit \todo{cite}, and clearly yields no mechanism to treat
 intrinsic effects such as zero--field splitting of electronic energy levels.
 
@@ -641,6 +644,34 @@ The following section provides a brief overview of the treatment of relativistic
 % Relativistic Hamiltonian
 \subsection{Approximate Relativistic Hamiltonians: The Dirac Equations and Two--Component Variants}
 \label{sec:RELH}
+
+To be clear, although it is rarely outright stated in the context of the electronic structure theory
+literature, there is no \emph{truely} relativistically covariant formulation of many--body quantum 
+mechanics. This is due to the fact that the Coulomb interaction only treats the instantaneous interactions
+of charged particles and is thus manifestly incapable of adhering to the principles of special relativity.
+One must venture into the realm of quantum field theory (QFT) in order to develop truely covariant quantized 
+descriptions of the electromagnetic force; however, QFT has proven to be rather difficult to exploit in
+the context of practical calculations on molecular systems \todo{cite Liu}. Here, we will work with
+\emph{approximate} relativsitic descriptions of molecular quantum mechanics within a Hamiltonian
+formulation, which have been shown to have good agreement with experiment.
+For simplicity in the subsequent developements, we will posit \emph{a priori} the validity of the 
+Born--Oppenheimer ansatz and approximations of the previous section in the context of relativistic
+theory \co{justify?}. Further, while no approximation of the quantum nature of the nuclei was required in the 
+context of the Sch\"{o}dinger equation, in the context of relativistic theory we will approximate
+nuclei to be classical charge distributions, i.e. no intrinic angular momentum (spin) which
+yields an absence of magnetic interactions into the Hamiltonian within the fixed nuclei approximation.
+This approximation is justified \co{because?}, and will drastically simplify the resulting 
+quantum mechanical treatment.
+
+Within the context of the electronic problem, relativistic quantum mechanics is approximately governed
+by the Breit equation,
+\begin{equation}
+\op{H}^\DCB \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
+\end{equation}
+where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb--Breit Hamiltonian.
+
+
+
 
 \todo{Dirac Hamiltonian + why it fixes things}
 \todo{DCB Hamiltoninan}

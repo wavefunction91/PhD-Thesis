@@ -1,7 +1,8 @@
 \chapter{Spin Algebra on Even Rank Spinors}
 \label{apx:SpinorOp}
 
-In this section, we review the necessary spin--algebra to supplement the development of non--collinear electronic structure methods.
+In this section, we develop the necessary spin--algebra on even ranked spinors to supplement the development 
+of non--collinear formulations of quantum mechanics.
 Let $\spinor{2}{X}$ be a rank-2 spinor, such that
 \begin{equation}
 \label{eq:XSpinBlock}
@@ -11,9 +12,12 @@ Let $\spinor{2}{X}$ be a rank-2 spinor, such that
     \spinor{2}{X}^{\beta\alpha}  & \spinor{2}{X}^{\beta\beta} \\
   \end{bmatrix}, 
 \end{equation}
-where $\left\lbrace\spinor{2}{X}^{\sigma\sigma'} \in \GL{C}{N}
+where $\left\lbrace\spinor{2}{X}^{\sigma\sigma'} \in S
 \text{ }\vert\text{ } \sigma,\sigma' \in \{\alpha,\beta\} \right\rbrace$ is a
-set of $N$-by-$N$ complex matrices. Thus $\spinor{2}{X} \in \GL{C}{N} \times \GL{C}{2}$.
+set of tensor components over some vector space $S$. In this work, the state of affairs will
+typically dictate $S = \GL{C}{N}$: the  of complex linear operators of dimension $N$. However, 
+for the pruposes of this appendix, a general space $S$ will suffice. From \cref{eq:XSpinBlock}, 
+it is clear $\spinor{2}{X} \in S \times \GL{C}{2}$.
 Choosing the standard basis of $\GL{C}{2}$ as $U^2 \times U^2$,
 we may recast \cref{eq:XSpinBlock} as
 \begin{equation}
