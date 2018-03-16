@@ -52,7 +52,7 @@ $\hilb{H}^1 = \Span{\hilb{C}}$. In the following, vectors in $\hilb{H}^1$, in pa
 will be referred to as orbitals.
 
 As the electron is the moiety of interest in this work, vectors in $\hilb{H}^N$ must adhere to certain additional 
-criteria in order for them to represent physically realizable wave functions. In the case of electrons, which are 
+criteria in order for them to represent physically realizable wave functions. As electrons are 
 fermions, physically relevant elements of $\hilb{H}^N$, which we will denote $\hilb{H}^N_- \subset \hilb{H}^N$, must 
 adhere to Fermi--Dirac statistics, namely that they must exhibit anti-symmetric behavior under particle permutation
 \cite{Walecka12_book,Schuck04_book}, i.e.
@@ -82,12 +82,13 @@ moiety with which we will develop the arithmetic of many body quantum theory. As
 for the Hartree product constructed for a general set $\set{\ket{\psi_p}}\subset\hilb{H}^1$ as
 $ \ket{\psi_1,\psi_2\cdots} \equiv \ket{\psi_1} \otimes \ket{\psi_2} \otimes \cdots$.
 
-As a basis for $\hilb{H}^N_-$, any vector $\ket{\Psi^N} \in \hilb{H}^N_-$ may be written as \cite{Ostlund12_book}
+As a basis for $\hilb{H}^N_-$, any vector $\ket{\Psi_n^N} \in \hilb{H}^N_-$ may be written as \cite{Ostlund12_book}
 \begin{equation}
-\ket{\Psi^N} = \sum_I D_I \ket{\Phi^N_I},
+\label{eq:SDBasis}
+\ket{\Psi_n^N} = \sum_I D^n_I \ket{\Phi^N_I},
 \end{equation}
-where $D_I\in\mathbb C$ is the complex expansion coefficient of the $I$-th configuration in the overall wave function,
-and $I$ runs over all possible $N$--particle Slater determinants which may be constructed from $\hilb{C}$.
+where $D^n_I = \inner{\Phi^N_I}{\Psi^N_n}\in\mathbb C$ is the complex expansion coefficient of the $I$-th configuration in the overall wave function,
+and $I$ runs over all unique $N$--particle Slater determinants which may be constructed from $\hilb{C}$.
 The fact that the set of all Slater determinants forms a basis for $\hilb{H}^N_-$
 serves as the primary foundation for the majority of approximate quantum mechanical methods regarding molecular
 systems. In the following, we will assume both $\ket{\Phi^N_I}$ and the elements of $\hilb{C}$ are orthonormal
@@ -355,6 +356,7 @@ Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$
 be used extensively in the following developments.
 
 
+\co{Consider reworking, not general to MC wave functions and should be for talk on response, etc}
 In the following, it will be useful to define the tensor density operator,
 \begin{equation}
   \label{eq:TensorDensity}
@@ -459,26 +461,138 @@ strings. As such, we may recast \cref{eq:SlaterDet} as a string of creation oper
 where $\ket{\Phi^N_I}_\hilb{F} \in \hilb{F}$ is the occupation vector representation of $\ket{\Phi^N_I}$.
 
 
-\todo{Wicks thm (mention)}
-\todo{Thouless thm}
 
-Perhaps the most remarkable result of second quantization for many--body quantum theory, at least in the 
-context of practical utility, is in the representation of $M$--particle operators on $\hilb{H}^N$ as 
-scalar contractions of $2M$--element operator strings with rank--$2M$ tensors on $\hilb{H}^1$,
+There are a number of remarkable simplifications that arise from the adoption of second quantization
+for the practical treatment of many--body quantum theory. The first that we will discuss here
+relates back to the completeness of the basis of Slater determinants in the construction
+of many--body fermionic wave functions, i.e. all many body wave functions may be constructed 
+as a linear combination of all of the unique Slater determininants which may be constructed
+from $\mathcal{C}$ (\cref{eq:SDBasis}), given that $\mathcal{C}$ is a complete basis for $\hilb{H}^1$. 
+To this end, we introduce the notion of an $N$--particle reference
+determinant which will be denoted $\ket{0^N}$ and is described by some configuration $\hilb{K}^N_0$.
+$\hilb{K}^N_0$ will be referred to as the \emph{occupied} space (denoted $\hilb{O} = \hilb{K}^N_0$), 
+and elements of the occupied space will be denoted with a subscript $i,j,k,\dots$,  i.e.
+$\ket{\phi_i} \in \hilb{O}$. Similarly, we will refer the elements of $\hilb{C}$ which are 
+not in $\hilb{O}$ as the unoccupied (or \emph{virtual}, denoted $\hilb{V} = \hilb{C} \setminus \hilb{O}$) space and elements of this space
+will be denoted with a subscript $a,b,c,\ldots$, i.e. $\ket{\phi_a} \in \hilb{V}$. Subscripts $p,q,r,\ldots$
+will remain as the notation for a general element of $\hilb{C}$ from either $\hilb{O}$ or $\hilb{V}$.
+Clearly, all $M$ particle Slater determinants (with $M$ not necessarily equal to $N$) which may be constructed from $\hilb{C}$ may be constructed 
+by constructing a configuration from $N_o$ elements of $\hilb{O}$ and $N_v$ elements of $\hilb{V}$
+such that $N_o + N_v = M$. Thus, logically, it follows that all $M$ particle determininants may be
+constructed by removing $ n_o = \min{(N-M,0)} + P $ orbitals from $\hilb{O}$ (with $P\in[0,\max{(N,N-M)}]$) and replacing them $ n_v = \max{(M-N ,0)} + P$ orbitials
+from $\hilb{V}$. In the language of second quantization, the act of removing and replacing orbitals 
+is made simple through the introduction of so called transition operators
+\begin{align}
+\left(\ket{0^N}_{ijk\cdots}^{abc\cdots}\right)_\hilb{F} = \tau_{ijk\cdots}^{abc\cdots} \ket{0^N}_\hilb{F},
+\end{align}
+where
+\begin{align}
+\tau_{ijk\cdots}^{abc\cdots} = \left(c_a^\dagger c_b^\dagger c_c^\dagger \cdots\right) \left( c_i c_j c_k \cdots\right).
+\end{align}
+Upon action, $\ket{0^N}_{ijk\cdots}^{abc\cdots}$ is an $ M = N - n_o + n_v $ particle Slater determinant built from removing
+orbitals $i,j,k,\ldots$ from $\ket{0^N}$ and replacing them with orbitals $a,b,c,\ldots \in \hilb{V}$. The set of all
+$\tau$ operators generates all $M$--particle Slater determinants from the $N$--particle reference \todo{cite Dalgaard}.
+It is worth noting at this point that due to that anticommutation relations of \cref{eq:SeQuantComm}, $\tau^{abc\cdots}_{ijk\cdots}$
+is anti symmetric with respect to permutation of adjacent creation and annihilation operators, i.e.
+\begin{equation}
+  \label{eq:AntisymmTau}
+  \tau^{abc\cdots}_{ijk\cdots} = - \tau^{acb\cdots}_{ijk\cdots} = - \tau^{abc\cdots}_{jik\cdots} = \tau^{acb\cdots}_{jik\cdots}.
+\end{equation} 
+Thus, necessarily, transition operators with repeated indicies are zero, $\tau^{aab\cdots}_{ijk\cdots} = \tau^{abc\cdots}_{iij\cdots} = 0$.
+Within this ansatz for constructing arbitrary Slater determinants from a reference, we may recast \cref{eq:SDBasis} 
+as
+\begin{equation}
+  \label{eq:CIExp}
+  \ket{\Psi^N_n} = \left(t^n\right)_0\ket{0^N} + \sum_{ai} \left(t^n\right)_i^a \ket{0^N}_i^a + 
+                   \sum_{abij} \left(t^n\right)_{ij}^{ab} \ket{0^N}_{ij}^{ab} + \sum_{abcijk} \left(t^n\right)_{ijk}^{abc} \ket{0^N}_{ijk}^{abc} + \cdots,
+\end{equation}
+where the transition amplitudes, $\vc{t}^n$, have taken the place of the $D^n_I$ amplitudes of the original expansion. Based on this
+construction, the components of $\vc{t}^n$ must also constitute an antisymmetric tensor in the same manner as \cref{eq:AntisymmTau}.
+The expansion of 
+\cref{eq:CIExp} may be further cast into a more general, and convienient form in terms of explicit action of the transition
+operators such that for an arbitrary $M$ particle Slater determinant,
+\begin{equation}
+  \label{eq:ExcitationOp}
+  \ket{\Psi^M_n}_\hilb{F} = \op{R}_n^{M,N} \ket{0^N}_\hilb{F},
+\end{equation}
+where $\op{R}_n^{N,M}$ is an ``excitation" operator which is defined as
+\begin{align}
+&\op{R}_n^{M,N} = 
+  \begin{cases}
+    \displaystyle \sum_{abc\cdots} \left( t^n \right)^{abc\cdots} \tau^{abc\cdots} + \sum_{abc\cdots di} \left( t^n \right)^{abc\cdots d}_i \tau^{abc\cdots d}_i +
+      \sum_{abc\cdots deij} \left( t^n \right)^{abc\cdots de}_{ij} \tau^{abc\cdots de}_{ij} + \cdots & M > N \\
+    \displaystyle\left( t^n \right)_0  + \sum_{ai} \left( t^n \right)^{a}_i \tau^{a}_i +
+      \sum_{abij} \left( t^n \right)^{ab}_{ij} \tau^{ab}_{ij} + \sum_{abcijk} \left( t^n \right)^{abc}_{ijk} \tau^{abc}_{ijk} + \cdots & M = N \\
+    \displaystyle \sum_{ijk\cdots} \left( t^n \right)_{ijk\cdots} \tau_{ijk\cdots} + \sum_{a ijk\cdots l} \left( t^n \right)^{a}_{ijk\cdots l} \tau^{a}_{ijk\cdots l} +
+      \sum_{abijk\cdots lm} \left( t^n \right)^{ab}_{ijk\cdots lm} \tau^{ab}_{ijk\cdots lm} + \cdots & M < N \\
+  \end{cases}
+\end{align}
+Here the extent of extended sums of transition operators involving unbalanced creating and annihliation operators in the cases $M\neq N$ is to be understood from
+the context, i.e. for the special case that $M= N+1$, we obtain
+\begin{align}
+&\op{R}_n^{N+1,N} = \sum_a \left( t^n \right)^a \tau^a + \sum_{abi} \left( t^n \right)^{ab}_i \tau^{ab}_i + 
+  \sum_{abcij} \left( t^n \right)^{abc}_{ij} \tau^{abc}_{ij} + \cdots
+\end{align}
+The remarkable thing about \cref{eq:ExcitationOp} is that all possible many body wave functions may constructed from a single Slater determinant
+within an operator formalism. Thus one need only understand the manipulation of $\op{R}^{M,N}_n$ in the context of other many--body operators
+and how their combined action affects the reference determinant to to determine expectation values: the primary moiety which we will 
+manipulate in this work.
+
+To this point, the next property of second quantization which we will exploit in this work,
+and the one that we will use most often, is the fact that one may
+cast $M$--particle operators on $\hilb{H}^N$ as scalar contractions of $2M$--element operator 
+strings with rank--$2M$ tensors on $\hilb{H}^1$ \cite{Walecka12_book,Schuck04_book,Ostlund12_book},
 \begin{subequations}
 \begin{align}
   &\sum_i \op{O}^1(i) \mapsto \op{O}_\hilb{F}^1 = \sum_{pq}   O^1_{pq} c^\dagger_p c_q,\\
   &\sum_{i\neq j}\op{O}^2(i,j) \mapsto \op{O}_\hilb{F}^2 = \sum_{pqrs} O^2_{qprs} c^\dagger _p c^\dagger _q c_r c_s.
 \end{align}
 \end{subequations}
-The tensors $O^1_{pq}$ and $O^2_{qprs}$ are defined as in \cref{eq:DiracInts}.
+The tensors $O^1_{pq}$ and $O^2_{qprs}$ are defined as in \cref{eq:DiracInts}. This is a truely remarkable
+result from a practical perspective at it allows a simple prescription  for the evaluation of 
+inner products for general elements $\ket{\Psi_n^N}, \ket{\Psi_m^N} \in \hilb{H}^N$
+\begin{subequations}
+\label{eq:SeQuantInner}
+\begin{align}
+&\innerop{\Psi_n^N}{\sum_i \op{O}^1(i)}{\Psi_m^N} = \sum_{pq} O^1_{pq} \innerop{\Psi_n^N}{c_p^\dagger c_q}{\Psi_m^N}_\hilb{F}, \\
+&\innerop{\Psi_n^N}{\sum_{i\neq j} \op{O}^2(i,j)}{\Psi_m^N} = \sum_{pq} O^1_{qprs} \innerop{\Psi_n^N}{c_p^\dagger c_q^\dagger c_r c_s}{\Psi_m^N}_\hilb{F}.
+\end{align}
+\end{subequations}
+The moieties $\innerop{\cdot}{\cdot}{\cdot}_\hilb{F}$ denote that all quantities in that inner product are expressed in second quantization.
+To demonstrate the utility of this concept, we examine the substitution of the reference excitation ansatz from \cref{eq:ExcitationOp}
+into the one--body inner product such that
+\begin{align}
+\label{eq:SeQuantInnerExp}
+&\innerop{\Psi_n^N}{c_p^\dagger c_q}{\Psi_m^N}_\hilb{F} = \innerop{0^N}{\op{R}^{N,N\dagger}_n c_p^\dagger c_q \op{R}^{N,N}_m}{0^N}_\hilb{F} \nonumber \\
+&\qquad= \left( t^n \right)^*_0 \left(
+     \left( t^m \right)_0 \innerop{0^N}{c_p^\dagger c_q}{0^N}_\hilb{F} +
+     \sum_{ai} \left( t^m \right)^{a}_i \innerop{0^N}{c_p^\dagger c_q \tau^{a}_i}{0^N}_\hilb{F} + \cdots
+   \right) + \nonumber \\
+&\qquad \quad \sum_{ai}\left( t^n \right)^{a*}_i \left(
+         \left( t^m \right)_0 \innerop{0^N}{\tau_i^{a\dagger} c_p^\dagger c_q}{0^N}_\hilb{F} +
+         \sum_{bj} \left( t^m \right)^{b}_j \innerop{0^N}{\tau_i^{a\dagger} c_p^\dagger c_q \tau^{b}_j}{0^N}_\hilb{F} + \cdots
+       \right) + \nonumber\\
+&\qquad \quad \cdots
+\end{align}
+As first glance, it may seems as though casting the inner product into a second quantized form has drastically complicated its evaluation.
+However, upon careful introspection, one sees that the rather complicated task of evaluating inner productions for determinants 
+of the form \cref{eq:SlaterDet} or \cref{eq:SlaterDetSpace}, which involve the evaluation of rather complicated many body integrals,
+into tensor contractions of few body integrals (\cref{eq:DiracInts}) and transition amplidues ($\vc{t}^n$),
+with inner products involving strings of creation and annihilation operators. Given the prior, one may heavily exploit the
+commutation relationships of \cref{eq:SeQuantComm} to easily evaluate inner products of arbitrary operator strings through
+various diagramatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book} \todo{more cites}.
 
-\begin{equation}
-  \ket{\Phi^N_I} = t^I_0\ket{0} + \sum_{ai} t^I_{ai} \ket{0}_i^a + \sum_{abij} t^I_{abij} \ket{0}_{ij}^{ab} + \sum_{abcijk} t^I_{abcijk} \ket{0}_{ijk}^{abc} + \cdots
-\end{equation}
+In essence, second quantization provides a common language which allows one to factor elements of a particular many--body
+quantum theory into parts which are dependent and independent of the single--particle basis. Such a state of affairs has
+been demonstrated in \cref{eq:SeQuantInner,eq:SeQuantInnerExp}. If one can define an inner product on $\hilb{H}^1$ and
+is able to develop an ansatz for the form of \cref{eq:ExcitationOp} for a particualr theory, it is immediately compatible
+with second quantization. In this work, second quantization will play a crutial role in the translation of the
+results of non--relativistic quantum mechanics to the consistent treatment of relativistic effects.
 
-\co{Note: no dependence on choice of single particle basis, depends solely on definition of inner product and evaluation of SQ strings}
 
+
+\subsection{Mean--Field Quantum Mechanics}
+\label{sec:MF}
 
 
 
@@ -683,13 +797,6 @@ where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coul
 
 
 
-
-
-
-
-
-\subsection{Mean--Field Quantum Mechanics}
-\label{sec:MF}
 
 
 % Semi--Classical Light Matter
