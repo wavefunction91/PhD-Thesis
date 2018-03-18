@@ -26,7 +26,9 @@ for the physical system, $\op{H} : \hilb{H} \rightarrow \hilb{H}$, through the w
   \qquad \ket{\Psi(t)} \in \hilb H.
 \end{equation}
 Here, $t$ is the proper time of the quantum system and $\partial_t$ is the partial derivative
-of the wave function with respect to time.
+of the wave function with respect to time. The explicit dependence on $t$ will be dropped
+for brevity in much of the following, except for when its presence is required to
+avoid ambiguity.
 The nature of $\op H$ for various physical situations and approximations relevant
 to this work will be discussed in detail in later sections 
 (see \cref{sec:NRH,sec:RELH} for instance), however the mere existence of such
@@ -63,13 +65,13 @@ adhere to Fermi--Dirac statistics, namely that they must exhibit anti-symmetric 
 where $\hilb{P}_{ij}$ is the particle permutation operator which interchanges particle $i$ and $j$ 
 (for a more thorough discussion on linear operators acting on $\hilb{H}^N$, see \cref{sec:LO}). Remark
 that this notion of particle interchange is intimately related to \cref{eq:SepHilbert}. With this additional
-constraint, we may construct a basis for $\hilb{H}^N_-$ with elements
+constraint, we may construct a basis for $\hilb{H}^N_-$ with elements \todo{find a good reference}
 \begin{equation}
   \label{eq:SlaterDet}
   \ket{\Phi^N_I} = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } \bigotimes_{i = 1 }^N \ket{\phi_{\xi(i)}},
 \end{equation}
 where $\hilb{K}_I^N$ is an $N$--element subset of $\hilb{C}$ and $S_N(\hilb{K}_I^N)$ is the symmetric group
-of $\hilb{K}_I^N$ which consists of all permutations of its elements, which are denoted here as permutation
+of $\hilb{K}_I^N$ which consists of all permutations of its elements; denoted here as permutation
 functions $\xi$. $\Sign{\xi} \in \{ \pm 1 \}$ denotes the sign of the permutation and ensures the anti--symmetry of
 the overall wave function. \Cref{eq:SlaterDet} introduces a number of concepts with are typically jargonized 
 in the quantum chemistry community. In this work, $\hilb{K}_I^N$ will be referred to as an $N$--particle
@@ -97,9 +99,9 @@ with respect to the metric on their respective Hilbert spaces.
 While the Hilbert space representation of the wave function is the most illuminating description for the development of
 general quantum mechanical theory, it is often advantageous from the perspective of practical calculations that one
 projects the vectors of the Hilbert space onto a convenient basis. 
-To this end, we consider a specific single particle spinor basis, $\set{\ket{\vc{r},\sigma} = \ket{\vc{r}}\otimes\ket{\sigma}}$, 
+To this end, we consider a specific single particle basis, $\set{\ket{\vc{r},\sigma} = \ket{\vc{r}}\otimes\ket{\sigma}}$, 
 which consists of the simultaneous eigenfunctions
-of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$ respectively,
+of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$,
 such that
 \begin{subequations}
 \begin{align}
@@ -177,15 +179,15 @@ where we have denoted
   \inner{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N}{\Phi^N} \equiv \Phi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N).
 \end{equation}
 In this work, many--body wave functions of the form \cref{eq:SpinorWfn} will be referred to as spinor wave functions.
-In particular, the utility of such as basis expansion manifests in the context of Slater determinants, such that as
-a direct consequence of \cref{eq:SlaterDet,eq:MBSpinorBasis,eq:SpinorOrbital} we may express
+The utility of such as basis expansion manifests in the context of Slater determinants in that as
+a direct consequence of \cref{eq:SlaterDet,eq:MBSpinorBasis,eq:SpinorOrbital}, we may express
 \begin{equation}
   \label{eq:SlaterDetSpace}
   \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } 
     \prod_{i = 1 }^N \phi_{\xi(i)}(\vc{x}_i).
 \end{equation}
 Unlike the tensor product definition of \cref{eq:SlaterDet}, the expression of the Slater determinant in will prove to be of 
-much of practical utility due to the fact that the spinor orbital basis is commutative.
+much of practical utility due to the fact that the spinor orbital basis, as a set of complex valued functions, is commutative.
 
 \subsection{Representation of Linear Operators and Expectation Values}
 \label{sec:LO}
@@ -199,7 +201,7 @@ of these operators and how they will typically manifest in the context of \cref{
 In this work, linear operators which act on $\hilb{H}^N$, $\op{O}^N : \hilb{H}^N \mapsto \hilb{H}^N$, will be referred to as 
 $N$--particle operators. As was the case for the state vectors of $\hilb{H}^N$, the general description of $\op{O}^N$
 as an operator on a Hilbert space is indeed the most illuminating treatment for general manipulations of quantum mechanical
-operators which is independent of coordinate projection; however, it will often be the case that we must examine the
+operators which is independent of coordinate projection. However, it will often be the case that we must examine the
 projection of these operators onto a coordinate space in order to perform practical calculations. To demonstrate this, we examine
 the action of an operator $\op{O}^1$ on the spinor basis $\set{\ket{\vc{x}}}$ from \cref{sec:SD} through the identity resolvent in
 \cref{eq:H1Identity},
@@ -315,7 +317,7 @@ Hilbert spaces, $N$--particle operators need not carry the same structure,
 i.e. in general, these operators need not exist solely as direct products of operators on $\hilb{H}^1$. This is not to say
 that $N$--particle operators \emph{cannot} adopt a product structure, just that it is not a requirement, and indeed
 if often not the case. However, the notion that some $N$--particle operators \emph{can} adopt a product structure indicates the need
-to describe the action of $M$--particle operators on $\hilb{H}^N$ (with $N>M$) while leaving $N-M$ particles unchanged.
+to describe the action of $M$--particle operators on $\hilb{H}^N$ (with $N \geq M$) while leaving $N-M$ particles unchanged.
 To demonstrate this state of affairs, it is convenient to examine the action of such an operator, $\op{O}^M(i,j,\ldots)$, on a 
 spinor wave function of the form \cref{eq:SlaterDetSpace},
 \begin{align}
@@ -328,7 +330,7 @@ spinor wave function of the form \cref{eq:SlaterDetSpace},
 where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particles upon which it acts.
 In this work, we will typically be concerned with operators which act on no more than two particles at a time.
 
-It will be often the case in this work that $N$--particle operators may be expressed as sums over one and
+It will be often the case that $N$--particle operators may be expressed as sums over one and
 two particle operators. In this context , the realization of \cref{eq:MOpSpace} is of exceptional utility in that,
 for an expectation value involving a particular Slater determinant described by configuration $\mathcal{K}_I^N$
 \cite{Ostlund12_book},
@@ -357,7 +359,7 @@ be used extensively in the following developments.
 
 
 \co{Consider reworking, not general to MC wave functions and should be for talk on response, etc}
-In the following, it will be useful to define the tensor density operator,
+In the following, it will be useful to define the density operator,
 \begin{equation}
   \label{eq:TensorDensity}
 \op{\vc{\rho}}(\vc{r};\vc{x}_i)  = \begin{bmatrix} \op{\rho}^0(\vc{r};\vc{x}_i) \\ \op{\rho}^1 (\vc{r};\vc{x}_i)\\\op{\rho}^2(\vc{r};\vc{x}_i) \\ \op{\rho}^3(\vc{r};\vc{x}_i) \end{bmatrix},
@@ -366,7 +368,15 @@ such that
 \begin{equation}
 \op{\rho}^K(\vc{r};\vc{x}_i) = \delta^3(\vc{r} - \vc{r}_i) \otimes \pauli{K}.
 \end{equation}
-Action of $\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)$ generates a tensor field on $\mathbb R^3$. Applying \cref{eq:SlaterCondon,eq:DiracInts}, 
+Action of $\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)$ generates a tensor field on $\mathbb R^3$, 
+%such that for some pair
+%$\ket{\Psi^N_m},\ket{\Psi^N_n} \in \hilb{H}^N$,
+%\begin{equation}
+%\vc{\rho}_{mn}(\vc{r}) = \innerop{\Psi^N_m}{\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)}{\Psi^N_n} = 
+%\begin{bmatrix} {\rho_{mn}^0}(\vc{r}) \\ {\rho_{mn}^1} (\vc{r})\\{\rho_{mn}^2}(\vc{r}) \\ {\rho_{mn}^3}(\vc{r}) \end{bmatrix},
+%\end{equation}
+
+Applying \cref{eq:SlaterCondon,eq:DiracInts}, 
 for a particular Slater determinant we obtain,
 \begin{equation}
 \vc{\rho}_I(\vc{r}) = \innerop{\Phi_I^N}{\sum_i \op{\vc{\rho}}(\vc{r};\vc{x}_i)}{\Phi_I^N} = 
@@ -591,10 +601,32 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 
 
-\subsection{Mean--Field Quantum Mechanics}
+\subsection{Mean--Field Quantum Mechanics and Basis Set Expansions}
 \label{sec:MF}
 
+Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
+to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
+in the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursorary
+inspection of the nature of $\mathcal{C}$ indicates that it must be countably infinite in order to 
+satisfy completeness on $\hilb{H}^1$ \todo{confirm, cite?}. Thus it must be truncated in some systematic
+way in order for it to be useful in any practical treatment of the many body problem.
 
+The electronic Hamiltonians one typically encounters for molecular systems with $N_\mathrm{el}$ electrons,
+$\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
+\begin{equation}
+\op{H}_{el} = \sum_{i}^{N_\mathrm{el}} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}(i,j),
+\end{equation}
+where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and potential operators respectively.
+$\op{g}$ is a two--body operator which describes the interaction between two electrons.
+At this point, the explicit structure of these operators are immaterial to the following developments; simply
+noting that the presence of $\op{g}$ renders direct solution of \cref{eq:QWave} for the many body
+wave function impractical \todo{cite}. Given this general form, there are several ways one may construct a suitable
+$\mathcal{C}$ \todo{cites?}. In this work, we will be primarily concerned with optimizing a set $\mathcal{C}$ such that
+we may construct a reference determinant (per \cref{eq:ExcitationOp}) which minimizes an energy functional,
+\begin{equation}
+E[\Psi] = \frac{\innerop{\Psi}{\op{H}_{el}}{\Psi}}{\inner{\Psi}{\Psi}},
+\end{equation}
+where $\ket{\Psi}$ is an arbitrary element of $\hilb{H}^{N_{\mathrm{el}}}$. 
 
 
 % Non--Relativistic Hamiltonian
