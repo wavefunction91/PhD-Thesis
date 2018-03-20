@@ -470,6 +470,7 @@ This realization allows for a simplification of  \cref{eq:GenDenMatInner}, such 
 where all of the Pauli components of the spinor operator and RDMs are hermetian. In the case of a single Slater 
 determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components of the 1RDM are given by
 \begin{subequations}
+  \label{eq:SpinorDensity}
 \begin{align}
   &\gamma_I^0(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right), \\
   &\gamma_I^1(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') \right), \\
@@ -827,19 +828,19 @@ component of the wave function and is valid in the inertial frame of the electro
 where
 \begin{align}
   &\op{V}_{ne}(\vc{x}_i) = 
-    -\sum^{N_\mathrm{nuc}}_A \left(\int_{\mathbb R^3} \frac{Z_A\rho^0_\mathrm{nuc,A}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0}, \\
-&E_{nn} = \frac{1}{2} \sum^{N_\mathrm{nuc}}_{A\neq B} \iint_{\mathbb R^3} \frac{Z_AZ_B\rho^0_\mathrm{nuc,A}(\vc{R})\rho^0_\mathrm{nuc,B}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'.
+    -\sum^{N_\mathrm{nuc}}_A \left(\int_{\mathbb R^3} \frac{Z_A\rho^{1,0}_\mathrm{nuc,A}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0}, \\
+&E_{nn} = \frac{1}{2} \sum^{N_\mathrm{nuc}}_{A\neq B} \iint_{\mathbb R^3} \frac{Z_AZ_B\rho^{1,0}_\mathrm{nuc,A}(\vc{R})\rho^{1,0}_\mathrm{nuc,B}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'.
 \end{align}
-$\rho^0_{nuc,A}(\vc{R})$ is the scalar density of the $A$--the nucleus defined through a proper generalization of
-\cref{eq:TensorDensity,eq:DensityInner} for non spin--1/2 fermions. The explicit form of $\rho^0_{nuc,A}(\vc{R})$ immaterial
+$\rho^{1,0}_{nuc,A}(\vc{R})$ is the one particle scalar density of the $A$--the nucleus defined through a proper generalization of
+\cref{eq:SpinorDensity} for non spin--1/2 fermions. The explicit form of $\rho^{1,0}_{nuc,A}(\vc{R})$ immaterial
 to this work except for the property,
 \begin{equation}
-\sum_A^{N_\mathrm{nuc}} \int_{\mathbb R^3} \rho_{nuc,A}^0(\vc{R}) \dd^3\vc{R} = N_\mathrm{nuc}.
+\sum_A^{N_\mathrm{nuc}} \int_{\mathbb R^3} \rho_{nuc,A}^{1,0}(\vc{R}) \dd^3\vc{R} = N_\mathrm{nuc}.
 \end{equation}
-This criteria is clearly met if $\rho_{nuc,A}(\vc{R})$ is a normalized function. In this work, we will approximate
-$\rho_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \todo{cite},
+This criteria is clearly met if $\rho^{1,0}_{nuc,A}(\vc{R})$ is a normalized function. In this work, we will approximate
+$\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \todo{cite},
 \begin{equation}
-\rho_{nuc,A}(\vc{R}) = \mathcal{N} e^{-\gamma_A(\vc{R} - \vc{R}_A)^2},
+\rho^{1,0}_{nuc,A}(\vc{R}) = \mathcal{N} e^{-\gamma_A(\vc{R} - \vc{R}_A)^2},
 \end{equation}
 where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
 
