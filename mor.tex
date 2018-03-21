@@ -5,6 +5,305 @@
 \section{Application of Model Order Reduction to the Linear Absorption 
   Cross Section}
 
+\subsection{Computational results}
+\label{sec:MORresults}
+
+The proposed automatic MOR algorithm has been implemented in the Chronus
+Quantum software package\cite{chronusq_beta} and in
+MATLAB\footnote[4]{https://bitbucket.org/roelvb/mor4absspectrum}.
+The following numerical experiments were performed using a single
+Sandy--Bridge Intel Xeon compute node (E5-2650 v2 @ 2.60 GHz) with 16
+cores and 512 GB DDR3 RAM. All of the water cluster test cases were performed
+using the 6-31G(d) basis set without the use of molecular symmetry and
+were chosen for their dense spectral character in the X-Ray spectral domain.
+All of the geometries for the water clusters used in this work may be
+found in the supplemental information.
+
+The implementation of the MOR utilizes a synchronized approach to the
+Generalized Minimum Residual (GMRES)\cite{Walker88_152} algorithm for the
+solution of the linear systems. In this approach \cite{shak2016}, each linear
+system is solved individually via the standard GMRES algorithm but its
+matrix-vector products (GEMVs), which constitutes the dominant cost, are synchronized
+and performed in batches. Hence, the GEMVs become matrix-matrix
+products (GEMMs) and allow for optimal efficiency and cache utilization through
+the use of Level 3 BLAS operations. In all experiments we used a block size of
+12, coming from combining the 3 dipole vectors at 4 interpolation frequencies.
+
+Several numerical experiments were performed to demonstrate the performance and accuracy of the proposed MOR algorithms. Since the interpolation points are merely used to construct a reduced order model, it is conceivable that we may choose them to be real numbers instead of complex numbers that contain a small imaginary damping factor.  The advantage of choosing real interpolation points is that all linear systems can be solved in real arithmetic. However, as we will see below, this approach may not lead to any performance gain and can even lead to a performance degradation.
+
+We also examined how the order of the reduced order model changes as the damping factor $\eta$ changes and as the size of the molecular system increases as well as the overall computational scaling of the proposed method using the aforementioned water clusters. Numerical comparisons are made to the Lorentzian broadened poles of the propagator using the oscillator strengths \cite{Ball64_844,Harris69_3947,McKoy75_1168}. The eigenvalues and oscillator strengths were computed via BSEPACK\cite{bsepack,SJYDL2016} on a Cray XC40 with Haswell Intel Xeon compute nodes (E5-2698 v3 @2.3 GHz, 2x16 cores, 128 GB DDR4 RAM). The broadening factor was set equal to $\eta$ for comparison with the approximate MOR experiments.
+
+% --- Real versus complex interpolation frequencies --- %
+\subsubsection{Real versus complex interpolation frequencies}
+\label{sec:MORresults-points}
+
+We start with a cluster of 5 water molecules and are interested in computing
+the absorption spectrum in the energy window $[540\,\eV,600\,\eV]$. The
+dimension of the matrix $\mathbf{H}$ \cref{eq:defH} was $2n = 6$,500 and $\mathbf{H}$ had
+394 eigenvalues in the energy window. The damping factor was $\eta = 1\,\eV$
+and the tolerance for solving the linear systems was set to $10^{-6}$. The
+damping factor was chosen to roughly \ch{encompass}{mimic} the effects of the core-hole
+lifetime of the $K$-edge transitions in oxygen and vibrational
+broadening\cite{Stohr_book}. \ins{It is important to note that the broadening due to
+the damping parameter in these simulations is purely phenomenological, as no
+vibronic effects are being explicitly treated.}
+
+\begin{figure}[hbtp]
+\fignames{fixed-}
+\subfloat[\Cref{alg:mor}: real $\tau_j$]      {\plotfixed{2}{$k = 32$}}%
+\subfloat[\Cref{alg:mor}: complex $\tau_j$]   {\plotfixed{3}{$k = 32$}}\\[10pt]
+\subfloat[\Cref{alg:mor-MK}: real $\tau_j$]   {\plotfixed{4}{$k = 32$}}%
+\subfloat[\Cref{alg:mor-MK}: complex $\tau_j$]{\plotfixed{5}{$k = 32$}}\\[10pt]
+\caption{Numerical experiments for the evaluation of the XAS spectrum of 5 H$_2$O
+clusters by the proposed MOR algorithms using a fixed model order ($k = 32$).
+The MOR results are compared to the Lorentzian broadened poles of the
+propagator, labelled Eigensystem. A damping parameter of $1\,\eV$ was chosen both
+for the MOR calculations and the broadening factor of the Lorentzians for the
+reference. It can be seen that the use of complex interpolation frequencies
+for the construction of the model basis is important in spectrally dense
+regions.}
+\label{fig:fixed}
+\end{figure}
+
+In the first experiment, we used a fixed order $k = 32$ for the reduced order models and only changed the interpolation frequencies $\tau_j$, $j = 1,2,\ldots,k$. We computed the absorption spectrum by \cref{alg:mor,alg:mor-MK} for both real $\tau_j = \omega_j$ and complex $\tau_j = \omega_j + i\eta$, where $\omega_j$ were uniformly selected in the energy window. The corresponding results are presented in \cref{fig:fixed} and in the top part of \cref{tab:real-vs-complex}. Note that by using complex interpolation frequencies $\tau_j$, we obtained  good approximations to the absorption spectrum from both \cref{alg:mor,alg:mor-MK} even with such a small model size. On the other hand, the use of real $\tau_j$ resulted in poor approximations for both algorithms. This is due to the fact that the (real) interpolation frequencies are often very close to the (real) eigenvalues of $(\mathbf{H},\mathbf{S})$ or $\mathbf{M}\mathbf{K}$, resulting in ill-conditioned linear systems to be solved. However, this can be avoided with complex interpolation frequencies.
+
+%%% TABLE %%%
+\begin{table}[!b]
+\caption{The effect of using real and complex interpolation frequencies $\tau_j$ on the MOR evaluation of XAS spectra for 5 H$_2$O clusters. Computational expense for \cref{alg:mor,alg:mor-MK}. Here $k$ is the reduced order, GEMMs is the total number of matrix-matrix products, and the total wall-clock time is given in seconds.%
+\label{tab:real-vs-complex}}
+\vspace{-0.5em}
+\begin{center} \small
+\begin{tabularx}{0.7\textwidth}{l|crc|crc|crc}
+\toprule
+\multicolumn{1}{c|}{Algorithm} &
+ \multicolumn{3}{c|}{$k$} &
+ \multicolumn{3}{c|}{GEMMs} &
+ \multicolumn{3}{c}{Wall (s)} \\
+\midrule
+\Cref{alg:mor}: real $\tau_j$       &&  32 &&& 1,052 &&& 19.76 & \\
+\Cref{alg:mor}: complex $\tau_j$    &&  32 &&& 776 &&& 40.97 & \\
+\Cref{alg:mor-MK}: real $\tau_j$    &&  32 &&& 985 &&& 9.78 & \\
+\Cref{alg:mor-MK}: complex $\tau_j$ &&  32 &&& 646 &&& 17.5 & \\
+\midrule
+\Cref{alg:mor}: real $\tau_j$       && 218 &&& 7,440 &&& 137.01 & \\
+\Cref{alg:mor}: complex $\tau_j$    &&  87 &&& 2,285 &&& 115.50 & \\
+\Cref{alg:mor-MK}: real $\tau_j$    && 211 &&& 6,541 &&& 65.31 & \\
+\Cref{alg:mor-MK}: complex $\tau_j$ &&  87 &&& 2,026 &&& 52.70 & \\
+\midrule
+\multicolumn{4}{l|}{Conventional CPP (1,000 points)}          &&   18,126   &&&   538.90   & \\
+\bottomrule
+\end{tabularx}
+\vspace{-1em}
+\end{center}
+\end{table}
+
+Next, we repeated the previous experiment but chose the interpolation
+frequencies via the adaptive refinement strategy introduced in
+\cref{sec:mor}. As the error estimates, we used the difference of
+the normalized absorption spectrum between two consecutive refinement
+levels. The tolerance was set to $0.01$, which corresponds to a 1
+percent change in the overall absorption spectrum on the window
+$[540\,\eV,600\,\eV]$. This resulted in reduced order models of different
+orders $k$, reported in the middle part of
+\cref{tab:real-vs-complex}. We observe that in terms of the order
+$k$, the use of complex interpolation frequencies has a significant advantage
+over the use of real frequencies. Further, we also observe that the adaptive refinement strategy
+for \cref{alg:mor,alg:mor-MK} resulted in very similar orders $k$ when the
+same type of interpolation frequencies are used.
+
+The corresponding computational expense for the previous two experiments is reported in \cref{tab:real-vs-complex} using various metrics. We observe that for both fixed and adaptive model orders, the computational cost required for \cref{alg:mor-MK} was significantly lower than that of \cref{alg:mor}. This is expected as both methods are mathematically equivalent and the former only deals with linear systems of half the dimension of the latter. Furthermore, although \emph{real} interpolation frequencies allow us to solve only \emph{real} linear systems, we observe that in case of adaptively chosen model orders, the drastic decrease in model order required for complex interpolation frequencies over real frequencies offsets this advantage. Finally, we note at the bottom of \cref{tab:real-vs-complex} that the use of \cref{alg:mor-MK} with complex interpolation frequencies reduces the computational expense by a factor of almost 10 compared to conventional complex polarization propagator calculations on a fine grid.
+
+% --- Computational scaling --- %
+\subsubsection{Computational scaling}
+\label{sec:MORresults-scaling}
+
+We now consider water clusters consisting of 5, 10, 15, 20, and 25 water molecules. The corresponding matrix dimensions are shown in \cref{tab:waters}. The energy window $[540\,\eV,600\,\eV]$ and damping factor $\eta = 1\,\eV$ were the same as for the previous experiments. We computed the absorption spectrum via \cref{alg:mor-MK} with complex interpolation frequencies chosen adaptively. The obtained absorption spectra are shown in \cref{fig:water}.
+
+%%% FIGURE %%%
+\begin{figure}[hbtp]
+\centering
+\figname{water_cluster_10H2O}%
+\subfloat[Water cluster 10\,H$_2$O]{\plotspectrumos{water_cluster_10H2O_cq}{1}{$k = 82$}{10H2O}}
+\figname{water_cluster_15H2O}%
+\subfloat[Water cluster 15\,H$_2$O]{\plotspectrumos{water_cluster_15H2O_cq}{1}{$k = 82$}{15H2O}}\\[10pt]
+\figname{water_cluster_20H2O}%
+\subfloat[Water cluster 20\,H$_2$O]{\plotspectrumos{water_cluster_20H2O_cq}{1}{$k = 91$}{20H2O}}%
+\figname{water_cluster_25H2O}%
+\subfloat[Water cluster 25\,H$_2$O]{\plotspectrumos{water_cluster_25H2O_cq}{1}{$k = 94$}{25H2O}}\\[10pt]
+\caption{Numerical experiments for the evaluation of the XAS spectrum of variably sized
+H$_2$O clusters via \cref{alg:mor-MK} with adaptively chosen complex interpolation
+frequencies. The MOR results are compared to the Lorentzian broadened poles of the
+propagator, labelled Eigensystem. A damping parameter of $1\,\eV$ was chosen both
+for the MOR calculations and the broadening factor of the Lorentzians for the
+reference.}
+\label{fig:water}
+\end{figure}
+
+%%% TABLE %%%
+\begin{table}[hbtp]
+\caption{Numerical experiments for the evaluation of the XAS spectrum of variably sized
+H$_2$O clusters via \cref{alg:mor-MK} with adaptively chosen complex interpolation
+frequencies. Here, $\mathbf{M}\mathbf{K}$ is of dimension $n$
+with $\#\lambda$ eigenvalues lying within the energy window
+$[540\,\eV,600\,\eV]$. The comparisons are made for GMRES convergence
+tolerances of $10^{-4}$, $10^{-5}$, and $10^{-6}$, with $k$ as the reduced model order,
+GEMMs as the total number of matrix-matrix products, and the total wall-clock time is given in
+seconds.%
+\label{tab:waters}}
+\vspace{-0.5em}
+\begin{center} \small
+\begin{tabularx}{\textwidth}{rrr|rrr|rrr|rrr}
+\toprule
+\multicolumn{3}{c|}{Waters} &
+ \multicolumn{3}{c|}{GMRES tol = $10^{-4}$} &
+ \multicolumn{3}{c|}{GMRES tol = $10^{-5}$} &
+ \multicolumn{3}{c}{GMRES tol = $10^{-6}$} \\[2pt]
+\multicolumn{1}{c}{\#} &
+ \multicolumn{1}{c}{$n$} &
+ \multicolumn{1}{c|}{\#$\lambda$} &
+ \multicolumn{3}{l|}{\ \,$k$ \hfill GEMMs \hfill Wall (s)} &
+ \multicolumn{3}{l|}{\ \,$k$ \hfill GEMMs \hfill Wall (s)} &
+ \multicolumn{3}{l}{\ \,$k$ \hfill GEMMs \hfill Wall (s)} \\
+\midrule
+ 5 &  3,250 &   394 & \ 76 &   968 &     27.2 & \ 87 & 1,654 &     43.4 & \ 87 & 2,025 &     52.7 \\
+10 & 13,000 & 1,456 &   99 & 1,749 &    636.2 &   83 & 2,404 &    867.1 &   82 & 3,235 &  1,157.0 \\
+15 & 29,250 & 3,183 &   99 & 2,221 &  4,141.8 &   82 & 2,946 &  5,511.9 &   82 & 4,018 &  7,534.4 \\
+20 & 52,000 & 5,524 &  123 & 2,742 & 14,665.8 &   89 & 3,317 & 17,807.0 &   91 & 4,594 & 25,656.5 \\
+25 & 81,250 & 8,530 &  123 & 2,610 & 34,128.8 &   95 & 3,694 & 47,697.1 &   94 & 5,020 & 65,284.1 \\
+\bottomrule
+\end{tabularx}
+\vspace{-1em}
+\end{center}
+\end{table}
+
+The MOR results are given in \cref{tab:waters}, where we present the orders $k$ of the reduced order models, the total number of GEMMs, and the total wall-clock time for different GMRES convergence tolerances. Firstly, we observe that the order $k$ of the reduced order models increases sub-linearly with the number of waters, whereas the number of eigenvalues inside the energy window, \#$\lambda$, grows linearly with respect to the problem dimension. Secondly, the order $k$ decreases for increasing GMRES convergence tolerances. This is due to the fact that if we solve the linear systems less accurately, we match the moments less accurately and hence we need more interpolation points (a higher value of $k$) for the same accuracy of the reduced order model and the corresponding absorption spectra. Moreover, the order $k$ seems to stagnate around GMRES tolerance $10^{-5}$ and there were no visual differences any more between the obtained absorption spectra for GMRES tolerances $10^{-5}$ and $10^{-6}$.
+
+%%% FIGURE %%%
+\begin{figure}[hbtp]
+\centering
+\subfloat[Wall time]{%
+\figname{water_clusters_walltime}%
+\begin{tikzpicture}
+\begin{loglogaxis}[%
+ width=0.49\textwidth,%
+ xlabel={$n$},%
+ ylabel={Wall (s)},%
+ xmin=1e3,xmax=1e5,%
+ ymin=1e1,ymax=1e5,%
+ legend pos=north west,%
+]
+\addplot[thick,mark=*,blue]         table[x index=1,y index=4]{\datfile{water_clusters}};
+\addplot[thick,mark=square*,red]    table[x index=1,y index=7]{\datfile{water_clusters}};
+\addplot[thick,mark=triangle*,cyan] table[x index=1,y index=10]{\datfile{water_clusters}};
+\addplot[no marks,gray,densely dotted] plot coordinates { (1e3,1e1) (1e5,1e3) };
+\addplot[no marks,gray,densely dashed] plot coordinates { (1e3,1e1) (1e5,1e5) };
+\addplot[no marks,gray] plot coordinates { (1e3,1e1) (1e5,1e7) };
+\legend{$10^{-4}$,$10^{-5}$,$10^{-6}$,$\cO(n)$,$\cO(n^2)$,$\cO(n^3)$};
+\end{loglogaxis}
+\end{tikzpicture}%
+}\hfill%
+\subfloat[Total number of GEMMs]{%
+\figname{water_clusters_gemms}%
+\begin{tikzpicture}
+\begin{loglogaxis}[%
+ width=0.49\textwidth,%
+ xlabel={$n$},%
+ ylabel={GEMMs},%
+ xmin=1e3,xmax=1e5,%
+ ymin=1e2,ymax=1e6,%
+ legend pos=north west,%
+]
+\addplot[thick,mark=*,blue]         table[x index=1,y index=3]{\datfile{water_clusters}};
+\addplot[thick,mark=square*,red]    table[x index=1,y index=6]{\datfile{water_clusters}};
+\addplot[thick,mark=triangle*,cyan] table[x index=1,y index=9]{\datfile{water_clusters}};
+\addplot[no marks,gray,densely dotted] plot coordinates { (1e3,1e3) (1e5,1e5) };
+\addplot[no marks,gray,densely dashdotted] table[x index=0,y index=1]{\datfile{O_log10}};
+\legend{$10^{-4}$,$10^{-5}$,$10^{-6}$,$\cO(n)$,$\cO(\log_{10}(n))$};
+\end{loglogaxis}
+\end{tikzpicture}%
+}%
+\caption{Cluster of H$_2$O molecules: MOR results for the absorption spectra computed via \cref{alg:mor-MK} with adaptively chosen complex interpolation frequencies. The comparisons are made for GMRES convergence tolerances of $10^{-4}$, $10^{-5}$, and $10^{-6}$.}
+\label{fig:scaling}
+\end{figure}
+
+The total wall-clock time and number of GEMMs are also shown in \cref{fig:scaling}.
+The left figure illustrates that the wall-clock time scales quadratically with
+respect to the problem dimension, compared to a cubic scaling for a full
+diagonalization. Moreover, the right figure shows that the number of GEMMs only
+scales logarithmically, compared to an expected linear scaling for iterative
+eigensolvers since the number of eigenvalues inside the energy window grows
+linearly.
+It is worth noting that the vector space dimension of the linear problem
+also scales quadratically with system size.
+
+% --- Effect of damping factor --- %
+\subsubsection{Effect of damping factor}
+\label{sec:MORbroad}
+
+We examine the effect of the damping factor on the overall effectiveness of the proposed MOR algorithm in the low damping limit. We revisit the case of water clusters containing 5 water molecules from the previous subsections over the same energy widow. Specifically, we examine the effect on the damping parameter $\eta\in[0.1,1]\,\eV$ on the model order required to achieve a convergence of 1 percent in the absorption spectrum. The MOR results were obtains via \cref{alg:mor-MK} using adaptively chosen complex interpolation frequencies. The resulting spectra are presented in \cref{fig:damping}(a)--(c).
+
+%%% FIGURE %%%
+\begin{figure}[hbtp]
+\centering
+\figname{water_cluster_eta_0.5}%
+\subfloat[$\eta = 0.5\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.5}{1}{$k = 104$}{eta_0.5}}
+\figname{water_cluster_eta_0.3}%
+\subfloat[$\eta = 0.3\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.3}{1}{$k = 157$}{eta_0.3}}\\[10pt]
+\figname{water_cluster_eta_0.1}%
+\subfloat[$\eta = 0.1\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.1}{1}{$k = 214$}{eta_0.1}}
+\figname{water_clusters_damping}%
+\subfloat[$k$ \ch{in}{as a} function of $\eta$]{\begin{tikzpicture}
+\begin{axis}[%
+ width=0.5\textwidth,%
+ xlabel={damping factor $\eta$\ins{ (eV)}},%
+ ylabel={reduced model order $k$},%
+ xmin=0.1,xmax=1,%
+ xtick={0.1,0.2,...,1},%
+ ymin=0,ymax=250,%
+ x dir=reverse,%
+]
+\addplot[thick,mark=*,blue] table[x index=0,y index=1]{\datfile{water_cluster_damping}};
+\end{axis}
+\end{tikzpicture}}\\[10pt]
+\caption{Numerical experiments for the evaluation of the XAS spectrum of 5 H$_2$O clusters by \cref{alg:mor-MK} using different damping factors $\eta$. (a)--(c) The MOR results are compared to the Lorentzian broadened poles of the propagator, labelled Eigensystem. (d) Effect of the damping factor $\eta$ on the reduced model order $k$.}
+\label{fig:damping}
+\end{figure}
+
+The effect of the damping factor on the automatically selected model order is illustrated in \cref{fig:damping}(d). In this figure, we observe that by decreasing the damping factor the reduced model order $k$ first remains almost constant until $0.5\,\eV$ and then slightly starts to increase for smaller values of $\eta$. Even in the low damping limit ($0.1\,\eV$), when the obtained absorption spectrum is exceptionally complicated and oscillatory relative to the previous experiments ($1\,\eV$), the required model order is still well within the realm of practicality for routine calculations. Thus the proposed MOR algorithm may be used as a general procedure which requires no assumption of (the smoothness of) the underlying absorption spectrum.
+
+% ================ %
+% == CONCLUSION == %
+% ================ %
+\subsection{Conclusion}
+\label{sec:MORconclusion}
+In this work, we have presented a novel, adaptive algorithm for the \emph{ab
+initio} prediction of the absorption spectrum based on model order reduction
+techniques applied to the quantum propagator. While this approach is general to
+any spectral domain, the power of the proposed method is in those spectral
+domains which are dense and interior in the propagator's eigenspectrum. The
+accuracy and efficiency of this method to predict the X-Ray absorption spectrum
+have been demonstrated using a series of water clusters. Water clusters were
+chosen as an especially challenging case study as the propagator is spectrally
+dense in the spectral neighborhood of the water's oxygen $K$-Edge. The
+numerical experiments have shown that complex interpolation frequencies should
+be preferred over real ones and that in this case the order of the reduced
+order models only slightly increases with the problem dimension, in contrast to
+the rapid growth of the number of eigenvalues inside the energy window.
+Moreover, the wall-clock time for the proposed model order reduction algorithm scales
+only quadratically with respect to the dimension of the problem,
+compared to cubic scaling for eigenvalue based algorithms.
+Further, it was shown that, even in the limit of highly oscillatory and low
+damping absorption spectra, the proposed algorithm remains practical and thus
+may be treated as agnostic to the underlying nature of the spectrum.
+While results were presented only
+for the TD-HF method, the proposed adaptive MOR algorithm is general to any
+choice reference, propagator, or perturbation. Further, although it is not
+expressly considered in this work, this technique is well suited for
+parallelism on a massive scale as each of the linear system solutions is
+completely independent from the other, thus allowing for minimal communication.
+With the proposed MOR algorithm, routine study of X-Ray absorption spectra for
+medium-to-large sized systems is simplified.
+
 \section{Extraction of Property Dominant Eigenspaces from Model Basis}
 
 

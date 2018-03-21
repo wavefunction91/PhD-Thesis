@@ -3,9 +3,18 @@
 \setcounter{tocdepth}{1}  % Print the chapter and sections to the toc
 
 \usepackage{math} % My math functions
-\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tabularx}
+
 
 \usepackage[user=DBWY]{trkchg}
+
+% --- Tables ------------------------------------------------------------------ %
+\usepackage{tabularx,multirow,booktabs}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+% ----------------------------------------------------------------------------- %
 
 
 
@@ -19,6 +28,77 @@
 \crefname{section}{Sec.}{Secs.}
 \Crefname{section}{Section}{Sections}
 
+
+
+\usepackage{subfig}
+% --- Tikz -------------------------------------------------------------------- %
+\newif\ifexporttikz
+\exporttikztrue % in order to export the tikz figures
+\ifexporttikz
+  \usepackage{tikz}
+  \usepackage{pgfplots}
+  \pgfplotsset{
+    compat=newest,
+    table/header=false,
+    title style={font=\small},
+    tick label style={font=\scriptsize},
+    label style={font=\scriptsize},
+    legend style={font=\scriptsize},
+    legend cell align=left
+  }
+  \usepgfplotslibrary{external}
+  \tikzexternalize[prefix=fig/]
+  \newcommand\remake{\tikzset{external/remake next=true}}
+\else
+  \usepackage{tikzexternal}
+  \tikzexternalize
+  \tikzsetexternalprefix{fig/}
+  \newcommand\remake{\relax}
+\fi
+\newcommand{\figname}[1]{\tikzsetnextfilename{#1}}
+\newcommand{\fignames}[1]{\tikzsetfigurename{#1}}
+\newcommand{\datfile}[1]{fig/#1.dat}
+% ----------------------------------------------------------------------------- %
+
+
+% =============================================================================== %
+% === AUXILIARY PLOT FUNCTIONS ================================================== %
+% =============================================================================== %
+% INPUTS: [width], dat file, y index, legend
+\newcommand\plotspectrum[4][0.5]{%
+\begin{tikzpicture}
+\begin{axis}[%
+ width=#1\textwidth,%
+ xlabel={Energy (eV)},%
+ ylabel={Absorption Spectrum (Arb.)},%
+ xmin=540,xmax=600,%
+ ymin=0,ymax=1,%
+]
+\addplot[thick,mark=,blue] table[x index=0,y index=#3]{\datfile{#2}};
+\legend{{MOR (#4)}};
+\end{axis}
+\end{tikzpicture}%
+}
+% INPUTS: [width], dat file, y index, legend, refsol
+\newcommand\plotspectrumos[5][0.5]{%
+\begin{tikzpicture}
+\begin{axis}[%
+ width=#1\textwidth,%
+ xlabel={Energy (eV)},%
+ ylabel={Absorption Spectrum (Arb.)},%
+ xmin=540,xmax=600,%
+ ymin=0,ymax=1,%
+ legend style={font=\tiny,fill=none,row sep=-2pt},%
+]
+\addplot[mark=,densely dotted] table[x index=0,y index=1]{\datfile{water_cluster_#5_refsol}};
+\addplot[ycomb,gray] table[x index=0,y index=1]{\datfile{water_cluster_#5_oscstr}};
+\addplot[thick,mark=,blue] table[x index=0,y index=#3]{\datfile{#2}};
+\addplot[only marks,mark=+,red] table[x index=0,y index=1]{\datfile{water_cluster_#5_shifts}};
+\legend{Eigensystem,,{MOR (#4)},Interpol.~freq.};
+\end{axis}
+\end{tikzpicture}%
+}
+\newcommand\plotfixed[2]{\plotspectrumos{real_vs_complex_shifts_fixed}{#1}{#2}{5H2O}}
 
 \begin{document}
 
