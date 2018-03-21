@@ -228,7 +228,7 @@ such that for $\ket{\psi},\ket{\chi} \in \hilb{H}^1$,
       \chi^\beta(\vc{r})
     \end{bmatrix} \dd^3\vc{r},
 \end{align}
-Here we have made an assumption which is crutial to the following developments, namely that the operators that we will work with
+Here we have made an assumption which is crucial to the following developments, namely that the operators that we will work with
 are \emph{spatially local}, i.e.
 \begin{equation}
   \label{eq:LocalSpinorOp1}
@@ -236,7 +236,7 @@ are \emph{spatially local}, i.e.
 \end{equation}
 In general, operators need not be spatially local, and as such must be specified with two coordinate indices, i.e. $\op{O}^1(\vc{x};\vc{x}')$
 (see \cref{eq:DenMatSpace} for instance).
-However, it will be the case that the linear operators which correspond to observables of the physical system will typically be spatically local,
+However, it will be the case that the linear operators which correspond to observables of the physical system will typically be spatially local,
 and instances where this is not the case will be treated explicitly. 
 
 
@@ -281,7 +281,7 @@ The product operation of operators denoted $\spop{O}^N(\vc{x}_1,\ldots,\vc{x}_N)
 and more generally in \cref{eq:SpinorOpInnerN}. 
 For the remainder of this work, we will refer to the projections $\spop{O}^N(\vc{x}_1,\ldots,\vc{x}_N)$ as 
 spinor representations of $\op{O}^N$, or simply spinor operators when appropriate. 
-The superscripted moeities $\op{O}^{N,\sigma_1\sigma'_1\cdots}$ will be refered to as the spinor operator
+The super-scripted moieties $\op{O}^{N,\sigma_1\sigma'_1\cdots}$ will be referred to as the spinor operator
 coefficients relative to the spin basis.
 It is important to note that spinor representations
 of $N$--particle operators are still \emph{operators}, i.e. they still continue to act to the right
@@ -312,14 +312,14 @@ one particle spinor operators as it will provide the basis for many of the manip
 &\op{O}^{1,3}(\vc{r}) = \frac{1}{2} \left( \op{O}^{1,\alpha\alpha}(\vc{r}) - \op{O}^{1,\beta\beta}(\vc{r}) \right).
 \end{align}
 \end{subequations}
-The coefficients labelled $\op{O}^{N,K_1K_2,\cdots}$ will be referred to as the spinor operator coefficients relative
-to the Pauli matrices, or simply the Pauli coefficients for breviety.
-This representation is especially convinient when the operator in question is hermetian, i.e. $\op{O}^N = \op{O}^{N\dagger}$.
-In \cref{eq:SpinorOpN}, hermeticity of $\op{O}^N$ simply implies that the \emph{product} of the operator coefficients and 
-basis vectors must be invarient under the hermetian adjoint and states nothing about the hermeticity of the coefficients
-themselves. Due to the fact that the Pauli matricies are self adjoint, \cref{eq:SpinorOpPauli} implies that $\op{O}^N$
-is hermetian if and only if the Pauli coefficients are hermetian. Working with hermetian operators
-carries a number of benifits, most notably that the spectrum of such operators is strictly real.
+The coefficients labeled $\op{O}^{N,K_1K_2,\cdots}$ will be referred to as the spinor operator coefficients relative
+to the Pauli matrices, or simply the Pauli coefficients for brevity.
+This representation is especially convenient when the operator in question is hermitian, i.e. $\op{O}^N = \op{O}^{N\dagger}$.
+In \cref{eq:SpinorOpN}, hermiticity of $\op{O}^N$ simply implies that the \emph{product} of the operator coefficients and 
+basis vectors must be invariant under the hermitian adjoint and states nothing about the hermiticity of the coefficients
+themselves. Due to the fact that the Pauli matrices are self adjoint, \cref{eq:SpinorOpPauli} implies that $\op{O}^N$
+is hermitian if and only if the Pauli coefficients are hermitian. Working with hermitian operators
+carries a number of benefits, most notably that the spectrum of such operators is strictly real.
 
 
 Despite to the fact that $\hilb{H}^N$ admits a basis of a direct product space consisting of $N$ single particle
@@ -377,8 +377,8 @@ associated with a particular state vector $\ket{\Psi^N} \in \hilb{H}^N$ \cite{Ya
 \begin{equation}
 \op{\gamma}^N = \ket{\Psi^N}\bra{\Psi^N}.
 \end{equation}
-Clearly, $\op{\gamma}^N$ is an hermetian $N$--particle on $\hilb{H}^N$ which projects its elements onto $\ket{\Psi^N}$.
-The density matrix plays a very central role in the development of quantum mecanical theory in that
+Clearly, $\op{\gamma}^N$ is an hermitian $N$--particle on $\hilb{H}^N$ which projects its elements onto $\ket{\Psi^N}$.
+The density matrix plays a very central role in the development of quantum mechanical theory in that
 it contains the same information as the state vector while its nature as an operator allows for a number
 of useful manipulations which simplify many expressions, such as inner products. 
 In the spinor coordinate basis, $\op{\gamma}^N$ takes the form
@@ -388,15 +388,15 @@ In the spinor coordinate basis, $\op{\gamma}^N$ takes the form
   &\equiv \gamma^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N; \vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N) \\
   &= \Psi^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N)\Psi^{N*}(\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N). \nonumber
 \end{align}
-From the $N$--particle density matrix, it is possible to define $P$--particle reduced density matricies ($P < N$)
+From the $N$--particle density matrix, it is possible to define $P$--particle reduced density matrices ($P < N$)
 via contractions over single particle indices,
 \begin{align}
   &\gamma^P(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_P;\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_P) = \frac{N!}{P!(N-P)!}
     \idotsint_\mathbb{F} \dd^4\vc{x}_{P+1}\cdots\dd^4\vc{x}_N \times \nonumber \\
   &\qquad \quad \gamma^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_P,\vc{x}_{P+1},\ldots,\vc{x}_N;\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_P,\vc{x}_{P+1},\ldots,\vc{x}_N),
 \end{align}
-which are hermetian projectors onto the $P$--particle subspaces of $\hilb{H}^N$ which construct $\ket{\Psi^N}$. 
-Of particular interest to this work are the one-- and two--particle reduced density matricies,
+which are hermitian projectors onto the $P$--particle subspaces of $\hilb{H}^N$ which construct $\ket{\Psi^N}$. 
+Of particular interest to this work are the one-- and two--particle reduced density matrices,
 \begin{align}
 &\gamma^1(\vc{x}_1;\vc{x}'_1) = N \idotsint_\mathbb{F}
   \gamma^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N;\vc{x}'_1,\vc{x}_2,\ldots,\vc{x}_N) \dd^4\vc{x}_{2}\cdots\dd^4\vc{x}_N, \\
@@ -450,9 +450,9 @@ Motivated by the spin sums in \cref{eq:GenDenMatInner}, it is useful to cast the
 In this work, we will refer to this representation as the spinor representation of the RDM and the
 super scripted moieties $\gamma^{P,\sigma_1\sigma'_1\cdots}$ as the spinor coefficients relative to
 the spin basis.
-As was the case for spinor operators in \cref{sec:LO}, hermeticity of the density matrix does not
-place any specific restrictions on the hermeticity on the spinor coefficients.
-In analogy to \cref{eq:SpinorOpPauli}, we may construct hermetian coefficients via
+As was the case for spinor operators in \cref{sec:LO}, hermiticity of the density matrix does not
+place any specific restrictions on the hermiticity on the spinor coefficients.
+In analogy to \cref{eq:SpinorOpPauli}, we may construct hermitian coefficients via
 \begin{equation}
   \spn{\gamma}^P(\vc{x}_1,\vc{x}_2,\ldots;\vc{x}'_1,\vc{x}'_2,\ldots ) \equiv 
     \gamma^{P,\,K_1 K_2 \cdots}(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) 
@@ -469,7 +469,7 @@ This realization allows for a simplification of  \cref{eq:GenDenMatInner}, such 
   \right \vert_{\vc{r}'_1 = \vc{r}_1, \vc{r}'_2 = \vc{r}_2},
 \end{align}
 \end{subequations}
-where all of the Pauli components of the spinor operator and RDMs are hermetian. In the case of a single Slater 
+where all of the Pauli components of the spinor operator and RDMs are hermitian. In the case of a single Slater 
 determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components of the 1RDM are given by
 \begin{subequations}
   \label{eq:SpinorDensity}
@@ -480,10 +480,10 @@ determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components 
   &\gamma^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right). 
 \end{align}
 \end{subequations}
-The exrpressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}.
+The expressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}.
 
 
-In the case where the operator in equation is scalar multiplicitive, i.e. does not contain differential operators, 
+In the case where the operator in equation is scalar multiplicative, i.e. does not contain differential operators, 
 the order in which the coordinate restriction under the integration of \cref{eq:GenDenMatInner,eq:SpinBasisDenMatInner} 
 occurs is irrelevant. Thus, \cref{eq:SpinBasisDenMatInner} reduces to \cite{Yang89_book}
 \begin{subequations}
@@ -501,7 +501,7 @@ where we have defined
 &\rho^{2,KK'}(\vc{r},\vc{r}') = \gamma^{2,KK'}(\vc{r},\vc{r}';\vc{r},\vc{r}'),
 \end{align}
 \end{subequations}
-as the diagonal elements of the Pauli compoents of the 1 and 2RDMs. They may be thought of themselves
+as the diagonal elements of the Pauli components of the 1 and 2RDMs. They may be thought of themselves
 as Pauli components of moieties satisfying
 \begin{align}
 &\spn{\rho^1}(\vc{x}) = \sum_K \rho^{1,K}(\vc{r}) \otimes \pauli{K}\\
@@ -510,7 +510,7 @@ as Pauli components of moieties satisfying
 In this work, we will refer to
 the moieties $\spn{\rho}^{1}$ and $\spn{\rho}^{2}$ as the  one and two particle
 densities, respectively.  With respect the density matrices, manipulating densities directly 
-allows for drastic simplifications in the development of many--body theory as the hermeticity
+allows for drastic simplifications in the development of many--body theory as the hermiticity
 of the density matrix implies that they are strictly real.
 
 
@@ -585,7 +585,7 @@ There are a number of remarkable simplifications that arise from the adoption of
 for the practical treatment of many--body quantum theory. The first that we will discuss here
 relates back to the completeness of the basis of Slater determinants in the construction
 of many--body fermionic wave functions, i.e. all many body wave functions may be constructed 
-as a linear combination of all of the unique Slater determininants which may be constructed
+as a linear combination of all of the unique Slater determinants which may be constructed
 from $\mathcal{C}$ (\cref{eq:SDBasis}), given that $\mathcal{C}$ is a complete basis for $\hilb{H}^1$. 
 To this end, we introduce the notion of an $N$--particle reference
 determinant which will be denoted $\ket{0^N}$ and is described by some configuration $\hilb{K}^N_0$.
@@ -597,8 +597,8 @@ will be denoted with a subscript $a,b,c,\ldots$, i.e. $\ket{\phi_a} \in \hilb{V}
 will remain as the notation for a general element of $\hilb{C}$ from either $\hilb{O}$ or $\hilb{V}$.
 Clearly, all $M$ particle Slater determinants (with $M$ not necessarily equal to $N$) which may be constructed from $\hilb{C}$ may be constructed 
 by constructing a configuration from $N_o$ elements of $\hilb{O}$ and $N_v$ elements of $\hilb{V}$
-such that $N_o + N_v = M$. Thus, logically, it follows that all $M$ particle determininants may be
-constructed by removing $ n_o = \min{(N-M,0)} + P $ orbitals from $\hilb{O}$ (with $P\in[0,\max{(N,N-M)}]$) and replacing them $ n_v = \max{(M-N ,0)} + P$ orbitials
+such that $N_o + N_v = M$. Thus, logically, it follows that all $M$ particle determinants may be
+constructed by removing $ n_o = \min{(N-M,0)} + P $ orbitals from $\hilb{O}$ (with $P\in[0,\max{(N,N-M)}]$) and replacing them $ n_v = \max{(M-N ,0)} + P$ orbitals
 from $\hilb{V}$. In the language of second quantization, the act of removing and replacing orbitals 
 is made simple through the introduction of so called transition operators
 \begin{align}
@@ -611,7 +611,7 @@ where
 Upon action, $\ket{0^N}_{ijk\cdots}^{abc\cdots}$ is an $ M = N - n_o + n_v $ particle Slater determinant built from removing
 orbitals $i,j,k,\ldots$ from $\ket{0^N}$ and replacing them with orbitals $a,b,c,\ldots \in \hilb{V}$. The set of all
 $\tau$ operators generates all $M$--particle Slater determinants from the $N$--particle reference \todo{cite Dalgaard}.
-It is worth noting at this point that due to that anticommutation relations of \cref{eq:SeQuantComm}, $\tau^{abc\cdots}_{ijk\cdots}$
+It is worth noting at this point that due to that anti-commutation relations of \cref{eq:SeQuantComm}, $\tau^{abc\cdots}_{ijk\cdots}$
 is anti symmetric with respect to permutation of adjacent creation and annihilation operators, i.e.
 \begin{equation}
   \label{eq:AntisymmTau}
@@ -626,9 +626,9 @@ as
                    \sum_{abij} \left(t^n\right)_{ij}^{ab} \ket{0^N}_{ij}^{ab} + \sum_{abcijk} \left(t^n\right)_{ijk}^{abc} \ket{0^N}_{ijk}^{abc} + \cdots,
 \end{equation}
 where the transition amplitudes, $\vc{t}^n$, have taken the place of the $D^n_I$ amplitudes of the original expansion. Based on this
-construction, the components of $\vc{t}^n$ must also constitute an antisymmetric tensor in the same manner as \cref{eq:AntisymmTau}.
+construction, the components of $\vc{t}^n$ must also constitute an anti-symmetric tensor in the same manner as \cref{eq:AntisymmTau}.
 The expansion of 
-\cref{eq:CIExp} may be further cast into a more general, and convienient form in terms of explicit action of the transition
+\cref{eq:CIExp} may be further cast into a more general, and convenient form in terms of explicit action of the transition
 operators such that for an arbitrary $M$ particle Slater determinant,
 \begin{equation}
   \label{eq:ExcitationOp}
@@ -646,7 +646,7 @@ where $\op{R}_n^{N,M}$ is an ``excitation" operator which is defined as
       \sum_{abijk\cdots lm} \left( t^n \right)^{ab}_{ijk\cdots lm} \tau^{ab}_{ijk\cdots lm} + \cdots & M < N \\
   \end{cases}
 \end{align}
-Here the extent of extended sums of transition operators involving unbalanced creating and annihliation operators in the cases $M\neq N$ is to be understood from
+Here the extent of extended sums of transition operators involving unbalanced creating and annihilation operators in the cases $M\neq N$ is to be understood from
 the context, i.e. for the special case that $M= N+1$, we obtain
 \begin{align}
 &\op{R}_n^{N+1,N} = \sum_a \left( t^n \right)^a \tau^a + \sum_{abi} \left( t^n \right)^{ab}_i \tau^{ab}_i + 
@@ -697,10 +697,10 @@ into the one--body inner product such that
 As first glance, it may seems as though casting the inner product into a second quantized form has drastically complicated its evaluation.
 However, upon careful introspection, one sees that the rather complicated task of evaluating inner productions for determinants 
 of the form \cref{eq:SlaterDet} or \cref{eq:SlaterDetSpace}, which involve the evaluation of rather complicated many body integrals,
-into tensor contractions of few body integrals (\cref{eq:DiracInts}) and transition amplidues ($\vc{t}^n$),
+into tensor contractions of few body integrals (\cref{eq:DiracInts}) and transition amplitudes ($\vc{t}^n$),
 with inner products involving strings of creation and annihilation operators. Given the prior, one may heavily exploit the
 commutation relationships of \cref{eq:SeQuantComm} to easily evaluate inner products of arbitrary operator strings through
-various diagramatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book,Ohrn73_book} \todo{more cites}.
+various diagrammatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book,Ohrn73_book} \todo{more cites}.
 
 \Cref{eq:SeQuantOp} may be cast into a more illuminating form by the introduction of the so called field operators which connect
 the second quantized and spinor representations of operators and expectation values \cite{Walecka12_book,Schuck04_book,Yang89_book,Ohrn73_book},
@@ -741,7 +741,7 @@ yields,
     \,\dd^3 \vc{r}_1. 
 \end{align}
 Here we have used the fact that as a single particle operator, operators which depended on primed indices to not act on those
-without primes, and visa versa. In analogy to \cref{eq:GenDenMatInner,eq:RDMSpinBasis}, we can define a second quantized analogue to
+without primes, and visa verse. In analogy to \cref{eq:GenDenMatInner,eq:RDMSpinBasis}, we can define a second quantized analogue to
 the 1RDM such that,
 \begin{align}
   \label{eq:DenOpInner}
@@ -778,7 +778,7 @@ In particular, if $\op{O}^1$ is void of any differential character, we may recas
     \op{O}^{1,K} (\vc{r}_1) \, \op{\rho}^{1,K}(\vc{r}_1)  
     \,\dd^3 \vc{r}_1,
 \end{equation}
-where we have defined an analogy to the Pauli compoenents of the spinor density as
+where we have defined an analogy to the Pauli components of the spinor density as
 the \emph{density operators},
 \begin{equation}
 \op{\rho}^{1,K}(\vc{r}) \equiv \op{\gamma}^{1,K}(\vc{r},\vc{r}).
@@ -793,10 +793,11 @@ It follows from \cref{eq:PauliDenMatOp} that
 \rho^K(\vc{r}) = \innerop{\Psi}{\op{\rho}^K(\vc{r})}{\Psi}.
 \end{equation}
 Consistent analogies for the 2RDM can be made, but as the primary focus in this work will be the manipulation
-of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogus
+of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogous
 spinor operators. It should be noted that unlike most operators, the expectation values of 
 $\spop{\gamma}^1$ and $\spop{\rho}^1$ are a tensor field on $\mathbb R^3$, rather than a scalar.
 
+\todo{Note that rho does not consist of the elements of a tensor operator}
 \todo{Transition densities}
 %One of the key aspects of defining the density operators as opposed to the densities and density matrices
 %themselves is that it allows for proper generalization to off diagonal density analogues, i.e.
@@ -808,8 +809,8 @@ $\spop{\gamma}^1$ and $\spop{\rho}^1$ are a tensor field on $\mathbb R^3$, rathe
 In essence, second quantization provides a common language which allows one to factor elements of a particular many--body
 quantum theory into parts which are dependent and independent of the single--particle basis. Such a state of affairs has
 been demonstrated in \cref{eq:SeQuantInner,eq:SeQuantInnerExp}. If one can define an inner product on $\hilb{H}^1$ and
-is able to develop an ansatz for the form of \cref{eq:ExcitationOp} for a particualr theory, it is immediately compatible
-with second quantization. In this work, second quantization will play a crutial role in the translation of the
+is able to develop an ansatz for the form of \cref{eq:ExcitationOp} for a particular theory, it is immediately compatible
+with second quantization. In this work, second quantization will play a crucial role in the translation of the
 results of non--relativistic quantum mechanics to the consistent treatment of relativistic effects.
 
 
@@ -819,7 +820,7 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
 to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
-in the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursorary
+in the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursory
 inspection of the nature of $\mathcal{C}$ indicates that it must be countably infinite in order to 
 satisfy completeness on $\hilb{H}^1$ \todo{confirm, cite?}. Thus it must be truncated in some systematic
 way in order for it to be useful in any practical treatment of the many body problem.
@@ -848,7 +849,7 @@ where $\ket{\Psi}$ is an arbitrary element of $\hilb{H}^{N_{\mathrm{el}}}$.
 
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
 molecular Hamiltonian, $\op{H}^\NR : \hilb{H}^\NR \mapsto \hilb{H}^\NR$, where $\hilb{H}^\NR$ describes a quantum
-system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the absense of relativistic effects. As such,
+system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the absence of relativistic effects. As such,
 it is an approximation to the true Hilbert space which describes the physical state of affairs exactly, but it often
 provides a sufficient model for systems when effects such as those which arise from special relativity are unimportant.
 $\op{H}^\NR$ is so fundamental to the description
@@ -1011,13 +1012,13 @@ of charged particles and is thus manifestly incapable of adhering to the princip
 One must venture into the realm of quantum field theory (QFT) in order to develop truely covariant quantized 
 descriptions of the electromagnetic force; however, QFT has proven to be rather difficult to exploit in
 the context of practical calculations on molecular systems \todo{cite Liu}. Here, we will work with
-\emph{approximate} relativsitic descriptions of molecular quantum mechanics within a Hamiltonian
+\emph{approximate} relativistic descriptions of molecular quantum mechanics within a Hamiltonian
 formulation, which have been shown to have good agreement with experiment.
-For simplicity in the subsequent developements, we will posit \emph{a priori} the validity of the 
+For simplicity in the subsequent developments, we will posit \emph{a priori} the validity of the 
 Born--Oppenheimer ansatz and approximations of the previous section in the context of relativistic
 theory \co{justify?}. Further, while no approximation of the quantum nature of the nuclei was required in the 
 context of the Sch\"{o}dinger equation, in the context of relativistic theory we will approximate
-nuclei to be classical charge distributions, i.e. no intrinic angular momentum (spin) which
+nuclei to be classical charge distributions, i.e. no intrinsic angular momentum (spin) which
 yields an absence of magnetic interactions into the Hamiltonian within the fixed nuclei approximation.
 This approximation is justified \co{because?}, and will drastically simplify the resulting 
 quantum mechanical treatment.
