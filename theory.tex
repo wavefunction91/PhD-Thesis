@@ -369,6 +369,7 @@ be used extensively in the following developments.
 
 
 \subsection{Density Matrices}
+\label{sec:DenMat}
 
 
 In the following, it will be useful to define the $N$--particle density matrix, $\op{\gamma}^N$,
@@ -415,7 +416,7 @@ to \cref{eq:SlaterDet} \cite{Yang89_book},
 \end{align}
 In other words, all $P$--particle RDMs corresponding to a single Slater determinant are simply $P$--fold Grassman products of the 1RDM, and thus
 the state is completely determined by the 1RDM. This is not the case for general many body wave functions written as \cref{eq:SDBasis} and will
-prove to be of great utility in the following developments.
+prove to be of great utility in the manipulation of Slater determinants.
 
 In direct analogy to \cref{eq:SlaterCondon}, we may cast the expectation values of 1-- and 2--body operators of a general state vector 
 in terms of the 1 and 2RDMs which correspond to that vector
@@ -441,13 +442,14 @@ Substituting in the expressions for the Slater determinant RDMs in \cref{eq:RDMS
 Motivated by the spin sums in \cref{eq:GenDenMatInner}, it is useful to cast the RDMs as rank--2$P$ tensors on the spin basis in the spirit of 
 \cref{eq:LocalSpinorOp1,eq:LocalSpinorOpN} such that
 \begin{equation}
+  \label{eq:RDMSpinBasis}
   \spn{\gamma}^P(\vc{x}_1,\vc{x}_2,\ldots;\vc{x}'_1,\vc{x}'_2,\ldots ) \equiv 
     \gamma^{P,\,\sigma_1\sigma'_1\sigma_2\sigma'_2\cdots}(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) 
     \otimes \bigotimes_{i=1}^P \vc{e}_{\sigma_i} \otimes \vc{e}_{\sigma_i'}.
 \end{equation}
 In this work, we will refer to this representation as the spinor representation of the RDM and the
 super scripted moieties $\gamma^{P,\sigma_1\sigma'_1\cdots}$ as the spinor coefficients relative to
-the spin basis..
+the spin basis.
 As was the case for spinor operators in \cref{sec:LO}, hermeticity of the density matrix does not
 place any specific restrictions on the hermeticity on the spinor coefficients.
 In analogy to \cref{eq:SpinorOpPauli}, we may construct hermetian coefficients via
@@ -472,10 +474,10 @@ determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components 
 \begin{subequations}
   \label{eq:SpinorDensity}
 \begin{align}
-  &\gamma_I^0(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right), \\
-  &\gamma_I^1(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') \right), \\
-  &\gamma_I^2(\vc{r};\vc{r}') = \frac{\ii}{2} \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') \right), \\
-  &\gamma_I^3(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right). 
+  &\gamma^{1,0}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right), \\
+  &\gamma^{1,1}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') + \phi^{\beta}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') \right), \\
+  &\gamma^{1,2}(\vc{r};\vc{r}') = \frac{\ii}{2} \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') \right), \\
+  &\gamma^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right). 
 \end{align}
 \end{subequations}
 The exrpressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}.
@@ -508,7 +510,7 @@ as Pauli components of moieties satisfying
 In this work, we will refer to
 the moieties $\spn{\rho}^{1}$ and $\spn{\rho}^{2}$ as the  one and two particle
 densities, respectively.  With respect the density matrices, manipulating densities directly 
-allows to drastic simplifications in the development of many--body theory as the hermeticity
+allows for drastic simplifications in the development of many--body theory as the hermeticity
 of the density matrix implies that they are strictly real.
 
 
@@ -660,6 +662,7 @@ and the one that we will use most often, is the fact that one may
 cast $M$--particle operators on $\hilb{H}^N$ as scalar contractions of $2M$--element operator 
 strings with rank--$2M$ tensors on $\hilb{H}^1$ \cite{Walecka12_book,Schuck04_book,Ostlund12_book},
 \begin{subequations}
+\label{eq:SeQuantOp}
 \begin{align}
   &\sum_i \op{O}^1(i) \mapsto \op{O}_\hilb{F}^1 = \sum_{pq}   O^1_{pq} c^\dagger_p c_q,\\
   &\sum_{i\neq j}\op{O}^2(i,j) \mapsto \op{O}_\hilb{F}^2 = \sum_{pqrs} O^2_{qprs} c^\dagger _p c^\dagger _q c_r c_s.
@@ -697,11 +700,110 @@ of the form \cref{eq:SlaterDet} or \cref{eq:SlaterDetSpace}, which involve the e
 into tensor contractions of few body integrals (\cref{eq:DiracInts}) and transition amplidues ($\vc{t}^n$),
 with inner products involving strings of creation and annihilation operators. Given the prior, one may heavily exploit the
 commutation relationships of \cref{eq:SeQuantComm} to easily evaluate inner products of arbitrary operator strings through
-various diagramatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book} \todo{more cites}.
+various diagramatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book,Ohrn73_book} \todo{more cites}.
 
+\Cref{eq:SeQuantOp} may be cast into a more illuminating form by the introduction of the so called field operators which connect
+the second quantized and spinor representations of operators and expectation values \cite{Walecka12_book,Schuck04_book,Yang89_book,Ohrn73_book},
+\begin{subequations}
+\label{eq:FieldOperators}
+\begin{align}
+\psi (\vc{x}) = \sum_p \phi_p(\vc{x}) c_p &\quad \text{ field annihilation operator},\\
+\psi^\dagger(\vc{x}) = \sum_p \phi^*_p(\vc{x}) c^\dagger_p &\quad \text{ field creation operator}.
+\end{align}
+\end{subequations}
+%Analogously to \cref{eq:SeQuantComm}, the field operators obey the following commutation relations,
+%\begin{subequations}
+%  \label{eq:FieldComm}
+%\begin{align}
+%  &[\psi^\dagger(\vc{x}), \psi^\dagger(\vc{x}')]_+ = 0,\\
+%  &[\psi(\vc{x}), \psi(\vc{x}')]_+ = 0,\\
+%  &[\psi(\vc{x}), \psi^\dagger(\vc{x}')]_+ = \delta^4(\vc{x} - \vc{x}'),
+%\end{align}
+%\end{subequations}
+From these definitions and the expressions for the tensor elements of \cref{eq:DiracInts}, it is clear
+that the second quantized operator representations may be cast as \cite{Walecka12_book,Yang89_book},
+\begin{subequations}
+\label{eq:FieldOpRep}
+\begin{align}
+  &\op{O}_\hilb{F}^1 = \int_{\mathbb F} \psi^\dagger(\vc{x}_1) \,\spop{O}^1(\vc{x}_1) \,\psi(\vc{x}_1) \,\,\dd^4 \vc{x}_1, \\
+  &\op{O}_\hilb{F}^2 = \iint_{\mathbb F} \psi^\dagger(\vc{x}_2)\psi^\dagger(\vc{x}_1) \,\spop{O}^2(\vc{x}_1,\vc{x}_2) \,\psi(\vc{x}_1)\psi(\vc{x}_2) 
+    \,\,\dd^4 \vc{x}_1\dd^4 \vc{x}_2.
+\end{align}
+\end{subequations}
+Here the action of the 1-- and 2--particle spinor operators on the field operators is understood to be the same
+as their action on the products on spinor orbitals as in \cref{eq:DiracInts}, i.e. tensor contraction. Upon immediate
+inspection, \cref{eq:FieldOpRep} offers no simplification over \cref{eq:SeQuantOp}. However, we may recast 
+\cref{eq:FieldOpRep} as the expectation value of a non--local operator, which in the case of one particle operators
+yields,
+\begin{align}
+  &\op{O}_\hilb{F}^1 = \sum_{\sigma_1\sigma'_1}\int_{\mathbb R^3} 
+    \left.\left(\op{O}^{1,\sigma_1\sigma'_1} (\vc{r}_1) \, \psi^\dagger(\vc{r}'_1,\sigma'_1) \psi(\vc{r}_1,\sigma_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
+    \,\dd^3 \vc{r}_1. 
+\end{align}
+Here we have used the fact that as a single particle operator, operators which depended on primed indices to not act on those
+without primes, and visa versa. In analogy to \cref{eq:GenDenMatInner,eq:RDMSpinBasis}, we can define a second quantized analogue to
+the 1RDM such that,
+\begin{align}
+  \label{eq:DenOpInner}
+  &\op{O}_\hilb{F}^1 = \int_{\mathbb F} 
+    \left.\left(\spop{O}^{1} (\vc{x}_1) \, \spop{\gamma}^1(\vc{x}_1; \vc{x}'_1) \right) \right\vert_{\vc{x}'_1 = \vc{x}_1 } 
+    \,\dd^4 \vc{x}_1, \qquad \spop{\gamma}^1(\vc{x},\vc{x}') = \psi^\dagger(\vc{x}') \psi(\vc{x}).
+\end{align}
+In this work, we will refer to $\spop{\gamma}^1$ as the one--particle density matrix operator due to the fact that for
+a particular vector $\ket{\Psi} \in \hilb{H}^N$ we obtain
+\begin{equation}
+\label{eq:DenMatOpRelation}
+\gamma^1(\vc{x},\vc{x}') = \innerop{\Psi}{\spop{\gamma}^1(\vc{x},\vc{x}')}{\Psi}_\hilb{F},
+\end{equation}
+where $\gamma^1$ is the 1RDM corresponding to $\ket{\Psi}$. In further analogy to the treatment of density
+matrices in \cref{sec:DenMat}, we may define the Pauli components of the one-particle density matrix operators,
+\begin{subequations}
+  \label{eq:PauliDenMatOp}
+\begin{align}
+  &\op{\gamma}^{1,0}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) , \\
+  &\op{\gamma}^{1,1}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
+  &\op{\gamma}^{1,2}(\vc{r};\vc{r}') = \frac{\ii}{2} \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
+  &\op{\gamma}^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) .,
+\end{align}
+\end{subequations}
+such that \cref{eq:DenOpInner} becomes,
+\begin{equation}
+  \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
+    \left.\left(\op{O}^{1,K} (\vc{r}_1) \, \op{\gamma}^{1,K}(\vc{r}_1; \vc{r}'_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
+    \,\dd^3 \vc{r}_1.
+\end{equation}
+In particular, if $\op{O}^1$ is void of any differential character, we may recast
+\begin{equation}
+  \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
+    \op{O}^{1,K} (\vc{r}_1) \, \op{\rho}^{1,K}(\vc{r}_1)  
+    \,\dd^3 \vc{r}_1,
+\end{equation}
+where we have defined an analogy to the Pauli compoenents of the spinor density as
+the \emph{density operators},
+\begin{equation}
+\op{\rho}^{1,K}(\vc{r}) \equiv \op{\gamma}^{1,K}(\vc{r},\vc{r}).
+\end{equation}
+%It follows immediately that these operators are the Pauli components of a spinor operator,
+%\begin{equation}
+%\spop{\rho}^1 (\vc{x}) = \sum_K \op{\rho}^{1,K}(\vc{r}) \otimes \pauli{K},
+%\end{equation}
+%which we will refer to as the spinor density operator. 
+It follows from \cref{eq:PauliDenMatOp} that
+\begin{equation}
+\rho^K(\vc{r}) = \innerop{\Psi}{\op{\rho}^K(\vc{r})}{\Psi}.
+\end{equation}
+Consistent analogies for the 2RDM can be made, but as the primary focus in this work will be the manipulation
+of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogus
+spinor operators. It should be noted that unlike most operators, the expectation values of 
+$\spop{\gamma}^1$ and $\spop{\rho}^1$ are a tensor field on $\mathbb R^3$, rather than a scalar.
 
-
-
+\todo{Transition densities}
+%One of the key aspects of defining the density operators as opposed to the densities and density matrices
+%themselves is that it allows for proper generalization to off diagonal density analogues, i.e.
+%for $\ket{\Psi^N_m}, \ket{\Psi^N_n} \in \hilb{H}^N$,
+%\begin{equation}
+%T^{mn}(\vc{x}) =
+%\end{equation}
 
 In essence, second quantization provides a common language which allows one to factor elements of a particular many--body
 quantum theory into parts which are dependent and independent of the single--particle basis. Such a state of affairs has
