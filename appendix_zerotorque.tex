@@ -1,0 +1,95 @@
+\chapter{Proof of Zero Torque Theorem Using Generalized Density Variables} \label{apx:ZeroTorque}
+
+In this appendix, we validate that the zero torque theorem for the xc magnetic field is satisfied in the generalized gradient approximation
+given the transformation rules of \cref{eq:NCtrans}. 
+The local torque does not need to vanish identically at every point in space and this local contribution is required to obtain accurate spin dynamics and a proper time-evolution of the magnetization \cite{Gyorffy01_206403,Gyorffy03_354,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Li17_2591}.
+The local torque of the xc magnetic field is the tensor field defined by \cite{Gyorffy01_206403}
+\begin{equation}
+\label{eq:localT}
+\mathscr{T}_i(\vc{r}) = \sum_{jk} \varepsilon_{ijk} \rho^j(\vc{r}) B_{GGA}^k(\vc{r})
+\end{equation}
+where $\varepsilon_{ijk}$ is the rank-3 Levi-Civita tensor and the xc magnetic field is given by
+\begin{equation}
+\label{eq:xcMagField}
+B_{GGA}^k(\vc{r}) = \frac{\delta E_{GGA}[\rho,\nabla\rho]}{\delta \rho^k(\vc{r})} .
+\end{equation}
+From \cref{eq:localT}, we may define the global torque of the xc magnetic field as
+\begin{equation}
+\mathscr{T}_i^{global} = \int \mathrm{d}^3 \vc r \text{ } \mathscr{T}_i(\vc{r}) .
+\end{equation}
+Remark that the set of U variables in \cref{eq:NCtrans} is partitioned by those variables which depend on
+$\mathbf{m}(\vc{r})$ and those which depend on $\nabla\mathbf{m}(\vc{r})$. Recognizing that our choice of U variables
+are local functions and
+applying the Euler--Lagrange formula for functional derivatives to \cref{eq:xcMagField}, we obtain
+\begin{align}
+B_{GGA}^{k}(\vc{r}) &= \frac{\partial f}{\partial \rho^k(\vc{r})} - \nabla \cdot \frac{\partial f}{\partial \nabla \rho^k(\vc{r})}  = B^{(\rho),k}_{GGA}(\vc r) - B^{(\nabla),k}_{GGA}(\vc r)
+\end{align}
+where
+\begin{align}
+&B^{(\rho),k}_{GGA}(\vc r) = \frac{\partial f}{\partial n^+(\vc{r})} \frac{\partial n^+(\vc{r})}{\partial \rho^k(\vc{r})} + 
+  \frac{\partial f}{\partial n^-(\vc{r})} \frac{\partial n^-(\vc{r})}{\partial \rho^k(\vc{r})} \label{eq:BxcR}\\ 
+&B^{(\nabla),k}_{GGA}(\vc r)= \nabla \cdot 
+  \left(
+    \frac{\partial f}{\partial \gamma^{++}(\vc{r})}\frac{\partial \gamma^{++}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
+    \frac{\partial f}{\partial \gamma^{+-}(\vc{r})}\frac{\partial \gamma^{+-}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
+    \frac{\partial f}{\partial \gamma^{--}(\vc{r})}\frac{\partial \gamma^{--}(\vc r)}{\partial \nabla \rho^k(\vc{r})}   
+  \right) . \label{eq:BxcGR}
+\end{align}
+We refer the reader to the Appendix of Ref. \cite{Li17_2591} for explicit expressions for the partial derivatives of $\{U^{NC}(\vc{r})\}$
+given by \cref{eq:NCAuxVar}.
+Thus, the local and global torque expressions may also be similarly as they are linear in $\mathbf{B}_{GGA}(\vc r)$,
+\begin{align}
+&\mathscr{T}_i(\vc r) = \mathscr{T}^\rho_i(\vc r) + \mathscr{T}^\nabla_i(\vc r),\\
+&\mathscr{T}^\rho_i(\vc r) = \sum_{jk}\varepsilon_{ijk} \rho^j(\vc r) B^{(\rho),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\rho), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\rho}(\vc{r}) \label{eq:localTRho},\\
+&\mathscr{T}^\nabla_i(\vc r) = \sum_{jk}\varepsilon_{ijk} \rho^j(\vc r) B^{(\nabla),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\nabla), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\nabla}(\vc{r}) \label{eq:localTG}.
+\end{align}
+
+To identify the local and global torque contributions from \cref{eq:BxcR}, we  may consolidate it with the magnetization components of \cref{eq:ZrhoVar},
+\begin{equation}
+B^{(\rho),k}_{GGA}(\vc r) = \mathcal{Z}^k_{\rho}(\vc r) = \frac{1}{2} \left(\dfrac{\partial f}{\partial n^+(\vc r)} - \dfrac{\partial f}{\partial n^-(\vc r)}\right) 
+  \frac{\rho^k(\vc r)}{\vert \mathbf{m}(\vc r) \vert} . \label{eq:BxcR_eval}
+\end{equation}
+Substituting into \cref{eq:localTRho}, we obtain,
+\begin{equation}
+\mathscr{T}^\rho_i(\vc r) = \frac{1}{2} \left(\dfrac{\partial f}{\partial n^+(\vc r)} - \dfrac{\partial f}{\partial n^-(\vc r)}\right) 
+  \sum_{jk} \frac{\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r)}{\vert\mathbf{m}(\vc r)\vert}  = 0, \quad \Longrightarrow \quad \mathscr{T}_i^{(\rho), global} = 0 \label{eq:torR}
+\end{equation}
+where we have utilized the fact that $\sum_{jk}\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r) = 0$. Thus the local torque contribution of this term is zero in all space, implying that
+its global torque contribution is zero as well.
+
+Similarly, we may identify \cref{eq:BxcGR} with the magnetization components of \cref{eq:ZgammaVar},
+\begin{equation}
+B^{(\rho),k}_{GGA}(\vc r) = \sum_\xi \nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \label{eq:BxcGR_eval} .
+\end{equation}
+However, unlike  \cref{eq:torR}, the torque arising from \cref{eq:BxcGR_eval} is \emph{not} zero in all space. We must them examine its global torque contribution,
+\begin{align}
+  \mathscr{T}_i^{(\nabla), global} 
+    &= \sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \rho^j(\vc r) \text{ }\nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \nonumber \\
+    &= -\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \mathcal{Z}^k_{\nabla,\xi}(\vc r) \left(\nabla_\xi \rho^j(\vc r)\right) .
+\end{align}
+Here, we have integrated the first line by parts and utilized the fact that the density and its derivatives disappear at the boundary by definition.
+Substituting in the expressions from \cref{eq:ZgammaVar},
+\begin{align}
+  \mathscr{T}_i^{(\nabla), global} 
+    = -\frac{1}{2}\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } 
+    \nabla_\xi \rho^j(\vc r)
+    &\left(
+      \nabla_\xi\rho^S(\vc r) H^k(\vc r)  \left( \dfrac{\partial f}{\partial \gamma^{++}(\vc r)} - \dfrac{\partial f}{\partial \gamma^{--}(\vc r)} \right) 
+       \right. +\nonumber\\ & \quad \left. \nabla_\xi\rho^k(\vc r)
+      \left(\dfrac{\partial f}{\partial \gamma^{++}(\vc r)} - \dfrac{\partial f}{\partial \gamma^{+-}(\vc r)} + \dfrac{\partial f}{\partial \gamma^{--}(\vc r)} \right)
+    \right) \nonumber \\
+   % &= -\frac{1}{2}\sum_{jk} \sum_\xi \varepsilon_{ijk} \left(
+   %   \int\mathrm{d}^3r\text{   } \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} \right) 
+   %     \nabla_\xi\rho^S \nabla_\xi \rho^j H^k + 
+   %   \int\mathrm{d}^3r\text{   } \left(\dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}} \right)
+   %     \nabla_\xi \rho^j \nabla_\xi\rho^k
+   % \right) \nonumber \\
+    &= 0,
+\end{align}
+where we have used the following relations
+\begin{align}
+&\nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) H^k(\vc r) = \nabla \rho^S(\vc r) \cdot \nabla \rho^k (\vc r)H^j(\vc r)  \quad \Longrightarrow \quad
+  \sum_{jk} \varepsilon_{ijk} \nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) H^k(\vc r) = 0, \\
+& \sum_{jk}\varepsilon_{ijk} \nabla \rho^j(\vc r) \cdot \nabla \rho^k(\vc r) = 0.
+\end{align}
+ 

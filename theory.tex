@@ -815,7 +815,7 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 
 
-\subsection{Mean--Field Quantum Mechanics and Basis Set Expansions}
+\subsection{Mean--Field Quantum Mechanics, Density Functional Theory and Basis Set Expansions}
 \label{sec:MF}
 
 Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
@@ -834,13 +834,27 @@ where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and pote
 $\op{g}$ is a two--body operator which describes the interaction between two electrons.
 At this point, the explicit structure of these operators are immaterial to the following developments; simply
 noting that the presence of $\op{g}$ renders direct solution of \cref{eq:QWave} for the many body
-wave function impractical \todo{cite}. Given this general form, there are several ways one may construct a suitable
-$\mathcal{C}$ \todo{cites?}. In this work, we will be primarily concerned with optimizing a set $\mathcal{C}$ such that
-we may construct a reference determinant (per \cref{eq:ExcitationOp}) which minimizes an energy functional,
+wave function impractical \todo{cite}. 
+In this work, we will be primarily concerned with optimizing a set $\mathcal{C}$ such that
+we may construct a reference determinant (per \cref{eq:ExcitationOp}) which minimizes the energy functional,
 \begin{equation}
+\label{eq:EnergyFunctional}
 E[\Psi] = \frac{\innerop{\Psi}{\op{H}_{el}}{\Psi}}{\inner{\Psi}{\Psi}},
 \end{equation}
-where $\ket{\Psi}$ is an arbitrary element of $\hilb{H}^{N_{\mathrm{el}}}$. 
+over all possible Slater determinants. Here $\ket{\Psi}$ is an arbitrary element of $\hilb{H}^{N_{\mathrm{el}}}$.
+
+Before delving into the details of how one goes about optimizing $\mathcal{C}$.
+
+
+
+
+
+
+%For a particular Slater determinant, $\ket{\Phi_0^N}$, \cref{eq:EnergyFunctional} may be recast into
+%a form which solely depends on the 1RDM due to \cref{eq:RDMSD},
+%\begin{equation}
+%E[\Phi_0^N] \equiv E[\gamma^1] = h[\gamma^1] + J[\gamma^1] + E^{xc}[\gamma^1] + V[\gamma^1]
+%\end{equation}
 
 
 % Non--Relativistic Hamiltonian
