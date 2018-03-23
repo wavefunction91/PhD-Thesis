@@ -815,17 +815,15 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 
 
-\subsection{Mean--Field Quantum Mechanics, Density Functional Theory and Basis Set Expansions}
+\subsection{Formal and Mean Field Solutions to the Wave Equation for Time Independent 
+  Electronic Hamiltonians}
 \label{sec:MF}
 
-Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
-to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
-in the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursory
-inspection of the nature of $\mathcal{C}$ indicates that it must be countably infinite in order to 
-satisfy completeness on $\hilb{H}^1$ \todo{confirm, cite?}. Thus it must be truncated in some systematic
-way in order for it to be useful in any practical treatment of the many body problem.
-
-The electronic Hamiltonians one typically encounters for molecular systems with $N_\mathrm{el}$ electrons,
+Examination of the time--independent solutions of \cref{eq:QWave} plays a central role in the development
+of both time--dependent and time--independent quantum theory. Thus, for the time being, we will restrict
+ourselves to Hamiltoninans which are independent of time, though this will not be the case in general
+(see \cref{sec:SCLMI} for instance).
+Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N_\mathrm{el}$ electrons,
 $\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
 \begin{equation}
 \op{H}_{el} = \sum_{i}^{N_\mathrm{el}} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}(i,j),
@@ -834,19 +832,100 @@ where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and pote
 $\op{g}$ is a two--body operator which describes the interaction between two electrons.
 At this point, the explicit structure of these operators are immaterial to the following developments; simply
 noting that the presence of $\op{g}$ renders direct solution of \cref{eq:QWave} for the many body
-wave function impractical \todo{cite}. 
-In this work, we will be primarily concerned with optimizing a set $\mathcal{C}$ such that
-we may construct a reference determinant (per \cref{eq:ExcitationOp}) which minimizes the energy functional,
+wave function impractical \todo{cite}. Nevertheless, one may write down a general form for the solution
+of \cref{eq:QWave} with this Hamiltonian as \todo{cite Sakurai}
+\begin{equation}
+\ket{\Psi (t)} = \exp \left[ -i(t - t_0) \op{H}_{el} \right] \ket{\Psi (t_0) },
+\end{equation}
+where $t_0$ is a referece time point for which one may specify an initial condition for the electronic 
+wave function. Without loss of generality, we will typically take $t_0 = 0$. We now consider the eigen
+spectrum of the electronic Hamiltoninan such that there exists a set of wave functions $\ket{\Psi_n} \in \hilb{H}^N$
+which yield
+\begin{equation}
+\label{eq:TIQWave}
+\op{H}_{el} \ket{\Psi_n} = E_n \ket{\Psi_n},
+\end{equation}
+where $E_n$ is the energy eigenvalue of $\ket{\Psi_n}$. The pairs $(\ket{\Psi_n},E_n)$ will be referred to
+as the adiabatic electronic states, and  \cref{eq:TIQWave} as the time--independent quantum wave equation 
+in the following. As a spectral decomposition of $\op{H}_{el}$, $\hilb{H}^{N_\mathrm{el}} = \Span{\set{\ket{\Psi_n}}}$
+such that any arbitrary vector in $\hilb{H}^{N_\mathrm{el}}$ may be decomposed as
+\begin{equation}
+\ket{\Psi (t) } = \sum_n c_n(t) \ket{\Psi_n},\qquad c_n(t) = \inner{\Psi_n}{\Psi(t)}.
+\end{equation}
+Here, the coefficients are assumed to be unit normal, i.e. $\sum_n\vert c_n (t) \vert = 1$. 
+Note that the coefficients $c_n(t)$ are different from those of \cref{eq:SDBasis} as the
+adiabatic states are in general \emph{not} Slater determinants due to the presence of $\op{g}$.
+
+
+Suppose that we specify the initial condition of the wave function to be an adiabatic state
+of the electronic Hamiltonian, $\ket{\Psi(0)} = \ket{\Psi_m}$. \Cref{eq:TIQWave} immediately 
+yields the action of the Hamiltonian on the state such that
+\begin{equation}
+\label{eq:StatSol}
+\ket{\Psi(t)} = \exp \left[ -it E_m \right] \ket{\Psi_m}. 
+\end{equation}
+Time dependent solutions such as comprise a special class of solutions to \cref{eq:QWave} 
+known as stationary states. As $E_m$ is a real constant (due to the hermiticity of $\op{H}_\mathrm{el}$),
+\cref{eq:StatSol} is referred to as stationary as it trivially rotates through the complex plane
+such that for operators void of differentations with respect to time, $\op{O}^N$
+\begin{equation}
+\innerop{\Psi(t)}{\op{O}^N}{\Psi(t)} = \innerop{\Psi_m}{\op{O}^N}{\Psi_m} \quad \forall t,
+\end{equation}
+i.e. the state itself is not, strictly speaking time independnet, but its expectation values are.
+Of particular interest to this work, at least in the development of a theoretical framework, will be 
+the so called ground electronic state: the electronic adiabat which has the lowest energy, $(E_0,\ket{\Psi_0})$.
+In practice, one may determine the ground state by minimizing the energy functional,
 \begin{equation}
 \label{eq:EnergyFunctional}
 E[\Psi] = \frac{\innerop{\Psi}{\op{H}_{el}}{\Psi}}{\inner{\Psi}{\Psi}},
 \end{equation}
-over all possible Slater determinants. Here $\ket{\Psi}$ is an arbitrary element of $\hilb{H}^{N_{\mathrm{el}}}$.
-
-Before delving into the details of how one goes about optimizing $\mathcal{C}$.
+which admits a sole minimum at the ground electronic state due to the variational theorem \todo{cite}.
 
 
+Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
+to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
+in this and the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursory
+inspection of the nature of $\mathcal{C}$ indicates that it must be countably infinite in order to 
+satisfy completeness on $\hilb{H}^1$ \todo{confirm, cite?}. Thus it must be truncated in some systematic
+way in order for it to be useful in any practical treatment of the many body problem.
+Unfortunately, any truncation of \cref{eq:SDBasis} or \cref{eq:CIExp} will make it impossible in general to
+construct exact many body states, such as those of \cref{eq:TIQWave}.
+In this work, we will be primarily concerned with optimizing a set $\mathcal{C}$ such that
+we may construct a reference determinant (per \cref{eq:ExcitationOp}) which minimizes the energy functional
+in \cref{eq:EnergyFunctional} over all possible Slater determinants. In effect, such a minimization will
+construct the best single Slater determinant approximation to the many--body ground electronic state
+which may serve as a reference determinant in the context of \cref{eq:ExcitationOp} for better approximations
+for  true many body wave functions.
 
+Before delving into the specifics of how one might go about optimizing $\mathcal{C}$ to minimize 
+\cref{eq:EnergyFunctional}, one might note that in the absence of $\op{g}$, i.e. many body operators
+of the form
+\begin{equation}
+\label{eq:FockOp}
+\op{f}^N = \sum_i^{N_\mathrm{el}} \op{f}^1(i), \qquad \op{f}^1(i) = \op{h}(i) + \op{v}^\mathrm{eff}(i),
+\end{equation}
+admit eigen functions which may be written as single Slater determinants. That is to say
+that given a set $\mathcal{C}$ whos elements are eigen functions of $\op{f}^1(1)$,
+\begin{equation}
+\label{eq:FockEq}
+\op{f}^1(1) \ket{\phi_p} = \ket{\phi_p} \epsilon_p,
+\end{equation}
+the Slater determinant which may be constructed from $\mathcal{C}$ are eigen functions of
+\cref{eq:FockOp} \cite{Ostlund12_book}. Here, $\epsilon_p$ will be referred to as the orbital
+eigenenergy corresponding to $\ket{\phi_p}$. Due to the lack of explicit two body interaction
+in \cref{eq:FockOp}, the resulting solution constructed from \cref{eq:FockEq} will be referred
+to as a \emph{non--interacting} system, i.e. they particles are treated as independent particles
+in an external potential $\op{v}^\mathrm{eff}$. The energy of this non--interacting system,
+\begin{equation}
+\label{eq:NIE}
+E_\mathrm{NI} = \sum_i^{N_\mathrm{el}}  \epsilon_i,
+\end{equation}
+is referred to as the non--interacting electronic energy of the system. If one wishes to minimize
+$E_\mathrm{NI}$ over the possible Slater determinants which may be constructed from $\mathcal{C}$,
+one must select the $N_\mathrm{el}$ orbtials with the lowest eigenenergy to build the determinants.
+This choice yields an ordering on $\mathcal{C}$ which orders orbitals in increasing orbital eigenenergy.
+This ordering also happens to correspond indentically to the phenomononlocal ordering dictated by the
+Aufbau principle \todo{cite}.
 
 
 
