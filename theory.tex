@@ -821,7 +821,7 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 Examination of the time--independent solutions of \cref{eq:QWave} plays a central role in the development
 of both time--dependent and time--independent quantum theory. Thus, for the time being, we will restrict
-ourselves to Hamiltoninans which are independent of time, though this will not be the case in general
+ourselves to Hamiltonians which are independent of time, though this will not be the case in general
 (see \cref{sec:SCLMI} for instance).
 Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N_\mathrm{el}$ electrons,
 $\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
@@ -837,9 +837,9 @@ of \cref{eq:QWave} with this Hamiltonian as \todo{cite Sakurai}
 \begin{equation}
 \ket{\Psi (t)} = \exp \left[ -i(t - t_0) \op{H}_{el} \right] \ket{\Psi (t_0) },
 \end{equation}
-where $t_0$ is a referece time point for which one may specify an initial condition for the electronic 
+where $t_0$ is a reference time point for which one may specify an initial condition for the electronic 
 wave function. Without loss of generality, we will typically take $t_0 = 0$. We now consider the eigen
-spectrum of the electronic Hamiltoninan such that there exists a set of wave functions $\ket{\Psi_n} \in \hilb{H}^N$
+spectrum of the electronic Hamiltonian such that there exists a set of wave functions $\ket{\Psi_n} \in \hilb{H}^N$
 which yield
 \begin{equation}
 \label{eq:TIQWave}
@@ -867,11 +867,11 @@ yields the action of the Hamiltonian on the state such that
 Time dependent solutions such as comprise a special class of solutions to \cref{eq:QWave} 
 known as stationary states. As $E_m$ is a real constant (due to the hermiticity of $\op{H}_\mathrm{el}$),
 \cref{eq:StatSol} is referred to as stationary as it trivially rotates through the complex plane
-such that for operators void of differentations with respect to time, $\op{O}^N$
+such that for operators void of differentiation with respect to time, $\op{O}^N$
 \begin{equation}
 \innerop{\Psi(t)}{\op{O}^N}{\Psi(t)} = \innerop{\Psi_m}{\op{O}^N}{\Psi_m} \quad \forall t,
 \end{equation}
-i.e. the state itself is not, strictly speaking time independnet, but its expectation values are.
+i.e. the state itself is not, strictly speaking time independent, but its expectation values are.
 Of particular interest to this work, at least in the development of a theoretical framework, will be 
 the so called ground electronic state: the electronic adiabat which has the lowest energy, $(E_0,\ket{\Psi_0})$.
 In practice, one may determine the ground state by minimizing the energy functional,
@@ -905,7 +905,7 @@ of the form
 \op{f}^N = \sum_i^{N_\mathrm{el}} \op{f}^1(i), \qquad \op{f}^1(i) = \op{h}(i) + \op{v}^\mathrm{eff}(i),
 \end{equation}
 admit eigen functions which may be written as single Slater determinants. That is to say
-that given a set $\mathcal{C}$ whos elements are eigen functions of $\op{f}^1(1)$,
+that given a set $\mathcal{C}$ whose elements are eigen functions of $\op{f}^1(1)$,
 \begin{equation}
 \label{eq:FockEq}
 \op{f}^1(1) \ket{\phi_p} = \ket{\phi_p} \epsilon_p,
@@ -922,9 +922,9 @@ E_\mathrm{NI} = \sum_i^{N_\mathrm{el}}  \epsilon_i,
 \end{equation}
 is referred to as the non--interacting electronic energy of the system. If one wishes to minimize
 $E_\mathrm{NI}$ over the possible Slater determinants which may be constructed from $\mathcal{C}$,
-one must select the $N_\mathrm{el}$ orbtials with the lowest eigenenergy to build the determinants.
+one must select the $N_\mathrm{el}$ orbitals with the lowest eigenenergy to build the determinants.
 This choice yields an ordering on $\mathcal{C}$ which orders orbitals in increasing orbital eigenenergy.
-This ordering also happens to correspond indentically to the phenomononlocal ordering dictated by the
+This ordering also happens to correspond identically to the phenomenological ordering dictated by the
 Aufbau principle \todo{cite}.
 
 
