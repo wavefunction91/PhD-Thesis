@@ -3,20 +3,78 @@
 \section{Noncollinear Kohn--Sham Density Functional Theory}
 
 \subsection{Discussion}
+
+In this section, we will provide validation and computational performance
+results for the proposed non--collinear KS--DFT method. The proposed method was
+implemented in a locally modified version of the open source
+\texttt{ChronusQ}\cite{chronusq_beta2} electronic structure software package.
+All calculations were performed using Intel Haswell compute nodes (14$\times$2
+Intel\textregistered Xeon E5--2680 v4 CPUs @ 2.40 GHz, 32k L1 cache, 256k L2
+cache, 35840k L3 cache) without the exploitation of molecular point group
+symmetry. All numerical integrations were carried out with the Becke molecular
+integration scheme using 100 Euler--Maclaurin~\cite{Laming93_997} quadrature points for the
+radial integration and 302 Lebedev~\cite{Lebedev77_99} points for the angular integration around
+each atom.
+
 \subsubsection{Validation}
-Molecular systems characterized by geometrically frustrated conformations have been used to gauge the reliability of the presented implementation, since generalized-KS  and X2C-KS, unlike U-KS, methods are capable to support the broken $\op{S}_z$ symmetry that minimizes Pauli repulsion.\cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109}
-Thus, we examined a series
-of neutral hydrogen rings, ranging from 3 to 8 hydrogen atoms, that have already been proved to show broken symmetry solutions within generalized Hartree-Fock theory.\cite{Li15_154109}
-The used conformations have 1 \AA~ spaced hydrogen atoms and only the  odd-membered rings will be geometrically frustrated.
-All  hydrogen rings electronic structure were obtained by solving the presented X2C-KS
-equation  in open-source \texttt{ChronusQ}\cite{chronusq_beta2} electronic structure software using the hybrid Becke, 3-parameter, Lee-Yang-Parr (B3LYP) density functional 
-\cite{Becke93_5648,Parr88_785,Preuss89_200} with a 6-311+g** basis, since it is required to include the polarization of hydrogenic s-functions.\cite{Li15_154109}
-Qualitatively,  X2C-KS solutions are given in \cref{fig:rings}, where both the spin and the charge densities are reported, respectively. The spin density in the non-collinear
-approach is a mapping of the 2-norm of the spin magnetization vector onto the total density \cite{Wullen02_779}, ensuring the spin density to be positive and always real, and the charge density is a mapping of the electrostatic potential to the total density.
-For even numbered rings, the anti-ferromagnetic
-spin distribution can be observed, aside from the six rings (where the closed shell solution is the most stable one according to the $2n + 1$ rule for M\"obius-like periodicity).
-For odd membered rings, the M\"obius-like periodicity of magnetization ordering
-in X2C-KS results can be inspected by the totally symmetric distribution of the spin density throughout the structure in \cref{fig:rings}. This symmetric distribution can not be supported by collinear solutions\cite{Li15_154109} which are constrained to be eigenfunctions of $\op{S}_z$. Thus, X2C-B3LYP  is able to reproduce the expected symmetry of non-collinear results for odd membered rings \cite{Li15_154109}, ensuring the reliability of the  current implementation.
+
+A series of geometrically frustrated hydrogen rings were used to gauge the validity of the 
+proposed two--component Kohn--Sham implementation. Geometrically frustrated systems
+provide an excellect test case for the validation of non--collinear electronic structure
+methods as their lowest energy mean--field solutions break $\op{S}_z$ symmetry to minimize
+Pauli repulsion \cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109} .
+Unlike their collinear counter parts (such as restricted and unrestricted Kohn--Sham), non--collinear
+Kohn--Sham is able to support this broken symmetry due to its explicit treatment of the full
+spinor nature of the electronic density. To this end, a series of six Hydrogen rings ranging from 3 to
+8 hydrogens were constructed such that each hydrogen was placed at 1 \AA~ spacing around 
+an equidistant circle (see \cref{fig:rings}). Thus only the odd membered rings may be considered geometrically
+frustrated. All calculations involving Hydrogen rings were performed using the X2C-B3LYP/6-311+G(d,p)
+level of theory\cite{Becke93_5648,Parr88_785,Preuss89_200}. 
+The scalar and spin densities of the Hydrogen rings solutions have been examined in \cref{fig:rings}. 
+
+
+In comparison to the thorough discussion of geometric frustration of Hydrogren rings in Ref \cite{Li15_154109}, 
+we can see that for the even numbered Hydrogren rings,
+the symmetrical distribution of the spin and scalar densities indicates an anti--ferromagnetic spin
+alignment; the same as one would get in a collinear solutions. This is further confirmed by the fact that
+the expectation value of $\op{S}$ for these solutions was found to be zero. thus all spins must be antialligned.
+While is this perhaps not the most
+intetesting result in the context of non--collinear calculations, it does indicate that our implementation
+collapses to the expected collinear behaviour if needed. Further in the case that the spin density is small
+in all space (the six membered Hydrogen ring), we can see that the the choice for the generalized auxillary
+variables in \todo{reference eq} is a robust and accurate choice even in the worst case scenario.
+The primary result of \cref{fig:rings} is that both the spin and scalar densities adopt a symmetrical
+distribution even for the odd membered rings; a property which would be impossible in a collinear solution
+due to the geometrical frustration of the system. An anti--ferromagnetic solution (the lowest energy
+solution within the unrestricted formalism for the Slater determinant ground state) would yield an
+asymmetric spin density. Thus, our implementation of X2C-KS is able to reproduce the expected symmetries of
+the non--collinear soltions for both even and odd membered Hydrogen rings, ensuring the robustness and 
+reilability of the proposed method.
+
+
+
+
+%Molecular systems characterized by geometrically frustrated conformations have
+%been used to gauge the reliability of the presented implementation, since
+%generalized-KS  and X2C-KS, unlike U-KS, methods are capable to support the
+%broken $\op{S}_z$ symmetry that minimizes Pauli
+%repulsion\cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109} .
+%Thus, we examined a series of neutral hydrogen rings, ranging from 3 to 8
+%hydrogen atoms, that have already been proved to show broken symmetry solutions
+%within generalized Hartree-Fock theory.\cite{Li15_154109} The used
+%conformations have 1 \AA~ spaced hydrogen atoms and only the  odd-membered
+%rings will be geometrically frustrated.  All  hydrogen rings electronic
+%structure were obtained by solving the presented X2C-KS equation  in
+%open-source \texttt{ChronusQ}\cite{chronusq_beta2} electronic structure
+%software using the hybrid Becke, 3-parameter, Lee-Yang-Parr (B3LYP) density
+%functional 
+%\cite{Becke93_5648,Parr88_785,Preuss89_200} with a 6-311+g** basis, since it is required to include the polarization of hydrogenic s-functions.\cite{Li15_154109}
+%Qualitatively,  X2C-KS solutions are given in \cref{fig:rings}, where both the spin and the charge densities are reported, respectively. The spin density in the non-collinear
+%approach is a mapping of the 2-norm of the spin magnetization vector onto the total density \cite{Wullen02_779}, ensuring the spin density to be positive and always real, and the charge density is a mapping of the electrostatic potential to the total density.
+%For even numbered rings, the anti-ferromagnetic
+%spin distribution can be observed, aside from the six rings (where the closed shell solution is the most stable one according to the $2n + 1$ rule for M\"obius-like periodicity).
+%For odd membered rings, the M\"obius-like periodicity of magnetization ordering
+%in X2C-KS results can be inspected by the totally symmetric distribution of the spin density throughout the structure in \cref{fig:rings}. This symmetric distribution can not be supported by collinear solutions\cite{Li15_154109} which are constrained to be eigenfunctions of $\op{S}_z$. Thus, X2C-B3LYP  is able to reproduce the expected symmetry of non-collinear results for odd membered rings \cite{Li15_154109}, ensuring the reliability of the  current implementation.
 
 \begin{figure}
 \begin{center}
@@ -24,26 +82,27 @@ in X2C-KS results can be inspected by the totally symmetric distribution of the 
   \includegraphics{rings.pdf}
 }
 \end{center}
-\caption{X2C-B3LYP  6-311+g** spin and charge densities for hydrogen rings sizes 3-8. The spin density is represented as the 2-norm of the magnetization vector at each point in space (left, in blue largest magnitude), and the charge density as the electrostatic potential mapped to the total density (right, in red largest electronic population).}
+\caption{X2C-B3LYP  6-311+g(D,P) spin ($\vert \vc{m}(\vc{r})\vert$, left) and scalar ($\rho^{1,0}(\vc{r})$, right) densities for a series of Hydrogen rings.
+Blue and Red represent regions of greater density magnitude respectively.}
 \label{fig:rings}       
 \end{figure}
 
-\subsubsection{Performances}
+\subsubsection{Computational Performance}
+
 \begin{figure}
 \begin{center}
 \resizebox{6.5in}{!}{%
   \includegraphics{radicals.pdf}
 }
 \end{center}
-\caption{X2C-B3LYP 6-311+G(2d,p) spin densities for phenoxy radicals with increasing number of symmetrical fused benzene rings ($n$=1-10, where $n$ represents the number of fused benzene rings on each side). The spin density (here the 0.001 iso-surface) is obtained as the 2-norm of the magnetization vector at each point in space.}
+\caption{X2C-B3LYP 6-311+G(2D,P) spin densities ($\vert\vc{m}(\vc{r})\vert$) for phenoxy radicals with an increasing number of fused benzene rings 
+($n$=1-10, where $n$ represents the number of fused benzene rings on each side).}
 \label{fig:radicals}       
 \end{figure}
+
 After we have checked the reliability and presented the schematics of the integration scheme, 
 we focus on the performances of the method.
-All the following tests presented are performed without exploiting symmetry using B3LYP/6-311+G(2d,p) theory level
-and atomic centered grids resulting as the product of a radial and angular
-quadrature, using 100 Euler-Maclaurin~\cite{Laming93_997}, and 302 Lebedev (l = 29)~\cite{Lebedev77_99} grid points, respectively (100$\times$302 grid).
-All calculations were performed using Intel Haswell compute nodes (14$\times$2 Intel\textregistered Xeon E5--2680 v4 CPUs @ 2.40 GHz, 32k L1 cache, 256k L2 cache, 35840k L3 cache).
+All the following tests presented were performed without exploiting symmetry using B3LYP/6-311+G(2d,p) theory level
 All times refer to the combined wall time for 
 the numerical evaluation of $E_{XC}$ and the matrix elements  $V^{GGA,I}_{\mu\nu}$, (\cref{eq:EXCGGA_num} and \cref{eq:VXCGGA_num}) for
 each  self consistent field (SCF) step (as average over 5 steps).
