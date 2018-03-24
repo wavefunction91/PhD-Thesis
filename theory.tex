@@ -834,6 +834,7 @@ ourselves to Hamiltonians which are independent of time, though this will not be
 Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N$ electrons,
 $\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
 \begin{equation}
+\label{eq:GenElHam}
 \op{H}_{el} = \sum_{i}^{N} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N} \op{g}(i,j),
 \end{equation}
 where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and potential operators respectively.
@@ -946,9 +947,9 @@ to utilize $N$--representable density matrices in the development of our theorie
 the choice os possible configurations to only include those which contain orthonormal orbtals. To this
 end we will employ the a constrained energy Lagrangian \cite{Ostlund12_book},
 \begin{equation}
-\mathcal{L}[\mathcal{K}^N] = E^\mathrm{HF}[\mathcal{K}^N] - \sum_{i,j \in \mathcal{K}^N} \epsilon_{ij} \left( \inner{\phi_i}{\phi_j} - \delta_{ij} \right),
+\mathcal{L}[\mathcal{K}^N] = E^\mathrm{HF}[\mathcal{K}^N] - \sum_{i,j \in \mathcal{K}^N} \lambda_{ij} \left( \inner{\phi_i}{\phi_j} - \delta_{ij} \right),
 \end{equation}
-where $\mathcal{K}^N$ is an arbitrary $N$ orbital configuration and $\epsilon_{ij}$ is a set of to--be--determined Lagrange multipliers
+where $\mathcal{K}^N$ is an arbitrary $N$ orbital configuration and $\lambda_{ij}$ is a set of to--be--determined Lagrange multipliers
 which will constrain our choice of orbitals to be orthonormal. HF has been used to denote the fact that this form is only valid
 for single Slater determinants.
 A necessacary condition for minimization of \cref{eq:EnergyFunctional} in this context is given by
@@ -959,23 +960,50 @@ A necessacary condition for minimization of \cref{eq:EnergyFunctional} in this c
 where derivatives set to zero are \emph{functional derivatives}. 
 
 The energy functional for a configuration consisting of orthonormal orbitals is often most simply 
-written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book},
+written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book}, \todo{make sure this is correct for 2C}
 \begin{align}
-&E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = 2\sum_{K_1}\iint_{\mathbb R^3} 
-  \delta^3(\vc{r}_1 - \vc{r}'_1) \left[\left( \op{h}^{K_1}(\vc{r}_1) + \op{v}^{K_1}(\vc{r}_1) \right) \gamma^{1,K}(\vc{r}'_1; \vc{r}_1)\right] \,\dd^3\vc{r}_1 \dd^3\vc{r}'_1 \,\,+ \nonumber\\
-  &\quad 2\sum_{K_1K_2}
-   \iint_{\mathbb{R}^3} \op{g}^{K_1K_2}(\vc{r}_1,\vc{r}_2) 
-    \left( \gamma^{1,K_1}(\vc{r}_1; \vc{r}_1)\gamma^{1,K_2}(\vc{r}_2; \vc{r}_2) - \gamma^{1,K_1}(\vc{r}_1; \vc{r}_2)\gamma^{1,K_2}(\vc{r}_2; \vc{r}_1) \right) \,\dd^3\vc{r}_1 \dd^3\vc{r}_2.
+&E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = \iint_{\mathbb F} 
+  \delta^4(\vc{x}_1 - \vc{x}'_1) \left[\left( \op{h}(\vc{x}_1) + \op{v}(\vc{x}_1) \right) \gamma^{1}(\vc{x}'_1; \vc{x}_1)\right] \,\dd^4\vc{x}_1 \dd^4\vc{x}'_1 \,\,+ \nonumber\\
+   &\quad    \iint_{\mathbb{F}} \op{g}(\vc{x}_1,\vc{x}_2) 
+     \left( \gamma^{1}(\vc{x}_1; \vc{x}_1)\gamma^{1}(\vc{x}_2; \vc{x}_2) - \gamma^{1}(\vc{x}_1; \vc{x}_2)\gamma^{1}(\vc{x}_2; \vc{x}_1) \right) \,\dd^4\vc{x}_1 \dd^4\vc{x}_2.
 \end{align}
 \Cref{eq:ConstrMin} then becomes
 \begin{equation}
-  \int_\mathbb{F} \op{F}(\vc{x}; \vc{x}') \phi_i(\vc{x}') \dd^4\vc{x}' - \sum_{j \in \mathcal{K}^N} \epsilon_{ij} \phi_j(\vc{x}) = 0
+    \label{eq:RawHFEq}
+    \iint_{\mathbb F}\frac{\delta E^\mathrm{HF}[\mathcal{K}^N]}{\delta \gamma^{1} (\vc{x}'_1; \vc{x}_1)} \frac{\delta \gamma^{1}(\vc{x}'_1; \vc{x}_1)}{\delta \phi_i(\vc{x})} \,\dd^4\vc{x}'_1 \dd^4 \vc{x}_1 - 
+    \sum_{j,k \in \mathcal{K}^N} \lambda_{jk} \frac{\delta \inner{\phi_j}{\phi_k}}{\delta \phi_i(\vc{x})}  = 0 .
 \end{equation}
-where
+Due to the hermiticity of both $\gamma^1$ and the inner products $\inner{\phi_p}{\phi_q}$, \cref{eq:RawHFEq} will factor into two parts which are 
+conjugates of eachother, thus requiring both terms to go to zero simultaneously. Factoring out the spin integration and rearranging the summation indices, 
+\cref{eq:RawHFEq} may be written as
 \begin{align}
-&F(\vc{x}; \vc{x}') = \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} = H(\vc{x};\vc{x}') + J(\vc{x};\vc{x}') - K(\vc{x};\vc{x}') \\
-&H(\vc{x}; \vc{x}') = \delta^4(\vc{x} - \vc{x}')
+  \label{eq:HFNonCan}
+  \sum_{j \in \mathcal{K}^N} \sum_{\sigma'} 
+  \int_{\mathbb R^3} \left( \delta_{ij} F^{\sigma\sigma'}(\vc{r}; \vc{r'})  - \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'}\lambda_{ij} \right)
+    \phi_j^{\sigma'}(\vc{r}')\,\dd^3\vc{r}' = 0
 \end{align}
+where \todo{come back to this}
+\begin{align}
+&F^{\sigma\sigma'}(\vc{r}; \vc{r}') = 
+  \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1,\sigma'\sigma}(\vc{r}'; \vc{r})} = H^{\sigma\sigma'}(\vc{r};\vc{r}') + J^{\sigma\sigma'}(\vc{r};\vc{r}') - 
+    K^{\sigma\sigma'}(\vc{r};\vc{r}') \\
+&H^{\sigma\sigma'}(\vc{r}; \vc{r}') = \delta^3(\vc{r} - \vc{r}') \left(\op{h}^{\sigma\sigma'}(\vc{r}) + \op{v}^{\sigma\sigma'}(\vc{r}) \right) \\
+&J^{\sigma\sigma'}(\vc{r}; \vc{r}') = \delta^3(\vc{r} - \vc{r}') 
+\end{align}
+\Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\spop{F}$ is
+known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}.
+Using the fact that $\gamma^1$ is invariant to unitary transformation of the orbitals which comprise its construction \cite{Ostlund12_book,Yang89_book},
+we may choose to transform \cref{eq:HFNonCan} in such a way as to diagonalize the matrix of lagrange multipliers, 
+$\op{\mathcal U}: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
+\begin{equation}
+\label{eq:HFEq}
+\int_{\mathbb F} \spop{F}(\vc{x}; \vc{x}') \tilde\phi_i(\vc{x}') = \tilde\lambda_i \tilde\phi_i(\vc{x}), \qquad \tilde\phi_i = \op{\mathcal U}\phi_i. 
+\end{equation}
+\Cref{eq:HFEq} is known as the canonnical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonnical Hartree-Fock orbital. 
+Equating \cref{eq:HFEq} with \cref{eq:FockEq}.
+
+
+
 
 
 
