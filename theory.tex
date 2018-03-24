@@ -480,7 +480,11 @@ determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components 
   &\gamma^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right). 
 \end{align}
 \end{subequations}
-The expressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}.
+The expressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}. It is important to note that
+\cref{eq:SpinorDensityMat} is $N$--representable (i.e. it represents an $N$--particle Slater determinant) if and only if
+the orbitals used in its construction are orthonormal \cite{Yang89_book}. Thus this places a restriction on the possible
+choices of orbitals which may be used in the construction of Slater determinants for which we would like to utilize the
+properties of density matrices.
 
 
 In the case where the operator in equation is scalar multiplicative, i.e. does not contain differential operators, 
@@ -827,10 +831,10 @@ Examination of the time--independent solutions of \cref{eq:QWave} plays a centra
 of both time--dependent and time--independent quantum theory. Thus, for the time being, we will restrict
 ourselves to Hamiltonians which are independent of time, though this will not be the case in general
 (see \cref{sec:SCLMI} for instance).
-Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N_\mathrm{el}$ electrons,
+Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N$ electrons,
 $\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
 \begin{equation}
-\op{H}_{el} = \sum_{i}^{N_\mathrm{el}} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N_\mathrm{el}} \op{g}(i,j),
+\op{H}_{el} = \sum_{i}^{N} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N} \op{g}(i,j),
 \end{equation}
 where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and potential operators respectively.
 $\op{g}$ is a two--body operator which describes the interaction between two electrons.
@@ -851,8 +855,8 @@ which yield
 \end{equation}
 where $E_n$ is the energy eigenvalue of $\ket{\Psi_n}$. The pairs $(\ket{\Psi_n},E_n)$ will be referred to
 as the adiabatic electronic states, and  \cref{eq:TIQWave} as the time--independent quantum wave equation 
-in the following. As a spectral decomposition of $\op{H}_{el}$, $\hilb{H}^{N_\mathrm{el}} = \Span{\set{\ket{\Psi_n}}}$
-such that any arbitrary vector in $\hilb{H}^{N_\mathrm{el}}$ may be decomposed as
+in the following. As a spectral decomposition of $\op{H}_{el}$, $\hilb{H}^{N} = \Span{\set{\ket{\Psi_n}}}$
+such that any arbitrary vector in $\hilb{H}^{N}$ may be decomposed as
 \begin{equation}
 \ket{\Psi (t) } = \sum_n c_n(t) \ket{\Psi_n},\qquad c_n(t) = \inner{\Psi_n}{\Psi(t)}.
 \end{equation}
@@ -869,7 +873,7 @@ yields the action of the Hamiltonian on the state such that
 \ket{\Psi(t)} = \exp \left[ -it E_m \right] \ket{\Psi_m}. 
 \end{equation}
 Time dependent solutions such as this comprise a special class of solutions to \cref{eq:QWave} 
-known as stationary states. As $E_m$ is a real constant (due to the hermiticity of $\op{H}_\mathrm{el}$),
+known as stationary states. As $E_m$ is a real constant (due to the hermiticity of $\op{H}_{el}$),
 \cref{eq:StatSol} is referred to as stationary as it trivially rotates through the complex plane
 such that for operators void of differentiation with respect to time, $\op{O}^N$
 \begin{equation}
@@ -899,14 +903,15 @@ we may construct a reference determinant (per \cref{eq:ExcitationOp}) which mini
 in \cref{eq:EnergyFunctional} over all possible Slater determinants. In effect, such a minimization will
 construct the best single Slater determinant approximation to the many--body ground electronic state
 which may serve as a reference determinant in the context of \cref{eq:ExcitationOp} for better approximations
-for  true many body wave functions.
+for  true many body wave functions. The approximation which describes the ground state wave function as the 
+minimizing Slater determinant of \cref{eq:EnergyFunctional} is known as the Hartree--Fock (HF) approximation \todo{cites}.
 
 Before delving into the specifics of how one might go about optimizing $\mathcal{C}$ to minimize 
 \cref{eq:EnergyFunctional}, one might note that in the absence of $\op{g}$, i.e. many body operators
 of the form
 \begin{equation}
 \label{eq:FockOp}
-\op{f}^N = \sum_i^{N_\mathrm{el}} \op{f}^1(i), \qquad \op{f}^1(i) = \op{h}(i) + \op{v}^\mathrm{eff}(i),
+\op{f}^N = \sum_i^{N} \op{f}^1(i), \qquad \op{f}^1(i) = \op{h}(i) + \op{v}^\mathrm{eff}(i),
 \end{equation}
 admit eigen functions which may be written as single Slater determinants. That is to say
 that given a set $\mathcal{C}$ whose elements are eigen functions of $\op{f}^1(1)$,
@@ -919,20 +924,60 @@ the Slater determinants which may be constructed from $\mathcal{C}$ are eigen fu
 eigenenergy corresponding to $\ket{\phi_p}$. Due to the lack of explicit two body interaction
 in \cref{eq:FockOp}, the determinants which may be constructed from the solutions of \cref{eq:FockEq} will be referred
 to as a \emph{non--interacting} system, i.e. they particles are treated as independent particles
-in an external potential $\op{v}^\mathrm{eff}$. Given an configuration subset, $\mathcal{K}^{N_\mathrm{el}}_I \subset \mathcal{C}$,
+in an external potential $\op{v}^\mathrm{eff}$. Given an configuration subset, $\mathcal{K}^{N}_I \subset \mathcal{C}$,
 the energy of a non--interacting system is given by
 \begin{equation}
 \label{eq:NIE}
-E_\mathrm{NI} = \sum_{i \in \mathcal{K}_I^{N_\mathrm{el}}}  \epsilon_i.
+E_\mathrm{NI} = \sum_{i \in \mathcal{K}_I^{N}}  \epsilon_i.
 \end{equation}
 If one wishes to minimize
 $E_\mathrm{NI}$ over the possible Slater determinants which may be constructed from $\mathcal{C}$,
-one must select the $N_\mathrm{el}$ orbitals with the lowest eigenenergy to build the determinant.
+one must select the $N$ orbitals with the lowest eigenenergy to build the determinant.
 This choice yields an ordering on $\mathcal{C}$ which orders orbitals in increasing orbital eigenenergy.
 This ordering also happens to correspond identically to the phenomenological ordering dictated by the
 Aufbau principle \todo{cite}.
 
-Given a Slater determinant with                                                                                                              
+Due to the fact that a single Slater determinant is completely described by its orbital configuration,
+minimizing \cref{eq:EnergyFunctional} over Slater determinants amounts to determining a configuration
+which minimizes the Hamiltonian expectation value. Thus it is useful to think of \cref{eq:EnergyFunctional}
+not as a functional of a single parameter, but rather as a functional of several parameters, namely $N$
+orbitals which comprise some configuration. However, as was discussed in \cref{sec:DenMat}, if we wish
+to utilize $N$--representable density matrices in the development of our theories, we must constrain
+the choice os possible configurations to only include those which contain orthonormal orbtals. To this
+end we will employ the a constrained energy Lagrangian \cite{Ostlund12_book},
+\begin{equation}
+\mathcal{L}[\mathcal{K}^N] = E^\mathrm{HF}[\mathcal{K}^N] - \sum_{i,j \in \mathcal{K}^N} \epsilon_{ij} \left( \inner{\phi_i}{\phi_j} - \delta_{ij} \right),
+\end{equation}
+where $\mathcal{K}^N$ is an arbitrary $N$ orbital configuration and $\epsilon_{ij}$ is a set of to--be--determined Lagrange multipliers
+which will constrain our choice of orbitals to be orthonormal. HF has been used to denote the fact that this form is only valid
+for single Slater determinants.
+A necessacary condition for minimization of \cref{eq:EnergyFunctional} in this context is given by
+\begin{equation}
+\label{eq:ConstrMin}
+\frac{\delta \mathcal{L}[\mathcal{K}^N]}{\delta \phi_i (\vc{x})} = 0 ,\quad \forall \phi_i(\vc{x}) \in \mathcal{K}^N,
+\end{equation}
+where derivatives set to zero are \emph{functional derivatives}. 
+
+The energy functional for a configuration consisting of orthonormal orbitals is often most simply 
+written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book},
+\begin{align}
+&E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = 2\sum_{K_1}\iint_{\mathbb R^3} 
+  \delta^3(\vc{r}_1 - \vc{r}'_1) \left[\left( \op{h}^{K_1}(\vc{r}_1) + \op{v}^{K_1}(\vc{r}_1) \right) \gamma^{1,K}(\vc{r}'_1; \vc{r}_1)\right] \,\dd^3\vc{r}_1 \dd^3\vc{r}'_1 \,\,+ \nonumber\\
+  &\quad 2\sum_{K_1K_2}
+   \iint_{\mathbb{R}^3} \op{g}^{K_1K_2}(\vc{r}_1,\vc{r}_2) 
+    \left( \gamma^{1,K_1}(\vc{r}_1; \vc{r}_1)\gamma^{1,K_2}(\vc{r}_2; \vc{r}_2) - \gamma^{1,K_1}(\vc{r}_1; \vc{r}_2)\gamma^{1,K_2}(\vc{r}_2; \vc{r}_1) \right) \,\dd^3\vc{r}_1 \dd^3\vc{r}_2.
+\end{align}
+\Cref{eq:ConstrMin} then becomes
+\begin{equation}
+  \int_\mathbb{F} \op{F}(\vc{x}; \vc{x}') \phi_i(\vc{x}') \dd^4\vc{x}' - \sum_{j \in \mathcal{K}^N} \epsilon_{ij} \phi_j(\vc{x}) = 0
+\end{equation}
+where
+\begin{align}
+&F(\vc{x}; \vc{x}') = \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} = H(\vc{x};\vc{x}') + J(\vc{x};\vc{x}') - K(\vc{x};\vc{x}') \\
+&H(\vc{x}; \vc{x}') = \delta^4(\vc{x} - \vc{x}')
+\end{align}
+
+
 
 
 %For a particular Slater determinant, $\ket{\Phi_0^N}$, \cref{eq:EnergyFunctional} may be recast into
