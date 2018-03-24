@@ -1054,7 +1054,7 @@ and
 \begin{subequations}
 \begin{align}
 &\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \\ 
-&X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{F}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
+&X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{X}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
 \quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}.
 \end{align}
 \end{subequations}
@@ -1062,9 +1062,11 @@ and
 &S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}, \\
 &\spn{\epsilon}_{pq} = \delta_{pq} \epsilon_p.
 \end{align}
+\todo{2N spinors from N basis}
+\todo{Span of basis is span of C}
+\todo{Iterative (brief)}
 
-
-
+\subsection{Density Functional Theory}
 
 
 
@@ -1083,9 +1085,10 @@ and
 
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
 molecular Hamiltonian, $\op{H}^\NR : \hilb{H}^\NR \mapsto \hilb{H}^\NR$, where $\hilb{H}^\NR$ describes a quantum
-system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the absence of relativistic effects. As such,
-it is an approximation to the true Hilbert space which describes the physical state of affairs exactly, but it often
-provides a sufficient model for systems when effects such as those which arise from special relativity are unimportant.
+system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the absence of relativistic effects. 
+%As such,
+%it is an approximation to the true Hilbert space which describes the physical state of affairs exactly, but it often
+%provides a sufficient model for systems when effects such as those which arise from special relativity are unimportant.
 $\op{H}^\NR$ is so fundamental to the description
 of quantum molecular systems in that it is the linear operator on $\hilb{H}^\NR$ which represents the non--relativistic 
 total energy of the system.  In the absence of external fields, $\op{H}^\NR$ takes the form
@@ -1119,11 +1122,11 @@ In the spinor representation, these operators take the general form (in atomic u
 \begin{align}
   \label{eq:SpinorCoulomb}
   &\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = 
-    \frac{L_\xi L_\zeta}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
+    \frac{Z_\xi Z_\zeta}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
-respectively. $L_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electrons and 
-$Z_A$ for the $A$--th nucleus, where $Z_A$ is the number of protons in said nucleus. 
+respectively. $Z_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electrons and 
+the number of protons for a particular nucleaus, repsectively . 
 $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
 careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
 \emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \todo{cite}. For electrons, $\op{I}_S=\pauli{0}$.
@@ -1152,10 +1155,11 @@ the nuclear kinetic energy to be negligible, i.e.
 This assumption is referred to as the Born--Oppenheimer approximation (a concept distinct from from the 
 Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
-the ratio of the electronic and nuclear masses, $\approx 10^{4}$. Thus, from the electronic perspective,
+the ratio of the electronic and proton masses, $\approx 10^{4}$. Thus, from the electronic perspective,
 the nuclear configuration is approximately static, and the electrons only ,,feel" the electrostatic
-potential of a fixed nuclear wave function at any given time. Denoting a particular fixed nuclear wave
-function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian one acts on the electronic 
+potential of a fixed nuclear wave function at any given time. This approach is therefore analogus to
+the mean field treatment of the Hartree--Fock wave function in \cref{eq:HFEq}. Denoting a particular fixed nuclear wave
+function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian which acts on the electronic 
 component of the wave function and is valid in the inertial frame of the electrons,
 \begin{equation}
 \label{eq:NRBOH}
@@ -1189,8 +1193,8 @@ The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QW
 \end{equation}
 and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \cite{Tully98_407}.
 In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
-equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. This is due to the fact that they
-are specialization of the original Schr\"{o}dinger Hamiltonian of the form
+equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. As such, it is 
+a specialization of the original Schr\"{o}dinger Hamiltonian of the form
 \begin{equation}
 \label{eq:SchHam}
 \op{H}(t) = \op{T}^\NR + \op{V}(t).
@@ -1200,22 +1204,24 @@ and perhaps the most glaring in the context of molecular calculations involving 
 is that in the limit of electrostatics in the absence of external fields there is only trivial action of the
 Hamiltonian onto the spin components of the electronic  wave function. To be clear, electronic spin is inherent in any quantum
 treatment of electrons as it manifests naturally through the irreducible representations of the Galilean group
-which governs non--relativistic mechanics \cite{Levy67_286}. \co{Shure up or remove} Phenomenologically, one may introduce non--trivial spin manipulation into the non--relativistic
+which governs non--relativistic mechanics \cite{Levy67_286}.  Phenomenologically, one may introduce non--trivial spin manipulation into the non--relativistic
 Hamiltonian through the interaction with an external magnetic field, $\vc{B}$, via the spin--Zeeman term,
 \begin{equation}
-\op{H}^\BO_{el} \mapsto  \op{H}^\BO_{el} + \op{H}^\mathrm{Zeeman}, \qquad \op{H}^\mathrm{Zeeman}  = \frac{1}{2} \sum_{k=1}^3 B^k \pauli{k},
+\op{H}^\BO_{el} \mapsto  \op{H}^\BO_{el} + \op{H}^\mathrm{Zeeman}, \qquad \op{H}^\mathrm{Zeeman}  = 
+  \frac{1}{2} \sum_{i = 1}^{N_\mathrm{el}}\sum_{k=1}^3 B^k \left( \pauli{k}(i) + \op{L}_k(i) \right),
 \end{equation}
 due to observation of the linear relationship between the magnetic field strength and energy level splittings in the Stern--Gerlach 
-experiment\cite{Napolitano17_book}. However, it is well known that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
-of the electronic spin degrees of freedom in the strong field limit \todo{cite}, and clearly yields no mechanism to treat
-intrinsic effects such as zero--field splitting of electronic energy levels.
+experiment\cite{Napolitano17_book}. Here, $\op{\vc L}$ is the one body orbital angular momentum operator. 
+It is well known, however, that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
+of the electronic spin degrees of freedom in the strong field limit \todo{cite}, whereas in the weak field limit, intrinsic magnetic
+effects such as spin--orbit coupling become energetically competitive.
 
 The second, perhaps more subtle problem relating specifically to the forms of \cref{eq:SchHam,eq:NRSCH} is that they are manifestly
 incapable of adhering to the laws of special relatively, i.e. it is impossible to write down a Hamiltonian of the form in
 \cref{eq:SchHam} which is Lorentz covariant. This problem is easily identified through recognizing that the Schr\"{o}dinger
 equation is quadratic in spatial coordinates through $\op{T}^\NR$ and linear in time, and thus incapable of being compatible with Lorentz boosts. At first glance,
-one might be tempted to think in terms of a classical picture for a quantum analogue, where for velocities much lower than the speed of light,
-the dynamics of classical bodies is approximately governed by Newtonian mechanics. Thus, within such a mindset, one might consider
+one might be tempted to think in terms of a classical analogue for the quantum picture, where for velocities much lower than the speed of light,
+the dynamics of classical bodies is approximately governed by Newtonian mechanics: the classical analogue of the Schr\"{o}dinger equation.  Within such a mindset, one might consider
 relativistic effects as only being important for heavy elements, such as Gold or Uranium, due to the fact that their core electrons
 move at velocities which are a considerable fraction of the speed of light. However, as is often the case with the quantization
 of classical mechanics, such a simplistic assumption yields qualitatively incorrect model physics even for light elements such as Carbon and Oxygen\todo{cite Pyyko}.
