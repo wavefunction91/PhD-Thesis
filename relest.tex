@@ -1,6 +1,88 @@
 \chapter{Two--Component Relativistic Electronic Structure Theory}
 
 \section{Noncollinear Kohn--Sham Density Functional Theory}
+\subsection{Implementation}
+On modern computing architectures, there are three primary facets one must consider when developing high--performance
+scientific software: parallelism, cache utilization, and exploitation of micro-architecture specific floating point
+operations ($\mu$-ops) such as single instruction--multiple data (SIMD) and fused multiply--add (FMA) operations. 
+We refer the reader to the work of Goto, \emph{et al}\cite{Goto08_TOMS12} for an excellent discussion of these considerations in the context of matrix operations.
+In the context of density functional theory, maximal exploitation of computational cache
+and $\mu$-ops is achieved through batching groups of integration points together to maximize screening capability and
+memory contingency. 
+There exist many batching schemes for various molecular integration quadratures in the 
+literature\cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097}.
+We provide the following discussion without loss of generality.
+
+As the point--wise
+function evaluations required for numerical integration are completely independent, it constitutes what is called an
+\emph{embarrassingly parallel task}, i.e. no communication is required between the independent operations and thus
+one should expect near linear speedup with the number of processors used. 
+In the context of electronic structure theory,
+the final two facets can usually be addressed through the use of highly optimized linear algebra software, such as
+the optimized BLAS (basic linear algebra subroutines) implementations offered OpenBLAS\cite{Qing13_ICHPC25,Yunquan12_PDS684} BLIS\cite{vanDeGeijn15_TOMS14} and Intel--MKL\cite{MKL}. 
+However, blind application of such software without careful consideration will often yield sub-optimal results,
+thus it is often the case that one must perform some level of algorithmic rearrangement to maximally utilize
+such capability. 
+To demonstrate this point, we examine the assembly of the exchange correlation potential
+in \cref{eq:VXC_point_update}.
+One may immediately recognize that the operation on the left of \cref{eq:VXC_point_update}
+is a sum over symmetric rank--2 updates (SYR2) of column vectors, $\mathbf{z}$ and $\boldsymbol{\chi}$,
+i.e.
+\begin{equation}
+\label{eq:VXC_SYR2}
+\mathbf{V}^{GGA,I} = \sum_i \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T ,
+\end{equation}
+where $\mathbf{z}_i^I$ and $\boldsymbol{\chi}_i$ are of length of the number of basis functions, $N_b$. While \cref{eq:VXC_SYR2}
+is a valid scheme for the assembly of \cref{eq:VXC_point_update}, for large $N_b$ this scheme will be drastically sub-optimal.
+This is due to the fact that, for large $N_b$, $\mathbf{V}^{GGA,I}$, $\mathbf{z}_i^I$ and $\boldsymbol{\chi}_i$ occupy a significant
+portion of the computational caches for each point. This means that the probability of the program attempting to access
+a memory address, i.e. an element of $\mathbf{z}_i^I$ or $\boldsymbol{\chi}_i$, between integration points and finding that it does not
+currently reside in the cache, i.e. a ``cache miss", is rather high relative to other memory access patterns. This yields a
+large degradation in performance as whenever a cache miss occurs, the program must then move that address in some manner to
+the cache from main memory before it can perform any operations on it. Moving data to and from main memory is disproportional
+more expensive than floating point operations, thus it must be kept to a minimum to obtain
+optimal efficiency.
+
+We may instead factor out a portion of the sum in \cref{eq:VXC_SYR2} such that we may partition it into sum over batches of points.
+In detail, we use the macrobatch approach,\cite{Frisch96_213} where the grid points of each atoms are arranged in Lebedev spheres\cite{Lebedev77_99}  of several radii, for the numerical integration of the exchange correlation potential,
+
+\begin{align}
+\label{eq:VXC_SYR2K}
+\mathbf{V}^{GGA,I} &= \sum_{S_j \in S} \left(\sum_{i\in S_j} \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T \right) \nonumber \\
+&= \sum_{S_j \in S} \mathbf{Z}^{I(j)} \left(\mathbf{X}^{(j)}\right)^T + \mathbf{X}^{(j)} \left(\mathbf{Z}^{I(j)}\right)^T
+\end{align}
+where
+\begin{equation}
+\mathbf{Y}^{(j)} = \begin{bmatrix} \mathbf{y}_1 & \mathbf{y}_{2} & \cdots & \mathbf{y}_i & \cdots &\mathbf{y}_{\vert S_j \vert} \end{bmatrix} \quad \forall i\in S_j,
+\end{equation}
+and $\mathbf{y}$ is either $\mathbf{z}$ or $\boldsymbol{\chi}$. \Cref{eq:VXC_SYR2K} is a sum over symmetric rank--2$k$ updates (SYR2K), where $k = \vert S_j \vert$. By tuning
+$k$, one improves caching behavior dramatically. This is due to the fact that optimized implementations of SYR2K operations utilized efficient block
+operations to optimize the flow of data to and from the computational caches. 
+%  \todo{make a table / plot of cache misses + wall time for SYR2 and SYR2K}.}
+ Similar schemes may
+developed for the evaluation of the V variables (\cref{eq:VVarEval}) over batches using optimized matrix--matrix multiplication routines. However, while the caching behavior
+is improved with increasing $k$, this is not the only consideration one needs take into account when partitioning the integration grid into batches.
+
+The scheme in \cref{eq:VXC_SYR2K} may be further improved by recognizing the fact  that the basis functions typically used for molecular calculations carry 
+a degree of spatial locality. 
+A pictorial representation of the screening and updating scheme is given in \cref{fig:Integration}.
+For each batch, we create a list of basis functions
+that effectively overlaps it (colored subset of basis functions in \cref{fig:Integration}). 
+This list of significant basis functions will be different for
+each batch, but the number of basis
+functions in each list becomes independent of size
+for sufficiently large molecules, given the  spatial localization nature of Gaussian atomic centered basis sets.
+%As such, not every basis function need be evaluated for every batch depending on the distance of the basis function to the points in the
+%batch. Deciding which basis functions need to be evaluated are dependent on the characteristics of the basis set. \todo{explain / cite how we screen}. 
+This reduced list of basis, evaluated for all points in the batch, is stored in contiguous blocks of memory, and used (along with the corresponding submatrices of the density-matrix, when required) for the evaluation of the potential, $\mathbf{Z}$ (see \cref{eq:ZImu}), by exploiting a sub-sequential series of vectorized operations.
+An important note here is that the maximum values for the batch of basis functions, $\chi_{max}(batch)$, and potential, $Z_{max}(batch)$, can be used to screen the entire contribution of the points in the batch to the integration. In this case, the integration can move to the next batch, avoiding the rank-2k update, that is the computationally most expensive part of the process,  without loosing accuracy.
+Otherwise, recognizing that $\mathbf{Z}$ and $\mathbf{X}$ exhibit the same sparsity pattern, we may define
+\begin{equation}
+\tilde{\mathbf{V}}_{(j)}^{GGA,I} = \tilde{\mathbf{Z}}^{I(j)} \left(\tilde{\mathbf{X}}^{(j)}\right)^T + 
+\tilde{\mathbf{X}}^{(j)} \left(\tilde{\mathbf{Z}}^{I(j)}\right)^T
+\end{equation}
+where moieties denoted with a tilde are the packed quantities where only the basis functions which have been chosen to be evaluated for the batch are represented.
+The packed $\tilde{\mathbf{V}}_{(j)}^{GGA,I}$ may then be used to update the full $\mathbf{V}^{GGA,I}$ by mapping its elements to those in the full basis dimension.
 
 \subsection{Discussion}
 
