@@ -1,6 +1,101 @@
 \chapter{Molecular Response Properties Through Model Order Reduction}
 
-\section{Interpolatory Model Order Reduction}
+\section{Interpolatory Model Order Reduction of Linear Dynamical Systems}
+\label{lds:dyn-sys}
+
+In this section, we briefly review the theory of model order reduction for linear dynamical systems. The next section will examine its connection to the computation of the absorption spectrum within the FOPPA.
+
+% --- Linear dynamical systems --- %
+\subsection{Linear dynamical systems}
+\label{lds:mimo}
+
+We consider the linear multiple-input multiple-output (MIMO) system
+\begin{equation}
+  \bSigma = \left\{\begin{aligned}
+    \left( \bH - s\bS \right) \bfx(s) &= \bfb\,u(s) \\
+                              \bfy(s) &= \bfc\T \bfx(s)
+  \end{aligned}\right.,
+  \label{eq:siso}
+\end{equation}
+where $s$ is a derivative or shift operator, $\bH \inRR{n}$ and $\bS \inRR{n}$ are the system matrices, $\bfb \inR[n][m]$, and $\bfc \inR[n][p]$. We call $n$ the dimension  (order) of the system $\bSigma$, $\bfx \inR[n][m]$ the state vector, $u \inR$ the input, and $\bfy \inR[p][m]$ the output \cite{Antoulas2005}. Note that the system $\bSigma$ is completely characterized by the quadruple $(\bH,\bS,\bfb,\bfc)$.
+
+The transfer function, $\bfgamma(s)$, of $\bSigma$ is defined as
+\begin{equation}
+  \bfgamma(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb,
+  \label{eq:siso-tf}
+\end{equation}
+and describes the relation between the input and output of $\bSigma$, i.e., $\bfy(s) = \bfgamma(s) u(s)$. For the remainder, we will assume that $n \gg 1$, $m \ll n$, $p \ll n$, and $u(s) \equiv 1$ for all $s$.
+
+% --- State space transformation --- %
+\subsection{State space transformation}
+\label{lds:ss-transf}
+
+In some cases, it might be more advantageous to describe the system from a different point of view as the original one. In these cases, we may perform a non-singular state transformation $\bT$, i.e., $\det(\bT) \neq 0$, yielding the transformed state
+\begin{equation}
+  \bfxt = \bT\inv \bfx,
+  \label{eq:defxtil}
+\end{equation}
+of the transformed system
+\begin{equation}
+  \bSigmat = \left\{\begin{aligned}
+    \left( \bHt - s\bSt \right) \bfxt(s) &= \bfbt\,u(s) \\
+                                 \bfy(s) &= \bfct\T \bfxt(s)
+  \end{aligned}\right.,
+\end{equation}
+where $\bHt = \bT\inv \bH \bT$, $\bSt = \bT\inv \bS \bT$, $\bfbt = \bT\inv \bfb$, and $\bfct\T = \bfc\T \bT$. Remark that $\bSigma$ and $\bSigmat$ admit the same transfer function as well as the same output. Therefore, we call the systems $\bSigma$ and $\bSigmat$ equivalent.
+
+% --- Reduced order models --- %
+\subsection{Reduced order models}
+\label{lds:mor}
+
+The evaluation of the transfer function of a system $\bSigma$ requires a linear system solve for every value of $s$. In cases where the system dimension $n$ is large and a high resolution is required, i.e., a high number of values of $s$, the evaluation of the transfer function is very expensive. In this work, we examine the effectiveness of model order reduction (MOR) techniques to circumvent this expense. MOR for linear dynamical systems is a technique that approximates a system $\bSigma$ by another system $\bSigmah$ of the same form but of a much lower dimension (order) $k \ll n$. Consequently, evaluating the transfer function of $\bSigmah$ is relatively inexpensive as it only involves linear system solves of dimension $k$ instead of linear system solves of dimension $n$ for $\bSigma$.
+
+Let the system $\bSigma$ be given by \eqref{eq:siso} and define a non-singular matrix $\bV \inR[n][k]$ with orthonormal columns, i.e., $\bV\T \bV = \bI$. Then, a reduced order model $\bSigmah$ can be constructed by applying a Galerkin projection $\bP = \bV\bV\T$ onto $\bSigma$, yielding
+\begin{equation}
+  \bSigmah = \left\{\begin{aligned}
+    \left( \bHh - s\bSh \right) \bfxh(s) &= \bfbh\,u(s) \\
+                                \bfyh(s) &= \bfch\T \bfxh(s)
+  \end{aligned}\right.,
+\end{equation}
+where $\bHh = \bV\T \bH \bV$, $\bSh = \bV\T \bS \bV$, $\bfbh = \bV\T \bfb$, and $\bfch\T = \bfc\T \bV$. Note that the length of the state vector $\bfxh$ and the dimension of $\bSigmah$ are only $k \ll n$. The purpose of MOR is to construct a $\bV$ such that the transfer function of $\bSigmah$ approximates very well the one of $\bSigma$,
+\begin{equation}
+  \bfgamma_\bSigma(s) \approx \bfgamma_{\bSigmah}(s),
+  \label{eq:tf-match}
+\end{equation}
+for all query $s$.
+
+% --- Model order reduction via moment matching --- %
+\subsection{Model order reduction via moment matching}
+\label{lds:mm}
+
+One way to construct a matrix $\bV$ such that \eqref{eq:tf-match} holds is by examining the concepts of moments and moment matching\cite{Antoulas2005}. Let the transfer function $\bfgamma$ of $\bSigma$ be given by \eqref{eq:siso-tf}. Then the $\ell$th moment of $\bfgamma$ around the point $s = s_\star$ is defined as the $\ell$th derivative of $\bfgamma$ evaluated at $s_\star$, i.e.,
+\begin{equation}
+  \bfm_\ell(s_\star) := (-1)^\ell \left.\frac{d^\ell}{ds^\ell} \bfgamma(s) \right|_{s=s_\star},
+  \label{eq:moment}
+\end{equation}
+for $\ell \geq 0$. Consequently, since $\bfgamma(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb$, the moments at $s_\star$ are
+$$
+  \bfm_\ell(s_\star) = \bfc\T \left( \bH - s_\star \bS \right)^{-(\ell+1)} \bfb, \qquad \ell > 0.
+$$
+Note also that the moments determine the coefficients of the Taylor series expansion of the transfer function $\bfgamma$ in the neighborhood of $s_\star$
+\begin{equation}
+  \bfgamma(s) = \bfm_0(s_\star) + \bfm_1(s_\star) \frac{s - s_\star}{1!} + \bfm_2(s_\star) \frac{(s - s_\star)^2}{2!} + \cdots
+\end{equation}
+
+Model order reduction via moment matching consists of constructing a subspace $\bV \inR[n][km]$ such that the original and reduced order model match moments
+\begin{equation}
+  \bfm_{i_j}(s_j) = \bfmh_{i_j}(s_j), \qquad j = 1,\ldots,k.
+  \label{eq:mor-mm}
+\end{equation}
+If all moments to be matched are chosen at zero, i.e., $s_j = 0$ for $j = 1,2,\ldots,k$, the corresponding model is known as a Pad\'{e} approximation. In the general case, the problem \eqref{eq:mor-mm} is known as rational interpolation and can be solved by choosing the projection matrix $\bV$ such that
+\begin{equation}
+  \bV = \Span { \left( \bH - s_1\bS \right)\inv \bfb \quad
+                   \left( \bH - s_2\bS \right)\inv \bfb \quad
+                    \cdots \quad
+                   \left( \bH - s_k\bS \right)\inv \bfb }.
+  \label{eq:defV-app}
+\end{equation}
+It can be shown that the matrix $\bV$ defined in \eqref{eq:defV-app} spans a rational Krylov subspace and matches all the $0$th moments at $s_j$. For more information about the connections between moment matching and rational interpolation, we refer the interested reader to Section~11 of Antoulas' model order reduction book \cite{Antoulas2005}.
 
 \section{Application of Model Order Reduction to the Linear Absorption 
   Cross Section}
