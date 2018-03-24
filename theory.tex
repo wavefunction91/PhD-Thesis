@@ -925,7 +925,7 @@ the Slater determinants which may be constructed from $\mathcal{C}$ are eigen fu
 eigenenergy corresponding to $\ket{\phi_p}$. Due to the lack of explicit two body interaction
 in \cref{eq:FockOp}, the determinants which may be constructed from the solutions of \cref{eq:FockEq} will be referred
 to as a \emph{non--interacting} system, i.e. they particles are treated as independent particles
-in an external potential $\op{v}^\mathrm{eff}$. Given an configuration subset, $\mathcal{K}^{N}_I \subset \mathcal{C}$,
+in an effective external potential $\op{v}^\mathrm{eff}$. Given an configuration subset, $\mathcal{K}^{N}_I \subset \mathcal{C}$,
 the energy of a non--interacting system is given by
 \begin{equation}
 \label{eq:NIE}
@@ -960,48 +960,71 @@ A necessacary condition for minimization of \cref{eq:EnergyFunctional} in this c
 where derivatives set to zero are \emph{functional derivatives}. 
 
 The energy functional for a configuration consisting of orthonormal orbitals is often most simply 
-written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book}, \todo{make sure this is correct for 2C}
+written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book},
 \begin{align}
-&E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = \iint_{\mathbb F} 
-  \delta^4(\vc{x}_1 - \vc{x}'_1) \left[\left( \op{h}(\vc{x}_1) + \op{v}(\vc{x}_1) \right) \gamma^{1}(\vc{x}'_1; \vc{x}_1)\right] \,\dd^4\vc{x}_1 \dd^4\vc{x}'_1 \,\,+ \nonumber\\
-   &\quad    \iint_{\mathbb{F}} \op{g}(\vc{x}_1,\vc{x}_2) 
-     \left( \gamma^{1}(\vc{x}_1; \vc{x}_1)\gamma^{1}(\vc{x}_2; \vc{x}_2) - \gamma^{1}(\vc{x}_1; \vc{x}_2)\gamma^{1}(\vc{x}_2; \vc{x}_1) \right) \,\dd^4\vc{x}_1 \dd^4\vc{x}_2.
+&E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = H[\gamma^1] + J[\gamma^1] - K[\gamma^1],
+\end{align}
+where we have defined
+\begin{align}
+  &H[\gamma^1] = 
+    \iint_\mathbb{F} \left( \spop{h}(\vc{x}_1; \vc{x}_1') + \spop{v}(\vc{x}_1; \vc{x}_1')\right) \gamma^1(\vc{x}'_1; \vc{x}_1) \, \dd^4\vc{x}_1 \dd^4\vc{x}'_1\,\,+ 
+    \\
+  &J[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
+      \gamma^1(\vc{x}'_1; \vc{x}_1)\gamma^1(\vc{x}'_2; \vc{x}_2) 
+    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 \\
+  &K[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
+      \gamma^1(\vc{x}'_1; \vc{x}_2)\gamma^1(\vc{x}'_2; \vc{x}_1) 
+    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 
 \end{align}
 \Cref{eq:ConstrMin} then becomes
 \begin{equation}
     \label{eq:RawHFEq}
     \iint_{\mathbb F}\frac{\delta E^\mathrm{HF}[\mathcal{K}^N]}{\delta \gamma^{1} (\vc{x}'_1; \vc{x}_1)} \frac{\delta \gamma^{1}(\vc{x}'_1; \vc{x}_1)}{\delta \phi_i(\vc{x})} \,\dd^4\vc{x}'_1 \dd^4 \vc{x}_1 - 
-    \sum_{j,k \in \mathcal{K}^N} \lambda_{jk} \frac{\delta \inner{\phi_j}{\phi_k}}{\delta \phi_i(\vc{x})}  = 0 .
+    \sum_{j,k \in \mathcal{K}^N} \lambda_{jk} \frac{\delta \inner{\phi_j}{\phi_k}}{\delta \phi_i(\vc{x})}  = 0 ,\quad \forall \phi_i(\vc{x}) \in \mathcal{K}^N.
 \end{equation}
 Due to the hermiticity of both $\gamma^1$ and the inner products $\inner{\phi_p}{\phi_q}$, \cref{eq:RawHFEq} will factor into two parts which are 
-conjugates of eachother, thus requiring both terms to go to zero simultaneously. Factoring out the spin integration and rearranging the summation indices, 
-\cref{eq:RawHFEq} may be written as
+conjugates of eachother, thus requiring both terms to go to zero simultaneously. By rearranging the summation indices, \cref{eq:RawHFEq} may be written as
 \begin{align}
   \label{eq:HFNonCan}
-  \sum_{j \in \mathcal{K}^N} \sum_{\sigma'} 
-  \int_{\mathbb R^3} \left( \delta_{ij} F^{\sigma\sigma'}(\vc{r}; \vc{r'})  - \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'}\lambda_{ij} \right)
-    \phi_j^{\sigma'}(\vc{r}')\,\dd^3\vc{r}' = 0
+  \sum_{j \in \mathcal{K}^N}
+  \int_{\mathbb F} \left( \spop{F}(\vc{x}_1; \vc{x}_1')\delta_{ij}   - \delta^4(\vc{x} _1- \vc{x}_1')\lambda_{ij} \right)
+    \phi_j(\vc{x}_1')\,\dd^4\vc{x}_1' = 0 ,\quad \forall \phi_i(\vc{x}) \in \mathcal{K}^N,
 \end{align}
-where \todo{come back to this}
+where
 \begin{align}
-&F^{\sigma\sigma'}(\vc{r}; \vc{r}') = 
-  \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1,\sigma'\sigma}(\vc{r}'; \vc{r})} = H^{\sigma\sigma'}(\vc{r};\vc{r}') + J^{\sigma\sigma'}(\vc{r};\vc{r}') - 
-    K^{\sigma\sigma'}(\vc{r};\vc{r}') \\
-&H^{\sigma\sigma'}(\vc{r}; \vc{r}') = \delta^3(\vc{r} - \vc{r}') \left(\op{h}^{\sigma\sigma'}(\vc{r}) + \op{v}^{\sigma\sigma'}(\vc{r}) \right) \\
-&J^{\sigma\sigma'}(\vc{r}; \vc{r}') = \delta^3(\vc{r} - \vc{r}') 
+&\spop{F}(\vc{x}; \vc{x}') = 
+  \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1}(\vc{x}'; \vc{x})} = \spop{H}(\vc{x};\vc{x}') + \spop{J}(\vc{x};\vc{x}') - \spop{K}(\vc{x};\vc{x}'),\\
+&\spop{H}(\vc{x}; \vc{x}') = \frac{\delta H[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})},\qquad 
+\spop{J}(\vc{x}; \vc{x}') = \frac{\delta J[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})}, \qquad
+\spop{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} .
 \end{align}
 \Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\spop{F}$ is
-known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}.
-Using the fact that $\gamma^1$ is invariant to unitary transformation of the orbitals which comprise its construction \cite{Ostlund12_book,Yang89_book},
+known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the operators
+$\spop{J}$ and $\spop K$ are quadratic in the density matrix, thus their functional derivative still maintains a dependence on $\gamma^1$. That is to
+say that operator on the left hand side of \cref{eq:HFNonCan} depends on its own solutions of through $\gamma^1$. A configuration's satifaction of
+\cref{eq:HFNonCan} is the minimal requirement for the corresponding Slater determinant to minimize \cref{eq:EnergyFunctional}
+
+Using the fact that $\gamma^1$ (and thus $\spop F$) is invariant to unitary transformation of the orbitals which comprise its construction \cite{Ostlund12_book,Yang89_book},
 we may choose to transform \cref{eq:HFNonCan} in such a way as to diagonalize the matrix of lagrange multipliers, 
-$\op{\mathcal U}: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
+$\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
 \begin{equation}
 \label{eq:HFEq}
-\int_{\mathbb F} \spop{F}(\vc{x}; \vc{x}') \tilde\phi_i(\vc{x}') = \tilde\lambda_i \tilde\phi_i(\vc{x}), \qquad \tilde\phi_i = \op{\mathcal U}\phi_i. 
+\int_{\mathbb F} \spop{F}(\vc{x}_1; \vc{x}_1') \tilde\phi_i(\vc{x}_1'), \dd^4\vc{x}'_1 = \tilde\lambda_i \tilde\phi_i(\vc{x}_1), 
+  \qquad \tilde\phi_i = \sum_j\mathcal U_{ij}\phi_j. 
 \end{equation}
 \Cref{eq:HFEq} is known as the canonnical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonnical Hartree-Fock orbital. 
-Equating \cref{eq:HFEq} with \cref{eq:FockEq}.
-
+Further note that $\{\tilde \phi_i\}$ and $\{\phi_i\}$ generate the same Slater determinant \co{make a note about this in previous section}.
+Clearly, \cref{eq:HFEq} has the same form as \cref{eq:FockOp,eq:FockEq}. Thus within the HF approximation, the effective external potenial
+is given by
+\begin{equation}
+\label{eq:HFPot}
+\op{v}^\mathrm{HF} = \op{v} + \op{J} - \op{K}.
+\end{equation}
+The realization of \cref{eq:HFPot} is rather profound in that states that the minimizing Slater determinant of \cref{eq:EnergyFunctional}
+is the one constructed from a set of \emph{self--consistent, mean field} orbitals. That is to say that each of the orbitals which make of
+this configuration in effect ``feel" the effect of the other orbitals through action of the Fock operator, i.e. the orbitals themselves 
+are non--interacting, but each orbital ``knows" about all of the others through the $\op{J}$ and $\op{K}$ operators. Thus the HF wave function
+(the minimizing Slater determinant) is often referred to as the mean field solution to \cref{eq:TIQWave} and thus \cref{eq:QWave}.
 
 
 
