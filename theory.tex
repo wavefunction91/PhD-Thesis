@@ -1122,7 +1122,7 @@ In the spinor representation, these operators take the general form (in atomic u
 \begin{align}
   \label{eq:SpinorCoulomb}
   &\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = 
-    \frac{Z_\xi Z_\zeta}{\vert \vc{r}_\xi - \vc{r}_\zeta \vert} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta),
+    \frac{Z_\xi Z_\zeta}{r_{\xi\zeta}} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta), \qquad r_{\xi\zeta} = \vert \vc{r}_\xi - \vc{r}_\zeta \vert
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
 respectively. $Z_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electrons and 
@@ -1231,16 +1231,6 @@ The following section provides a brief overview of the treatment of relativistic
 
 
 
-%Note that in the absence of external fields and within the approximation that the nuclei are stationary, $\op{H}^\BO_{el}$ 
-%is time--independent, and thus has the general solution\todo{cite Sakurai}
-%\begin{equation}
-%\ket{\Psi_{el}(t)} = \exp \left[ -\ii \Delta t \op{H}^\BO_{el} \right]\ket{\Psi_{el}(t_0)}, \qquad \Delta t = t - t_0,
-%\end{equation}
-%where $t_0$ is a reference time for which one may specify an initial condition for $\ket{\Psi_{el}(t)}$.
-
-
-
-
 % Relativistic Hamiltonian
 \subsection{Approximate Relativistic Hamiltonians: The Dirac Equations and Two--Component Variants}
 \label{sec:RELH}
@@ -1268,7 +1258,24 @@ by the Breit equation,
 \begin{equation}
 \op{H}^\DCB \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
 \end{equation}
-where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb--Breit Hamiltonian.
+where $\op{H}^\DCB : \hilb{H}^\FrC \rightarrow \hilb{H}^\FrC$ is the Dirac--Coulomb--Breit (DCB) Hamiltonian.
+In atomic units, the DCB Hamiltoninan for $N$ electrons is given by
+\begin{equation}
+\op{H}^\DCB = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 - \frac{1}{2} \sum_{i \neq j} \op{g}^B(i,j),
+\end{equation}
+where $\op{g}^C$ is the classical Coulomb interactions of \cref{eq:SpinorCoulomb} and
+\begin{alignat}{2}
+&\op{h}^D(i) = 
+% \begin{bmatrix} 
+%   \op{v}(i)  & c\vec{\pauli{}(i)} \cdot \op {\vc p(i)} \\
+%   c \vec{\pauli{}(i)} \cdot \op{\vc{p}(i)} & \op{v}(i) - 2c^2\vc{I}_2
+% \end{bmatrix}
+\op{v}(i) \otimes \vc{I}_2 + c \vc{a}(i) \cdot \op{\vc {p}}(i) + (\vc{b} - \vc{I}_4) c^2, \qquad &&\text{Dirac Hamiltonian},\\
+%
+&\op{g}^B(i,j) = \frac{1}{2r_{ij}} \left( \vc{a}(i)\cdot\vc{a}(j) - \frac{(\vc{a}(i) \cdot \vc{r}_{ij}) (\vc{a}(j) \cdot \vc{r}_{ij})}{r_{ij}^2}\right), 
+\qquad && \text{Breit interaction}.
+\end{alignat}
+Here we have denoted the 
 
 
 
