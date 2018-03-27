@@ -1091,7 +1091,7 @@ which has $\vert \mathcal{C} \vert = 2N_b$ such that $\Span{\mathcal{C}} = \Span
 is complete on $\hilb H^1$, so is $\mathcal{C}$. \Cref{eq:RHEq} is known as the Roothaan--Hall equation.
 To find the minimizing HF wave function, we must minimize \cref{eq:NIE}
 by choosing the orbitals with the lowest $N$ eigenenergies from which we will construct the ground state HF configuration.
-In general, \cref{eq:RHEq} may be solved interatively to self--consistency by constructing the Fock from the ground
+In general, \cref{eq:RHEq} may be solved iteratively to self--consistency by constructing the Fock from the ground
 state configuration and rediagonalizing until the eigenvectors obtained are unique up to a unitary transformation.
 This procedure is known as the self--consistent field (SCF) procedure \cite{Ostlund12_book}.
 
@@ -1144,7 +1144,7 @@ tool for chemical inquiry. Due to the vast availability of approximate xc--funct
 reproduce certain physical quantities, such as energies and \todo{add more things here}, the cost--to--accuracy ratio 
 over methods which use explicit many--body expansions is within the realm of tolerability for routine inquiry into chemical 
 phenomena. There is another, more subtle problem relating to the form \cref{eq:HKFunc} in that the exact form for
-$H^\mathrm{free}$ is just as complex as $E^{xc}$ in the case when $\gamma^1$ is derived from a truely interacting
+$H^\mathrm{free}$ is just as complex as $E^{xc}$ in the case when $\gamma^1$ is derived from a truly interacting
 many--body wave function \cite{Yang89_book}. While the explicit form of the 1RDM is a simple finite sum
 in the case of a single Slater determinant (\cref{eq:RDMSD}), the form for the true many body wave function
 contains an infinite sum over orbital products such that
@@ -1205,17 +1205,17 @@ to the treatment of the HF approximation, by examining the similarities between 
 \cref{eq:KSFockSpace}; setting $E^{xc}[\gamma_s^1] = -K[\gamma_s^1]$ yields the canonical HF equations.
 Knowing that the HF wave function lacks explicit treatment of electron correlation, the HF approximation
 may be thought of as a special case of KS-DFT where the xc functional only contains enough information
-to ensure the proper (antisymmetric) particle exchange symmetry while neglecting any treatment of electron
+to ensure the proper (anti-symmetric) particle exchange symmetry while neglecting any treatment of electron
 correlation.
 The attractive aspect on KS-DFT is that for relatively the same computational cost as obtaining a HF
 wave function one is able to (at least approximately) treat the electron correlation of the many--body problem.
 Further, unlike the HF approximation, in the limit where the orbital set $\mathcal{C}$ is taken to be complete
 and one has exact forms for the $E^{xc}$ functional, KS-DFT is \emph{exact}. Neither of these limits are realizable
-in practice, but nevertheless, electronic structure methods based on KS-DFT have seen enormus success in
-the prediction of many chemical phenomena which would be computatioanlly inaccessable over explicit many--body methods
+in practice, but nevertheless, electronic structure methods based on KS-DFT have seen enormous success in
+the prediction of many chemical phenomena which would be computationally inaccessible over explicit many--body methods
 \todo{cite HG + others}.
 
-Casting \cref{eq:KSFockSpace} onto a finite basis as in \cref{eq:LCAO}, we obtain a generalized eigenvalue problem analogus to
+Casting \cref{eq:KSFockSpace} onto a finite basis as in \cref{eq:LCAO}, we obtain a generalized eigenvalue problem analogous to
 the Roothaan--Hall equation of \cref{eq:RHEq} \todo{cite Pople},
 \begin{equation}
 \label{eq:RH-KSEq}
@@ -1286,11 +1286,11 @@ $\op{S}^2$, the SCF matrix equations can adopt the block diagonal form,
   \end{bmatrix}.
 \end{equation}
 \Cref{eq:USCFEq} is referred to as the Pople--Nebst equation \todo{cite}, and the restriction on the SCF
-solution is known as unrestricted SCF (USCF), or analogusly UHF (UKS) for Hartree--Fock (Kohn--Sham) wave functions.
-The block structore of \cref{eq:USCFEq} warrants brief discussion as a number of new concepts have been implicitly
+solution is known as unrestricted SCF (USCF), or analogously UHF (UKS) for Hartree--Fock (Kohn--Sham) wave functions.
+The block structure of \cref{eq:USCFEq} warrants brief discussion as a number of new concepts have been implicitly
 introduced. Due to the enforced block structure, the eigenvectors of \cref{eq:USCFEq} are not generally able
 to be placed into energetic order. In a sense, USCF separates the spin components of the SCF equations into
-two coupled (through $\op J$) eigenvalue problems which partition $\mathcal{C}$ such that all orbtials are either
+two coupled (through $\op J$) eigenvalue problems which partition $\mathcal{C}$ such that all orbitals are either
 purely spin--up ($\alpha$) or spin--down ($\beta$) in nature. That is to say
 $\mathcal{C} = \mathcal{C}^\alpha  \cup \mathcal{C}^\beta$ with $\mathcal C^\alpha \cap \mathcal C^\beta = \emptyset$
 such that
