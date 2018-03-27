@@ -1,4 +1,4 @@
-\chapter{Theoretical Basis}
+\chapter{Theoretical Preliminaries}
 \label{ch:Theory}
 
 In this chapter, I will outline the theoretical preliminaries which will serve as the basis
@@ -6,11 +6,8 @@ for the subsequent development of relativistic electronic structure theory. Furt
 chapter will serve as the primary source of notation which will be used throughout the
 remainder of this work. 
 
-% Quantum Mechanics
-\section{Quantum Mechanical Preliminaries}
-\label{sec:QM}
 
-\subsection{The Physical Hilbert Space and The Slater Determinant}
+\section{The Physical Hilbert Space and The Slater Determinant}
 \label{sec:SD}
 
 Perhaps the most fundamental axiom of quantum mechanics is in that for every physical
@@ -77,7 +74,14 @@ the overall wave function. \Cref{eq:SlaterDet} introduces a number of concepts w
 in the quantum chemistry community. In this work, $\hilb{K}_I^N$ will be referred to as an $N$--particle
 configuration (or simply a configuration when $N$ is to be understood from the context), and $\ket{\Phi^N_I}$
 will be referred to as a Slater determinant. It is important to note that $\ket{\Phi^N_I}$ is completely 
-determined by $\hilb{K}_I^N$. The $N$--fold tensor product on the right hand side of \cref{eq:SlaterDet}
+determined by $\hilb{K}_I^N$ but is only unique up to a unitary transformation \cite{Ostlund12_book}, i.e.
+for a unitary matrix $\vc{U} \in \mathbb C^{N\times N}$,
+\begin{equation}
+\label{eq:UnitarySD}
+\ket{\Phi_I^N} = \ket{\Phi_J^N} \quad \text{ iff } \quad \ket{\psi_j} = \sum_{i=1}^N \vc{U}_{ji} \ket{\phi_i} \quad 
+  \forall \ket{\psi_j} \in \mathcal{K}^N_J, \ket{\phi_i} \in \mathcal{K}^N_I.
+\end{equation}
+The $N$--fold tensor product on the right hand side of \cref{eq:SlaterDet}
 if referred to as a Hartree product, and while not a valid fermionic wave function in and of itself,
 it provides an important building block for constructing such wave functions and will be the primary
 moiety with which we will develop the arithmetic of many body quantum theory. As such, we reserve a shorthand
@@ -189,7 +193,7 @@ a direct consequence of \cref{eq:SlaterDet,eq:MBSpinorBasis,eq:SpinorOrbital}, w
 Unlike the tensor product definition of \cref{eq:SlaterDet}, the expression of the Slater determinant in will prove to be of 
 much of practical utility due to the fact that the spinor orbital basis, as a set of complex valued functions, is commutative.
 
-\subsection{Representation of Linear Operators and Expectation Values}
+\section{Representation of Linear Operators and Expectation Values}
 \label{sec:LO}
 
 Fundamental to the formulation of any quantum mechanical theory is the identification of linear operators on $\hilb{H}^N$
@@ -368,7 +372,7 @@ Namely, $M$--particle on operators on $\hilb{H}^N$ may be represented as rank--$
 be used extensively in the following developments.
 
 
-\subsection{Density Matrices}
+\section{Density Matrices}
 \label{sec:DenMat}
 
 
@@ -525,7 +529,7 @@ density, and $\vert \vc{m}(\vc{r}) \vert$ as the spin density \cite{Wullen02_779
 
 
 
-\subsection{Second Quantization}
+\section{Second Quantization}
 \label{sec:SQ}
 
 While \cref{eq:SlaterDet,eq:SlaterDetSpace} provide the basic structure for the many--body fermionic wave function, its explicit form
@@ -803,7 +807,7 @@ It follows from \cref{eq:PauliDenMatOp} that
 Consistent analogies for the 2RDM can be made, but as the primary focus in this work will be the manipulation
 of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogous
 spinor operators. It should be noted that unlike most operators, the expectation values of 
-$\spop{\gamma}^1$ and $\spop{\rho}^1$ are a tensor field on $\mathbb R^3$, rather than a scalar.
+$\spop{\gamma}^1$ and $\spop{\rho}^1$ are tensor fields on $\mathbb R^3$, rather than scalar fields.
 
 \todo{Note that rho does not consist of the elements of a tensor operator}
 \todo{Transition densities}
@@ -823,8 +827,7 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 
 
-\subsection{Formal and Mean Field Solutions to the Wave Equation for Time Independent 
-  Electronic Hamiltonians}
+\section{Formal Solutions of the Wave Equation for Time Independent Electronic Hamiltonians}
 \label{sec:MF}
 
 Examination of the time--independent solutions of \cref{eq:QWave} plays a central role in the development
@@ -890,6 +893,7 @@ E[\Psi] = \frac{\innerop{\Psi}{\op{H}_{el}}{\Psi}}{\inner{\Psi}{\Psi}},
 \end{equation}
 which admits a sole minimum at the ground electronic state due to the variational theorem \todo{cite}.
 
+\section{Mean Field Quantum Mechanics and Basis Set Expansions}
 
 Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
 to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
@@ -999,12 +1003,11 @@ where
 \spop{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} .
 \end{align}
 \Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\spop{F}^\HF$ is
-known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the operators
-$\spop{J}$ and $\spop K$ are quadratic in the density matrix, thus their functional derivative still maintains a dependence on $\gamma^1$. That is to
-say that operator on the left hand side of \cref{eq:HFNonCan} depends on its own solutions of through $\gamma^1$. A configuration's satisfaction of
-\cref{eq:HFNonCan} is the minimal requirement for the corresponding Slater determinant to minimize \cref{eq:EnergyFunctional}
+known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the functionals
+$J$ and $K$ are quadratic in the density matrix, thus their functional derivative still maintains a dependence on $\gamma^1$. 
+A configuration's satisfaction of \cref{eq:HFNonCan} is the minimal requirement for the corresponding Slater determinant to minimize \cref{eq:EnergyFunctional}
 
-Using the fact that $\gamma^1$ (and thus $\spop F$) is invariant to unitary transformation of the orbitals which comprise its construction \cite{Ostlund12_book,Yang89_book},
+Using the fact that $\gamma^1$ (and thus $\spop F$) is invariant to unitary transformation of the orbitals which comprise its construction (\cref{eq:UnitarySD}),
 we may choose to transform \cref{eq:HFNonCan} in such a way as to diagonalize the matrix of Lagrange multipliers, 
 $\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
 \begin{equation}
@@ -1013,13 +1016,17 @@ $\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
   \qquad \tilde\phi_i = \sum_j\mathcal U_{ij}\phi_j. 
 \end{equation}
 \Cref{eq:HFEq} is known as the canonical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonical Hartree-Fock molecular orbital (HF-MO). 
-Further note that $\{\tilde \phi_i\}$ and $\{\phi_i\}$ generate the same Slater determinant \co{make a note about this in previous section}.
 Clearly, \cref{eq:HFEq} has the same form as \cref{eq:FockOp,eq:FockEq}. Thus within the HF approximation, the effective external potential
 is given by
 \begin{equation}
 \label{eq:HFPot}
-\op{v}^\mathrm{HF} = \op{v} + \op{J} - \op{K}.
+\op{v}^\mathrm{HF} = \op{v} + \op{J} - \op{K},
 \end{equation}
+and we may identify the diagonalized Lagrange multipliers as orbital eigenenergies,
+\begin{equation}
+\tilde\lambda_i \equiv \epsilon^\HF_i.
+\end{equation}
+$\{ \epsilon^\HF_i \}$ will be referred to as the set of canonical HF eigenenrgies.
 The realization of \cref{eq:HFPot} is rather profound in that states that the minimizing Slater determinant of \cref{eq:EnergyFunctional}
 is the one constructed from a set of \emph{self--consistent, mean field} orbitals. That is to say that each of the HF-MOs which make of
 this configuration in effect ``feel" the effect of the other orbitals through action of the Fock operator, i.e. the orbitals themselves 
@@ -1031,23 +1038,24 @@ realization of Roothaan \todo{cite} that \cref{eq:HFEq} may instead be cast into
 orbitals of $\mathcal{C}$ in a basis set,
 \begin{equation}
 \label{eq:LCAO}
-\phi^\sigma_p(\vc{r}) = \sum_{\mu = 1}^{N_b} C^\sigma_{\mu p} \chi_\mu(\vc{r}),
+\phi^\sigma_p(\vc{r}) = \sum_{\mu = 1}^{N_b} C^{\HF,\sigma}_{\mu p} \chi_\mu(\vc{r}),
 \end{equation}
-where $C^\sigma_{\mu p} = \inner{\chi_\mu}{\phi^\sigma_p}$ is a tensor of expansion coefficients which expand each HF-MO as a linear 
-combination of $N_b$ basis functions, $\{\chi_\mu\}$. The tensor $\vc{C}$ will be referred to as the HF-MO coefficients in the following.
+where $C^{\HF,\sigma}_{\mu p} = \inner{\chi_\mu}{\phi^\sigma_p}$ is a tensor of expansion coefficients which expand each HF-MO as a linear 
+combination of $N_b$ basis functions, $\{\chi_\mu\}$. The tensor $\vc{C}^\HF$ will be referred to as the HF-MO coefficients in the following.
 Substituting \cref{eq:LCAO} into \cref{eq:HFEq} projecting on the left by $\chi_\nu$, we obtain
 \begin{equation}
- \sum_{\mu = 1}^{N_b} \sum_{\sigma'} \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{F}^{\HF,\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}') C_{\mu i}^{\sigma'}  
-   \,\dd^3\vc{r}\dd^3\vc{r}' = \sum_{\mu = 1}^{N_b} \int_{\mathbb R^3} \chi^*_\nu(\vc{r}) \chi_\mu(\vc{r}) C_{\mu i}^\sigma \epsilon_i \,\dd^3\vc{r},
+ \sum_{\mu = 1}^{N_b} \sum_{\sigma'} \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{F}^{\HF,\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}') C_{\mu i}^{\HF,\sigma'}  
+   \,\dd^3\vc{r}\dd^3\vc{r}' = \sum_{\mu = 1}^{N_b} \int_{\mathbb R^3} \chi^*_\nu(\vc{r}) \chi_\mu(\vc{r}) C_{\mu i}^{\HF,\sigma} \epsilon^\HF_i \,\dd^3\vc{r},
 \end{equation}
 or more compactly
 \begin{equation}
-\spvc F^\HF \,\spvc C = \spvc S\, \spvc C\, \spvc \epsilon
+\label{eq:OccRHEq}
+\spvc F^\HF \,\spvc C^\HF_o = \spvc S\, \spvc C^\HF_o\, \spvc \epsilon_o^\HF
 \end{equation}
-where each of these matrices are $\mathbb C^{2\times 2} \times \mathbb C^{N_b\times N_b} $ and are given by
+where $\spvc F^\HF, \spvc S \in \MatSpace{C}{2N_b}{2N_b}$ and are given by
 \begin{align}
 &\spvc{F}^\HF = \begin{bmatrix} \vc{F}^{\HF,\saa} & \vc{F}^{\HF,\sab} \\ \vc{F}^{\HF,\sba} & \vc{F}^{\HF,\sbb} \end{bmatrix}, \\
-&\spvc{C} = \begin{bmatrix} \vc{C}^\alpha \\ \vc{C}^\beta \end{bmatrix},\\
+%&\spvc{C}^\HF = \begin{bmatrix} \vc{C}^{\HF,\alpha} \\ \vc{C}^{\HF,\beta} \end{bmatrix},\\
 &\spvc{S} = \begin{bmatrix} \vc{S} & \vc{0} \\ \vc{0} & \vc{S} \end{bmatrix},
 \end{align}
 and
@@ -1055,18 +1063,30 @@ and
 \begin{align}
 &\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \\ 
 &X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{X}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
-\quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}.
+\quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}. \\
+&S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}, 
+%&\spn{\epsilon}^\HF_{pq} = \delta_{pq} \epsilon^\HF_p.
 \end{align}
 \end{subequations}
-\begin{align}
-&S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}, \\
-&\spn{\epsilon}_{pq} = \delta_{pq} \epsilon_p.
-\end{align}
+Here, the rectangular matrices $\vc{C}_o^{\HF,\sigma} \in \MatSpace{C}{N_b}{N}$ are the spin--basis coefficients which expand the
+occupied HF-MOs (in the sense of second quantization) in the basis set. $\spvc \epsilon_o^\HF \in \MatSpace{R}{2N_b}{N}$ is the diagonal matrix of 
+occupied HF-MO eigenenergies. 
+
+Clearly, \cref{eq:OccRHEq} represents a partial diagonalization of $\spvc F^\HF$ in the case when $N < 2N_b$ and does not
+yield coefficients of all of the elements of $\mathcal{C}$. If instead we examine the full diagonalization of $\spvc F^\HF$,
+\begin{equation}
+\label{eq:OccRHEq}
+\spvc F^\HF \,\spvc C^\HF = \spvc S\, \spvc C^\HF\, \spvc \epsilon^\HF,
+\end{equation}
+where $\spvc{C} \in \MatSpace{C}{2N_b}{2N_b}, \spvc \epsilon^\HF \in \MatSpace{R}{2N_b}{2N_b}$ represent a full rank eigendecomposition
+of $\spvc F^\HF$. Thus from a set of $N_b$ basis functions, one may construct a full--rank ...
+
 \todo{2N spinors from N basis}
 \todo{Span of basis is span of C}
 \todo{Iterative (brief)}
 
-\subsection{Density Functional Theory}
+\section{Density Functional Theory}
+\label{sec:DFT}
 
 The Hartree--Fock approximation provides an excellect reference determinant for systematic improvement
 by way of \cref{eq:ExcitationOp}. However, even at very low orders of truncation, obtaining the 
@@ -1110,7 +1130,7 @@ practice however, the lack of knowledge of an exact $E^{xc}$ is not so aggregiou
 tool for chemical inquiry. Due to the vast availability of approximate xc--functionals which have been developed to
 reproduce certain physical quantities, such as energies and \todo{add more things here}, the cost--to--accuracy ratio 
 over methods which use explicit many--body expansions is within the realm of tolerability for routine inquiry into chemical 
-phenomena. There is another, more subtle problem relating to the form \label{eq:HKFunc} in that the exact form for
+phenomena. There is another, more subtle problem relating to the form \cref{eq:HKFunc} in that the exact form for
 $H^\mathrm{free}$ \todo{solidify this arugement}.
 
 \todo{confirm this section}
@@ -1158,7 +1178,7 @@ where
 
 
 % Non--Relativistic Hamiltonian
-\subsection{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
+\section{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
 \label{sec:NRH}
 
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
@@ -1312,7 +1332,7 @@ The following section provides a brief overview of the treatment of relativistic
 
 
 % Relativistic Hamiltonian
-\subsection{Approximate Relativistic Hamiltonians: The Dirac Equations and Two--Component Variants}
+\section{Approximate Relativistic Hamiltonians: The Dirac Equation}
 \label{sec:RELH}
 
 To be clear, although it is rarely outright stated in the context of the electronic structure theory
