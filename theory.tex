@@ -121,7 +121,7 @@ and admits the following orthonormality  condition on the $\hilb{H}^1$ inner pro
   \inner{\vc{r}',\sigma'}{\vc{r},\sigma} = \delta^3(\vc{r} - \vc{r}')\delta_{\sigma\sigma'},
 \end{equation}
 where $\delta^3$ and $\delta_{\sigma\sigma'}$ are the Dirac delta function and Kronecker delta tensor, respectively.
-As $\set{\ket{\vc{r},\sigma}}$ is continuous, i.e. its spectrum is continuous, its cardinality is uncountable. Thus,
+As $\set{\ket{\vc{r},\sigma}}$ is continuous, i.e. its spectrum is continuous, its carnality is uncountable. Thus,
 its utility does not manifest as it does in the context of countable bases, such as is required by \cref{eq:SlaterDet},
 but rather in the fact that it allows for the casting of inner products on $\hilb{H}^1$ as integrals through the resolution
 of the identity on $\hilb{H}^1$ via
@@ -437,7 +437,7 @@ in terms of the 1 and 2RDMs which correspond to that vector
   \right) \right \vert_{\vc{r}'_1 = \vc{r}_1, \vc{r}'_2 = \vc{r}_2}. 
 \end{align}
 \end{subequations}
-It is to be understood from the context that the restriction of the spatial indicies is to be performed \emph{after} action of the spinor operator
+It is to be understood from the context that the restriction of the spatial indices is to be performed \emph{after} action of the spinor operator
 on the RDM. This allows for generality even in the case where the spinor operator contains differential character.
 Substituting in the expressions for the Slater determinant RDMs in \cref{eq:RDMSD} yields \cref{eq:SlaterCondon} exactly. However, the expressions in
 \cref{eq:GenDenMatInner} are much more general than that of \cref{eq:SlaterCondon} as they treat an arbitrary many body wave function. Thus
@@ -513,6 +513,7 @@ where we have defined
 as the diagonal elements of the Pauli components of the 1 and 2RDMs. They may be thought of themselves
 as Pauli components of moieties satisfying
 \begin{align}
+  \label{eq:Densities}
 &\spn{\rho^1}(\vc{x}) = \sum_K \rho^{1,K}(\vc{r}) \otimes \pauli{K}\\
 &\spn{\rho^2}(\vc{x},\vc{x}') = \sum_{KK'} \rho^{2,KK'}(\vc{r},\vc{r}') \otimes \pauli{K}\otimes \pauli{K'}
 \end{align} 
@@ -629,7 +630,7 @@ is anti symmetric with respect to permutation of adjacent creation and annihilat
   \label{eq:AntisymmTau}
   \tau^{abc\cdots}_{ijk\cdots} = - \tau^{acb\cdots}_{ijk\cdots} = - \tau^{abc\cdots}_{jik\cdots} = \tau^{acb\cdots}_{jik\cdots}.
 \end{equation} 
-Thus, necessarily, transition operators with repeated indicies are zero, $\tau^{aab\cdots}_{ijk\cdots} = \tau^{abc\cdots}_{iij\cdots} = 0$.
+Thus, necessarily, transition operators with repeated indices are zero, $\tau^{aab\cdots}_{ijk\cdots} = \tau^{abc\cdots}_{iij\cdots} = 0$.
 Within this ansatz for constructing arbitrary Slater determinants from a reference, we may recast \cref{eq:SDBasis} 
 as
 \begin{equation}
@@ -827,7 +828,7 @@ results of non--relativistic quantum mechanics to the consistent treatment of re
 
 
 
-\section{Formal Solutions of the Wave Equation for Time Independent Electronic Hamiltonians}
+\section{Time Independent Solutions of the Wave Equation}
 \label{sec:MF}
 
 Examination of the time--independent solutions of \cref{eq:QWave} plays a central role in the development
@@ -895,6 +896,8 @@ which admits a sole minimum at the ground electronic state due to the variationa
 
 \section{Mean Field Quantum Mechanics and Basis Set Expansions}
 
+\subsection{The Hartree--Fock Approximation}
+\label{sec:HF}
 Up to this point, no approximations in the treatment of the many body wave function have been introduced. That is
 to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
 in this and the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursory
@@ -996,6 +999,7 @@ conjugates of each other, thus requiring both terms to go to zero simultaneously
 \end{align}
 where
 \begin{align}
+  \label{eq:HFFockSpace}
 &\spop{F}^\HF(\vc{x}; \vc{x}') = 
   \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1}(\vc{x}'; \vc{x})} = \spop{H}(\vc{x};\vc{x}') + \spop{J}(\vc{x};\vc{x}') - \spop{K}(\vc{x};\vc{x}'),\\
 &\spop{H}^\core(\vc{x}; \vc{x}') = \frac{\delta H[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})},\qquad 
@@ -1052,117 +1056,248 @@ or more compactly
 \label{eq:OccRHEq}
 \spvc F^\HF \,\spvc C^\HF_o = \spvc S\, \spvc C^\HF_o\, \spvc \epsilon_o^\HF
 \end{equation}
-where $\spvc F^\HF, \spvc S \in \MatSpace{C}{2N_b}{2N_b}$ and are given by
+where the Fock matrix, $\spvc F^\HF \in \MatSpace{C}{2N_b}{2N_b}$ and overlap matrix $\spvc S \in \MatSpace{C}{2N_b}{2N_b}$
+are given by
 \begin{align}
 &\spvc{F}^\HF = \begin{bmatrix} \vc{F}^{\HF,\saa} & \vc{F}^{\HF,\sab} \\ \vc{F}^{\HF,\sba} & \vc{F}^{\HF,\sbb} \end{bmatrix}, \\
-%&\spvc{C}^\HF = \begin{bmatrix} \vc{C}^{\HF,\alpha} \\ \vc{C}^{\HF,\beta} \end{bmatrix},\\
 &\spvc{S} = \begin{bmatrix} \vc{S} & \vc{0} \\ \vc{0} & \vc{S} \end{bmatrix},
 \end{align}
-and
+with
+\begin{equation}
+  \spvc C_o^\HF = \begin{bmatrix} \vc C_o^{\HF,\alpha} \\ \vc C_o^{\HF,\beta} \end{bmatrix}
+\end{equation}
 \begin{subequations}
 \begin{align}
-&\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \\ 
+  &\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \label{eq:HFMat}\\ 
 &X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{X}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
 \quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}. \\
-&S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}, 
-%&\spn{\epsilon}^\HF_{pq} = \delta_{pq} \epsilon^\HF_p.
+&S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}. 
 \end{align}
 \end{subequations}
-Here, the rectangular matrices $\vc{C}_o^{\HF,\sigma} \in \MatSpace{C}{N_b}{N}$ are the spin--basis coefficients which expand the
-occupied HF-MOs (in the sense of second quantization) in the basis set. $\spvc \epsilon_o^\HF \in \MatSpace{R}{2N_b}{N}$ is the diagonal matrix of 
-occupied HF-MO eigenenergies. 
+Here, the rectangular matrices $\vc{C}_o^{\HF,\sigma} \in \MatSpace{C}{N_b}{N}$
+are the spin--basis coefficients which expand the occupied HF-MOs (in the sense
+of second quantization) in the basis set. $\spvc \epsilon_o^\HF \in
+\MatSpace{R}{2N_b}{N}$ is the diagonal matrix of occupied HF-MO eigenenergies. 
 
 Clearly, \cref{eq:OccRHEq} represents a partial diagonalization of $\spvc F^\HF$ in the case when $N < 2N_b$ and does not
 yield coefficients of all of the elements of $\mathcal{C}$. If instead we examine the full diagonalization of $\spvc F^\HF$,
 \begin{equation}
-\label{eq:OccRHEq}
+\label{eq:RHEq}
 \spvc F^\HF \,\spvc C^\HF = \spvc S\, \spvc C^\HF\, \spvc \epsilon^\HF,
 \end{equation}
-where $\spvc{C} \in \MatSpace{C}{2N_b}{2N_b}, \spvc \epsilon^\HF \in \MatSpace{R}{2N_b}{2N_b}$ represent a full rank eigendecomposition
-of $\spvc F^\HF$. Thus from a set of $N_b$ basis functions, one may construct a full--rank ...
+where $\spvc{C}^\HF \in \MatSpace{C}{2N_b}{2N_b}, \spvc \epsilon^\HF \in \MatSpace{R}{2N_b}{2N_b}$ represent a full rank 
+eigendecomposition of $\spvc F^\HF$. Thus from a set of $N_b$ basis functions, one may construct a set of orbitals
+which has $\vert \mathcal{C} \vert = 2N_b$ such that $\Span{\mathcal{C}} = \Span{\{\chi_\mu\}}$. That is to say that if $\{\chi_\mu\}$
+is complete on $\hilb H^1$, so is $\mathcal{C}$. \Cref{eq:RHEq} is known as the Roothaan--Hall equation.
+To find the minimizing HF wave function, we must minimize \cref{eq:NIE}
+by choosing the orbitals with the lowest $N$ eigenenergies from which we will construct the ground state HF configuration.
+In general, \cref{eq:RHEq} may be solved interatively to self--consistency by constructing the Fock from the ground
+state configuration and rediagonalizing until the eigenvectors obtained are unique up to a unitary transformation.
+This procedure is known as the self--consistent field (SCF) procedure \cite{Ostlund12_book}.
 
-\todo{2N spinors from N basis}
-\todo{Span of basis is span of C}
-\todo{Iterative (brief)}
-
-\section{Density Functional Theory}
+\subsection{Density Functional Theory}
 \label{sec:DFT}
 
-The Hartree--Fock approximation provides an excellect reference determinant for systematic improvement
+The Hartree--Fock approximation provides an excellent reference determinant for systematic improvement
 by way of \cref{eq:ExcitationOp}. However, even at very low orders of truncation, obtaining the 
 coefficients for these types of expansions is often so computationally demanding that only relatively
 small molecular systems are able to be studied on a routine basis. This poses a rather formidable problem
 in the field of electronic structure theory in that the Hartree--Fock wave function itself is not a sufficient
-description of the many--body wave function for all but he simplest problems and any reasonable improvement
-of the wave function leads to computationally intractible problems for experimentally relavent molecular 
-systems. Luckily, the deficencies of the Hartree--Fock approximation are well known: it simply lacks
+description of the many--body wave function for all but the simplest problems, and any reasonable improvement
+of the wave function leads to computationally intractable problems for experimentally relevant molecular 
+systems. Luckily, the deficiencies of the Hartree--Fock approximation are well known: it simply lacks
 explicit two--body interactions in the effective Hamiltonian, i.e. the non--interacting system is said to
-lack electron correlation. Thus if one were able to account for electronc correlation 
- in an effective one--body Hamiltonian, one would not need to use expansive many--body expansions
+lack electron correlation. Thus if one were able to account for electronic correlation 
+ in an effective one--body Hamiltonian, one would not need to use expensive many--body expansions
 such as \cref{eq:ExcitationOp}. To this end, we will employ density functional theory (DFT) as a means to approximately
 account for electron correlation effects.
 
-The original Hohenberg--Kohn (HK) theorem states that there exists a bijection between an external scalar potential and
-the scalar one--body density of the many--body wave function \todo{cite Hohenberg}. More generally, the HK theorem may be extended to 
-the 1RDM if the external potential has spin structure or is generally non--local in character \todo{cite Gilbert}. Thus the total energy of the many--body state may
-be written in terms of functionals of the 1RDM,
+The Hohenberg--Kohn (HK) theorem states that there exists a bijection between
+an external scalar potential and the scalar one--body density of the many--body
+wave function \todo{cite Hohenberg}. More generally, the HK theorem may be
+extended to the 1RDM if the external potential has spin structure or is
+generally non--local in character \todo{cite Gilbert}. Thus the total energy of
+the many--body state may be written in terms of functionals of the 1RDM,
 \begin{equation}
   \label{eq:HK}
   E[\Psi] = E[\gamma^1] = F^\mathrm{HK}[\gamma^1] + 
     \iint_\mathbb{F} \op{v}(\vc{x};\vc{x}') \gamma^1(\vc{x}'; \vc{x})\, \dd^4\vc{x}\dd^4\vc{x}'
 \end{equation}
 where $F^\mathrm{HK}$ is an energy functional which describes the energetic contributions arising from 
-all one and two body interactions separate from the external pontential exactly. $F^\mathrm{HK}$ may be
+all one and two body interactions separate from the external potential. $F^\mathrm{HK}$ may be
 broken down into its substituent contributions as follows,
 \begin{equation}
   \label{eq:HKFunc}
   F^\mathrm{HK}[\gamma^1] = H^\mathrm{free}[\gamma^1] + J[\gamma^1] + E^{xc}[\gamma^1]
 \end{equation}
-where $H^\mathrm{free}$ is the energy functional pertaining to the free particle part of the electronic Hamiltoninan
+where $H^\mathrm{free}$ is the energy functional pertaining to the free particle part of the electronic Hamiltonian
 describing the system, $J$ is the classical Coulomb functional of \cref{eq:ClassCoulFunc}, and $E^{xc}$ is the
-\emph{exchange--correlation} (xc) functional which describes all purely quantum many body energetic contrubtions, including those
-which enforce the proper spin statistics (i.e. Fermi--Dirac in the case of fermions). Thus given the exact forms 
-of $H^\mathrm{free}$ and $E^{xc}$, one all information pertaining to the physical system.
+\emph{exchange--correlation} (xc) functional which describes all purely quantum many body energetic contributions, including those
+which enforce the proper spin statistics (i.e. Fermi--Dirac in the case of fermions) for the wave function. 
+Thus given the exact forms of $H^\mathrm{free}$ and $E^{xc}$, one would be able to  obtain all information pertaining 
+to the physical system.
 
-However, there are a number of problems implicit in \cref{eq:HK,eq:HKFunc}. The most problematic is of course that the 
+There are a number of problems implicit in \cref{eq:HK,eq:HKFunc}. The most problematic is that the 
 exact form of $E^{xc}$ is unknown, thus rendering the practical treatment of DFT as an exact method impossible. In
-practice however, the lack of knowledge of an exact $E^{xc}$ is not so aggregious that it becomes an impractical
+practice however, the lack of knowledge of an exact $E^{xc}$ is not so egregious that it becomes an impractical
 tool for chemical inquiry. Due to the vast availability of approximate xc--functionals which have been developed to
 reproduce certain physical quantities, such as energies and \todo{add more things here}, the cost--to--accuracy ratio 
 over methods which use explicit many--body expansions is within the realm of tolerability for routine inquiry into chemical 
 phenomena. There is another, more subtle problem relating to the form \cref{eq:HKFunc} in that the exact form for
-$H^\mathrm{free}$ \todo{solidify this arugement}.
+$H^\mathrm{free}$ is just as complex as $E^{xc}$ in the case when $\gamma^1$ is derived from a truely interacting
+many--body wave function \cite{Yang89_book}. While the explicit form of the 1RDM is a simple finite sum
+in the case of a single Slater determinant (\cref{eq:RDMSD}), the form for the true many body wave function
+contains an infinite sum over orbital products such that
+\begin{equation}
+  H^\mathrm{free}[\gamma^1] = \sum_{i = 1}^\infty f_i \innerop{\psi_i}{\op{H}^\mathrm{free}}{\psi_i}, \quad \text{s.t.} \quad
+  \int_{\mathbb{F}} \gamma^1(\vc{x};\vc{x}') \psi_i(\vc{x}') \,\dd^4\vc{x}' = f_i\psi_i(\vc{x}).
+\end{equation}
+Thus in DFT methods which rely solely on the HK theorems, one must make rather crude approximations to the $H^\mathrm{free}$
+functional, such as the Thomas--Fermi functional \todo{cite}, for practical calculations.
 
-\todo{confirm this section}
-A solution to the problem of handling $H^\mathrm{free}$ in a consistent manner comes from Kohn--Sham density functional
-theory (KS-DFT), where one reintroduces the concept of a fictitious non--interacting (Slater determinant) 
-wave function to represent the 
-true many--body wave function \todo{cite KS}. As such the total energy of the system may be written as,
+A solution to the problem of handling $H^\mathrm{free}$ in a consistent manner
+comes from Kohn--Sham density functional theory (KS-DFT), where one
+reintroduces the concept of a fictitious non--interacting (Slater determinant)
+wave function to represent the true many--body wave function \todo{cite KS}. As
+such the total energy of the system may be written as,
 \begin{equation}
   \label{eq:KSFunc}
-  E^\mathrm{KS}[\gamma_s^1] = H_s^\mathrm{free}[\gamma_s^1] + J[\gamma_s^1] + E^{xc'}[\gamma_s^1] + 
+  E^\KS[\gamma_s^1] = H_s^\mathrm{free}[\gamma_s^1] + J[\gamma_s^1] + \tilde E^{xc}[\gamma_s^1] + 
     \iint_\mathbb{F} \op{v}(\vc{x};\vc{x}') \gamma_s^1(\vc{x}'; \vc{x})\, \dd^4\vc{x}\dd^4\vc{x}',
 \end{equation}
-where all of the moieties with an $s$ subscript denote that they relate to the fictitious non--interaction system,
-i.e. a single Slater determinant such that $\gamma^1_s$ may be composed as \cref{eq:SpinorDensityMat}. $E^{xc'}$ is
-an augmented xc functional which accounts for the difference of $H_s^\mathrm{free}$ and $H^\mathrm{free}$,
+where all of the moieties with an $s$ subscript denote that they relate to the
+fictitious non--interaction system, i.e. a single Slater determinant such that
+$\gamma^1_s$ may be composed as \cref{eq:SpinorDensityMat}. Thus
 \begin{equation}
-  E^{xc'}[\gamma^1_s] = H^\mathrm{free}[\gamma^1_s] - H_s^\mathrm{free}[\gamma^1_s] + E^{xc}[\gamma^1_s].
+  H^\mathrm{free}_s = \sum_i \innerop{\phi_i}{\op{H}^\mathrm{free}}{\phi_i},
 \end{equation}
-Due to the introduction of the non--interacting system, or eqivilently a set of orbitals as in the Hartree--Fock approximation,
-we may derive an analogous set of SCF equations \todo{define SCF in previous section} which minimize \cref{eq:KSFunc}.
-In analogy of \cref{eq:HFEq} \todo{change this when updated to reflect ident of lambda with eps}, we may write
+where $\{\phi_i\}$ is the set of orbitals used to construct $\gamma^1_s$.
+$\tilde E^{xc}$ is an augmented xc functional which accounts for the difference
+of $H_s^\mathrm{free}$ and $H^\mathrm{free}$,
 \begin{equation}
-  \int_{\mathbb F} \spop{F}^\mathrm{KS}(\vc{x}_1; \vc{x}_1') \phi_i(\vc{x}_1') \,\dd^4\vc{x}'_1 = 
-    \epsilon_i \phi_i(\vc{x}_1), 
+  \tilde E^{xc}[\gamma^1_s] = H^\mathrm{free}[\gamma^1_s] - H_s^\mathrm{free}[\gamma^1_s] + E^{xc}[\gamma^1_s].
+\end{equation}
+Due to the introduction of the non--interacting system, or equivalently a set of orbitals,
+we may derive a set of SCF equations in analogy to the HF approximation which minimizes \cref{eq:KSFunc}.
+In analogy of \cref{eq:HFEq}, we may write
+\begin{equation}
+  \label{eq:KSEqCan}
+  \int_{\mathbb F} \spop{F}^\KS(\vc{x}_1; \vc{x}_1') \phi_i(\vc{x}_1') \,\dd^4\vc{x}'_1 = 
+    \epsilon^\KS_i \phi_i(\vc{x}_1), 
 \end{equation}
 where
 \begin{align}
-  &\spop{F}^\mathrm{KS}(\vc{x}; \vc{x}') = 
+  \label{eq:KSFockSpace}
+  &\spop{F}^\KS(\vc{x}; \vc{x}') = 
     \spop{H}^\mathrm{core}(\vc{x}; \vc{x}') + \spop{J}(\vc{x}; \vc{x}') +
     \spop{V}^{xc}(\vc{x}; \vc{x}') \\
-  &\spop{V}^{xc}(\vc{x}; \vc{x}') = \frac{\delta E^{xc'}[\gamma^1_s]}{\delta \gamma^1_s(\vc{x}';\vc{x})}
+  &\spop{V}^{xc}(\vc{x}; \vc{x}') = \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^1_s(\vc{x}';\vc{x})},
 \end{align}
+and $\spop V^{xc}$ is referred to as the \emph{exchange--correlation} (xc) potential. \Cref{eq:KSEqCan}
+is known generally as the Kohn--Sham (KS) equations. In comparison with \cref{eq:FockEq}, we may
+identify \cref{eq:KSFockSpace} as an effective one--body operator by the effective potential for KS-DFT as,
+\begin{equation}
+\label{eq:KSPot}
+  \op{v}^\KS = \op{v} + \op{J} + \op{V}^{xc}.
+\end{equation}
+In further analogy
+to the treatment of the HF approximation, by examining the similarities between \cref{eq:HFFockSpace} and
+\cref{eq:KSFockSpace}; setting $E^{xc}[\gamma_s^1] = -K[\gamma_s^1]$ yields the canonical HF equations.
+Knowing that the HF wave function lacks explicit treatment of electron correlation, the HF approximation
+may be thought of as a special case of KS-DFT where the xc functional only contains enough information
+to ensure the proper (antisymmetric) particle exchange symmetry while neglecting any treatment of electron
+correlation.
+The attractive aspect on KS-DFT is that for relatively the same computational cost as obtaining a HF
+wave function one is able to (at least approximately) treat the electron correlation of the many--body problem.
+Further, unlike the HF approximation, in the limit where the orbital set $\mathcal{C}$ is taken to be complete
+and one has exact forms for the $E^{xc}$ functional, KS-DFT is \emph{exact}. Neither of these limits are realizable
+in practice, but nevertheless, electronic structure methods based on KS-DFT have seen enormus success in
+the prediction of many chemical phenomena which would be computatioanlly inaccessable over explicit many--body methods
+\todo{cite HG + others}.
+
+Casting \cref{eq:KSFockSpace} onto a finite basis as in \cref{eq:LCAO}, we obtain a generalized eigenvalue problem analogus to
+the Roothaan--Hall equation of \cref{eq:RHEq} \todo{cite Pople},
+\begin{equation}
+\label{eq:RH-KSEq}
+\spvc F^\KS \,\spvc C^\KS = \spvc S\, \spvc C^\KS\, \spvc \epsilon^\KS,
+\end{equation}
+where
+\begin{align}
+  &\spvc F^\KS = \spvc H^\mathrm{core} + \spvc J + \spvc V^{xc},\label{eq:KSMat} \\
+  &\spvc V^{xc} = \begin{bmatrix} \vc{V}^{xc,\saa} & \vc{V}^{xc,\sab} \\ \vc{V}^{xc,\sba} & \vc{V}^{xc,\sbb} \end{bmatrix},
+\end{align}
+\begin{align}
+    \label{eq:VXCBasisNonLocal}
+    &V^{xc,\sigma\sigma'}_{\mu\nu} =
+    \iint_{\mathbb R^3} \chi^*_\mu(\vc{r}) \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^{\sigma'\sigma}(\vc{r}';\vc{r})} \chi_\nu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}'.
+\end{align}
+Here, $\spvc{C}^\KS \in \MatSpace{C}{2N_b}{2N_b}$ and $\spvc\epsilon^KS \in \MatSpace{R}{2N_b}{2N_b}$ are the Kohn--Sham
+molecular orbital (KS-MO) coefficients and orbital eigenenergies, respectively. In the limit when the external potential
+is spatially local but has spin structure, \cref{eq:VXCBasis} may be written as
+\begin{equation}
+    \label{eq:VXCBasis}
+    V^{xc,\sigma\sigma'}_{\mu\nu} =
+    \int_{\mathbb R^3} \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \rho^{\sigma\sigma'}(\vc{r})} \chi^*_\mu(\vc{r})  \chi_\nu(\vc{r})\,\dd^3\vc{r},
+\end{equation}
+where $\rho^{\sigma\sigma'}(\vc{r})$ are the spin basis coefficients of the one particle density defined in \cref{eq:Densities}
+and we have exploited the hermiticity of its spin labels. The form of \cref{eq:VXCBasis} will allow for several simplifications
+in the methods which will be developed in \cref{sec:NCDFT}.
+
+
+\subsection{Spin Symmetries of Non--Interacting Wave Functions} 
+
+In this section, we consider the spin symmetries of a general Fock matrix, $\spvc F$, which could be described as either
+\cref{eq:HFMat} for Hartree--Fock wave functions, or \cref{eq:KSMat} for Kohn--Sham wave functions.
+The full treatment of the spin--structure of the Fock matrix is known as the generalized self--consistent field (GSCF) method
+which takes the form of generalized Hartree--Fock (GHF) and generalized Kohn--Sham (GKS) for the two methods, respectively.
+In GSCF, no assumptions are made regarding the spin symmetry of the non--interacting wave function, i.e. the resulting lowest i
+energy
+GSCF wave function need not be an eigenfunction of $\op{S}_z$ or $\op{S}^2$ regardless of the symmetries are inherent
+from the electronic Hamiltonian \todo{cite Josh and Pauldus}. In general, if the electronic Hamiltonian contains spin structure,
+a GSCF framework must be employed and the Fock matrix may be decomposed in the same manner as the general operators
+in \cref{eq:SpinorOpPauli} via ,
+\begin{equation}
+  \spvc F^\mathrm{GSCF} = \vc F^0 \otimes \pauli{0} + \vc F^1 \otimes \pauli{1} + \vc F^2 \otimes \pauli{2} + \vc F^3 \otimes \pauli{3}.
+\end{equation}
+However, if the electronic Hamiltonian admits spin as a symmetry, 
+$[\op{H}_{el},\op X] = 0$, $\op{X} \in \{\op{S}_z,\op{S}^2\}$, several simplifications can be made in the treatment of the
+Fock matrix, and more generally in the structure of the MO coefficients.
+
+We examine the difference spin symmetries in turn, noting that $\op{S}^2$ as a symmetry implies $\op{S}_z$ as a symmetry
+but not the converse. If we restrict our solutions of the SCF equations to adhere to $\op{S}_z$ symmetry, but not
+$\op{S}^2$, the SCF matrix equations can adopt the block diagonal form,
+\begin{equation}
+  \label{eq:USCFEq}
+  \begin{bmatrix}
+    \vc{F}^\saa & \vc{0} \\ \vc{0} & \vc{F}^\sbb
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{C}^{\alpha} & \vc{0} \\ \vc{0} & \vc{C}^{\beta}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \vc{S} & \vc{0} \\ \vc{0} & \vc{S}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{C}^{\alpha} & \vc{0} \\ \vc{0} & \vc{C}^{\beta}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{\epsilon}^{\alpha} & \vc{0} \\ \vc{0} & \vc{\epsilon}^{\beta}
+  \end{bmatrix}.
+\end{equation}
+\Cref{eq:USCFEq} is referred to as the Pople--Nebst equation \todo{cite}, and the restriction on the SCF
+solution is known as unrestricted SCF (USCF), or analogusly UHF (UKS) for Hartree--Fock (Kohn--Sham) wave functions.
+The block structore of \cref{eq:USCFEq} warrants brief discussion as a number of new concepts have been implicitly
+introduced. Due to the enforced block structure, the eigenvectors of \cref{eq:USCFEq} are not generally able
+to be placed into energetic order. In a sense, USCF separates the spin components of the SCF equations into
+two coupled (through $\op J$) eigenvalue problems which partition $\mathcal{C}$ such that all orbtials are either
+purely spin--up ($\alpha$) or spin--down ($\beta$) in nature. That is to say
+$\mathcal{C} = \mathcal{C}^\alpha  \cup \mathcal{C}^\beta$ with $\mathcal C^\alpha \cap \mathcal C^\beta = \emptyset$
+such that
+\begin{equation}
+  \mathcal C^\alpha = \{ \ket{\phi_p} \in \mathcal C \text{ s.t. } \phi_p(\vc{x}) = \phi^\alpha_p(\vc{r}) \alpha(\sigma) \},
+\end{equation}
+and similarly for $\mathcal C^\beta$.
 
 
 
@@ -1170,11 +1305,11 @@ where
 
 
 
-%For a particular Slater determinant, $\ket{\Phi_0^N}$, \cref{eq:EnergyFunctional} may be recast into
-%a form which solely depends on the 1RDM due to \cref{eq:RDMSD},
-%\begin{equation}
-%E[\Phi_0^N] \equiv E[\gamma^1] = h[\gamma^1] + J[\gamma^1] + E^{xc}[\gamma^1] + V[\gamma^1]
-%\end{equation}
+
+
+
+
+
 
 
 % Non--Relativistic Hamiltonian
@@ -1224,7 +1359,7 @@ In the spinor representation, these operators take the general form (in atomic u
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
 respectively. $Z_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electrons and 
-the number of protons for a particular nucleaus, repsectively . 
+the number of protons for a particular nucleus, respectively . 
 $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
 careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
 \emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \todo{cite}. For electrons, $\op{I}_S=\pauli{0}$.
@@ -1255,7 +1390,7 @@ Born--Oppenheimer ansatz for the molecular wave function). This is typically a s
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
 the ratio of the electronic and proton masses, $\approx 10^{4}$. Thus, from the electronic perspective,
 the nuclear configuration is approximately static, and the electrons only ,,feel" the electrostatic
-potential of a fixed nuclear wave function at any given time. This approach is therefore analogus to
+potential of a fixed nuclear wave function at any given time. This approach is therefore analogous to
 the mean field treatment of the Hartree--Fock wave function in \cref{eq:HFEq}. Denoting a particular fixed nuclear wave
 function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian which acts on the electronic 
 component of the wave function and is valid in the inertial frame of the electrons,
@@ -1360,14 +1495,14 @@ by the Breit equation,
 \op{H}^\DCB \ket{\Psi^\FrC_{el} (t)} = \ii \partial_t \ket{\Psi^\FrC_{el} (t)},
 \end{equation}
 where $\op{H}^\DCB : \hilb{H}^\FrC \rightarrow \hilb{H}^\FrC$ is the Dirac--Coulomb--Breit (DCB) Hamiltonian.
-In the absense of external fields , the DCB Hamiltoninan for $N$ electrons is given in atomic units by \todo{cite}
+In the absense of external fields , the DCB Hamiltonian for $N$ electrons is given in atomic units by \todo{cite}
 \begin{equation}
   \label{eq:DCBHam}
   \op{H}^\DCB = \sum_i^N  \op{h}^D(i) + \op{V}_{ne}(i) \otimes \vc{I}_2 + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
   - \op{g}^B(i,j),
 \end{equation}
 where $\op{V}_{ne}$ and $\op{g}^C$ are the external potentials and classical Coulomb interactions of \cref{eq:Vne} and 
-\cref{eq:SpinorCoulomb}, repectively, and
+\cref{eq:SpinorCoulomb}, respectively, and
 \begin{alignat}{2}
 &\op{h}^D(i) = 
 c \vc{a}(i) \cdot \op{\vc {p}}(i) + (\vc{b} - \vc{I}_4) c^2, \qquad &&\text{Dirac Hamiltonian}, \label{eq:DiracHam}\\
@@ -1375,7 +1510,7 @@ c \vc{a}(i) \cdot \op{\vc {p}}(i) + (\vc{b} - \vc{I}_4) c^2, \qquad &&\text{Dira
   &\op{g}^B(\vc{x}_i,\vc{x}_j) = \frac{1}{2r_{ij}} \left( \vc{a}(i)\cdot\vc{a}(j) - \frac{(\vc{a}(i) \cdot \vc{r}_{ij}) (\vc{a}(j) \cdot \vc{r}_{ij})}{r_{ij}^2}\right), 
 \qquad && \text{Breit interaction}. \label{eq:BreitInt}
 \end{alignat}
-Here we have denoted the the Dirac matricies as
+Here we have denoted the the Dirac matrices as
 \begin{align}
   \vc{a}_k &= \begin{bmatrix} \vc{0}_2 & \pauli{k} \\ \pauli{k} & \vc{0}_2 \end{bmatrix}, \quad k \in \{1,2,3\},\\
   \vc{b} &= \begin{bmatrix} \vc{I}_2 & \vc{0}_2 \\ \vc{0}_2 & -\vc{I}_2 \end{bmatrix}.
@@ -1404,7 +1539,7 @@ referred to as bispinors, or four--component wave functions due to their four co
 
 The formal treatment of relativistic quantum mechanics is beyond the scope of this work, and we shall default to far
 more rigorus treatments of its development in some of the standard texts on the subject \todo{cite}. There are, however,
-serveral aspects of \cref{eq:BreitEq} which will play an important role in the following developments. The block structure
+several aspects of \cref{eq:BreitEq} which will play an important role in the following developments. The block structure
 of \cref{eq:DiracHam,eq:BreitInt} indicate that the eigenspectrum of \cref{eq:DCBHam} consists of a set of energy
 eigenstates (in the sense of \cref{eq:TIQWave}) containing both positive and negative energy solutions separated
 by an energy gap of $2c^2$.
@@ -1412,7 +1547,7 @@ The negative energy eigenstates (relative to $2c^2$)  of \cref{eq:DCBHam} will b
 solutions and the positive energy solutions will be referred to as electronic solutions. As the names might suggest,
 in the context of treating the electronic problem molecular physics we will be interested in the electronic solutions to \cref{eq:BreitEq}, not
 the positronic solutions. However, this does not negate the presence of these negative energy states, and indeed their presence is
-crutial to a rigorus treatment of relativistic effects. 
+crucial to a rigorus treatment of relativistic effects. 
 
 In the context of calculations involving the DCB Hamiltonian, explicit treatment of the positronic states causes a number of practical
 problems which render its straightforward application nontrivial. Due to these negative energy states, the energy functional of
@@ -1426,7 +1561,7 @@ electronic wave function \todo{cite}...,
 
 
 \todo{Dirac Hamiltonian + why it fixes things}
-\todo{DCB Hamiltoninan}
+\todo{DCB Hamiltonian}
 \todo{BP hamiltonian from DCB}
 \todo{NR limit of BP}
 \todo{General Two component}
