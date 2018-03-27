@@ -967,11 +967,11 @@ written as a functional of the 1RDM which may be constructed from that configura
 where we have defined
 \begin{align}
   &H^\core[\gamma^1] = 
-    \iint_\mathbb{F} \left( \spop{h}(\vc{x}_1; \vc{x}_1') + \spop{v}(\vc{x}_1; \vc{x}_1')\right) \gamma^1(\vc{x}'_1; \vc{x}_1) \, \dd^4\vc{x}_1 \dd^4\vc{x}'_1\,\,+ 
+    \iint_\mathbb{F} \left( \spop{h}(\vc{x}_1; \vc{x}_1') + \spop{v}(\vc{x}_1; \vc{x}_1')\right) \gamma^1(\vc{x}'_1; \vc{x}_1) \, \dd^4\vc{x}_1 \dd^4\vc{x}'_1\,\,  \label{eq:CoreFunc}
     \\
   &J[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
       \gamma^1(\vc{x}'_1; \vc{x}_1)\gamma^1(\vc{x}'_2; \vc{x}_2) 
-    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 \\
+    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 \label{eq:ClassCoulFunc}\\
   &K[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
       \gamma^1(\vc{x}'_1; \vc{x}_2)\gamma^1(\vc{x}'_2; \vc{x}_1) 
     \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 
@@ -1069,7 +1069,82 @@ and
 \subsection{Density Functional Theory}
 
 The Hartree--Fock approximation provides an excellect reference determinant for systematic improvement
-by way of \cref{eq:ExcitationOp}. However, such improvements often lead to very computationally demanding
+by way of \cref{eq:ExcitationOp}. However, even at very low orders of truncation, obtaining the 
+coefficients for these types of expansions is often so computationally demanding that only relatively
+small molecular systems are able to be studied on a routine basis. This poses a rather formidable problem
+in the field of electronic structure theory in that the Hartree--Fock wave function itself is not a sufficient
+description of the many--body wave function for all but he simplest problems and any reasonable improvement
+of the wave function leads to computationally intractible problems for experimentally relavent molecular 
+systems. Luckily, the deficencies of the Hartree--Fock approximation are well known: it simply lacks
+explicit two--body interactions in the effective Hamiltonian, i.e. the non--interacting system is said to
+lack electron correlation. Thus if one were able to account for electronc correlation 
+ in an effective one--body Hamiltonian, one would not need to use expansive many--body expansions
+such as \cref{eq:ExcitationOp}. To this end, we will employ density functional theory (DFT) as a means to approximately
+account for electron correlation effects.
+
+The original Hohenberg--Kohn (HK) theorem states that there exists a bijection between an external scalar potential and
+the scalar one--body density of the many--body wave function \todo{cite Hohenberg}. More generally, the HK theorem may be extended to 
+the 1RDM if the external potential has spin structure or is generally non--local in character \todo{cite Gilbert}. Thus the total energy of the many--body state may
+be written in terms of functionals of the 1RDM,
+\begin{equation}
+  \label{eq:HK}
+  E[\Psi] = E[\gamma^1] = F^\mathrm{HK}[\gamma^1] + 
+    \iint_\mathbb{F} \op{v}(\vc{x};\vc{x}') \gamma^1(\vc{x}'; \vc{x})\, \dd^4\vc{x}\dd^4\vc{x}'
+\end{equation}
+where $F^\mathrm{HK}$ is an energy functional which describes the energetic contributions arising from 
+all one and two body interactions separate from the external pontential exactly. $F^\mathrm{HK}$ may be
+broken down into its substituent contributions as follows,
+\begin{equation}
+  \label{eq:HKFunc}
+  F^\mathrm{HK}[\gamma^1] = H^\mathrm{free}[\gamma^1] + J[\gamma^1] + E^{xc}[\gamma^1]
+\end{equation}
+where $H^\mathrm{free}$ is the energy functional pertaining to the free particle part of the electronic Hamiltoninan
+describing the system, $J$ is the classical Coulomb functional of \cref{eq:ClassCoulFunc}, and $E^{xc}$ is the
+\emph{exchange--correlation} (xc) functional which describes all purely quantum many body energetic contrubtions, including those
+which enforce the proper spin statistics (i.e. Fermi--Dirac in the case of fermions). Thus given the exact forms 
+of $H^\mathrm{free}$ and $E^{xc}$, one all information pertaining to the physical system.
+
+However, there are a number of problems implicit in \cref{eq:HK,eq:HKFunc}. The most problematic is of course that the 
+exact form of $E^{xc}$ is unknown, thus rendering the practical treatment of DFT as an exact method impossible. In
+practice however, the lack of knowledge of an exact $E^{xc}$ is not so aggregious that it becomes an impractical
+tool for chemical inquiry. Due to the vast availability of approximate xc--functionals which have been developed to
+reproduce certain physical quantities, such as energies and \todo{add more things here}, the cost--to--accuracy ratio 
+over methods which use explicit many--body expansions is within the realm of tolerability for routine inquiry into chemical 
+phenomena. There is another, more subtle problem relating to the form \label{eq:HKFunc} in that the exact form for
+$H^\mathrm{free}$ \todo{solidify this arugement}.
+
+\todo{confirm this section}
+A solution to the problem of handling $H^\mathrm{free}$ in a consistent manner comes from Kohn--Sham density functional
+theory (KS-DFT), where one reintroduces the concept of a fictitious non--interacting (Slater determinant) 
+wave function to represent the 
+true many--body wave function \todo{cite KS}. As such the total energy of the system may be written as,
+\begin{equation}
+  \label{eq:KSFunc}
+  E^\mathrm{KS}[\gamma_s^1] = H_s^\mathrm{free}[\gamma_s^1] + J[\gamma_s^1] + E^{xc'}[\gamma_s^1] + 
+    \iint_\mathbb{F} \op{v}(\vc{x};\vc{x}') \gamma_s^1(\vc{x}'; \vc{x})\, \dd^4\vc{x}\dd^4\vc{x}',
+\end{equation}
+where all of the moieties with an $s$ subscript denote that they relate to the fictitious non--interaction system,
+i.e. a single Slater determinant such that $\gamma^1_s$ may be composed as \cref{eq:SpinorDensityMat}. $E^{xc'}$ is
+an augmented xc functional which accounts for the difference of $H_s^\mathrm{free}$ and $H^\mathrm{free}$,
+\begin{equation}
+  E^{xc'}[\gamma^1_s] = H^\mathrm{free}[\gamma^1_s] - H_s^\mathrm{free}[\gamma^1_s] + E^{xc}[\gamma^1_s].
+\end{equation}
+Due to the introduction of the non--interacting system, or eqivilently a set of orbitals as in the Hartree--Fock approximation,
+we may derive an analogous set of SCF equations \todo{define SCF in previous section} which minimize \cref{eq:KSFunc}.
+In analogy of \cref{eq:HFEq} \todo{change this when updated to reflect ident of lambda with eps}, we may write
+\begin{equation}
+  \int_{\mathbb F} \spop{F}^\mathrm{KS}(\vc{x}_1; \vc{x}_1') \phi_i(\vc{x}_1') \,\dd^4\vc{x}'_1 = 
+    \epsilon_i \phi_i(\vc{x}_1), 
+\end{equation}
+where
+\begin{align}
+  &\spop{F}^\mathrm{KS}(\vc{x}; \vc{x}') = 
+    \spop{H}^\mathrm{core}(\vc{x}; \vc{x}') + \spop{J}(\vc{x}; \vc{x}') +
+    \spop{V}^{xc}(\vc{x}; \vc{x}') \\
+  &\spop{V}^{xc}(\vc{x}; \vc{x}') = \frac{\delta E^{xc'}[\gamma^1_s]}{\delta \gamma^1_s(\vc{x}';\vc{x})}
+\end{align}
+
+
 
 
 
@@ -1324,7 +1399,7 @@ problems which render its straightforward application nontrivial. Due to these n
 \cref{eq:EnergyFunctional} is unbounded from below. Thus minimization of \cref{eq:EnergyFunctional} over purely \emph{electronic}
 states is not possible with standard optimization techniques and requires rather opaque projection schemes to avoid variational
 collapse \todo{cite}. Further, due to the kinetic balance relationship between the large and small components of the 
-electronic wave function \toco{cite}...,
+electronic wave function \todo{cite}...,
 
 
 
