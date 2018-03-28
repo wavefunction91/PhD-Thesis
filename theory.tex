@@ -1004,7 +1004,7 @@ where
   \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1}(\vc{x}'; \vc{x})} = \spop{H}(\vc{x};\vc{x}') + \spop{J}(\vc{x};\vc{x}') - \spop{K}(\vc{x};\vc{x}'),\\
 &\spop{H}^\core(\vc{x}; \vc{x}') = \frac{\delta H[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})},\qquad 
 \spop{J}(\vc{x}; \vc{x}') = \frac{\delta J[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})}, \qquad
-\spop{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} .
+\spop{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} . \label{eq:FockComponents}
 \end{align}
 \Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\spop{F}^\HF$ is
 known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the functionals
@@ -1449,7 +1449,7 @@ orbitals, $\mathcal S = \{ \psi_m(\vc{r}) \}$ with $\vert \mathcal S \vert = N_b
 \end{equation}
 and similarly for $\beta$. In a sense, $\mathcal C^\alpha$ and $\mathcal C^\beta$ may be considered
 somewhat equivalent in the fact that there exists an isomorphism between their elements in which the image of each
-orbtial of a particular spin set is the orbital in the other spin which has the same spatial part and energy eigenvalue
+orbtial of a particular spin set is the orbital in the other spin set which has the same spatial part and energy eigenvalue
 (via the degenerate block structure of \cref{eq:RSCFEq}). As such, there should be no preference in the inclusion
 of an orbital from one set or its image in the other. Thus the ground state configuration may be constructed by 
 choosing the $N/2$ equivalent pairs of the two sets with the lowest energy eigenvalues, i.e. inclusion of a particle
@@ -1458,6 +1458,20 @@ to this paired nature, RSCF may meaningfully employed in the cases where the ele
 and the system in question may be restricted to be closed shell (i.e. the same number of $\alpha$ and $\beta$ orbitals
 in the configuration due to pairing).
 
+As it often the case, it is useful to examine relationship between the the above restrictions on the SCF equations
+and the structre of the 1PDM which arises from their solution. For a general Fock matrix $\spvc F$ and corresponding
+SCF 1PDM $\spvc P$ (i.e. the 1PDM resulting from the solution of the SCF equations), these relationships
+are given by
+\begin{subequations}
+\begin{alignat}{3}
+  & \spvc F = \spvc F^\mathrm{GSCF} && \quad \text{ iff } \quad  && 
+    \spvc P = \spvc P^\mathrm{GSCF} = \vc P^0 \otimes \pauli{0} + \vc P^1 \otimes \pauli{1} + \vc P^2 \otimes \pauli{2} + \vc P^3 \otimes \pauli{3}, \\
+  & \spvc F = \spvc F^\mathrm{USCF} && \quad \text{ iff }\quad  && 
+    \spvc P = \spvc P^\mathrm{USCF} = \vc P^0 \otimes \pauli{0} + \vc P^3 \otimes \pauli{3}, \\
+  & \spvc F = \spvc F^\mathrm{RSCF} && \quad \text{ iff }\quad  && 
+    \spvc P = \spvc P^\mathrm{RSCF} = \vc P^0 \otimes \pauli{0}.
+\end{alignat}
+\end{subequations}
 
 
 
@@ -1470,8 +1484,11 @@ in the configuration due to pairing).
 
 
 % Non--Relativistic Hamiltonian
-\section{Non--Relativistic Molecular Hamiltonians: The Schr\"{o}dinger Equation}
+\section{Non--Relativistic Molecular Hamiltonians}
 \label{sec:NRH}
+
+\subsection{The Molecular Schr\"{o}dinger Equation}
+\label{sec:MolSch}
 
 Fundamental to the description of any quantum molecular system, relativistic or non--relativistic, is the non--relativistic
 molecular Hamiltonian, $\op{H}^\NR : \hilb{H}^\NR \mapsto \hilb{H}^\NR$, where $\hilb{H}^\NR$ describes a quantum
@@ -1523,6 +1540,29 @@ careful distinction between the spinor basis of electrons, which are spin--1/2 f
 The presence of $\op{I}_S$ in \cref{eq:SpinorKinMom,eq:SpinorCoulomb} may be interpreted as the action of these operators 
 \emph{do not} manipulate the spin degrees of freedom of the total wave function.
 
+
+The wave equation governed by \cref{eq:FullHNR} as a specialization of \cref{eq:QWave} is given by
+\begin{equation}
+\label{eq:FullNRSCH}
+\op{H}^\NR \ket{\Psi_{tot} (t)} = \ii \partial_t \ket{\Psi_{tot} (t)},
+\end{equation}
+where $\ket{\Psi_{tot} (t)}$ is the total molecular wave function which describes both the electronic
+and nuclear degrees of freedom. \Cref{eq:FullNRSCH} will be referred to as the molecular Schr\"{o}dinger
+equation. In this work, all non--relativistic specializations of \cref{eq:QWave} will be referred to
+as Sch\"{o}dinger equations due to the presence of the kinetic energy operator in their Hamiltonian.
+As such, they are direct quantum analogues of the classical Hamiltonian which was the basis
+of the original Schr\"{o}dinger Hamiltoninan of the general form
+\begin{equation}
+\label{eq:SchHam}
+\op{H}(t) = \op{T}^\NR + \op{V}(t).
+\end{equation}
+
+
+
+
+\subsection{The Born--Oppenheimer Approximation}
+\label{sec:BornOpp}
+
 As has been previously stated on numerous occasions, the primary focus of this work is to treat the many body
 electronic problem for molecular systems, not the quantum nature of the nuclei. The combined quantum treatment
 of \cref{eq:FullHNR} obfuscates this point in that the presence of $\op{H}^\NR_{mix}$ intimately couples the
@@ -1540,7 +1580,7 @@ Due to a large disparity in mass between electrons and nuclei, the energetic reg
 dynamics are typically well separated. Namely, from the inertial frame of the electrons, one might approximate
 the nuclear kinetic energy to be negligible, i.e.
 \begin{equation}
-\innerop{\Psi_{tot}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{tot}} \approx 0.
+\innerop{\Psi_{el}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{el}} \approx 0.
 \end{equation}
 This assumption is referred to as the Born--Oppenheimer approximation (a concept distinct from from the 
 Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
@@ -1576,22 +1616,22 @@ $\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a s
 where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
 
 
-The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QWave} is given by
-\begin{equation}
-\label{eq:NRSCH}
-\op{H}^\BO_{el} \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)}
-\end{equation}
-and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \cite{Tully98_407}.
-In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
-equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. As such, it is 
-a specialization of the original Schr\"{o}dinger Hamiltonian of the form
-\begin{equation}
-\label{eq:SchHam}
-\op{H}(t) = \op{T}^\NR + \op{V}(t).
-\end{equation}
-\todo{Restricted / Unrestricted} \todo{Fock Operator}
+%The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QWave} is given by
+%\begin{equation}
+%\label{eq:NRSCH}
+%\op{H}^\BO_{el} \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)}
+%\end{equation}
+%and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \cite{Tully98_407}.
+%In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
+%equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. As such, it is 
+%a specialization of the original Schr\"{o}dinger Hamiltonian of the form
 
-There are a number of problems inherent in the form of \cref{eq:SchHam,eq:NRBOH}. The first problem that is of interest to this work,
+
+\subsection{Deficiencies of the Non--Relativistic Schr\"{o}dinger Equation}
+\label{sec:DefNRSch}
+
+
+There are a number of problems inherent in the form of \cref{eq:SchHam,eq:FullHNR,eq:NRBOH}. The first problem that is of interest to this work,
 and perhaps the most glaring in the context of molecular calculations involving the quantum treatment of electrons,
 is that in the limit of electrostatics in the absence of external fields there is only trivial action of the
 Hamiltonian onto the spin components of the electronic  wave function. To be clear, electronic spin is inherent in any quantum
@@ -1608,7 +1648,7 @@ It is well known, however, that $\op{H}^\mathrm{Zeeman}$ only yields a proper ph
 of the electronic spin degrees of freedom in the strong field limit \todo{cite}, whereas in the weak field limit, intrinsic magnetic
 effects which arise from special relativity, such as spin--orbit coupling, become energetically competitive.
 
-The second, perhaps more subtle problem relating specifically to the forms of \cref{eq:SchHam,eq:NRSCH} is that they are manifestly
+The second, perhaps more subtle problem relating specifically to the form of \cref{eq:SchHam} is that it is manifestly
 incapable of adhering to the laws of special relatively, i.e. it is impossible to write down a Hamiltonian of the form in
 \cref{eq:SchHam} which is Lorentz covariant. This problem is easily identified through recognizing that the Schr\"{o}dinger
 equation is quadratic in spatial coordinates through $\op{T}^\NR$ and linear in time, and thus incapable of being compatible with Lorentz boosts. At first glance,
