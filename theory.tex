@@ -1359,7 +1359,9 @@ partitioned into two sets which expand the $\alpha$ and $\beta$ orbitals separat
 coefficients both \emph{technically} expand the $\alpha$ and $\beta$ components of the spinor orbitals of the form 
 \cref{eq:SpinorOrbital}, but if a MO coefficient vector pertains to an orbital of a particular spin character, 
 the coefficients of that vector which pertain to the opposite spin function are restricted to be zero. Thus yielding
-the block structure of the MO coefficients in \cref{eq:USCFEq}. To demonstrate the validity of this block diagonalization,
+the block structure of the MO coefficients in \cref{eq:USCFEq}. As such, the the $\alpha$ and $\beta$ blocks of \cref{eq:USCHEq}
+may be energically ordered in and of themselves, but no global orbital energetic ordering is implied.
+To demonstrate the validity of this block diagonalization,
 we examine the conditions under which \cref{eq:GSCFFock} commutes with $\op{S}_z = \frac{1}{2} \op{1} \otimes \pauli{3}$,
 \begin{equation}
   \left[ \vc F^\mathrm{GSCF}, \vc S_z \right] = 
@@ -1388,16 +1390,19 @@ of \cref{eq:USCFEq} introduces ambiguity in that that projection onto the $z$--s
 chosen \emph{a priori}. The $z$--spin projection of a reference determinant may be written in terms of its
 1PDM as (\cref{eq:BasisDenMatInner}),
 \begin{equation}
-  \innerop{\Phi^N_0}{\op{S}_z}{\Phi^N_0} = Tr \left[ \vc P^3 \vc S \right] = \frac{N^\alpha - N^\beta}{2}
+  \innerop{\Phi^N_0}{\op{S}_z}{\Phi^N_0} = Tr \left[ \vc P^3 \vc S \right] = \frac{N^\alpha - N^\beta}{2}, \quad N = N^\alpha + N^\beta,
 \end{equation}
 where we have used the fact that $\vc C^\dagger \vc S \vc C = \vc I$ by convention. Here $N^\alpha$ and 
 $N^\beta$ are taken to be the number of elements from $\mathcal C^\alpha$ and $\mathcal C^\beta$ which
 have been chosen to make up the ground state determinant, respectively. Thus, in USCF, one may enforce a particular
 spin configration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
+The ground state configuration is constructed by choosing the $N^\alpha$ orbtials from $\mathcal C^\alpha$ with
+the lowest $\alpha$ orbital eigenvalues, and the $N^\beta$ orbitals from $\mathcal C^\beta$ with the lowest
+$\beta$ orbital eigenvalues.
 This restricting does not, however, gurantee a particular spin--multiplicity as the resulting wave function 
 is not gurenteed to be an eigenfunction of $\op S^2$. 
 USCF is typically used in cases where the electronic Hamiltoninan is either spin independent and the desired 
-determinant is resticted to have $N^\alpha \neq N^\beta$, or when the electronic Hamiltonian depends only on
+determinant is resticted to have $N^\alpha \neq N^\beta$ (i.e. open--shell systems), or when the electronic Hamiltonian depends only on
 $\pauli{0}$ and $\pauli{3}$. In essence, the USCF equations enforce a particular projection onto the $z$--spin
 axis while the GSCF equations to not. As such, USCF determinants are referred to as \emph{collinear} solutions
 (i.e. collinear with the $z$--spin axis) while GSCF determinants are referred to as \emph{non--collinear}
@@ -1428,7 +1433,30 @@ or more compactly
 \begin{equation}
 \vc F^\saa \vc C^\alpha = \vc S \vc C^\alpha \vc \epsilon^\alpha.
 \end{equation}
-This block structure arises 
+This block structure arises from that fact that $\op S^2$ symmetry implies simultanious
+commutation of the Fock matrix with each of $\op S_x, \op S_y, \op S_z$. From the
+form of \cref{eq:USCFFock}, this may only be achieved if the Fock matrix takes the form
+\begin{equation}
+\vc{F}^\mathrm{RSCF} = \vc F^0 \otimes \pauli{0},
+\end{equation}
+which clearly has the same block structure as \cref{eq:RSCFEq}. By this restriction,
+$\mathcal C$ is again partitioned into two sets of of orbitals which correspond to
+$\alpha$ and $\beta$ spin character. However, unlike USCF, the block structure of 
+\cref{eq:RSCFEq} implies that there exists a single set of purely spatial
+orbitals, $\mathcal S = \{ \psi_m(\vc{r}) \}$ with $\vert \mathcal S \vert = N_b$, such that
+\begin{equation}
+  \mathcal C^\alpha = \{ \phi(\vc{x}) = \psi_m(\vc{r}) \alpha(\sigma) \quad \forall \psi_m \in \mathcal S \},
+\end{equation}
+and similarly for $\beta$. In a sense, $\mathcal C^\alpha$ and $\mathcal C^\beta$ may be considered
+somewhat equivalent in the fact that there exists an isomorphism between their elements in which the image of each
+orbtial of a particular spin set is the orbital in the other spin which has the same spatial part and energy eigenvalue
+(via the degenerate block structure of \cref{eq:RSCFEq}). As such, there should be no preference in the inclusion
+of an orbital from one set or its image in the other. Thus the ground state configuration may be constructed by 
+choosing the $N/2$ equivalent pairs of the two sets with the lowest energy eigenvalues, i.e. inclusion of a particle
+from $\mathcal C^\alpha$ implies that the image of that orbital under the isomorphism is also included. Due
+to this paired nature, RSCF may meaningfully employed in the cases where the electronic Hamiltonian is spin independent
+and the system in question may be restricted to be closed shell (i.e. the same number of $\alpha$ and $\beta$ orbitals
+in the configuration due to pairing).
 
 
 
