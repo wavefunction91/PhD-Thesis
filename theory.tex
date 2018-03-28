@@ -78,7 +78,7 @@ determined by $\hilb{K}_I^N$ but is only unique up to a unitary transformation \
 for a unitary matrix $\vc{U} \in \mathbb C^{N\times N}$,
 \begin{equation}
 \label{eq:UnitarySD}
-\ket{\Phi_I^N} = \ket{\Phi_J^N} \quad \text{ iff } \quad \ket{\psi_j} = \sum_{i=1}^N \vc{U}_{ji} \ket{\phi_i} \quad 
+\ket{\Phi_I^N} = \ket{\Phi_J^N} \quad \text{ iff } \quad \ket{\psi_j} = \sum_{i=1}^N U_{ji} \ket{\phi_i} \quad 
   \forall \ket{\psi_j} \in \mathcal{K}^N_J, \ket{\phi_i} \in \mathcal{K}^N_I.
 \end{equation}
 The $N$--fold tensor product on the right hand side of \cref{eq:SlaterDet}
@@ -966,7 +966,7 @@ A necessary condition for minimization of \cref{eq:EnergyFunctional} in this con
 \end{equation}
 where derivatives set to zero are \emph{functional derivatives}. 
 
-The energy functional for a configuration consisting of orthonormal orbitals is often most simply 
+The energy functional for a configuration consisting of orthonormal orbitals is often most conveniently 
 written as a functional of the 1RDM which may be constructed from that configuration \cite{Yang89_book},
 \begin{align}
 &E^\mathrm{HF}[\mathcal{K}^N] = E[\gamma^1] = H^\core[\gamma^1] + J[\gamma^1] - K[\gamma^1],
@@ -1011,7 +1011,7 @@ known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The 
 $J$ and $K$ are quadratic in the density matrix, thus their functional derivative still maintains a dependence on $\gamma^1$. 
 A configuration's satisfaction of \cref{eq:HFNonCan} is the minimal requirement for the corresponding Slater determinant to minimize \cref{eq:EnergyFunctional}
 
-Using the fact that $\gamma^1$ (and thus $\spop F$) is invariant to unitary transformation of the orbitals which comprise its construction (\cref{eq:UnitarySD}),
+Using the fact that $\gamma^1$ (and thus $\spop F^\HF$) is invariant to unitary transformation of the orbitals which comprise its construction (\cref{eq:UnitarySD}),
 we may choose to transform \cref{eq:HFNonCan} in such a way as to diagonalize the matrix of Lagrange multipliers, 
 $\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
 \begin{equation}
@@ -1020,6 +1020,8 @@ $\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
   \qquad \tilde\phi_i = \sum_j\mathcal U_{ij}\phi_j. 
 \end{equation}
 \Cref{eq:HFEq} is known as the canonical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonical Hartree-Fock molecular orbital (HF-MO). 
+Due to \cref{eq:UnitarySD}, the Slater determinant which is formed from $\{\tilde \phi_i\}$ is equivalent to the one fromed
+from $\{\phi_i\}$, we will henceforth only consider sets $\mathcal C$ such that $\vc \lambda$ is diagonalized.
 Clearly, \cref{eq:HFEq} has the same form as \cref{eq:FockOp,eq:FockEq}. Thus within the HF approximation, the effective external potential
 is given by
 \begin{equation}
@@ -1091,23 +1093,26 @@ which has $\vert \mathcal{C} \vert = 2N_b$ such that $\Span{\mathcal{C}} = \Span
 is complete on $\hilb H^1$, so is $\mathcal{C}$. \Cref{eq:RHEq} is known as the Roothaan--Hall equation.
 To find the minimizing HF wave function, we must minimize \cref{eq:NIE}
 by choosing the orbitals with the lowest $N$ eigenenergies from which we will construct the ground state HF configuration.
-In general, \cref{eq:RHEq} may be solved iteratively to self--consistency by constructing the Fock from the ground
-state configuration and rediagonalizing until the eigenvectors obtained are unique up to a unitary transformation.
+In general, \cref{eq:RHEq} may be solved iteratively to self--consistency by constructing the Fock from some guess
+of the ground
+state configuration and rediagonalizing until the eigenvectors obtained are unchanging up to a unitary transformation.
 This procedure is known as the self--consistent field (SCF) procedure \cite{Ostlund12_book}.
 
 \subsection{Density Functional Theory}
 \label{sec:DFT}
 
 The Hartree--Fock approximation provides an excellent reference determinant for systematic improvement
-by way of \cref{eq:ExcitationOp}. However, even at very low orders of truncation, obtaining the 
+by way of \cref{eq:ExcitationOp}. However, in order to obtain the exact many--body wave function, one must
+obtain the full expansion of \cref{eq:ExcitationOp}; a feat which is computationally intractible for all but
+the simplest problems. Even at very low orders of truncation, obtaining the 
 coefficients for these types of expansions is often so computationally demanding that only relatively
 small molecular systems are able to be studied on a routine basis. This poses a rather formidable problem
 in the field of electronic structure theory in that the Hartree--Fock wave function itself is not a sufficient
-description of the many--body wave function for all but the simplest problems, and any reasonable improvement
+description of the many--body wave function for relatively trivial problems, and any reasonable improvement
 of the wave function leads to computationally intractable problems for experimentally relevant molecular 
 systems. Luckily, the deficiencies of the Hartree--Fock approximation are well known: it simply lacks
 explicit two--body interactions in the effective Hamiltonian, i.e. the non--interacting system is said to
-lack electron correlation. Thus if one were able to account for electronic correlation 
+lack electron correlation. Thus if one were able to account for electron correlation 
  in an effective one--body Hamiltonian, one would not need to use expensive many--body expansions
 such as \cref{eq:ExcitationOp}. To this end, we will employ density functional theory (DFT) as a means to approximately
 account for electron correlation effects.
@@ -1171,7 +1176,7 @@ $\gamma^1_s$ may be composed as \cref{eq:SpinorDensityMat}. Thus
 \begin{equation}
   H^\mathrm{free}_s = \sum_i \innerop{\phi_i}{\op{H}^\mathrm{free}}{\phi_i},
 \end{equation}
-where $\{\phi_i\}$ is the set of orbitals used to construct $\gamma^1_s$.
+where $\{\phi_i\}$ is the set of so called \emph{Kohn--Sham molecular orbitals} (KS-MOs) used to construct $\gamma^1_s$.
 $\tilde E^{xc}$ is an augmented xc functional which accounts for the difference
 of $H_s^\mathrm{free}$ and $H^\mathrm{free}$,
 \begin{equation}
@@ -1231,8 +1236,8 @@ where
     &V^{xc,\sigma\sigma'}_{\mu\nu} =
     \iint_{\mathbb R^3} \chi^*_\mu(\vc{r}) \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^{\sigma'\sigma}(\vc{r}';\vc{r})} \chi_\nu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}'.
 \end{align}
-Here, $\spvc{C}^\KS \in \MatSpace{C}{2N_b}{2N_b}$ and $\spvc\epsilon^KS \in \MatSpace{R}{2N_b}{2N_b}$ are the Kohn--Sham
-molecular orbital (KS-MO) coefficients and orbital eigenenergies, respectively. In the limit when the external potential
+Here, $\spvc{C}^\KS \in \MatSpace{C}{2N_b}{2N_b}$ and $\spvc\epsilon^KS \in \MatSpace{R}{2N_b}{2N_b}$ are the KS-MO
+coefficients and orbital eigenenergies, respectively. In the limit when the external potential
 is spatially local but has spin structure, \cref{eq:VXCBasis} may be written as
 \begin{equation}
     \label{eq:VXCBasis}
@@ -1240,8 +1245,56 @@ is spatially local but has spin structure, \cref{eq:VXCBasis} may be written as
     \int_{\mathbb R^3} \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \rho^{\sigma\sigma'}(\vc{r})} \chi^*_\mu(\vc{r})  \chi_\nu(\vc{r})\,\dd^3\vc{r},
 \end{equation}
 where $\rho^{\sigma\sigma'}(\vc{r})$ are the spin basis coefficients of the one particle density defined in \cref{eq:Densities}
-and we have exploited the hermiticity of its spin labels. The form of \cref{eq:VXCBasis} will allow for several simplifications
+and we have exploited the fact that $\tilde E^{xc}[\gamma^1_s] \in \mathbb{R}$ in the interchange of the spin labels in
+the functional derivative. The form of \cref{eq:VXCBasis} will allow for several simplifications
 in the methods which will be developed in \cref{sec:NCDFT}.
+
+
+\subsection{Density Matrices for Non--Interacting Wave Functions}
+
+It is useful to examine the representation of the 1 and 2RDMs, or more specifically the one-- and two--particle
+densities in the case of spatially local potentials, in the basis which expands the single particle orbitals
+for a particular reference. In this section we examine these quantities for a reference determinant $\ket{\Phi_0^N}$
+which represents either a HF or KS-DFT determinant without loss of generality.  
+Expanding \cref{eq:RDMSD} in \cref{eq:LCAO}, we obtain,
+\begin{equation}
+  \gamma^{1,K}(\vc{r}; \vc{r}') = \sum_{\mu\nu} P_{\mu\nu}^{K} \chi_\mu(\vc{r}) \chi^*_\nu(\vc{r}'), \quad K \in \{0,1,2,3\},
+\end{equation}
+where
+\begin{subequations}
+\begin{align}
+  &P^{0}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\alpha *} + C_{\mu i}^\beta  C_{\nu i}^{\beta  *},\\
+  &P^{1}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\beta  *} + C_{\mu i}^\beta  C_{\nu i}^{\alpha *},\\
+  &P^{2}_{\mu\nu} = \frac{\ii}{2} \sum_i C_{\mu i}^\alpha C_{\nu i}^{\beta  *} - C_{\mu i}^\beta  C_{\nu i}^{\alpha *},\\
+  &P^{3}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\alpha *} - C_{\mu i}^\beta  C_{\nu i}^{\beta  *}.
+\end{align}
+\end{subequations}
+Somewhat erroniously, the matrix $\spvc P$ is referred to as the one particle density matrix (1PDM), which is not to be
+confused with the 1RDM, although they are related through the above expansion. We may further define an analogus two
+particle density matrix (2PDM), $\vc \Gamma$, which is again not to be confused with the 2RDM, such that \co{check ordering here}
+\begin{equation}
+  \gamma^{2,K_1K_2}(\vc{r}_1, \vc{r}_2; \vc{r}'_1, \vc{r}'_2) = 
+    \sum_{\mu\nu\lambda\kappa} \Gamma^{K_1K_2}_{\mu\nu\lambda\kappa} 
+      \chi_\mu(\vc{r}_1) \chi_\nu(\vc{r}_2) \chi^*_\lambda(\vc{r}'_1) \chi^*_\kappa(\vc{r}'_2), 
+\end{equation}
+where \co{figure this out}
+\begin{equation}
+  \Gamma^{K_1 K_2}_{\mu\nu\lambda\kappa} = ...
+\end{equation}
+The utility of the definions of the 1PDM and 2PDM  are clearly seen in the evaluation of expectation values
+of operators expressed in the basis set,
+\begin{align}
+  \label{eq:BasisDenMatInner}
+  \innerop{\Phi^N_0}{\sum_i \op{O}^1(i)}{\Phi^N_0} &= 2\sum_K Tr \left[ \vc{P}^K \vc{O}^{1,K} \right] \\
+  \innerop{\Phi^N_0}{\sum_{i\neq j} \op{O}^2(i,j)}{\Phi^N_0} &= 4\sum_{K_1K_2} Tr \left[ \vc{\Gamma}^{K_1K_2} \vc{O}^{2,K_1K_2} \right]
+\end{align}
+where
+\begin{align}
+  O_{\mu\nu}^{1,K} &= \innerop{\chi_\mu}{\op{O}^{1,K}(1)}{\chi_\nu},\\
+  O_{\mu\nu\lambda\kappa}^{2,K_1K_2} &= \innerop{\chi_\mu\chi_\nu}{\op{O}^{2,K_1K_2}(1,2)}{\chi_\lambda\chi_\kappa}.
+\end{align}
+
+
 
 
 \subsection{Spin Symmetries of Non--Interacting Wave Functions} 
@@ -1250,20 +1303,22 @@ In this section, we consider the spin symmetries of a general Fock matrix, $\spv
 \cref{eq:HFMat} for Hartree--Fock wave functions, or \cref{eq:KSMat} for Kohn--Sham wave functions.
 The full treatment of the spin--structure of the Fock matrix is known as the generalized self--consistent field (GSCF) method
 which takes the form of generalized Hartree--Fock (GHF) and generalized Kohn--Sham (GKS) for the two methods, respectively.
-In GSCF, no assumptions are made regarding the spin symmetry of the non--interacting wave function, i.e. the resulting lowest i
+In GSCF, no assumptions are made regarding the spin symmetry of the non--interacting wave function, i.e. the resulting lowest 
 energy
 GSCF wave function need not be an eigenfunction of $\op{S}_z$ or $\op{S}^2$ regardless of the symmetries are inherent
-from the electronic Hamiltonian \todo{cite Josh and Pauldus}. In general, if the electronic Hamiltonian contains spin structure,
+from the electronic Hamiltonian \todo{cite Josh and Pauldus}. In general, if the electronic Hamiltonian contains non--trivial 
+spin structure,
 a GSCF framework must be employed and the Fock matrix may be decomposed in the same manner as the general operators
 in \cref{eq:SpinorOpPauli} via ,
 \begin{equation}
+  \label{eq:GSCFFock}
   \spvc F^\mathrm{GSCF} = \vc F^0 \otimes \pauli{0} + \vc F^1 \otimes \pauli{1} + \vc F^2 \otimes \pauli{2} + \vc F^3 \otimes \pauli{3}.
 \end{equation}
 However, if the electronic Hamiltonian admits spin as a symmetry, 
 $[\op{H}_{el},\op X] = 0$, $\op{X} \in \{\op{S}_z,\op{S}^2\}$, several simplifications can be made in the treatment of the
 Fock matrix, and more generally in the structure of the MO coefficients.
 
-We examine the difference spin symmetries in turn, noting that $\op{S}^2$ as a symmetry implies $\op{S}_z$ as a symmetry
+We examine the different spin symmetries in turn, noting that $\op{S}^2$ as a symmetry implies $\op{S}_z$ as a symmetry
 but not the converse. If we restrict our solutions of the SCF equations to adhere to $\op{S}_z$ symmetry, but not
 $\op{S}^2$, the SCF matrix equations can adopt the block diagonal form,
 \begin{equation}
@@ -1292,14 +1347,88 @@ introduced. Due to the enforced block structure, the eigenvectors of \cref{eq:US
 to be placed into energetic order. In a sense, USCF separates the spin components of the SCF equations into
 two coupled (through $\op J$) eigenvalue problems which partition $\mathcal{C}$ such that all orbitals are either
 purely spin--up ($\alpha$) or spin--down ($\beta$) in nature. That is to say
-$\mathcal{C} = \mathcal{C}^\alpha  \cup \mathcal{C}^\beta$ with $\mathcal C^\alpha \cap \mathcal C^\beta = \emptyset$
-such that
+$\mathcal{C} = \mathcal{C}^\alpha  \cup \mathcal{C}^\beta$ with $\mathcal C^\alpha \cap \mathcal C^\beta = \emptyset$ and 
+$\vert \mathcal C^\alpha \vert = \vert \mathcal C^\beta \vert = N_b$ such that
 \begin{equation}
   \mathcal C^\alpha = \{ \ket{\phi_p} \in \mathcal C \text{ s.t. } \phi_p(\vc{x}) = \phi^\alpha_p(\vc{r}) \alpha(\sigma) \},
 \end{equation}
-and similarly for $\mathcal C^\beta$.
+and similarly for $\mathcal C^\beta$. As such, the block structure of the MO coefficients in \cref{eq:USCFEq} may be interpreted
+as follows: the USCF equations still generate 2$N_b$ orbitals from a basis set consisting of $N_b$ functions; however,
+due to the partitioning of $\mathcal C$ into $\mathcal C^\alpha$ and $\mathcal C^\beta$, the MO coefficients have also been
+partitioned into two sets which expand the $\alpha$ and $\beta$ orbitals separately. That is to say that both sets of MO
+coefficients both \emph{technically} expand the $\alpha$ and $\beta$ components of the spinor orbitals of the form 
+\cref{eq:SpinorOrbital}, but if a MO coefficient vector pertains to an orbital of a particular spin character, 
+the coefficients of that vector which pertain to the opposite spin function are restricted to be zero. Thus yielding
+the block structure of the MO coefficients in \cref{eq:USCFEq}. To demonstrate the validity of this block diagonalization,
+we examine the conditions under which \cref{eq:GSCFFock} commutes with $\op{S}_z = \frac{1}{2} \op{1} \otimes \pauli{3}$,
+\begin{equation}
+  \left[ \vc F^\mathrm{GSCF}, \vc S_z \right] = 
+    \frac{1}{2} \left[ \vc F^{1}, \vc S \right] \otimes \left[ \pauli{1}, \pauli{3} \right] + 
+    \frac{1}{2} \left[ \vc F^{2}, \vc S \right] \otimes \left[ \pauli{2}, \pauli{3} \right], 
+  \qquad \vc S_z = \frac{1}{2} \vc{S} \otimes \pauli{3}.
+\end{equation}
+Here $\vc S_z$ is the basis representation  of $\op S_z$. Due to the non--zero commutation relationships of the Pauli matrices,
+we may state
+\begin{equation}
+  \left[ \vc F^\mathrm{GSCF}, \vc S_z \right] = \vc 0 \quad \text{iff} \quad 
+    \left[ \vc F^{1}, \vc S \right] = \left[ \vc F^{2}, \vc S \right] = \vc 0,
+\end{equation}
+which is in general only satisfied if $\vc F^1 = \vc F^2 = \vc 0$. Thus we may define a restriction of
+the GSCF Fock matrix as
+\begin{equation}
+  \label{eq:USCFFock}
+  \vc F^\mathrm{USCF} = \vc F^0 \otimes \pauli{0} + \vc F^3 \otimes \pauli{3}
+                      = 
+                      \begin{bmatrix}
+                        \vc{F}^0 + \vc F^3 & \vc{0} \\ \vc{0} & \vc{F}^0 - \vc F^3
+                      \end{bmatrix} \quad \text{s.t.} \quad \left[ \vc F^\mathrm{USCF}, \vc S_z \right] = \vc 0,
+\end{equation}
+which clearly has the same block structure as \cref{eq:USCFEq}. Constructing a ground state configuration 
+of \cref{eq:USCFEq} introduces ambiguity in that that projection onto the $z$--spin axis must be
+chosen \emph{a priori}. The $z$--spin projection of a reference determinant may be written in terms of its
+1PDM as (\cref{eq:BasisDenMatInner}),
+\begin{equation}
+  \innerop{\Phi^N_0}{\op{S}_z}{\Phi^N_0} = Tr \left[ \vc P^3 \vc S \right] = \frac{N^\alpha - N^\beta}{2}
+\end{equation}
+where we have used the fact that $\vc C^\dagger \vc S \vc C = \vc I$ by convention. Here $N^\alpha$ and 
+$N^\beta$ are taken to be the number of elements from $\mathcal C^\alpha$ and $\mathcal C^\beta$ which
+have been chosen to make up the ground state determinant, respectively. Thus, in USCF, one may enforce a particular
+spin configration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
+This restricting does not, however, gurantee a particular spin--multiplicity as the resulting wave function 
+is not gurenteed to be an eigenfunction of $\op S^2$. 
+USCF is typically used in cases where the electronic Hamiltoninan is either spin independent and the desired 
+determinant is resticted to have $N^\alpha \neq N^\beta$, or when the electronic Hamiltonian depends only on
+$\pauli{0}$ and $\pauli{3}$. In essence, the USCF equations enforce a particular projection onto the $z$--spin
+axis while the GSCF equations to not. As such, USCF determinants are referred to as \emph{collinear} solutions
+(i.e. collinear with the $z$--spin axis) while GSCF determinants are referred to as \emph{non--collinear}
+solutions.
 
-
+The USCF equations may be further restricted to be eigenfunctions of $\op S^2$ in what will be referred to as
+the restricted SCF equations (RSCF) given by
+\begin{equation}
+  \label{eq:RSCFEq}
+  \begin{bmatrix}
+    \vc{F}^\saa & \vc{0} \\ \vc{0} & \vc{F}^\saa
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{C}^{\alpha} & \vc{0} \\ \vc{0} & \vc{C}^{\alpha}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \vc{S} & \vc{0} \\ \vc{0} & \vc{S}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{C}^{\alpha} & \vc{0} \\ \vc{0} & \vc{C}^{\alpha}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \vc{\epsilon}^{\alpha} & \vc{0} \\ \vc{0} & \vc{\epsilon}^{\alpha}
+  \end{bmatrix},
+\end{equation}
+or more compactly 
+\begin{equation}
+\vc F^\saa \vc C^\alpha = \vc S \vc C^\alpha \vc \epsilon^\alpha.
+\end{equation}
+This block structure arises 
 
 
 
