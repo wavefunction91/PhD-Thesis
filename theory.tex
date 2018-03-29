@@ -1586,7 +1586,7 @@ the nuclear kinetic energy to be negligible, i.e.
 This assumption is referred to as the Born--Oppenheimer approximation (a concept distinct from from the 
 Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
-the ratio of the electronic and proton masses, $\approx 10^{4}$. Thus, from the electronic perspective,
+the ratio of the electronic and proton masses, $\mathcal{O}(10^{3})$. Thus, from the electronic perspective,
 the nuclear configuration is approximately static, and the electrons only ``feel" the electrostatic
 potential of a fixed nuclear wave function at any given time. This approach is therefore analogous to
 the mean field treatment of the Hartree--Fock wave function in \cref{eq:HFEq}. Denoting a particular fixed nuclear wave
@@ -1900,11 +1900,13 @@ where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo
 has become the field standard for approximately accounting for many--body relativistic effects in effective
 two--compoenent relativistic methods \todo{cite?}.
 
+
+
+
+
+
+
 \subsection{Approximate Relativistic  Molecular Hamiltonians: The Dirac--Coulomb Hamiltonian}
-
-
-
-
 
 Although it is rarely outright stated in the context of the electronic structure theory
 literature, there is no \emph{truly} relativistically covariant formulation of many--body quantum 
@@ -1917,46 +1919,39 @@ the context of practical calculations on molecular systems \todo{cite Liu}. Here
 formulation, which have been shown to have good agreement with experiment \todo{cite}.
 For simplicity in the subsequent developments, we will posit \emph{a priori} the validity of the 
 Born--Oppenheimer ansatz and approximations of the previous section in the context of relativistic
-theory \co{justify?}. Further, while no approximation of the quantum nature of the nuclei was required in the 
+theory \todo{cite}. Further, while no approximation of the quantum nature of the nuclei was required in the 
 context of the Sch\"{o}dinger equation, in the context of relativistic theory we will approximate
 nuclei to be classical charge distributions, i.e. no intrinsic angular momentum (spin) which
 yields an absence of magnetic interactions into the Hamiltonian within the fixed nuclei approximation.
-This approximation is justified \co{because?}, and will drastically simplify the resulting 
-quantum mechanical treatment.
+This approximation is justified because energetic corrections due to the interaction between
+the magnetic moments of electrons and nuclei are $\mathcal{O}(10^3)$ smaller than the internal
+magnetic interactions between electrons due to the disparity in mass between electrons and nuclei \todo{cite}.
+This appoximation will drastically simplify the resulting quantum mechanical treatment.
 
 Within the context of the electronic problem, relativistic quantum mechanics is approximately governed
 by the Breit equation,
 \begin{equation}
 \label{eq:BreitEq}
-\op{H}^\DCB \ket{\Psi^\FrC_{el} (t)} = \ii \partial_t \ket{\Psi^\FrC_{el} (t)},
+\op{H}^\DCB \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
 \end{equation}
-where $\op{H}^\DCB : \hilb{H}^\FrC \rightarrow \hilb{H}^\FrC$ is the Dirac--Coulomb--Breit (DCB) Hamiltonian.
+where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb--Breit (DCB) Hamiltonian.
 In the absense of external fields , the DCB Hamiltonian for $N$ electrons is given in atomic units by \todo{cite}
 \begin{equation}
   \label{eq:DCBHam}
-  \op{H}^\DCB = \sum_i^N  \op{h}^D(i) + \op{V}_{ne}(i) \otimes \vc{I}_2 + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
+  \op{H}^\DCB = \sum_i^N  \op{h}^D(i) \otimes \vc{I}_2 + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
   - \op{g}^B(i,j),
 \end{equation}
-where $\op{V}_{ne}$ and $\op{g}^C$ are the external potentials and classical Coulomb interactions of \cref{eq:Vne} and 
+where $\op{h}^D$ and $\op{g}^C$ are the one body Dirac Hamiltonian and two body classical Coulomb interactions of \cref{eq:DiracHam} and 
 \cref{eq:SpinorCoulomb}, respectively, and
-\begin{alignat}{2}
-&\op{h}^D(i) = 
-c \vc{a}(i) \cdot \op{\vc {p}}(i) + (\vc{b} - \vc{I}_4) c^2, \qquad &&\text{Dirac Hamiltonian}, \label{eq:DiracHam}\\
-%
-  &\op{g}^B(\vc{x}_i,\vc{x}_j) = \frac{1}{2r_{ij}} \left( \vc{a}(i)\cdot\vc{a}(j) - \frac{(\vc{a}(i) \cdot \vc{r}_{ij}) (\vc{a}(j) \cdot \vc{r}_{ij})}{r_{ij}^2}\right), 
-\qquad && \text{Breit interaction}. \label{eq:BreitInt}
-\end{alignat}
-Here we have denoted the the Dirac matrices as
 \begin{align}
-  \vc{a}_k &= \begin{bmatrix} \vc{0}_2 & \pauli{k} \\ \pauli{k} & \vc{0}_2 \end{bmatrix}, \quad k \in \{1,2,3\},\\
-  \vc{b} &= \begin{bmatrix} \vc{I}_2 & \vc{0}_2 \\ \vc{0}_2 & -\vc{I}_2 \end{bmatrix}.
+  &\op{g}^B(\vc{x}_i,\vc{x}_j) = \frac{1}{2r_{ij}} \left( \vc{a}(i)\cdot\vc{a}(j) - \frac{(\vc{a}(i) \cdot \vc{r}_{ij}) (\vc{a}(j) \cdot \vc{r}_{ij})}{r_{ij}^2}\right) 
+\qquad  \label{eq:BreitInt}
 \end{align}
-$\vc{I}_2$ and $\vc{I}_4$ are the 2-by-2 and 4-by-4 identity matrices, respectively, and have used the shorthand notations
+is the Breit interaction. Here we have denoted the the Dirac matrices as in \cref{eq:DiracMat}
+and have used the shorthand notations
 \begin{align}
-  \vc{a} \cdot \op{\vc{p}}  &= -\ii \left( \frac{\partial}{\partial x} \otimes \pauli{1} + \frac{\partial}{\partial y} \otimes \pauli{2} + \frac{\partial}{\partial z} \otimes \pauli{3} 
-    \right) \otimes \begin{bmatrix} \vc{0}_2 & \vc{I}_2 \\ \vc{I}_2 & \vc{0}_2 \end{bmatrix}, \\
-  \vc{a}(i) \cdot \vc{a}(j) &= \sum_{k = 1}^3 \vc{a}_k(i) \vc{a}_k(j), \\
-  \vc{a}(i) \cdot \vc{r}_{ij} &= (x_i - x_j) \otimes \vc{a}_1(i) + (y_i - y_j) \otimes \vc{a}_2(i) + (z_i - z_j) \otimes \vc{a}_3(i).
+  &\vc{a}(i) \cdot \vc{a}(j) = \sum_{k = 1}^3 \vc{a}_k(i) \vc{a}_k(j), \\
+  &\vc{a}(i) \cdot \vc{r}_{ij} = (x_i - x_j) \otimes \vc{a}_1(i) + (y_i - y_j) \otimes \vc{a}_2(i) + (z_i - z_j) \otimes \vc{a}_3(i).
 \end{align}
 From the structure of $\op{H}^\DCB$, or more specifically  $\op{h}^D$ and $\op{g}^B$, it is clear that $\hilb{H}^\FrC$
 consists of higher dimensional wave functions than in the non--relativistic case. 
@@ -1972,39 +1967,6 @@ The formal structure of $\ket{\Psi_{el}^\FrC}$ in the spinor basis is given by \
 where the so--called ``large" (superscript $L$) and ``small" (superscript $S$) components exhibit the same spinor
 structure as non--relativistic spinor wave functions. As such, wave functions of the form \cref{eq:Bispinor} are often
 referred to as bispinors, or four--component wave functions due to their four complex spin components.
-
-The formal treatment of relativistic quantum mechanics is beyond the scope of this work, and we shall default to far
-more rigorus treatments of its development in some of the standard texts on the subject \todo{cite}. There are, however,
-several aspects of \cref{eq:BreitEq} which will play an important role in the following developments. The block structure
-of \cref{eq:DiracHam,eq:BreitInt} indicate that the eigenspectrum of \cref{eq:DCBHam} consists of a set of energy
-eigenstates (in the sense of \cref{eq:TIQWave}) containing both positive and negative energy solutions separated
-by an energy gap of $2c^2$.
-The negative energy eigenstates (relative to $2c^2$)  of \cref{eq:DCBHam} will be referred to as positronic
-solutions and the positive energy solutions will be referred to as electronic solutions. As the names might suggest,
-in the context of treating the electronic problem molecular physics we will be interested in the electronic solutions to \cref{eq:BreitEq}, not
-the positronic solutions. However, this does not negate the presence of these negative energy states, and indeed their presence is
-crucial to a rigorus treatment of relativistic effects. 
-
-In the context of calculations involving the DCB Hamiltonian, explicit treatment of the positronic states causes a number of practical
-problems which render its straightforward application nontrivial. Due to these negative energy states, the energy functional of
-\cref{eq:EnergyFunctional} is unbounded from below. Thus minimization of \cref{eq:EnergyFunctional} over purely \emph{electronic}
-states is not possible with standard optimization techniques and requires rather opaque projection schemes to avoid variational
-collapse \todo{cite}. Further, due to the kinetic balance relationship between the large and small components of the 
-electronic wave function \todo{cite}...,
-
-
-
-
-
-\todo{Dirac Hamiltonian + why it fixes things}
-\todo{DCB Hamiltonian}
-\todo{BP hamiltonian from DCB}
-\todo{NR limit of BP}
-\todo{General Two component}
-\todo{X2C (why its better), possibly appendix on implementation?}
-\todo{Uncontracted basis?}
-
-
 
 
 
