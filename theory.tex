@@ -1096,7 +1096,8 @@ by choosing the orbitals with the lowest $N$ eigenenergies from which we will co
 In general, \cref{eq:RHEq} may be solved iteratively to self--consistency by constructing the Fock from some guess
 of the ground
 state configuration and rediagonalizing until the eigenvectors obtained are unchanging up to a unitary transformation.
-This procedure is known as the self--consistent field (SCF) procedure \cite{Ostlund12_book}.
+This procedure is known as the self--consistent field (SCF) procedure \cite{Ostlund12_book}, and \cref{eq:RHEq} is
+often referred to as a SCF equation.
 
 \subsection{Density Functional Theory}
 \label{sec:DFT}
@@ -1136,7 +1137,7 @@ broken down into its substituent contributions as follows,
   F^\mathrm{HK}[\gamma^1] = H^\mathrm{free}[\gamma^1] + J[\gamma^1] + E^{xc}[\gamma^1]
 \end{equation}
 where $H^\mathrm{free}$ is the energy functional pertaining to the free particle part of the electronic Hamiltonian
-describing the system, $J$ is the classical Coulomb functional of \cref{eq:ClassCoulFunc}, and $E^{xc}$ is the
+describing the system arising from $\op h$ in \cref{eq:CoreFunc}, $J$ is the classical Coulomb functional of \cref{eq:ClassCoulFunc}, and $E^{xc}$ is the
 \emph{exchange--correlation} (xc) functional which describes all purely quantum many body energetic contributions, including those
 which enforce the proper spin statistics (i.e. Fermi--Dirac in the case of fermions) for the wave function. 
 Thus given the exact forms of $H^\mathrm{free}$ and $E^{xc}$, one would be able to  obtain all information pertaining 
@@ -1316,7 +1317,7 @@ in \cref{eq:SpinorOpPauli} via ,
 \end{equation}
 However, if the electronic Hamiltonian admits spin as a symmetry, 
 $[\op{H}_{el},\op X] = 0$, $\op{X} \in \{\op{S}_z,\op{S}^2\}$, several simplifications can be made in the treatment of the
-Fock matrix, and more generally in the structure of the MO coefficients.
+Fock matrix, and more generally in the structure of the MO coefficients and density matrices.
 
 We examine the different spin symmetries in turn, noting that $\op{S}^2$ as a symmetry implies $\op{S}_z$ as a symmetry
 but not the converse. If we restrict our solutions of the SCF equations to adhere to $\op{S}_z$ symmetry, but not
@@ -1345,7 +1346,7 @@ solution is known as unrestricted SCF (USCF), or analogously UHF (UKS) for Hartr
 The block structure of \cref{eq:USCFEq} warrants brief discussion as a number of new concepts have been implicitly
 introduced. Due to the enforced block structure, the eigenvectors of \cref{eq:USCFEq} are not generally able
 to be placed into energetic order. In a sense, USCF separates the spin components of the SCF equations into
-two coupled (through $\op J$) eigenvalue problems which partition $\mathcal{C}$ such that all orbitals are either
+two coupled (through $\op J$ of \cref{eq:FockComponents}) eigenvalue problems which partition $\mathcal{C}$ such that all orbitals are either
 purely spin--up ($\alpha$) or spin--down ($\beta$) in nature. That is to say
 $\mathcal{C} = \mathcal{C}^\alpha  \cup \mathcal{C}^\beta$ with $\mathcal C^\alpha \cap \mathcal C^\beta = \emptyset$ and 
 $\vert \mathcal C^\alpha \vert = \vert \mathcal C^\beta \vert = N_b$ such that
@@ -1359,7 +1360,7 @@ partitioned into two sets which expand the $\alpha$ and $\beta$ orbitals separat
 coefficients both \emph{technically} expand the $\alpha$ and $\beta$ components of the spinor orbitals of the form 
 \cref{eq:SpinorOrbital}, but if a MO coefficient vector pertains to an orbital of a particular spin character, 
 the coefficients of that vector which pertain to the opposite spin function are restricted to be zero. Thus yielding
-the block structure of the MO coefficients in \cref{eq:USCFEq}. As such, the the $\alpha$ and $\beta$ blocks of \cref{eq:USCHEq}
+the block structure of the MO coefficients in \cref{eq:USCFEq}. As such, the the $\alpha$ and $\beta$ blocks of \cref{eq:USCFEq}
 may be energically ordered in and of themselves, but no global orbital energetic ordering is implied.
 To demonstrate the validity of this block diagonalization,
 we examine the conditions under which \cref{eq:GSCFFock} commutes with $\op{S}_z = \frac{1}{2} \op{1} \otimes \pauli{3}$,
@@ -1386,9 +1387,9 @@ the GSCF Fock matrix as
                       \end{bmatrix} \quad \text{s.t.} \quad \left[ \vc F^\mathrm{USCF}, \vc S_z \right] = \vc 0,
 \end{equation}
 which clearly has the same block structure as \cref{eq:USCFEq}. Constructing a ground state configuration 
-of \cref{eq:USCFEq} introduces ambiguity in that that projection onto the $z$--spin axis must be
+from \cref{eq:USCFEq} introduces ambiguity in that that projection onto the $z$--spin axis must be
 chosen \emph{a priori}. The $z$--spin projection of a reference determinant may be written in terms of its
-1PDM as (\cref{eq:BasisDenMatInner}),
+1PDM (via \cref{eq:BasisDenMatInner}) as,
 \begin{equation}
   \innerop{\Phi^N_0}{\op{S}_z}{\Phi^N_0} = Tr \left[ \vc P^3 \vc S \right] = \frac{N^\alpha - N^\beta}{2}, \quad N = N^\alpha + N^\beta,
 \end{equation}
@@ -1397,8 +1398,8 @@ $N^\beta$ are taken to be the number of elements from $\mathcal C^\alpha$ and $\
 have been chosen to make up the ground state determinant, respectively. Thus, in USCF, one may enforce a particular
 spin configration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
 The ground state configuration is constructed by choosing the $N^\alpha$ orbtials from $\mathcal C^\alpha$ with
-the lowest $\alpha$ orbital eigenvalues, and the $N^\beta$ orbitals from $\mathcal C^\beta$ with the lowest
-$\beta$ orbital eigenvalues.
+the lowest $\alpha$ orbital eigenvalues ($\vc\epsilon^\alpha$), and the $N^\beta$ orbitals from $\mathcal C^\beta$ with the lowest
+$\beta$ orbital eigenvalues ($\vc\epsilon^\beta$).
 This restricting does not, however, gurantee a particular spin--multiplicity as the resulting wave function 
 is not gurenteed to be an eigenfunction of $\op S^2$. 
 USCF is typically used in cases where the electronic Hamiltoninan is either spin independent and the desired 
@@ -1454,7 +1455,7 @@ orbtial of a particular spin set is the orbital in the other spin set which has 
 of an orbital from one set or its image in the other. Thus the ground state configuration may be constructed by 
 choosing the $N/2$ equivalent pairs of the two sets with the lowest energy eigenvalues, i.e. inclusion of a particle
 from $\mathcal C^\alpha$ implies that the image of that orbital under the isomorphism is also included. Due
-to this paired nature, RSCF may meaningfully employed in the cases where the electronic Hamiltonian is spin independent
+to this paired nature, RSCF may meaningfully employed only in the cases where the electronic Hamiltonian is spin independent
 and the system in question may be restricted to be closed shell (i.e. the same number of $\alpha$ and $\beta$ orbitals
 in the configuration due to pairing).
 
@@ -1586,7 +1587,7 @@ This assumption is referred to as the Born--Oppenheimer approximation (a concept
 Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
 the ratio of the electronic and proton masses, $\approx 10^{4}$. Thus, from the electronic perspective,
-the nuclear configuration is approximately static, and the electrons only ,,feel" the electrostatic
+the nuclear configuration is approximately static, and the electrons only ``feel" the electrostatic
 potential of a fixed nuclear wave function at any given time. This approach is therefore analogous to
 the mean field treatment of the Hartree--Fock wave function in \cref{eq:HFEq}. Denoting a particular fixed nuclear wave
 function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian which acts on the electronic 
@@ -1627,6 +1628,12 @@ where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions fo
 %a specialization of the original Schr\"{o}dinger Hamiltonian of the form
 
 
+
+% Relativistic Hamiltonian
+\section{Relativistic Hamiltonians}
+\label{sec:RELH}
+
+
 \subsection{Deficiencies of the Non--Relativistic Schr\"{o}dinger Equation}
 \label{sec:DefNRSch}
 
@@ -1659,13 +1666,9 @@ move at velocities which are a considerable fraction of the speed of light. Howe
 of classical mechanics, such a simplistic assumption yields qualitatively incorrect model physics even for light elements such as Carbon and Oxygen\todo{cite Pyyko}.
 The realization of relativistic effects in light elements typically manifests in context of the \emph{ab initio} introduction of spin couplings
 into the Hamiltonian, which not surprisingly also solves the aforementioned problem with treating electronic spin non--relativistically. 
-The following section provides a brief overview of the treatment of relativistic effects in molecular quantum mechanics.
+The following sections provide a brief overview of the treatment of relativistic effects in molecular quantum mechanics.
 
 
-
-% Relativistic Hamiltonian
-\section{Relativistic Hamiltonians}
-\label{sec:RELH}
 
 \subsection{The Dirac Equation}
 
@@ -1692,7 +1695,7 @@ We have defined the Dirac matrices as
 \end{subequations}
 and have used short hand notation
 \begin{equation}
-\op {\vc p} \cdot \vc a \equiv \left(\op p_x \pauli{1} + p_y \pauli{y} + p_z \pauli{3}  \right) \otimes  
+\op {\vc p} \cdot \vc a \equiv \left(\op p_x \pauli{1} + p_y \pauli{2} + p_z \pauli{3}  \right) \otimes  
   \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},
 \end{equation}
 where $\op {\vc p}$ is the linear momentum operator of \cref{eq:SpinorKinMom}. \Cref{eq:DiracEq} governs
@@ -1720,13 +1723,14 @@ the subject for a more thorough treatment of these matters \todo{cite}. There ar
 aspects of \cref{eq:DiracEq} which will play an important role in the following developments. Perhaps
 the largest departure from non--relativistic quantum mechanics is in the spectrum of \cref{eq:DiracHam}.
 Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitoned
-into two regions relative to the rest mass of the electron\co{confirm this} \todo{cite}: a strictly positive region
-$E > 0$ and a strictly negative region $E < -2c^2$. The positive energy solutions to the Dirac equation
-may be interpreted as an analogue to the non--relativistic electrons, while the negative energy solutions
+into three regions relative to the rest mass of the electron \todo{cite}: a strictly positive energy continuium 
+$E > 0$, a strictly negative energy continuium $E < -2c^2$, and a set of discrete states with $E \in (-c^2,0)$ which
+arise due to the presence of the external potential. The solutions of the Dirac equation with $E > -c^2$
+may be interpreted as an analogue to the non--relativistic electrons, while the solutions with $E < -c^2$
 have no non--relativistic analogue. They are typically interpreted as the positronic solutions to the Dirac
 equation \todo{cite}. As this work is to treat the electronic problem in molecular physics, we will
 be interested in treating the electronic solutions to the Dirac equation, not the positronic solutions.
-However, this does not negate the presence of these negative energy states, and their presence is
+However, this does not negate the presence of these positronic states, and their presence is
 crutial to a rigorus treatment of relativisic efffects in molecular physics.
 
 If \cref{eq:DiracEq} is interpreted as a mean field Hamiltonian where $\op v$ somehow encompasses
@@ -1735,19 +1739,19 @@ causes a number of practical problems in obtaining mean--field electronic soluti
 \cref{eq:FockEq}. This is due to the fact that in our presentation of mean--field quantum mehcanics,
 the premise was built on \emph{minimization} of the energy functional in \cref{eq:EnergyFunctional}
 over Slater determinants. The analogus problem of determining a mean--field electronic solution
-to the Dirac equation is a constrained minimization over only \emph{positive} energy solutions, 
-as there are an infinite number of \emph{negative} energy solutions. Minimization of 
+to the Dirac equation is a constrained minimization over only \emph{electronic} solutions, 
+as there are an infinite number of continuium positronic solutions. Minimization of 
 \cref{eq:EnergyFunctional} over purely electronic Slater determinants in generally impractical using standard 
 optimization techniques and requres rather opaque projection schemes to avoid variational
-collapse into the negative energy regime \todo{cite}. However, as we know \emph{a priori} that
+collapse into the positronic regime \todo{cite}. However, as we know \emph{a priori} that
 the electronic solutions are the ones of interest, we may transform \cref{eq:DiracHam} such that
 we may solve for only the electronic states in an approximate manner. In the following section,
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
 
 \subsection{The Exact Two--Component Hamiltonian}
 
-The problem of the diachoimy between the positive and negative energy states of the Dirac
-equations may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
+The problem of the diachoimy between the electronic and positronic states of the Dirac
+equation may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
 large and small components of the bispinor in \cref{eq:DiracHam}. In an attempt
 to decouple these equations, we may perform a similarity transformation under an operator $\op{U}$, such that
 \todo{cite}
@@ -1756,8 +1760,19 @@ to decouple these equations, we may perform a similarity transformation under an
 \op h^D \mapsto \op h^\TwC  = \op U \op h^D \op U^{-1} = \begin{bmatrix} \op h^+ & 0 \\ 0 & \op h^- \end{bmatrix}.
 \end{equation}
 where both $\op h^+$ and $\op h^-$ are effective two component operaters (i.e. they act on spinors).
-In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation, and in the case of a free
-particle we obtain 
+In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation \todo{cite}.
+In essence, the FW transformation convolves the information contained in the large and small
+component of the bispinor such that solution of \cref{eq:DiracEq} amounts to solving two decoupled 
+differential equations,
+\begin{align}
+\op h^\pm \ket{ \phi^\pm (t) } = \ii \partial_t \ket{\phi^\pm (t)}, \qquad \op U \ket{\psi} = \begin{bmatrix} \ket{\phi^+} \\ \ket{\phi^-} \end{bmatrix}.
+\end{align}
+As such, the spectrum of $\op h^+$ and $\op h^-$ are given by
+\begin{equation}
+\mathrm{spec}(\op h^+) = (-c^2,\infty), \quad 
+\mathrm{spec}(\op h^-) = (-\infty,-2c^2).
+\end{equation}
+In the case of a free electron, we obtain 
 \begin{equation}
 \label{eq:NWRep}
 \op v = 0 \quad \Longrightarrow \quad \op h^\TwC = \vc b \sqrt{1 + \op p^2},
@@ -1766,12 +1781,13 @@ which is known as the Newton--Wigner representation of the Dirac equation \todo{
 when $\op v \neq 0$, the FW transformation is possible, only one is not able to write down a closed
 form expression such as \cref{eq:NWRep}, and power series approximations must be made in order to make
 use of them in practical calculations 
-\footnote{It is actually in the FW transformation in the presence of the nuclear scalar potential 
+\footnote{It is actually in the FW transformation in the presence of the scalar nuclear  potential 
 that we are able to define terms like ``spin--orbit" coupling and the mass--velocity correction. The Dirac Equation need not know explicitly 
 about these effects and accounts for them implicity through the coupling of the large and small components
 of the electronic wave function. These terms which we typically associate with relativistic effects are in fact
 terms in a series expansion which is only good in the non--relativistic limit.}
-\todo{cite}. This series expansion method may be avoided somewhat in the case of basis set calculations 
+\todo{cite}. 
+This series expansion may be avoided in the case of basis set calculations 
 in the that problem of block--diagonalization of an operator in a basis representation is a well defined
 numberical linear algebra problem.
 
@@ -1787,19 +1803,20 @@ solutions
 \begin{equation}
   \label{eq:KineticBalance}
   \ket{\phi^S} = \frac{c \op{\vc p} \cdot \pauli{}}{(E - v + 2c^2)} \ket{\phi^L } \approx 
-    \frac{\op{\vc p} \cdot \pauli{}}{2c} \ket{\phi^L },
+    \ket{\phi^{PL} } = \frac{\op{\vc p} \cdot \pauli{}}{2c} \ket{\phi^L },
 \end{equation}
-where $E$ and $v$ are the expectation values of the Dirac Hamiltonian and the potential operator in the bispinor.
-The approximation on the right of \cref{eq:KineticBalance} holds in the non--relativstic limit ($E \approx v$, i.e. small momentum)
+where $E$ and $v$ are the expectation values of the Dirac Hamiltonian and the potential operator in the bispinor, respectively.
+The approximation on the right of \cref{eq:KineticBalance}, where we have defined the so--called pseudo large component, $\ket{\phi^{PL}}$,
+holds in the non--relativstic limit ($E \approx v$, i.e. small momentum)
 and is known as the kinetic balance condition for the small component of the electronic wave function \todo{cite}. 
-Thus the action of the Dirac Hamitloninan on the bispinor mat now be written as
+Thus the action of the Dirac Hamitloninan on the bispinor may now be written as
 \begin{equation}
 \label{eq:ModDirac}
 \begin{bmatrix}
 \op v & \op T^\NR \\ \op T^\NR & \frac{1}{4c^2} \op W - \op T^\NR
 \end{bmatrix}
 \begin{bmatrix}
-\ket {\phi^L} \\ \frac{\op{\vc p} \cdot \pauli{}}{2c}\ket{\phi^L}
+\ket {\phi^L} \\ \ket{\phi^{PL}}
 \end{bmatrix}
 \end{equation}
 where $\op T^\NR$ is the non--relativistic kinetic energy operator of \cref{eq:SpinorKinMom}. $\op W$ is a transformed
@@ -1809,14 +1826,44 @@ potential operator given by
 \end{equation}
 \Cref{eq:ModDirac} is known as the modified Dirac equation.
 
-In a finite basis $\{ \chi_\mu \}$, \cref{eq:ModDirac} becomes
+In a finite basis $\{ \chi_\mu \}$ with $\vert \{\chi_\mu \} \vert = N_b$, we may develop a Roothaan--Hall--like equation from \cref{eq:ModDirac}
+such that
 \begin{equation}
-\vc H^\mathrm{MD} =
+\label{eq:MDRH}
+\vc H^\mathrm{MD} \vc C^\mathrm{MD} = \vc S^\mathrm{MD} \vc C^\mathrm{MD} \vc \epsilon^\mathrm{MD},
+\end{equation}
+where
+\begin{align}
+&\vc H^\mathrm{MD} =
 \begin{bmatrix}
 \vc v & \vc T^\NR \\ \vc T^\NR & \frac{1}{4c^2} \vc W - \vc T^\NR
-\end{bmatrix}
+\end{bmatrix},\\
+%
+&\vc S^\mathrm{MD} =
+\begin{bmatrix}
+\vc S & \vc 0 \\ \vc 0 & \frac{1}{2c^2} \vc T^\NR
+\end{bmatrix},\\
+%
+&\vc \epsilon^\mathrm{MD} =
+\begin{bmatrix}
+\vc \epsilon^+ & \vc 0 \\ \vc 0 & \vc \epsilon^-
+\end{bmatrix},
+\end{align}
+and the basis representations of these operators are given as in \cref{eq:OBBasisExp}. The superscripts
+$+$ and $-$ on the orbital eigenvalues denote electronic and positronic eigenvalues, respectively.
+$\vc C^\mathrm{MD}$ takes the block form
+\begin{equation}
+\vc C^\mathrm{MD} = \begin{bmatrix} \vc C^{L+} & \vc C^{L-} \\ \vc C^{PL+} & \vc C^{PL-} \end{bmatrix},
 \end{equation}
-where the basis representations of these operators are given as in \cref{eq:OBBasisExp}. To decouple \cref{eq:ModDirac},
+such that we may construct a basis $\mathcal C = \mathcal C^+ \cup \mathcal C^-$ which approximately spans $\hilb H^\FrC$
+with $\mathcal C^+ \cap \mathcal C^- = \emptyset$ and $\vert \mathcal C^+ \vert = \vert \mathcal C^- \vert = 2N_b$ via
+\begin{align}
+&\mathcal C^+ = \left\lbrace \ket{\psi_p} \in \mathcal C \text{ s.t. } \psi_p(\vc{x}) = \begin{bmatrix} \phi_p^{L+}(\vc{x}) \\ \phi_p^{PL+}(\vc{x}) \end{bmatrix} \right\rbrace,\\
+&\mathcal C^- = \left\lbrace \ket{\psi_p} \in \mathcal C \text{ s.t. } \psi_p(\vc{x}) = \begin{bmatrix} \phi_p^{L-}(\vc{x}) \\ \phi_p^{PL-}(\vc{x}) \end{bmatrix} \right\rbrace,\\
+&\phi_p^{L\pm,\sigma}(\vc{r})  = \sum_\mu C^{L\pm,\sigma}_{\mu p} \chi_\mu(\vc r), \\
+&\phi_p^{PL\pm,\sigma}(\vc{r}) = \sum_\mu C^{PL\pm,\sigma}_{\mu p} \chi_\mu(\vc r). 
+\end{align}
+To decouple \cref{eq:MDRH},
 the X2C method employs the use of a unitary operator in the basis represetation \todo{cite},
 \begin{equation}
 \label{eq:X2CTrans}
@@ -1824,9 +1871,12 @@ the X2C method employs the use of a unitary operator in the basis represetation 
 \quad \vc Y_1 \ (\vc I + \vc X^\dagger \vc X)^{-\frac{1}{2}},  
 \quad \vc Y_2 \ (\vc I + \vc X \vc X^\dagger)^{-\frac{1}{2}}.  
 \end{equation}
-$\vc X$ is constructed from the eigenvectors of \cref{eq:ModDirac} expressed in an orthonormal, kinetically balanced 
-basis, $\tilde {\vc H}^\mathrm{MD}$. The explicit construction of $\tilde {\vc H}^\mathrm{MD}$ is quite involved and beyond the scope of this work.
-Its efficient construction and relationship to $\vc{X}$ is given in ref \todo{cite}. Given $\vc{X}$, \cref{eq:X2CTrans} may 
+such that $\vc X$ is constructed from the eigenvectors of \cref{eq:MDRH} by
+\begin{equation}
+\vc X = \vc C^{PL+} \left(\vc C^{L+}\right)^{-1}.
+\end{equation}
+An account on how to efficiently assemble $\vc X$ is given in reference \todo{cite}.
+Given $\vc{X}$, \cref{eq:X2CTrans} may 
 be constructed and in the limit that $\op v$ only contains one body operators, \cref{eq:ModDirac} is block diagonalized 
 exactly,
 \begin{equation}
@@ -1842,7 +1892,7 @@ have to be performed as each step of the wave function optimization procedure ou
 rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
 in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
 relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
-way as to effectively include these many--body effects by way of a B\"{o}ttiger \co{ check spelling} scaling,
+way as to effectively include these many--body effects by way of the B\"{o}ttiger \co{ check spelling} scaling,
 \begin{equation}
 \vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
 \end{equation}
