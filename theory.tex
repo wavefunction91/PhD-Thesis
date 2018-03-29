@@ -1072,7 +1072,7 @@ with
 \begin{align}
   &\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \label{eq:HFMat}\\ 
 &X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{X}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
-\quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}. \\
+\quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}. \label{eq:OBBasisExp}\\
 &S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}. 
 \end{align}
 \end{subequations}
@@ -1664,10 +1664,199 @@ The following section provides a brief overview of the treatment of relativistic
 
 
 % Relativistic Hamiltonian
-\section{Approximate Relativistic Hamiltonians: The Dirac Equation}
+\section{Relativistic Hamiltonians}
 \label{sec:RELH}
 
-To be clear, although it is rarely outright stated in the context of the electronic structure theory
+\subsection{The Dirac Equation}
+
+Fundamental to the treatment of relativistic effects in the electronic problem is the 
+Dirac equation \todo{cite},
+\begin{equation}
+\label{eq:DiracEq}
+\op{h}^D \ket{\psi (t)} = \ii \partial_t \ket{\psi (t)},
+\end{equation}
+where $\ket{\psi (t)}$ is the wave function for a spin--1/2 fermion, and the Dirac Hamiltonian,
+$\op h^D : \hilb{H}^\FrC \rightarrow \hilb H^\FrC$, is given in atomic units by
+\begin{equation}
+\label{eq:DiracHam}
+\op h^D = \op v \otimes \vc{I}_2 + c \op {\vc p} \cdot \vc a + (\vc b - \vc I_4)c^2.
+\end{equation}
+Here, $c$ is the speed of light, $\op v$ is an external scalar potential, and $\vc{I}_2$ and $\vc I_4$ are the 2-by-2 and 4-by-4 identity matrices, respectively. 
+We have defined the Dirac matrices as
+\begin{subequations}
+\begin{align}
+  \label{eq:DiracMat}
+  \vc{a}_k &= \pauli{k} \otimes \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \quad k \in \{1,2,3\},\\
+  \vc{b} &= \begin{bmatrix} \vc{I}_2 & \vc{0}_2 \\ \vc{0}_2 & -\vc{I}_2 \end{bmatrix},
+\end{align}
+\end{subequations}
+and have used short hand notation
+\begin{equation}
+\op {\vc p} \cdot \vc a \equiv \left(\op p_x \pauli{1} + p_y \pauli{y} + p_z \pauli{3}  \right) \otimes  
+  \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},
+\end{equation}
+where $\op {\vc p}$ is the linear momentum operator of \cref{eq:SpinorKinMom}. \Cref{eq:DiracEq} governs
+the quantum mecanical behaviour of a spin--1/2 fermion in full adherence to the principles of special
+relativity, i.e. it is fully covariant under Lorentz transformations \todo{cite}.
+
+
+Examining the form of \cref{eq:DiracHam}, it is clear that the coordinate space spanned by $\mathbb F$
+which is defined in \cref{eq:SpinorOrbital} is no longer sufficient in the description of relativistic 
+electrons. By block structure of \cref{eq:DiracMat} indicates the need for an extra dimension in the 
+description of the electronic such that,
+\begin{equation}
+\label{eq:Bispinor}
+\ket{\psi} = \begin{bmatrix} \ket{\phi^L} \\ \ket{\phi^S} \end{bmatrix},
+\end{equation}
+where $\ket{\phi^L}$ and $\ket{\phi^S}$ are referred to as the ``large" and ``small" component of the 
+electronic wave function, respectively, and are both representable as spinors in the sense of
+\cref{eq:SpinorOrbital}. Represented as a vector of two spinors, the wave functions relating to the Dirac equation
+are often referred to as bispinors \todo{cite} as they are constructed from four complex components (hence 
+$\ket{\psi} \in \hilb H^\FrC$). 
+
+The formal treatment of relativistic theory in the context of the consequences of adhering to Lorentz 
+covariance is outside the scope of this work. One should be referred to more comprehensive texts on
+the subject for a more thorough treatment of these matters \todo{cite}. There are, however, several
+aspects of \cref{eq:DiracEq} which will play an important role in the following developments. Perhaps
+the largest departure from non--relativistic quantum mechanics is in the spectrum of \cref{eq:DiracHam}.
+Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitoned
+into two regions relative to the rest mass of the electron\co{confirm this} \todo{cite}: a strictly positive region
+$E > 0$ and a strictly negative region $E < -2c^2$. The positive energy solutions to the Dirac equation
+may be interpreted as an analogue to the non--relativistic electrons, while the negative energy solutions
+have no non--relativistic analogue. They are typically interpreted as the positronic solutions to the Dirac
+equation \todo{cite}. As this work is to treat the electronic problem in molecular physics, we will
+be interested in treating the electronic solutions to the Dirac equation, not the positronic solutions.
+However, this does not negate the presence of these negative energy states, and their presence is
+crutial to a rigorus treatment of relativisic efffects in molecular physics.
+
+If \cref{eq:DiracEq} is interpreted as a mean field Hamiltonian where $\op v$ somehow encompasses
+the effects of a ``sea" of other electrons in the system, the presence of the positronic solutions
+causes a number of practical problems in obtaining mean--field electronic solutions of the form
+\cref{eq:FockEq}. This is due to the fact that in our presentation of mean--field quantum mehcanics,
+the premise was built on \emph{minimization} of the energy functional in \cref{eq:EnergyFunctional}
+over Slater determinants. The analogus problem of determining a mean--field electronic solution
+to the Dirac equation is a constrained minimization over only \emph{positive} energy solutions, 
+as there are an infinite number of \emph{negative} energy solutions. Minimization of 
+\cref{eq:EnergyFunctional} over purely electronic Slater determinants in generally impractical using standard 
+optimization techniques and requres rather opaque projection schemes to avoid variational
+collapse into the negative energy regime \todo{cite}. However, as we know \emph{a priori} that
+the electronic solutions are the ones of interest, we may transform \cref{eq:DiracHam} such that
+we may solve for only the electronic states in an approximate manner. In the following section,
+we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
+
+\subsection{The Exact Two--Component Hamiltonian}
+
+The problem of the diachoimy between the positive and negative energy states of the Dirac
+equations may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
+large and small components of the bispinor in \cref{eq:DiracHam}. In an attempt
+to decouple these equations, we may perform a similarity transformation under an operator $\op{U}$, such that
+\todo{cite}
+\begin{equation}
+\label{eq:FW}
+\op h^D \mapsto \op h^\TwC  = \op U \op h^D \op U^{-1} = \begin{bmatrix} \op h^+ & 0 \\ 0 & \op h^- \end{bmatrix}.
+\end{equation}
+where both $\op h^+$ and $\op h^-$ are effective two component operaters (i.e. they act on spinors).
+In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation, and in the case of a free
+particle we obtain 
+\begin{equation}
+\label{eq:NWRep}
+\op v = 0 \quad \Longrightarrow \quad \op h^\TwC = \vc b \sqrt{1 + \op p^2},
+\end{equation}
+which is known as the Newton--Wigner representation of the Dirac equation \todo{cite}. Even in the case
+when $\op v \neq 0$, the FW transformation is possible, only one is not able to write down a closed
+form expression such as \cref{eq:NWRep}, and power series approximations must be made in order to make
+use of them in practical calculations 
+\footnote{It is actually in the FW transformation in the presence of the nuclear scalar potential 
+that we are able to define terms like ``spin--orbit" coupling and the mass--velocity correction. The Dirac Equation need not know explicitly 
+about these effects and accounts for them implicity through the coupling of the large and small components
+of the electronic wave function. These terms which we typically associate with relativistic effects are in fact
+terms in a series expansion which is only good in the non--relativistic limit.}
+\todo{cite}. This series expansion method may be avoided somewhat in the case of basis set calculations 
+in the that problem of block--diagonalization of an operator in a basis representation is a well defined
+numberical linear algebra problem.
+
+To this end, we will account for relativistic effects using the exact two--component (X2C) method \todo{cite}.
+The name X2C is a misnomer due to the fact that it is only ``exact" in the one electron case. There
+exist many basis set methods to obtain effective two component Hamiltoninans such as \cref{eq:FW} \todo{cite},
+but the X2C method is an especially attractive method in that it is a one step transformation, rather than
+an iterative procedure such as those involved in the Douglass--Kroll--Hess method and its variants \todo{cite}.
+The X2C method operates under the assumption that there exists a linear, energy independent transformation which
+links the large and small component of the electronic wave function. Expanding out the action of \cref{eq:DiracHam}
+on a bispinor of the form \cref{eq:Bispinor}, we obtain the following relationship between the large and small components for positive energy 
+solutions
+\begin{equation}
+  \label{eq:KineticBalance}
+  \ket{\phi^S} = \frac{c \op{\vc p} \cdot \pauli{}}{(E - v + 2c^2)} \ket{\phi^L } \approx 
+    \frac{\op{\vc p} \cdot \pauli{}}{2c} \ket{\phi^L },
+\end{equation}
+where $E$ and $v$ are the expectation values of the Dirac Hamiltonian and the potential operator in the bispinor.
+The approximation on the right of \cref{eq:KineticBalance} holds in the non--relativstic limit ($E \approx v$, i.e. small momentum)
+and is known as the kinetic balance condition for the small component of the electronic wave function \todo{cite}. 
+Thus the action of the Dirac Hamitloninan on the bispinor mat now be written as
+\begin{equation}
+\label{eq:ModDirac}
+\begin{bmatrix}
+\op v & \op T^\NR \\ \op T^\NR & \frac{1}{4c^2} \op W - \op T^\NR
+\end{bmatrix}
+\begin{bmatrix}
+\ket {\phi^L} \\ \frac{\op{\vc p} \cdot \pauli{}}{2c}\ket{\phi^L}
+\end{bmatrix}
+\end{equation}
+where $\op T^\NR$ is the non--relativistic kinetic energy operator of \cref{eq:SpinorKinMom}. $\op W$ is a transformed
+potential operator given by
+\begin{equation}
+\op W = (\op{\vc p} \cdot \pauli{}) \op v (\op{\vc p} \cdot \pauli{}).
+\end{equation}
+\Cref{eq:ModDirac} is known as the modified Dirac equation.
+
+In a finite basis $\{ \chi_\mu \}$, \cref{eq:ModDirac} becomes
+\begin{equation}
+\vc H^\mathrm{MD} =
+\begin{bmatrix}
+\vc v & \vc T^\NR \\ \vc T^\NR & \frac{1}{4c^2} \vc W - \vc T^\NR
+\end{bmatrix}
+\end{equation}
+where the basis representations of these operators are given as in \cref{eq:OBBasisExp}. To decouple \cref{eq:ModDirac},
+the X2C method employs the use of a unitary operator in the basis represetation \todo{cite},
+\begin{equation}
+\label{eq:X2CTrans}
+\vc U^\XtC = \begin{bmatrix} \vc Y_1 & - \vc X^\dagger \vc Y_2 \\ \vc X \vc Y_1 & \vc Y_2 \end{bmatrix},
+\quad \vc Y_1 \ (\vc I + \vc X^\dagger \vc X)^{-\frac{1}{2}},  
+\quad \vc Y_2 \ (\vc I + \vc X \vc X^\dagger)^{-\frac{1}{2}}.  
+\end{equation}
+$\vc X$ is constructed from the eigenvectors of \cref{eq:ModDirac} expressed in an orthonormal, kinetically balanced 
+basis, $\tilde {\vc H}^\mathrm{MD}$. The explicit construction of $\tilde {\vc H}^\mathrm{MD}$ is quite involved and beyond the scope of this work.
+Its efficient construction and relationship to $\vc{X}$ is given in ref \todo{cite}. Given $\vc{X}$, \cref{eq:X2CTrans} may 
+be constructed and in the limit that $\op v$ only contains one body operators, \cref{eq:ModDirac} is block diagonalized 
+exactly,
+\begin{equation}
+\vc U^\XtC \vc H^\mathrm{MD} \vc U^{\XtC\dagger} = \begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}.
+\end{equation}
+Here we have labelled $\vc h^\XtC$ as the positive energy block diagonal of the transformed hamiltonian. $\vc h^\XtC$ 
+will serve as the source of the relativistic effects in the mean field methods used throughout this work.
+
+In the case where $\op v$ is an effective many--body potential in the context of mean field theory, the X2C method
+dictates that the transformation only be performed using the density independent terms of the Fock operator \todo{cite},
+i.e. $\op H^\mathrm{core}$ of \cref{eq:FockComponents}. Otherwise, the transformation described by $\vc U^\XtC$ would
+have to be performed as each step of the wave function optimization procedure outlined at the end  of \cref{sec:HF};
+rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
+in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
+relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
+way as to effectively include these many--body effects by way of a B\"{o}ttiger \co{ check spelling} scaling,
+\begin{equation}
+\vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
+\end{equation}
+where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo{cite}. This scaling method
+has become the field standard for approximately accounting for many--body relativistic effects in effective
+two--compoenent relativistic methods \todo{cite?}.
+
+\subsection{Approximate Relativistic  Molecular Hamiltonians: The Dirac--Coulomb Hamiltonian}
+
+
+
+
+
+Although it is rarely outright stated in the context of the electronic structure theory
 literature, there is no \emph{truly} relativistically covariant formulation of many--body quantum 
 mechanics. This is due to the fact that the Coulomb interaction only treats the instantaneous interactions
 of charged particles and is thus manifestly incapable of adhering to the principles of special relativity.
