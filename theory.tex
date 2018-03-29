@@ -1617,15 +1617,25 @@ $\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a s
 where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
 
 
-%The wave equation governed by \cref{eq:NRBOH} as a specialization of \cref{eq:QWave} is given by
-%\begin{equation}
-%\label{eq:NRSCH}
-%\op{H}^\BO_{el} \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)}
-%\end{equation}
-%and will be referred to as the electronic Schr\"{o}dinger equation within the Born--Oppenheimer approximation \cite{Tully98_407}.
-%In this work, all non--relativistic specializations of \cref{eq:QWave} will referred to as some variant of the Schr\"{o}dinger
-%equation due to the explicit presence of the kinetic energy operator in the Hamiltonian. As such, it is 
-%a specialization of the original Schr\"{o}dinger Hamiltonian of the form
+
+\subsection{Non--Relativistic Mean Field Wave Functions}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1953,26 +1963,32 @@ and have used the shorthand notations
   &\vc{a}(i) \cdot \vc{a}(j) = \sum_{k = 1}^3 \vc{a}_k(i) \vc{a}_k(j), \\
   &\vc{a}(i) \cdot \vc{r}_{ij} = (x_i - x_j) \otimes \vc{a}_1(i) + (y_i - y_j) \otimes \vc{a}_2(i) + (z_i - z_j) \otimes \vc{a}_3(i).
 \end{align}
-From the structure of $\op{H}^\DCB$, or more specifically  $\op{h}^D$ and $\op{g}^B$, it is clear that $\hilb{H}^\FrC$
-consists of higher dimensional wave functions than in the non--relativistic case. 
-The formal structure of $\ket{\Psi_{el}^\FrC}$ in the spinor basis is given by \todo{cite}
+In analogy to the single particle case in \cref{eq:Bispinor}, the relativistic many--body electronic wave function may be written as
 \begin{equation}
-  \label{eq:Bispinor}
-  \Psi_{el}^\FrC(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = 
+  \label{eq:MolBispinor}
+  \ket{\Psi_{el}} = 
     \begin{bmatrix}
-       \Psi_{el}^\mathrm{L}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) \\
-       \Psi_{el}^\mathrm{S}(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) 
+       \ket{\Psi_{el}^\mathrm{L}} \\
+       \ket{\Psi_{el}^\mathrm{S}} 
     \end{bmatrix},
 \end{equation}
-where the so--called ``large" (superscript $L$) and ``small" (superscript $S$) components exhibit the same spinor
-structure as non--relativistic spinor wave functions. As such, wave functions of the form \cref{eq:Bispinor} are often
-referred to as bispinors, or four--component wave functions due to their four complex spin components.
+where the superscripts $L$ and $S$ again refer to the large and small components of the electronic wave function,
+and may be treated as spinor wave functions in analogy to the non--relativistic case.
+
 
 
 
 % Semi--Classical Light Matter
 \section{Semi--Classical Light--Matter Interaction}
 \label{sec:SCLMI}
+
+
+The previous sections have developed the formal theory to practically obtain electronic ground states
+in both relativistic and non--relativistic treatments of molecular quantum mechanics. While such
+developments provide the basis of any practical quantum theory, the majority of interesting chemical
+phenomena result for the departure from the electronic ground state. In this section we will
+focus on the interaction of molecular systems with external electromagnetic fields which will
+allow us to probe...
 
 % Polarization Propagator
 \subsection{The Resonant Convergent Polarization Propagator}
