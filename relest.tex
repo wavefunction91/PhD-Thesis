@@ -1,8 +1,212 @@
 \chapter{Two--Component Relativistic Electronic Structure Theory}
-\
+
 
 \section{Noncollinear Kohn--Sham Density Functional Theory}
 \label{sec:NCDFT}
+
+\subsection{Assembly of $\mathbf{V}^{xc}$ for Spinor Densities}
+
+In this section, we examine the integration and assembly of the $E^{GGA}_{xc}$ dependent terms of
+the Kohn--Sham Fock matrix using a spinor density. In general, the exchange correlation contribution to the
+electronic energy may be written as an integral over an exchange correlation (xc) integration kernel, $f$,
+\begin{equation}
+  \label{eq:EXCGGA}
+E_{xc}^{GGA}[\rho, \nabla \rho] = \int \mathrm{d}^3 \vc r \text{  }f(\{ U(\vc{r}) \}) ,
+\end{equation}
+where we have introduced a set of auxiliary ``U"--variables, $\{U(\vc{r})\}$, upon which
+the xc kernel depends. These need not be the density variables ($\rho, \nabla \rho$) directly,
+which we will refer to as ``V"--variables, $\{V(\vc{r})\}$, but rather have complete flexibility in
+functional form. In non--relativistic, spin--polarized density functional theory, these sets of variables
+may be defined as
+\begin{equation}
+  \label{eq:Vcol}
+  \{ V^{col}(\vc{r}) \} = \{ \rho^\alpha(\vc{r}), \rho^\beta(\vc{r}), \nabla \rho^\alpha(\vc{r}), \nabla \rho^\beta(\vc{r}) \} 
+\end{equation}
+and
+\begin{equation}
+  \label{eq:Ucol}
+  \{ U^{col}(\vc{r}) \} = \{ \rho^\alpha(\vc{r}), \rho^\beta(\vc{r}), \gamma^{\alpha\alpha}(\vc{r}), \gamma^{\alpha\beta}(\vc{r}), \gamma^{\beta\beta}(\vc{r}) \}
+\end{equation}
+where
+\begin{equation}
+  \gamma^{\sigma\sigma'}(\vc{r}) = \nabla \rho^\sigma(\vc{r}) \cdot \nabla \rho^{\sigma'}(\vc{r})
+\end{equation}
+The practical utility for the use of these two separate sets of variables 
+is especially apparent in the context of two--component density functional theory
+as it allows for a simple retrofitting of standard xc functionals for relativistic calculations
+by simply redefining the transformations from the V variables of relativistic theory. 
+
+In the following, we will make use of the transformation
+of the spin blocked density of \cref{eq:2CDen} to the variables $\{\rho^S,\rho^z,\rho^y,\rho^x\}$
+via \cref{eq:CompTrans}.  Defining
+the magnetization density as $\mathbf{m}(\vc{r}) = \{\rho^z(\vc{r}), \rho^y(\vc{r}), \rho^x(\vc{r})\}$, non--collinear
+analogues for \cref{eq:Vcol,eq:Ucol} may be defined as
+\begin{align}
+  \label{eq:NCAuxVar}
+  &\{ V^{NC}(\vc{r}) \} = \{ \rho^S(\vc{r}), \mathbf{m}(\vc{r}), \nabla \rho^S, \nabla \mathbf{m}(\vc{r}) \} \\
+  &\{ U^{NC}(\vc{r}) \} = \nonumber \\ &\quad\{ n^+(\vc{r}), n^-(\vc{r}), \gamma^{++}(\vc{r}), \gamma^{+-}(\vc{r}), \gamma^{--}(\vc{r}) \}
+\end{align}
+where we have used $NC$ to denote non--collinearity. The connection between $\{U^{col}\}$ and $\{U^{NC}\}$
+is clear by making the substitution $\alpha \leftrightarrow +$ and $\beta \leftrightarrow -$. 
+$\{V^{col}\}$ and $\{V^{NC}\}$ may be related by recognizing $\{\rho^\alpha,\rho^\beta\}$ as the diagonal contributions
+of the spinor density, and thus
+\begin{equation}
+  \{\rho^\alpha(\vc{r}), \rho^\beta(\vc{r})\} \mapsto \{\rho^S(\vc{r}), \mathbf{m}^{col}(\vc{r})\}
+\end{equation}
+where $\mathbf{m}^{col}(\vc{r}) = \{\rho^z(\vc{r}),0,0\}$. Given the components of the spinor density matrix,
+spatial evaluation of the V--variables is given by
+\begin{align}
+  \label{eq:VVarEval}
+  \rho^I(\vc{r}) &= 
+%    \sum_{\mu\nu} P^I_{\mu\nu} \chi_\mu(\vc{r}) \chi_\nu(\vc{r}) = 
+    \sum_{\mu\nu} \mathrm{Re}[P^I_{\mu\nu}] \chi_\mu(\vc{r}) \chi_\nu(\vc{r})\\
+  \nabla\rho^I(\vc{r}) &= 
+%    \sum_{\mu\nu} P^I_{\mu\nu} \nabla \left(\chi_\mu(\vc{r}) \chi_\nu(\vc{r})\right) = 
+    2\sum_{\mu\nu} \mathrm{Re}[P^I_{\mu\nu}] \chi_\mu(\vc{r}) \nabla\chi_\nu(\vc{r})
+\end{align}
+where $\mathrm{Re}[x]$ denotes the real part of $x$. Remark that the evaluation of $\{V(\vc{r})\}$ may then be practically 
+evaluated using strictly real arithmetic.
+
+Given a transformation, $\{ V^{NC}(\vc{r}) \} \mapsto \{U^{NC}_I(\vc{r})\}$, it is possible to perform practical
+density functional calculations using standard implementations of collinear xc functionals, such
+as those provided by \texttt{libxc} \cite{Burnus12_2272,Marques18_1}. However, defining such a transformation is not 
+a trivial task, as the added spin degrees of freedom in the non--collinear spinor density and
+Fock matrix must obey to stricter conditions than their collinear counterparts, such as orientation
+invariance and adhering to the zero--torque theorem for the xc potential.\cite{Gyorffy01_206403}
+Several definitions of the generalized density variables have been proposed.\cite{Wullen02_779,Ullrich05_073102,Frisch07_125119,Frisch12_2193,Scuseria13_035117}
+In this work, we utilize the transformation method which meets such conditions from Ref.\cite{Li17_2591} 
+\begin{subequations}
+  \label{eq:NCtrans}
+  \begin{align}    
+    n^\pm(\vc{r})        & = \frac{1}{2}\rho^S(\vc{r}) \pm \frac{1}{2} \vert\mathbf{m}(\vc{r})\vert\\
+    \gamma^{\pm\pm}(\vc{r}) & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\  
+                         & + \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber \\
+                         & \pm \frac{f_{\nabla}(\vc{r})}{2}\sqrt{ \sum_k D^{Sk} (\vc{r})^2} \nonumber \\
+    \gamma^{+-}(\vc{r})      & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\ 
+                         & - \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber
+  \end{align}
+\end{subequations}
+where
+\begin{align}  
+  f_{\nabla}(\vc{r}) & = sgn\left(\nabla\rho^S (\vc{r}) \cdot \left(\sum_k \nabla\rho^k (\vc{r}) \cdot \rho^k (\vc{r}) \right)\right) \\
+  D^{IJ} (\vc{r})      &  = \nabla\rho^I (\vc{r}) \cdot  \nabla \rho^J (\vc{r})  
+\end{align} 
+Using this set of transformations, we may define an electronic energy and Fock matrix which has no dependence
+on the global orientation of $\mathbf{m}(\vc{r})$ and which satisfies the zero torque theorem (see Appendix) for
+the exchange correlation potential also in the GGA framework.
+
+In the limit of small $\mathbf{m}(\vc{r})$ ($\lvert \mathbf{m}(\vc{r}) \rvert < 10^{-12}$, in this work), the transformations outlined in 
+\cref{eq:NCtrans} yield numerically unstable
+expressions for the exchange correlation potential.\cite{Li17_2591} Thus one must define another set of transformations for practical
+implementations of non--collinear DFT to ensure proper convergence in the limit of small $\mathbf{m}(\vc{r})$. In summary,
+this change for small $\mathbf{m}(\vc{r})$ may be described by the following substitutions in \cref{eq:NCtrans},
+\begin{subequations}
+  \label{eq:smallTrans}
+%  \begin{align}  
+%    n^\pm(\vc{r})        & = \frac{1}{2}\rho^S(\vc{r}) \pm \frac{1}{2} \left( \frac{1}{3}\sum_k \rho^k(\vc{r}) \right) \\ 
+%    \gamma^{\pm\pm}(\vc{r}) & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r})  \\
+%                         & + \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber \\
+%                         & \pm \frac{f_{\nabla}(\vc{r})}{2} \left( \frac{1}{3}\sum_k D^{Sk}  (\vc{r}) \right) \nonumber \\
+%    \gamma^\pm(\vc{r})      & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\ 
+%                         & - \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber
+%  \end{align}
+\begin{align}
+  \vert \mathbf{m}(\vc{r}) \vert   &\mapsto m_s(\vc r) = \frac{1}{3}\sum_k \rho^k(\vc{r}),\\
+  \sqrt{ \sum_k \left( D^{Sk} (\vc{r}) \right)^2} &\mapsto \nabla \rho^S(\vc r) \cdot \nabla m_s(\vc r).
+\end{align}
+\end{subequations}
+Using these mappings ensures no orientation dependence of $\mathbf{m}$ while maintaining numerical stability
+in the resulting expression for the xc potential. While \cref{eq:smallTrans} formally violates the zero
+torque theorem, its influence on the over all nature of the electronic density has been shown to be 
+negligible\cite{Li17_2591}.
+
+Differentiating \cref{eq:EXCGGA} with respect to the elements of the density matrix, we obtain for \cref{eq:VXCdef}
+\begin{align}
+  \label{eq:VXCGGA_eval}
+V^{GGA,I}_{\mu\nu} &= \sum_{\Gamma \Gamma'} \int \mathrm{d}^3 \vc r \text{  }
+  \frac{\partial f }{\partial U^\Gamma(\mathbf{r})}
+  \frac{\partial U^\Gamma(\mathbf{r})}{\partial V^{\Gamma'}(\mathbf{r})}
+  \frac{\partial V^{\Gamma'}(\mathbf{r})}{\partial P^{I}_{\mu\nu}} \\ &= \nonumber \int \mathrm{d}^3 \vc r \text{  } V^{GGA,I}_{\mu\nu}(\vc{r})
+\end{align}  
+where the partial derivatives of $f$ are the same as in collinear DFT, and the partial derivatives of $\{V(\vc{r})\}$ may be
+identified through differentiating \cref{eq:VVarEval} for a particular spin component. We refer the reader to the Appendix
+of Ref.\cite{Li17_2591} for explicit expressions for the partial derivatives of $\{U(\vc{r})\}$.
+
+In practice, \cref{eq:EXCGGA,eq:VXCGGA_eval} are evaluated numerically using a molecular quadrature scheme,
+\cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097}
+\begin{align}
+  &E_{xc}^{GGA}[\rho,\nabla\rho] \approx \sum_i w(\vc{r}_i) f(\{U(\vc{r}_i)\}) \label{eq:EXCGGA_num}\\
+  &V^{GGA,I}_{\mu\nu} \approx \sum_i w(\vc{r}_i) V^{GGA,I}_{\mu\nu}(\vc{r}_i) \label{eq:VXCGGA_num}
+\end{align}
+where $\{w(\vc{r}_i)\}$ is a set of quadrature weights. 
+In this work, we utilize the Becke multi-center numerical integration scheme,\cite{Becke88_2547}
+where the integral is evaluated on series of overlapping atomic centered grids, transformed, through their weights, into ``fuzzy'', overlapping, and analytically continuous cells instead. 
+We also refer the reader to a more thorough discussion regarding specific details.\cite{Becke88_2547,Frisch96_213}
+%%%%% We can put this back if we need to
+%Here, we simply remark that the hallmark of the Becke integration scheme is that the the molecular integrand is decomposed
+%into a sum over overlapping atomic integrands,
+%\begin{equation}
+%  \mathcal{I} = \sum_A \mathcal{I}_A \qquad \mathcal{I} \in \{ E_{xc}^{GGA}, V^{GGA,I}_{\mu\nu} \}
+%\end{equation}
+%where the atomic integrands, $\mathcal{I}_A$ can be performed using standard spherical integration techniques.
+%%%%%%
+The evaluation of \cref{eq:EXCGGA_num} is straight forward as it is a scalar function. In the spirit of the intermediates used
+in Ref.\cite{Sierka11_3097}, by substituting the definitions of the partial derivatives of the U and V variables, we arrive
+at a concise expressions for assembly of \cref{eq:VXCGGA_num} 
+\begin{align}
+&V^{GGA,I}_{\mu\nu} = \sum_i Z^I_\mu(\vc{r}_i) \chi_\nu(\vc{r}_i) + Z^I_\nu(\vc{r}_i) \chi_\mu(\vc{r}_i) \label{eq:VXC_point_update}\\
+  &Z^I_\mu(\vc{r}) = w(\vc{r})
+    \left(
+      \frac{1}{2} \mathcal{Z}^I_{\rho}(\vc{r}) \chi_\mu(\vc{r}) + \sum_\xi \mathcal{Z}^I_{\nabla,\xi}(\vc{r}) \nabla_\xi \chi_\mu(\vc{r})
+    \right) \label{eq:ZImu}
+\end{align}
+where $\xi \in \{x,y,z\}$ and
+\begin{subequations}
+\begin{align}
+&\mathcal{Z}^I_{\rho}=     \frac{\partial f}{\partial \rho^I} =
+                                     \dfrac{1}{2}
+                                     \begin{cases}
+  \left( \dfrac{\partial f}{\partial n^+} + \dfrac{\partial f}{\partial n^-} \right) & I = S \\[12pt]
+  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) K^{I} & I \neq S \\
+                                     \end{cases}
+\end{align}
+\label{eq:ZrhoVar}
+\end{subequations}
+
+\begin{subequations}
+\label{eq:ZgammaVar}
+\begin{align}
+&\mathcal{Z}^I_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^I} = \dfrac{1}{2} \begin{cases}
+                                                          \nabla_\xi\rho^S    \left(  \dfrac{\partial f}{\partial \gamma^{++}} + \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}} \right)  
+                                                          + \sum_k \nabla_\xi \rho^k H^k 
+                                                          \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} 
+                                                          \right)                                                          
+                                                          & I= S \\[8pt]                                                                                                        
+                                                          \nabla_\xi\rho^S H^I  \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} \right) 
+                                                          + \nabla_\xi\rho^I
+                                                          \left(\dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}}
+                                                           \right)
+                                                          & I \neq S
+                                                        \end{cases}                                                                                                                                     
+\end{align}
+\end{subequations}
+where we have dropped the explicit dependence on $\vc r$ for brevity. To consolidate the transformation rules of 
+\cref{eq:NCtrans,eq:smallTrans}, we now define
+\begin{subequations}
+\begin{align}
+&K^I = 
+\begin{cases}
+  \dfrac{\rho^I}{\vert \mathbf{m} \vert} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
+  \dfrac{1}{3} & \text{ (Small }\mathbf{m}\text{)} \\[12pt]
+\end{cases}\\
+&H^I = 
+\begin{cases}
+  \dfrac{f_\nabla D^{SI} }{\sqrt{\sum_k \left(D^{Sk}\right)^2   }} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
+  \dfrac{f_\nabla}{3} & \text{(Small }\mathbf{m}\text{)} \\[12pt]
+\end{cases}
+\end{align}
+\end{subequations}
+
 
 \subsection{Implementation}
 \label{sec:NCDFT_IMPL}
@@ -256,10 +460,107 @@ to systems of large size ($>$ 100 atoms).
 
 \section{The Relativistic Particle--Particle Random Phase Approximation}
 
+\subsection{Motivation}
 
+The ability to accurately predict and characterize the electronically excited
+states of molecular systems is paramount to a complete understanding of many
+chemical phenomena. As such, excited states are the central focus of many
+fields of physical chemistry, most prominent being that of spectroscopy. Due to
+this centralized importance and the need to efficiently and accurately predict
+excited states properties, much  effort has been devoted over the years towards
+the modeling of excitation energies and oscillator strengths.
+
+
+Recently, the particle-particle random phase approximation (pp-RPA) and 
+Tamm-Dancoff approximation (pp-TDA), which have been standard trade tools of 
+the nuclear physics community in the treatment of the many--body correlation energy for low matter density 
+systems for some time \cite{SchuckBook_04}, 
+have been extended to the treatment the correlation energy and excitation energies of quantum 
+molecular systems within a finite basis set \cite{Yang13_224105,Yang13_18A522,
+Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.  Although this 
+introduction into the quantum chemistry community in relatively recent, a wealth 
+of effort has been afforded to the rigorous investigation of these methods in a 
+variety of different contexts, involving the evaluation of excitation 
+energies \cite{Yang13_224105,Yang13_18A522,Yang13_174110}, excited state properties 
+and geometry optimizations \cite{Yang15_1025}, and the treatment of non-adiabatic 
+phenomena such as non-adiabatic dynamics \cite{Liu14_244105} and the description 
+of conical intersections \cite{Yang16_2407}.  So far in their development, however, 
+these methods have only seen application in molecular systems using strictly 
+spin-collinear references, disallowing extension to systems with 
+spin-noncollinear states, such as those that arise in spin-frustrated systems 
+or whenever spin-orbit effects are included in the treatment.
+
+Thus, in this work, we extend the pp-TDA formalism for use with two--component
+relatvistic reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
+However, the presented formalism may be employed in any case where the GSCF method must be
+employed, such as the spin-frustrated systems explored in \cref{sec:NCDFT_VALID},
+even in the absence of relativistic effects. 
+
+
+
+
+\subsection{The Particle-Particle Tamm-Dancoff Approximation}
+\label{subsec:ppTDA}
+The pp-TDA approximation is a non-particle-number conserving method, i.e. the excitation operator does not commute with the number operator. To model a system with $N$ electrons, it starts from the wave function of the system with $N-2$  electrons, and adds (removes) the electrons back using an appropriate ``excitation" operator, for which an equation of motion may be written and solved.
+The ground and excited states of the $N$-particle system are thus obtained as ``excited states'' of the $N-2$ electron reference, and the desired excitation energies can be written as simple energy differences.
+A general formalism for the treatment of the pp-TDA within a finite basis of molecular spin-orbitals has described rigorously elsewhere.
+\cite{Yang13_224105,Yang13_18A522,Yang13_104112}
+Here, we review this formalism for completeness and present the working expressions for the relativistic two-component pp-TDA (X2C-pp-TDA) within the basis of MO spinors as well as describe some caveats in the practical application of this method within the context of a two-component reference.
+
+From an (exact) $M$-particle (in the case of fermion) ground state, $\ket{\Psi_0^M}$, all ground and excited 
+$N$-particle states ($\ket{\Psi_0^N}$ and $\ket{\Psi_n^N}$ respectively) may be regarded as ``excitations" through the 
+excitation operator $\mathcal{O}^\dagger_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$,
+\begin{equation}
+ \ket{\Psi_n^N} = \mathcal{O}^\dagger_n \ket{\Psi_0^M} \quad.
+\end{equation}
+Given such an ansatz, it is possible to construct an equation-of-motion (EOM)\cite{SchuckBook_04} for $\mathcal{O}_n^\dagger$, affording some corresponding
+probing de-excitation operator $\delta \mathcal{O}$ , to obtain the eigenenergies of $\ket{\Psi_n^N}$,
+\begin{equation}
+\label{eq:EOM}
+ \left[ \delta \mathcal{O},\left[ \mathcal{H}, \mathcal{O}_n^\dagger \right]\right] = (E^N_n - E^M_0)\left[\delta \mathcal{O}, \mathcal{O}^\dagger_n \right]
+ \quad.
+\end{equation}
+
+\Cref{eq:EOM} is formally exact and completely independent of the chosen reference, provided one has access to the exact $N$- and $M$-particle states.
+In practice, one may take the expectation value of \cref{eq:EOM} using some approximate $M$-particle ground state, $\ket{\Phi_0^M}$, to obtain \emph{approximate} energy differences between $N$- and $M$-particle states given some explicit form of $\mathcal{O}^\dagger_n$.
+As has been previously discussed, if the $N$ and $M$ systems differ by exactly two particles ($M=N- 2$), the X2C-pp-TDA equation may be obtained by
+postulating that the excitation operator take the form of all (unique) 2-particle additions to obtain $N$-particle states from an $(N-2)$-particle reference,
+\begin{equation}
+ \mathcal{O}_n^\dagger = \sum_{a < b} X^n_{ab} c_a^\dagger c_b^\dagger \quad, \label{eq:ppTDAExcitation}
+\end{equation}
+while the de-excitation operator takes the form
+\begin{equation}
+ \delta\mathcal{O} = c_b c_a \quad.
+\end{equation}
+%Here, $\lbrace c^\dagger_p \rbrace$ takes the form of the field operators from \Cref{eq:SQSpinor} and the distinction between ``particle" and 
+%``(\emph{p})article" has been made apparent by the fact that ``(\emph{p})articles" are quasi-particles that exist only above the Fermi-level while
+%``particles" may exist above or below the Fermi-level.
+Here, $X^n_{ab}$ is an expansion coefficient that describes the contribution to the $n$-th $N$-particle state of the addition of 2 particles into single-particle virtual states, $a$ and $b$, of the $(N-2)$-particle ground state reference. By taking the expectation value of \cref{eq:EOM} in a single X2C-HF Slater determinant
+given \cref{eq:ppTDAExcitation}, one obtains the Hermitian eigenvalue problem of the X2C-pp-TDA
+\begin{align}
+\sum_{c < d} A_{ab,cd} X^n_{cd} &= \Omega_n X^n_{ab} \quad (a < b), \label{eq:ppTDA}\\
+\Omega_n &= (E_n^N - E_0^{N-2}) \\
+A_{ab,cd} &= \delta_{ac}\delta_{bd} (\epsilon_a + \epsilon_b) + \innerop{ab}{}{cd} \quad \label{eq:AMat},
+\end{align}
+while $\innerop{\cdot}{}{\cdot}$ is the antisymmetrized two-electron integral tensor in Dirac integral notation and $\epsilon_p$ is a spinor-orbital
+eigenenergy obtained from solving the X2C-HF equation in \cref{eq:RHX2C}. One may obtain neutral $N$-particle excitations from the eigen spectrum of \cref{eq:ppTDA} via a reference shift to the
+$(N-2)$-particle system. By variationally optimizing the wave function of the $(N-2)$-particle system via X2C-HF, both the $N$-particle ground and excited state energies are obtained via
+\begin{align}
+E_n^N = E_0^{N-2} + \Omega_n \quad . \label{eq:ESEnergy}
+\end{align}
+Thus the excitation energy between $N$-particle ground and excited states, $\omega_n^N$, described via the X2C-pp-TDA may be written as differences of the eigenenergies,
+\begin{equation}
+\omega_n^N = \Omega_n - \Omega_0 \quad (n > 0). \label{eq:EXEnergy}
+\end{equation}
+
+These working expressions in \cref{eq:ppTDA,eq:AMat,eq:ESEnergy,eq:EXEnergy} are similar to those previously expressed for the spin-collinear reference.\cite{Yang13_224105,Yang13_18A522,Yang13_104112}
+The key difference is that all of the above equations are expressed in the spinor basis within the X2C picture frame rather than a spin-collinear spin-orbital basis and that the orbitals have been optimized in the presence of relativistic spin-orbit effects. 
+While \cref{eq:ppTDA} is a completely valid expression for the spin-noncollinear  as well as the spin-collinear case,
+the spin-collinear case allows for significant simplification due to the spin-orthogonality of the spin-aligned reference\cite{Yang13_224105,Yang13_174110}.
+%\Cref{eq:ppTDA} provides the maximally simplified expression for the X2C-pp-TDA  as such spin orthogonality cannot be exploited. 
 
 \subsection{Results and Discussion}
-\label{sec:Results}
+\label{sec:ppX2CResults}
 
 \co{This section needs heavy revision to cite internal sections as opposed to papers}
 All calculations were performed with a locally modified version of the Gaussian quantum chemistry suite of programs,\cite{GDVI06}
