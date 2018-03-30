@@ -1824,154 +1824,8 @@ as there are an infinite number of continuium positronic solutions. Minimization
 optimization techniques and requres rather opaque projection schemes to avoid variational
 collapse into the positronic regime \todo{cite}. However, as we know \emph{a priori} that
 the electronic solutions are the ones of interest, we may transform \cref{eq:DiracHam} such that
-we may solve for only the electronic states in an approximate manner. In the following section,
+we may solve for only the electronic states in an approximate manner. In \cref{sec:X2C},
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
-
-\subsection{The Exact Two--Component Hamiltonian}
-\label{sec:X2C}
-
-The problem of the diachoimy between the electronic and positronic states of the Dirac
-equation may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
-large and small components of the bispinor in \cref{eq:DiracHam}. In an attempt
-to decouple these equations, we may perform a similarity transformation under an operator $\op{U}$, such that
-\todo{cite}
-\begin{equation}
-\label{eq:FW}
-\op h^D \mapsto \op h^\TwC  = \op U \op h^D \op U^{-1} = \begin{bmatrix} \op h^+ & 0 \\ 0 & \op h^- \end{bmatrix}.
-\end{equation}
-where both $\op h^+$ and $\op h^-$ are effective two component operaters (i.e. they act on spinors).
-In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation \todo{cite}.
-In essence, the FW transformation convolves the information contained in the large and small
-component of the bispinor such that solution of \cref{eq:DiracEq} amounts to solving two decoupled 
-differential equations,
-\begin{align}
-\op h^\pm \ket{ \phi^\pm (t) } = \ii \partial_t \ket{\phi^\pm (t)}, \qquad \op U \ket{\psi} = \begin{bmatrix} \ket{\phi^+} \\ \ket{\phi^-} \end{bmatrix}.
-\end{align}
-As such, the spectrum of $\op h^+$ and $\op h^-$ are given by
-\begin{equation}
-\mathrm{spec}(\op h^+) = (-c^2,\infty), \quad 
-\mathrm{spec}(\op h^-) = (-\infty,-2c^2).
-\end{equation}
-In the case of a free electron, we obtain 
-\begin{equation}
-\label{eq:NWRep}
-\op v = 0 \quad \Longrightarrow \quad \op h^\TwC = \vc b \sqrt{1 + \op p^2},
-\end{equation}
-which is known as the Newton--Wigner representation of the Dirac equation \todo{cite}. Even in the case
-when $\op v \neq 0$, the FW transformation is possible, only one is not able to write down a closed
-form expression such as \cref{eq:NWRep}, and power series approximations must be made in order to make
-use of them in practical calculations 
-\footnote{It is actually in the FW transformation in the presence of the scalar nuclear  potential 
-that we are able to define terms like ``spin--orbit" coupling and the mass--velocity correction. The Dirac Equation need not know explicitly 
-about these effects and accounts for them implicity through the coupling of the large and small components
-of the electronic wave function. These terms which we typically associate with relativistic effects are in fact
-terms in a series expansion which is only good in the non--relativistic limit.}
-\todo{cite}. 
-This series expansion may be avoided in the case of basis set calculations 
-in the that problem of block--diagonalization of an operator in a basis representation is a well defined
-numberical linear algebra problem.
-
-To this end, we will account for relativistic effects using the exact two--component (X2C) method \todo{cite}.
-The name X2C is a misnomer due to the fact that it is only ``exact" in the one electron case. There
-exist many basis set methods to obtain effective two component Hamiltoninans such as \cref{eq:FW} \todo{cite},
-but the X2C method is an especially attractive method in that it is a one step transformation, rather than
-an iterative procedure such as those involved in the Douglass--Kroll--Hess method and its variants \todo{cite}.
-The X2C method operates under the assumption that there exists a linear, energy independent transformation which
-links the large and small component of the electronic wave function. Expanding out the action of \cref{eq:DiracHam}
-on a bispinor of the form \cref{eq:Bispinor}, we obtain the following relationship between the large and small components for positive energy 
-solutions
-\begin{equation}
-  \label{eq:KineticBalance}
-  \ket{\phi^S} = \frac{c \op{\vc p} \cdot \pauli{}}{(E - v + 2c^2)} \ket{\phi^L } \approx 
-    \ket{\phi^{PL} } = \frac{\op{\vc p} \cdot \pauli{}}{2c} \ket{\phi^L },
-\end{equation}
-where $E$ and $v$ are the expectation values of the Dirac Hamiltonian and the potential operator in the bispinor, respectively.
-The approximation on the right of \cref{eq:KineticBalance}, where we have defined the so--called pseudo large component, $\ket{\phi^{PL}}$,
-holds in the non--relativstic limit ($E \approx v$, i.e. small momentum)
-and is known as the kinetic balance condition for the small component of the electronic wave function \todo{cite}. 
-Thus the action of the Dirac Hamitloninan on the bispinor may now be written as
-\begin{equation}
-\label{eq:ModDirac}
-\begin{bmatrix}
-\op v & \op T^\NR \\ \op T^\NR & \frac{1}{4c^2} \op W - \op T^\NR
-\end{bmatrix}
-\begin{bmatrix}
-\ket {\phi^L} \\ \ket{\phi^{PL}}
-\end{bmatrix}
-\end{equation}
-where $\op T^\NR$ is the non--relativistic kinetic energy operator of \cref{eq:SpinorKinMom}. $\op W$ is a transformed
-potential operator given by
-\begin{equation}
-\op W = (\op{\vc p} \cdot \pauli{}) \op v (\op{\vc p} \cdot \pauli{}).
-\end{equation}
-\Cref{eq:ModDirac} is known as the modified Dirac equation.
-
-In a finite basis $\{ \chi_\mu \}$ with $\vert \{\chi_\mu \} \vert = N_b$, we may develop a Roothaan--Hall--like equation from \cref{eq:ModDirac}
-such that
-\begin{equation}
-\label{eq:MDRH}
-\vc H^\mathrm{MD} \vc C^\mathrm{MD} = \vc S^\mathrm{MD} \vc C^\mathrm{MD} \vc \epsilon^\mathrm{MD},
-\end{equation}
-where
-\begin{align}
-&\vc H^\mathrm{MD} =
-\begin{bmatrix}
-\vc v & \vc T^\NR \\ \vc T^\NR & \frac{1}{4c^2} \vc W - \vc T^\NR
-\end{bmatrix},\\
-%
-&\vc S^\mathrm{MD} =
-\begin{bmatrix}
-\vc S & \vc 0 \\ \vc 0 & \frac{1}{2c^2} \vc T^\NR
-\end{bmatrix},\\
-%
-&\vc \epsilon^\mathrm{MD} =
-\begin{bmatrix}
-\vc \epsilon^+ & \vc 0 \\ \vc 0 & \vc \epsilon^-
-\end{bmatrix},
-\end{align}
-and the basis representations of these operators are given as in \cref{eq:OBBasisExp}. The superscripts
-$+$ and $-$ on the orbital eigenvalues denote electronic and positronic eigenvalues, respectively.
-$\vc C^\mathrm{MD}$ takes the block form
-\begin{equation}
-\vc C^\mathrm{MD} = \begin{bmatrix} \vc C^{L+} & \vc C^{L-} \\ \vc C^{PL+} & \vc C^{PL-} \end{bmatrix},
-\end{equation}
-such that we may construct a basis $\mathcal C = \mathcal C^+ \cup \mathcal C^-$ which approximately spans $\hilb H^\FrC$
-with $\mathcal C^+ \cap \mathcal C^- = \emptyset$ and $\vert \mathcal C^+ \vert = \vert \mathcal C^- \vert = 2N_b$ via
-\begin{align}
-&\mathcal C^+ = \left\lbrace \ket{\psi_p} \in \mathcal C \text{ s.t. } \psi_p(\vc{x}) = \begin{bmatrix} \phi_p^{L+}(\vc{x}) \\ \phi_p^{PL+}(\vc{x}) \end{bmatrix} \right\rbrace,\\
-&\mathcal C^- = \left\lbrace \ket{\psi_p} \in \mathcal C \text{ s.t. } \psi_p(\vc{x}) = \begin{bmatrix} \phi_p^{L-}(\vc{x}) \\ \phi_p^{PL-}(\vc{x}) \end{bmatrix} \right\rbrace,\\
-&\phi_p^{L\pm,\sigma}(\vc{r})  = \sum_\mu C^{L\pm,\sigma}_{\mu p} \chi_\mu(\vc r), \\
-&\phi_p^{PL\pm,\sigma}(\vc{r}) = \sum_\mu C^{PL\pm,\sigma}_{\mu p} \chi_\mu(\vc r). 
-\end{align}
-To decouple \cref{eq:MDRH},
-the X2C method employs the use of a unitary operator in the basis represetation \todo{cite},
-\begin{equation}
-\label{eq:X2CTrans}
-\vc U^\XtC = \begin{bmatrix} \vc Y_1 & - \vc X^\dagger \vc Y_2 \\ \vc X \vc Y_1 & \vc Y_2 \end{bmatrix},
-\quad \vc Y_1 \ (\vc I + \vc X^\dagger \vc X)^{-\frac{1}{2}},  
-\quad \vc Y_2 \ (\vc I + \vc X \vc X^\dagger)^{-\frac{1}{2}}.  
-\end{equation}
-such that $\vc X$ is constructed from the eigenvectors of \cref{eq:MDRH} by
-\begin{equation}
-\vc X = \vc C^{PL+} \left(\vc C^{L+}\right)^{-1}.
-\end{equation}
-An account on how to efficiently assemble $\vc X$ is given in reference \todo{cite}.
-Given $\vc{X}$, \cref{eq:X2CTrans} may 
-be constructed and in the limit that $\op v$ only contains one body operators, \cref{eq:ModDirac} is block diagonalized 
-exactly,
-\begin{equation}
-  \label{eq:X2CHam}
-\vc U^\XtC \vc H^\mathrm{MD} \vc U^{\XtC\dagger} = \begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}.
-\end{equation}
-Here we have labelled $\vc h^\XtC$ as the positive energy block diagonal of the transformed hamiltonian. $\vc h^\XtC$ 
-will serve as the source of the relativistic effects in the mean field methods used throughout this work.
-
-
-
-
-
-
-
 
 \subsection{The Dirac--Coulomb and Dirac--Coulomb--Breit Hamiltonians}
 
@@ -2069,7 +1923,7 @@ It is possible to develop a consistent treatment of $\overline{\gamma}^1$ in rel
 and $\gamma^1$ in non--relativistic theory
 through the understanding that integral contractions over the indices of the 1RDM also imply a matrix operation
 over the dimension added as a result of the bispinor nature of the wave function. However, as we will be soley
-manipulating effective two--component relativistic hamiltonians in this work, the explicit development of
+manipulating effective two--component relativistic hamiltonians, the explicit development of
 this consistent treatment is beyond the scope of this work (see \cref{sec:MF2C} \cref{eq:Rel2C1RDM,eq:QRel2C1RDM}).
 
 
@@ -2084,96 +1938,16 @@ Dirac--Coulomb (DC) Hamiltonian,
 \end{equation}
 It should be noted that use of the DC Hamiltonian does not effect the structure of $\hilb H^\REL$,
 however it will drastically simplify the development of practical two--component relativistic methods
-in finite basis sets.
+in finite basis sets (see \cref{ch:2CEST}).
 
 
-\subsection{Two--Component Relativistic Mean Field Wave Functions}
-\label{sec:MF2C}
 
 
-The power of of the X2C method outlined in \cref{sec:X2C} is that it allows one
-to cast mean--field relativistic electronic structure theory into a form which closely 
-resembles non--relativistic theory. 
-In the case where $\op v$ is an effective many--body potential in the context of mean field theory, the X2C method
-dictates that the transformation only be performed using the density independent terms of the Fock operator \todo{cite},
-i.e. $\op H^\mathrm{core}$ of \cref{eq:FockComponents}. Otherwise, the transformation described by $\vc U^\XtC$ would
-have to be performed as each step of the wave function optimization procedure outlined at the end  of \cref{sec:HF};
-rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
-in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
-relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
-way as to effectively include these many--body effects by way of the B\"{o}ttiger \co{ check spelling} scaling,
-\begin{equation}
-\vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
-\end{equation}
-where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo{cite}. 
-This scaling method
-has become the field standard for approximately accounting for many--body relativistic effects in effective
-two--compoenent relativistic methods \todo{cite?}.
-
-With our restriction from the DCB to DC Hamiltonian,
-the two--body part of the electronic Hamiltonian in a two--compoenent frame workwork
-is the same as it was in the non--relativistic case, i.e. the mean--field operators
-$\op J$, $\op K$ and $\op V^{xc}$ and their basis representations $\spvc J$, $\spvc K$ and $\spvc V^{xc}$, are the same as in 
-\cref{eq:NRFockCompSpace,eq:FockCompAOBasis}. This is due to the fact that for the electronic
-eigenvectors of \cref{eq:MDRH}, the X2C transformation also block diagonalizes the 
-bispinor MO coefficients,
-\begin{equation}
-\begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}
-\begin{bmatrix} \vc C^\XtC & \vc 0 \\ \vc 0 & \vc C^- \end{bmatrix} =
-\begin{bmatrix} \vc S & \vc 0 \\ \vc 0 & \vc S^- \end{bmatrix}
-\begin{bmatrix} \vc C^\XtC & \vc 0 \\ \vc 0 & \vc C^- \end{bmatrix} 
-\begin{bmatrix} \vc \epsilon^\XtC & \vc 0 \\ \vc 0 & \vc \epsilon^- \end{bmatrix}.
-\end{equation}
-In effect, this block diagonalization manifests in the same manner as \cref{eq:USCFEq}. 
-Denoting the bispinor orbitals which may be expanded in terms of 
-$\vc C^\XtC$ as
-\begin{equation}
-  \mathcal C^\XtC = \left\lbrace
-  \psi_p(\vc r, \sigma) = 
-  \begin{bmatrix} \phi^\alpha_i (\vc r) \alpha(\sigma) \\ \phi^\beta_i(\vc r) \beta(\sigma) \\ 0 \\ 0 \end{bmatrix} =
-  \sum_\mu \begin{bmatrix} C_{\mu p}^{\XtC,\alpha} \alpha(\sigma)\\ C_{\mu p}^{\XtC,\beta}\beta(\sigma) \\ 0 \\ 0 \end{bmatrix} \chi_\mu(\vc{r}) \right\rbrace, 
-\end{equation}
-we may express the relativsitc 1RDM  (\cref{eq:Rel1RDM}) which can be constructed from a 
-subset $\mathcal K_I^N \subset \mathcal C^\XtC$ as
-\begin{equation}
-  \label{eq:Rel2C1RDM}
-  \overline{\gamma}^1(\vc{x}; \vc x')
-    \sum_{i \in \mathcal K^N_I} 
-    \begin{bmatrix} 
-      \phi_i(\vc{x}) \phi_i^{*}(\vc{x}') & 0 \\ 0 & 0 
-    \end{bmatrix}. 
-\end{equation}
-As such, we will introduce a quasi--relativistic 1RDM which simply removes the zeroed out portions of \cref{eq:Rel2C1RDM},
-\begin{equation}
-  \label{eq:QRel2C1RDM}
-  \overline{\gamma}^1(\vc{x}; \vc x') \mapsto {\gamma}^1(\vc{x}; \vc x') =
-    \sum_{i \in \mathcal K^N_I} 
-      \phi_i(\vc{x}) \phi_i^{*}(\vc{x}').
-\end{equation}
-Using this definition of $\gamma^1$, we may define the analogus mean field operators exactly as in 
-\cref{eq:FockComponents,eq:VXCBasis}, thus yielding the same expressions for $\vc J$, $\vc K$, and $\vc V^{xc}$.
 
 
-The key difference between the X2C method and non--relativistic mean field methods is in the definition of
-the core Hamiltonian. In the four--componenet treatment of relativistic theory, the density independent term
-is described by the Dirac Hamiltonian in \cref{eq:DiracHam}. However, in the X2C method, the basis representation
-of the core Hamiltoninan is simply given by $\vc h^\XtC$ in \cref{eq:X2CHam}. Thus the basis representation of
-the Fock matrix for HF and KS mean field wave functions (X2C-HF and X2C-KS), respectively) are given by
-\begin{align}
-  \spvc F^\mathrm{X2C-HF} = \spvc h^\XtC + \spvc J - \spvc K
-  \spvc F^\mathrm{X2C-KS} = \spvc h^\XtC + \spvc J + \spvc V^{xc}
-\end{align}
-such that we may decompose into the Pauli components of the Fock matrix
-\begin{align}
-  &\vc F^{0} = \vc h^{\XtC,0} + \vc J^0 + \vc X^0, \\
-  &\vc F^{k} = \vc h^{\XtC,k} +  \vc X^k,\qquad k\in \{1,2,3\},
-\end{align}
-where $\spvc F \in \{\spvc F^\mathrm{X2CHF}, \spvc F^\mathrm{X2CKS} \}$ and $\spvc X$ is $-\spvc K$ for X2C-HF
-wave functions and  $\spvc V^{xc}$ for X2C-KS wave functions. Thus, unlike the non--relativistic case of 
-\cref{eq:NRFockPauli} where the spin components of the Fock matrix are completely determined by the 1PDM, the 
-X2C Fock matrix explicitly admits spin into its Pauli components through the Pauli components of the X2C
-core Hamiltonian. As such, X2C Fock matrix is of the form \cref{eq:GSCFFock}, and thus a GSCF procedure 
-must be used in general.
+
+
+
 
 
 
