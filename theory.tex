@@ -1659,15 +1659,11 @@ where we have substituted in the basis expansions of the density matrix from \cr
 Recognizing that the definitions of $\spvc H^\mathrm{core}$ and $\spvc J$ in \cref{eq:FockCompAOBasis} are spin diagonal, 
 we may define the Pauli components of the HF Fock matrix corresponding to \cref{eq:NRBOH} (see \cref{eq:GenHFFock}) as,
 \begin{align}
-  &\vc F^{\HF,0} = \vc H^\mathrm{core,0} + \vc J^0 - \vc K^0, \\
-  &\vc F^{\HF,k} = - \vc K^k, \quad k \in \{1,2,3\},
+  &\vc F^{0} = \vc H^\mathrm{core,0} + \vc J^0 + \vc X^0, \\
+  &\vc F^{k} = \vc X^k, \quad k \in \{1,2,3\},
 \end{align}
-and KS Fock matrix (\cref{eq:KSMat}),
-\begin{align}
-  &\vc F^{\KS,0} = \vc H^\mathrm{core,0} + \vc J^0  +\vc V^{xc,0}, \\
-  &\vc F^{\KS,k} = \vc V^{xc,k}, \quad k \in \{1,2,3\},
-\end{align}
-where 
+where $\spvc F \in \{\spvc F^\HF, \spvc F^\KS \}$ and $\spvc X$ is $-\spvc K$ for HF
+wave functions and  $\spvc V^{xc}$ for KS wave functions, and 
 \begin{subequations}
   \label{eq:NRFockPauli}
 \begin{alignat}{3}

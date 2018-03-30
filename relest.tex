@@ -488,7 +488,21 @@ of conical intersections \cite{Yang16_2407}.  So far in their development, howev
 these methods have only seen application in molecular systems using strictly 
 spin-collinear references, disallowing extension to systems with 
 spin-noncollinear states, such as those that arise in spin-frustrated systems 
-or whenever spin-orbit effects are included in the treatment.
+or whenever spin-orbit effects are included in the treatment of the electronic structure.
+
+
+Recent years have also seen new developments in the realm of relativistic quantum 
+chemistry.  Relativistic effects, while often neglected in most standard treatment
+of electronic structure, can have profound consequences in chemical 
+systems.\cite{Pyykko12_45} Scalar relativistic effects cause the contraction of 
+the core electron shells of heavy atoms, but perhaps of even more consequence is 
+the introduction of spin couplings in the Hamiltonian.  Spin-spin and spin-orbit 
+interactions can affect the electronic spin dynamics even in light atoms, and a 
+direct consequence of these couplings on excited states is the loss of degeneracies
+of spin-eigenstates, giving rise to fine structure splittings (FSS) in atoms and 
+molecules with symmetry-induced degeneracies. It is therefore desirable to develop accurate and 
+cost-effective relativistic electronic structure methods able to model such effects. 
+
 
 Thus, in this work, we extend the pp-TDA formalism for use with two--component
 relatvistic reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
@@ -501,13 +515,15 @@ even in the absence of relativistic effects.
 
 \subsection{The Particle-Particle Tamm-Dancoff Approximation}
 \label{subsec:ppTDA}
-The pp-TDA approximation is a non-particle-number conserving method, i.e. the excitation operator does not commute with the number operator. To model a system with $N$ electrons, it starts from the wave function of the system with $N-2$  electrons, and adds (removes) the electrons back using an appropriate ``excitation" operator, for which an equation of motion may be written and solved.
+The pp-TDA approximation is a non-particle-number conserving method, i.e. the excitation operator of \cref{eq:ExcitationOp} does not commute with the number operator. 
+To model a system with $N$ electrons, the pp-TDA starts from a reference determinant for a system with $N-2$  electrons, and adds two electrons back using 
+an appropriate excitation operator.
 The ground and excited states of the $N$-particle system are thus obtained as ``excited states'' of the $N-2$ electron reference, and the desired excitation energies can be written as simple energy differences.
-A general formalism for the treatment of the pp-TDA within a finite basis of molecular spin-orbitals has described rigorously elsewhere.
-\cite{Yang13_224105,Yang13_18A522,Yang13_104112}
-Here, we review this formalism for completeness and present the working expressions for the relativistic two-component pp-TDA (X2C-pp-TDA) within the basis of MO spinors as well as describe some caveats in the practical application of this method within the context of a two-component reference.
+A general formalism for the treatment of the pp-TDA within a finite basis of spin--collinear MOs has described rigorously elsewhere \cite{Yang13_224105,Yang13_18A522,Yang13_104112}.
+Here, we review this formalism for completeness and present the working expressions for the relativistic X2C pp-TDA (X2C-pp-TDA) within the basis of MO spinors 
+as well as describe some caveats in the practical application of this method within the context of a two-component reference.
 
-From an (exact) $M$-particle (in the case of fermion) ground state, $\ket{\Psi_0^M}$, all ground and excited 
+From an (exact) $M$-particle ground state, $\ket{\Psi_0^M}$, all ground and excited 
 $N$-particle states ($\ket{\Psi_0^N}$ and $\ket{\Psi_n^N}$ respectively) may be regarded as ``excitations" through the 
 excitation operator $\mathcal{O}^\dagger_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$,
 \begin{equation}
