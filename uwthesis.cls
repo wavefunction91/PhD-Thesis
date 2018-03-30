@@ -832,6 +832,16 @@
    \let\dedication\relax}
  
 %
+%   Preface
+%
+\def\textofPre#1{\gdef\@textofPre{#1}}  \textofPre{Preface}
+\long\def\preface#1{\chapter*{\@textofPre\@mkboth{}{}}
+   \thispagestyle{plain}
+   #1\par
+   \vfill
+   \let\preface\relax}
+ 
+%
 %   Vita
 %
 \def\textofVita#1{\gdef\@textofVita{#1}}  \textofVita{Vita}
