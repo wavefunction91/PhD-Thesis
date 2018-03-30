@@ -1,5 +1,5 @@
 \chapter{Two--Component Relativistic Electronic Structure Theory}
-\label{eq:2CEST}
+\label{ch:2CEST}
 
 
 \section{The Exact Two--Component Hamiltonian}
@@ -14,7 +14,7 @@ to decouple these equations, we may perform a similarity transformation under an
 \label{eq:FW}
 \op h^D \mapsto \op h^\TwC  = \op U \op h^D \op U^{-1} = \begin{bmatrix} \op h^+ & 0 \\ 0 & \op h^- \end{bmatrix}.
 \end{equation}
-where both $\op h^+$ and $\op h^-$ are effective two component operaters (i.e. they act on spinors).
+where both $\op h^+$ and $\op h^-$ are effective 2C operaters (i.e. they act on spinors).
 In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation \todo{cite}.
 In essence, the FW transformation convolves the information contained in the large and small
 component of the bispinor such that solution of \cref{eq:DiracEq} amounts to solving two decoupled 
@@ -48,7 +48,7 @@ numberical linear algebra problem.
 
 To this end, we will account for relativistic effects using the exact two--component (X2C) method \todo{cite}.
 The name X2C is a misnomer due to the fact that it is only ``exact" in the one electron case. There
-exist many basis set methods to obtain effective two component Hamiltoninans such as \cref{eq:FW} \todo{cite},
+exist many basis set methods to obtain effective 2C Hamiltoninans such as \cref{eq:FW} \todo{cite},
 but the X2C method is an especially attractive method in that it is a one step transformation, rather than
 an iterative procedure such as those involved in the Douglass--Kroll--Hess method and its variants \todo{cite}.
 The X2C method operates under the assumption that there exists a linear, energy independent transformation which
@@ -164,17 +164,18 @@ have to be performed as each step of the wave function optimization procedure ou
 rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
 in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
 relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
-way as to effectively include these many--body effects by way of the B\"{o}ttiger \co{ check spelling} scaling,
+way as to effectively include these many--body effects by way of the B\"{o}ttger \co{ check spelling} scaling,
 \begin{equation}
+  \label{eq:BScaling}
 \vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
 \end{equation}
-where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo{cite}. 
+where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttger scaling factors \cite{Boettger00_7809}. 
 This scaling method
 has become the field standard for approximately accounting for many--body relativistic effects in effective
-two--compoenent relativistic methods \todo{cite?}.
+2C relativistic methods \todo{cite?}.
 
 With our restriction from the DCB to DC Hamiltonian,
-the two--body part of the electronic Hamiltonian in a two--compoenent frame workwork
+the two--body part of the electronic Hamiltonian in the effective 2C framework
 is the same as it was in the non--relativistic case, i.e. the mean--field operators
 $\op J$, $\op K$ and $\op V^{xc}$ and their basis representations $\spvc J$, $\spvc K$ and $\spvc V^{xc}$, are the same as in 
 \cref{eq:NRFockCompSpace,eq:FockCompAOBasis}. This is due to the fact that for the electronic
@@ -222,10 +223,14 @@ the core Hamiltonian. In the four--componenet treatment of relativistic theory, 
 is described by the Dirac Hamiltonian in \cref{eq:DiracHam}. However, in the X2C method, the basis representation
 of the core Hamiltoninan is simply given by $\vc h^\XtC$ in \cref{eq:X2CHam}. Thus the basis representation of
 the Fock matrix for HF and KS mean field wave functions (X2C-HF and X2C-KS), respectively) are given by
-\begin{align}
-  \spvc F^\mathrm{X2C-HF} = \spvc h^\XtC + \spvc J - \spvc K
-  \spvc F^\mathrm{X2C-KS} = \spvc h^\XtC + \spvc J + \spvc V^{xc}
-\end{align}
+\begin{alignat}{2}
+  \label{eq:X2CHFRH}
+  &\spvc F^\mathrm{X2C-HF} = \spvc h^\XtC + \spvc J - \spvc K         && 
+    \quad \text{s.t.}\quad \spvc F^\mathrm{X2C-HF} \spvc C^\mathrm{X2C-HF} = \spvc S\, \spvc C^\mathrm{X2C-HF} \spvc \epsilon^\mathrm{X2C-HF}, \\
+  \label{eq:X2CKSRH}
+  &\spvc F^\mathrm{X2C-KS} = \spvc h^\XtC + \spvc J + \spvc V^{xc} &&
+    \quad \text{s.t.}\quad \spvc F^\mathrm{X2C-KS} \spvc C^\mathrm{X2C-KS} = \spvc S\, \spvc C^\mathrm{X2C-KS} \spvc \epsilon^\mathrm{X2C-KS},
+\end{alignat}
 such that we may decompose into the Pauli components of the Fock matrix
 \begin{align}
   &\vc F^{0} = \vc h^{\XtC,0} + \vc J^0 + \vc X^0, \\
@@ -726,24 +731,25 @@ the nuclear physics community in the treatment of the many--body correlation ene
 systems for some time \cite{SchuckBook_04}, 
 have been extended to the treatment the correlation energy and excitation energies of quantum 
 molecular systems within a finite basis set \cite{Yang13_224105,Yang13_18A522,
-Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.  Although this 
+Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.  Although the
 introduction into the quantum chemistry community in relatively recent, a wealth 
 of effort has been afforded to the rigorous investigation of these methods in a 
-variety of different contexts, involving the evaluation of excitation 
+variety of different contexts, including the evaluation of excitation 
 energies \cite{Yang13_224105,Yang13_18A522,Yang13_174110}, excited state properties 
 and geometry optimizations \cite{Yang15_1025}, and the treatment of non-adiabatic 
 phenomena such as non-adiabatic dynamics \cite{Liu14_244105} and the description 
 of conical intersections \cite{Yang16_2407}.  So far in their development, however, 
 these methods have only seen application in molecular systems using strictly 
-spin-collinear references, disallowing extension to systems with 
-spin-noncollinear states, such as those that arise in spin-frustrated systems 
-or whenever spin-orbit effects are included in the treatment of the electronic structure.
+collinear (RSCF and USCF) references, disallowing extension to systems with 
+non--collinear (GSCF) reference, such as those that arise in spin-frustrated systems 
+(see \cref{sec:NCDFT_VALID}) or whenever spin-orbit effects are included in the 
+treatment of the electronic structure.
 
 
 Recent years have also seen new developments in the realm of relativistic quantum 
 chemistry.  Relativistic effects, while often neglected in most standard treatment
 of electronic structure, can have profound consequences in chemical 
-systems.\cite{Pyykko12_45} Scalar relativistic effects cause the contraction of 
+systems \cite{Pyykko12_45}.  Scalar relativistic effects cause the contraction of 
 the core electron shells of heavy atoms, but perhaps of even more consequence is 
 the introduction of spin couplings in the Hamiltonian.  Spin-spin and spin-orbit 
 interactions can affect the electronic spin dynamics even in light atoms, and a 
@@ -753,8 +759,8 @@ molecules with symmetry-induced degeneracies. It is therefore desirable to devel
 cost-effective relativistic electronic structure methods able to model such effects. 
 
 
-Thus, in this work, we extend the pp-TDA formalism for use with two--component
-relatvistic reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
+Thus, in this work, we extend the pp-TDA formalism for use with 
+relatvistic GSCF reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
 However, the presented formalism may be employed in any case where the GSCF method must be
 employed, such as the spin-frustrated systems explored in \cref{sec:NCDFT_VALID},
 even in the absence of relativistic effects. 
@@ -764,101 +770,138 @@ even in the absence of relativistic effects.
 
 \subsection{The Particle-Particle Tamm-Dancoff Approximation}
 \label{subsec:ppTDA}
-The pp-TDA approximation is a non-particle-number conserving method, i.e. the excitation operator of \cref{eq:ExcitationOp} does not commute with the number operator. 
-To model a system with $N$ electrons, the pp-TDA starts from a reference determinant for a system with $N-2$  electrons, and adds two electrons back using 
-an appropriate excitation operator.
-The ground and excited states of the $N$-particle system are thus obtained as ``excited states'' of the $N-2$ electron reference, and the desired excitation energies can be written as simple energy differences.
-A general formalism for the treatment of the pp-TDA within a finite basis of spin--collinear MOs has described rigorously elsewhere \cite{Yang13_224105,Yang13_18A522,Yang13_104112}.
-Here, we review this formalism for completeness and present the working expressions for the relativistic X2C pp-TDA (X2C-pp-TDA) within the basis of MO spinors 
-as well as describe some caveats in the practical application of this method within the context of a two-component reference.
+The pp-TDA is a non-particle-number conserving many--body expansion method, i.e. the
+approximation of the excitation operator of \cref{eq:ExcitationOp} it employs does not commute with the number
+operator.  To model a system with $N$ electrons, the pp-TDA starts from a
+reference determinant for a system with $N-2$  electrons, and adds two
+electrons back using an appropriate excitation operator.  The ground and
+excited states of the $N$-particle system are thus obtained as ``excited
+states'' of the $N-2$ electron reference, and the desired excitation energies
+can be written as simple energy differences.  A general formalism for the
+treatment of the pp-TDA within a finite basis of spin--collinear MOs has
+described rigorously elsewhere
+\cite{Yang13_224105,Yang13_18A522,Yang13_104112}.  Here, we review this
+formalism for completeness and present the working expressions for the
+relativistic X2C pp-TDA (X2C-pp-TDA) within the basis of MO spinors as well as
+describe some caveats in the practical application of this method within the
+context of a spinor reference.
 
-From an (exact) $M$-particle ground state, $\ket{\Psi_0^M}$, all ground and excited 
-$N$-particle states ($\ket{\Psi_0^N}$ and $\ket{\Psi_n^N}$ respectively) may be regarded as ``excitations" through the 
-excitation operator $\mathcal{O}^\dagger_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$,
+From an (exact) $M$-particle ground state, $\ket{\Psi_0^M}$, the excitation operator
+of \cref{eq:ExcitationOp} which constructs all ground and excited 
+$N$-particle states ($\ket{\Psi_0^N}$ and $\ket{\Psi_n^N}$ respectively) may be written
+convieniently as a projector $\op{R}^{N,M\dagger}_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$, such that
 \begin{equation}
- \ket{\Psi_n^N} = \mathcal{O}^\dagger_n \ket{\Psi_0^M} \quad.
+  \ket{\Psi_n^N} = \op{R}^{N,M\dagger}_n \ket{\Psi_0^M}.
 \end{equation}
-Given such an ansatz, it is possible to construct an equation-of-motion (EOM)\cite{SchuckBook_04} for $\mathcal{O}_n^\dagger$, affording some corresponding
-probing de-excitation operator $\delta \mathcal{O}$ , to obtain the eigenenergies of $\ket{\Psi_n^N}$,
+Given such an ansatz, it is possible to construct an equation-of-motion (EOM) \cite{SchuckBook_04} 
+for $\op{R}_n^{N,M\dagger}$, affording some corresponding
+probing de-excitation operator $\delta \op{R}$ , to obtain the eigenenergies of $\ket{\Psi_n^N}$,
 \begin{equation}
 \label{eq:EOM}
- \left[ \delta \mathcal{O},\left[ \mathcal{H}, \mathcal{O}_n^\dagger \right]\right] = (E^N_n - E^M_0)\left[\delta \mathcal{O}, \mathcal{O}^\dagger_n \right]
- \quad.
+  \left[ \delta \op{R},\left[ \op{H}, \op{R}_n^{N,M\dagger} \right]\right] = 
+    (E^N_n - E^M_0)\left[\delta \op{R}, \op{R}^{N,M\dagger}_n \right].
 \end{equation}
 
-\Cref{eq:EOM} is formally exact and completely independent of the chosen reference, provided one has access to the exact $N$- and $M$-particle states.
-In practice, one may take the expectation value of \cref{eq:EOM} using some approximate $M$-particle ground state, $\ket{\Phi_0^M}$, to obtain \emph{approximate} energy differences between $N$- and $M$-particle states given some explicit form of $\mathcal{O}^\dagger_n$.
-As has been previously discussed, if the $N$ and $M$ systems differ by exactly two particles ($M=N- 2$), the X2C-pp-TDA equation may be obtained by
-postulating that the excitation operator take the form of all (unique) 2-particle additions to obtain $N$-particle states from an $(N-2)$-particle reference,
+\Cref{eq:EOM} is formally exact and completely independent of the chosen
+reference, provided one has access to the exact $N$- and $M$-particle states,
+or eqivalently a closed form expression for the projector (such as \cref{eq:ExOpExp}).
+In practice, one may take the expectation value of \cref{eq:EOM} using some
+approximate $M$-particle ground state, which in the present work will be
+a Slater determinant, $\ket{\Phi_0^M}$, to obtain
+\emph{approximate} energy differences between $N$- and $M$-particle states
+given some explicit (truncated) form of $\op{R}^{N,M\dagger}_n$.  As has been previously
+discussed, if the $N$ and $M$ systems differ by exactly two particles ($M=N-
+2$), the X2C-pp-TDA equation may be obtained by postulating that the excitation
+operator take the form of all (unique) 2-particle additions to obtain
+$N$-particle states from an $(N-2)$-particle reference,
 \begin{equation}
- \mathcal{O}_n^\dagger = \sum_{a < b} X^n_{ab} c_a^\dagger c_b^\dagger \quad, \label{eq:ppTDAExcitation}
+  \op{R}_n^{N,(N-2)\dagger} = \sum_{a < b} X^n_{ab} \tau^{ab} , \label{eq:ppTDAExcitation}
 \end{equation}
 while the de-excitation operator takes the form
 \begin{equation}
- \delta\mathcal{O} = c_b c_a \quad.
+  \delta\op{R} = \tau_{ab}\quad.
 \end{equation}
-%Here, $\lbrace c^\dagger_p \rbrace$ takes the form of the field operators from \Cref{eq:SQSpinor} and the distinction between ``particle" and 
-%``(\emph{p})article" has been made apparent by the fact that ``(\emph{p})articles" are quasi-particles that exist only above the Fermi-level while
-%``particles" may exist above or below the Fermi-level.
-Here, $X^n_{ab}$ is an expansion coefficient that describes the contribution to the $n$-th $N$-particle state of the addition of 2 particles into single-particle virtual states, $a$ and $b$, of the $(N-2)$-particle ground state reference. By taking the expectation value of \cref{eq:EOM} in a single X2C-HF Slater determinant
-given \cref{eq:ppTDAExcitation}, one obtains the Hermitian eigenvalue problem of the X2C-pp-TDA
+Here, $\tau$ is defined in \cref{eq:TauDef} and $X^n_{ab}$ is an expansion
+coefficient that describes the contribution to the $n$-th $N$-particle state of
+the addition of 2 particles into single-particle virtual states, $a$ and $b$,
+of the $(N-2)$-particle ground state reference. By taking the expectation value
+of \cref{eq:EOM} in a single X2C-HF Slater determinant (e.g. by using Wick's theorem) given
+\cref{eq:ppTDAExcitation}, one obtains the Hermitian eigenvalue problem of the
+X2C-pp-TDA
 \begin{align}
 \sum_{c < d} A_{ab,cd} X^n_{cd} &= \Omega_n X^n_{ab} \quad (a < b), \label{eq:ppTDA}\\
 \Omega_n &= (E_n^N - E_0^{N-2}) \\
-A_{ab,cd} &= \delta_{ac}\delta_{bd} (\epsilon_a + \epsilon_b) + \innerop{ab}{}{cd} \quad \label{eq:AMat},
+  A_{ab,cd} &= \delta_{ac}\delta_{bd} (\epsilon^\mathrm{X2C-HF}_a + \epsilon^\mathrm{X2C-HF}_b) + \innerop{ab}{r_{12}^{-1}}{cd} - \innerop{ab}{r_{12}^{-1}}{dc}  \quad \label{eq:AMat},
 \end{align}
-while $\innerop{\cdot}{}{\cdot}$ is the antisymmetrized two-electron integral tensor in Dirac integral notation and $\epsilon_p$ is a spinor-orbital
-eigenenergy obtained from solving the X2C-HF equation in \cref{eq:RHX2C}. One may obtain neutral $N$-particle excitations from the eigen spectrum of \cref{eq:ppTDA} via a reference shift to the
-$(N-2)$-particle system. By variationally optimizing the wave function of the $(N-2)$-particle system via X2C-HF, both the $N$-particle ground and excited state energies are obtained via
+where  $\{\epsilon^\mathrm{X2C-HF}_p\}$ is the set of orbital
+eigenenergies obtained from solving the X2C-HF equation in \cref{eq:X2CHFRH} and
+\begin{equation}
+  \innerop{ab}{r^{-1}_{12}}{cd} = \sum_{\mu\nu\lambda\kappa} \sum_{\sigma\sigma'} 
+C^{\sigma*}_{\mu a}
+C^{\sigma'*}_{\mu b}
+C^{\sigma}_{\mu c}
+C^{\sigma'}_{\mu d}
+\innerop{\mu\nu}{r^{-1}_{12}}{\lambda\kappa}
+\end{equation}
+where $\innerop{\mu\nu}{r^{-1}_{12}}{\lambda\kappa}$ is defined in \cref{eq:ERIBasis} and $\spvc C = \spvc C^\mathrm{X2C-HF}$. 
+One may obtain neutral $N$-particle excitations by examining the eigen spectrum of \cref{eq:ppTDA}. By
+variationally optimizing the wave function of the $(N-2)$-particle system via
+X2C-HF, both the $N$-particle ground and excited state energies are obtained
+via
 \begin{align}
 E_n^N = E_0^{N-2} + \Omega_n \quad . \label{eq:ESEnergy}
 \end{align}
 Thus the excitation energy between $N$-particle ground and excited states, $\omega_n^N$, described via the X2C-pp-TDA may be written as differences of the eigenenergies,
 \begin{equation}
-\omega_n^N = \Omega_n - \Omega_0 \quad (n > 0). \label{eq:EXEnergy}
+\omega_n^N = E_n^N - E_0^N = \Omega_n - \Omega_0 \quad (n > 0). \label{eq:EXEnergy}
 \end{equation}
 
-These working expressions in \cref{eq:ppTDA,eq:AMat,eq:ESEnergy,eq:EXEnergy} are similar to those previously expressed for the spin-collinear reference.\cite{Yang13_224105,Yang13_18A522,Yang13_104112}
-The key difference is that all of the above equations are expressed in the spinor basis within the X2C picture frame rather than a spin-collinear spin-orbital basis and that the orbitals have been optimized in the presence of relativistic spin-orbit effects. 
-While \cref{eq:ppTDA} is a completely valid expression for the spin-noncollinear  as well as the spin-collinear case,
-the spin-collinear case allows for significant simplification due to the spin-orthogonality of the spin-aligned reference\cite{Yang13_224105,Yang13_174110}.
-%\Cref{eq:ppTDA} provides the maximally simplified expression for the X2C-pp-TDA  as such spin orthogonality cannot be exploited. 
+These working expressions in \cref{eq:ppTDA,eq:AMat,eq:ESEnergy,eq:EXEnergy}
+are similar to those previously expressed for the spin-collinear
+reference \cite{Yang13_224105,Yang13_18A522,Yang13_104112}. The key difference
+is that all of the above equations are expressed in a non--collinear GSCF spinor 
+basis rather than a collinear (RSCF / USCF) orbital basis, and that the
+orbitals have been optimized in the presence of relativistic spin-orbit
+effects via the X2C method.
+Unlike the collinear case, where significat simplification of \cref{eq:ppTDA} is
+achieved through exploitation of the spin orthonality of the reference 
+\cite{Yang13_224105,Yang13_174110}, the general non-collinear case presented in this
+work cannot be further simplified.
 
 \subsection{Results and Discussion}
 \label{sec:ppX2CResults}
 
-\co{This section needs heavy revision to cite internal sections as opposed to papers}
-All calculations were performed with a locally modified version of the Gaussian quantum chemistry suite of programs,\cite{GDVI06}
-and employed the taug-cc-pVTZ-DK basis set\cite{Dixon01_48} with the diffuse \emph{f}-functions removed.
-Relativistic effects were accounted for by means of the variational X2C method \co{Specific HF}.\cite{Reiher13_184105,Saue11_3077,Liu09_219,Liu10_532,Liu09_1945}
-In order to partially account for two-electron spin-orbit interaction in the Hamiltonian, we employed a scheme based on the scaling of the nuclear charge according to the angular momenta.\cite{Boettger00_7809}
-The atomic nuclei, rather than being treated as point charges, were described using $s$-type Gaussian charge distribution.\cite{Dyall97_207,Saue98_920}
-The stability of the two-component ground state wave function was also tested before X2C-pp-TDA calculations were performed.\cite{Li15_154109}
+All calculations were performed with a locally modified version of the Gaussian
+quantum chemistry suite of programs \cite{GDVI06}, and employed the
+taug-cc-pVTZ-DK Gaussian basis set \cite{Dixon01_48} with the diffuse \emph{f}-functions
+removed.  Relativistic effects were accounted for by means of the variational
+X2C method outlined in \cref{sec:X2C,sec:MF2C}.
+In order
+to partially account for two-electron spin-orbit interaction in the
+Hamiltonian, we employed a scheme based on the scaling of the nuclear charge
+according to the angular momenta of the basis functions (\cref{eq:BScaling}). The atomic nuclei,
+rather than being treated as point charges, were described using $s$-type
+Gaussian charge distribution (\cref{eq:GauNuc}). The stability of the
+two-component ground state wave function was also tested before X2C-pp-TDA
+calculations were performed \cite{Li15_154109}.
 
 \subsubsection{Single Excitations}
 \label{subsec:SingleEx}
 In order to highlight the capability of the pp-TDA method to describe excited
-states within a relativistic framework, in this section we examine the fine
-structure splittings of some atomic systems.  The presence of spin-orbit
-couplings 
-%causes the total spin, $\vec{S}$, and orbital, $\vec{L}$, angular
-%momentum operators to no longer commute with the Hamiltonian, therefore they no
-%longer generate good quantum numbers for the system.  Instead, the total
-%angular momentum $\vec{J}=\vec{L}+\vec{S}$ is the fundamental quantity that
-%should be considered when classifying the electronic states of the system.  A
-%direct consequence of spin-orbit couplings on the spectra of atoms is the
-%lifting of some of 
+states within a relativistic framework, in this section we examine the FSS
+of some atomic systems.  The presence of spin-orbit couplings 
 lifts some of the energetic degeneracies that would be expected in the ground or
-excited electronic states.  We therefore calculate the \ch{spectrum}{excitation energies} of selected
+excited electronic states in non--relativistic theory.  
+We therefore calculate the excitation energies of selected
 atomic systems and compare the obtained fine structure splittings with
-experimental reference values\cite{NIST_ASD} to asses the accuracy of the
+experimental reference values \cite{NIST_ASD} to asses the accuracy of the
 method.  In this section we restrict ourselves to states describable by single
 excitations (with respect to the $N$-electron system) which allows us to also
 compare our results with the results obtained using the two-component
 particle-hole Random-Phase Approximation (X2C-ph-RPA), also known as
 Time-Dependent Hartree-Fock method (X2C-TDHF), as well as with results obtained
-using the X2C-ph-TDA method.\cite{Li16_3711} Results for these fine-structure
-splittings are collected in \cref{tb:SingleEx}.
+using the X2C-ph-TDA method \cite{Li16_3711}. Results for these FSS estimations 
+are collected in \cref{tb:SingleEx}.
 
 It can be seen that, in general, the three methods perform similarly with
 respect to the reference values insofar as the order of magnitude of the error
@@ -876,7 +919,7 @@ because the higher lying orbitals are not as affected. These orbitals are
 properly optimized in the X2C-ph-RPA/TDA due to orbital occupancy of the
 resulting wave function. The general out-performance of the X2C-ph-TDA over the
 X2C-ph-RPA may be attributed to an over estimation of electron correlation in
-the ground and excited states via the RPA\cite{Dreuw05_4009}. The presence of
+the ground and excited states via the RPA \cite{Dreuw05_4009}. The presence of
 the de-excitation amplitudes in the X2C-ph-RPA allow for an over-mixing for the
 low-lying excited states with the ground state which give rise to an
 overestimate of the FSS, much the same as the case for the X2C-pp-TDA.
@@ -896,11 +939,13 @@ of which can be found using the more traditional ph-RPA or ph-TDA methods.
 This is due to the fact that the X2C-pp-TDA is, in its traditional form,
 incapable of accessing excitations that involve contributions from below the
 Fermi level.  Some work has been done in attempts to resolve this
-problem\cite{Yang13_224105}, but these alterations to the pp-TDA method have
+problem \cite{Yang13_224105}, but these alterations to the pp-TDA method have
 not been explored in this work.
 
 \begin{table}[htbp]
-  \caption{Calculated and reference\cite{NIST_ASD} excited-state fine structure splittings (in meV) of some atomic systems. The presence of a superscript ``$\circ$" in the term symbol denotes an odd state with respect to space inversion.}
+  \caption{Calculated and reference \cite{NIST_ASD} excited-state fine structure splittings (in meV) for 
+  single excitations of some atomic systems. The presence of a superscript ``$\circ$" in the term symbol 
+  denotes an odd state with respect to space inversion.}
  \label{tb:SingleEx}
  \centering
  \begin{tabular}{llrrr}
@@ -939,25 +984,42 @@ not been explored in this work.
 
 \subsubsection{Triplet References and Double Excitations}
 \label{subsec:DoubleEx}
-In this section we wish to highlight other advantages of X2C-pp-TDA over conventional X2C-ph-RPA.
-In the previous section we presented results for atomic systems that are characterized by being closed shell in both the $N$ and $N-2$ systems.
-This is important because if the reference state has unpaired electrons then, as a consequence of the single reference nature of the Hartree-Fock wave function,
-excited states will in general be spin-contaminated, affecting one's ability to extract meaningful fine structure splittings from the results, though adaptations to the general case exist.\cite{Liu10_064106,Suo11_134101,Liu11_194106,Liu12_024107,Liu13_3741}
-By using X2C-pp-TDA it is however possible to treat systems with $N$ electrons with any odd spin multiplicity, provided they become closed shell upon the addition or removal of two electrons.
-Molecules which possess triplet ground states as well as diradical moieties may be taken as examples.
-To demonstrate this feature we compare the FSS of one set of excited states of molecular oxygen with experimental data in \cref{tb:DoubleEx}.
-The difference between the calculated and measured value is just 2.5~meV, notwithstanding the approximations intrinsic in our method (e.g.~the approximate treatment of electron correlation and the two-electron spin-orbit contributions, or the finite basis set).
-Of course, the same reasoning can also be applied in reverse: X2C-ph-RPA theory can be readily used to find excited-state FSS of systems with a singlet ground state, however if the addition or removal of two electrons produces an open-shell molecule, then X2C-pp-TDA will present some spin-contamination in the computed excited-states.
+In this section we wish to highlight other advantages of X2C-pp-TDA over
+conventional X2C-ph-RPA.  In the previous section we presented results for
+atomic systems that are characterized by being closed shell in both the $N$ and
+$N-2$ systems.  This is important because if the reference state has unpaired
+electrons then, as a consequence of the single reference nature of the
+Hartree-Fock wave function, excited states will in general be
+spin-contaminated, affecting one's ability to extract meaningful fine structure
+splittings from the results, though adaptations to remedy this problem in the 
+general case exist \cite{Liu10_064106,Suo11_134101,Liu11_194106,Liu12_024107,Liu13_3741}. By
+using X2C-pp-TDA it is possible to treat systems with $N$ electrons
+with any odd spin multiplicity, provided they become closed shell upon the
+addition or removal of two electrons.  Molecules which possess triplet ground
+states as well as diradical moieties may be taken as examples.  To demonstrate
+this feature we compare the FSS of one set of excited states of molecular
+oxygen with experimental data in \cref{tb:DoubleEx}.  The difference between
+the calculated and measured value is just 2.5~meV, notwithstanding the
+approximations intrinsic in our method (e.g.~the approximate treatment of
+electron correlation and the two-electron spin-orbit contributions, or the
+finite basis set).  Of course, the same reasoning can also be applied in
+reverse: X2C-ph-RPA theory can be readily used to find excited-state FSS of
+systems with a singlet ground state, however if the addition or removal of two
+electrons produces an open-shell molecule, then X2C-pp-TDA will present some
+spin-contamination in the computed excited-states.
 
 
 
-One advantage that X2C-pp-TDA always has over X2C-ph-RPA theory, however, is its ability to describe double excitations.
-\Cref{tb:DoubleEx} compares calculated and reference excited-state FSS of doubly-excited states of some atomic moieties.
-The performance of the method is similar as in the case of single excitations presented in the previous section.
-Such states cannot be found among the excited states computed via X2C-ph-RPA.
+One advantage that X2C-pp-TDA always has over X2C-ph-RPA theory, however, is
+its ability to describe double excitations.  \Cref{tb:DoubleEx} compares
+calculated and reference excited-state FSS of doubly-excited states of some
+atomic moieties.  The performance of the method is similar as in the case of
+single excitations presented in the previous section.  Such states cannot be
+found among the excited states computed via X2C-ph-RPA.
 
 \begin{table}[htbp]
- \caption{Excited-state fine structure splittings (in meV).}
+ \caption{Excited-state fine structure splittings (in meV) for triplet
+  and doubly excited electronic states calculated by the X2C-pp-TDA method.}
  \label{tb:DoubleEx}
  \centering
  \begin{tabular}{llrr}
@@ -976,16 +1038,33 @@ Such states cannot be found among the excited states computed via X2C-ph-RPA.
 %-------------------------------------------------------------------------------
 \subsection{Conclusion}
 
-In this work, a scheme for the extension of the pp-TDA method to relativistic two-component wave functions has been presented.
-This scheme involves the approximate decoupling of the large and small components of the relativistic wave function by means of the X2C method, followed by an Hartree-Fock SCF calculation on the system obtained by removing two electrons, in order to obtain a set of complex spinor molecular orbitals.
-The two-component reference system is then used in the X2C-pp-TDA calculation that yields the ground and excited states for the $N$-electron system.
-The extension of the pp-TDA to a two-component reference comes at the cost of the employing complex spinor orbitals, and not being able to separate the problem into smaller sub-problems as is done in the case of RHF or UHF references via spin integration.
-The increased computational cost highlights the ever pressing need for direct and parallel implementations of post-SCF electronic structure methods, which is exaggerated in the case of relativistic electronic structure calculations.
+In this work, a scheme for the extension of the pp-TDA method to relativistic
+two-component wave functions has been presented.  This scheme involves the
+approximate decoupling of the large and small components of the relativistic
+wave function by means of the X2C method, followed by an Hartree-Fock SCF
+calculation on the system obtained by removing two electrons, in order to
+obtain a set of complex spinor molecular orbitals.  The two-component reference
+system is then used in the X2C-pp-TDA calculation that yields the ground and
+excited states for the $N$-electron system.  The extension of the pp-TDA to a
+two-component reference comes at the cost of the employing complex spinor
+orbitals, and not being able to separate the problem into smaller sub-problems
+as is done in the case of RHF or UHF references via spin integration.  The
+increased computational cost highlights the ever pressing need for direct and
+parallel implementations of post-SCF electronic structure methods, which is
+exaggerated in the case of relativistic electronic structure calculations.
 
-It has been shown that the X2C-pp-TDA method exhibits excellent results in the prediction of the fine-structure splittings of the atomic and molecular species considered here.
-The results are comparable and at times better than those obtained using X2C-ph-RPA.\cite{Li16_3711}
-In addition, the X2C-pp-TDA is able to capture electronic excitations traditionally inaccessible by the X2C-ph-RPA/TDA thanks to the 2-particle reference shift, such as double excitations and those that would be described as spin-contaminated in particle-number conserving methods.
-While these results are promising, the general applicability of the X2C-pp-TDA method, as with the spin-collinear variant, is limited as it is traditionally unable to capture excitations that involve contributions of orbitals from below the Fermi level.
-That being said, there are many systems, such as triplet and diradical systems, that the X2C-pp-TDA provides a suitable method for the accurate description of the
+It has been shown that the X2C-pp-TDA method exhibits excellent results in the
+prediction of the fine-structure splittings of the atomic and molecular species
+considered here.  The results are comparable and at times better than those
+obtained using X2C-ph-RPA \cite{Li16_3711}. In addition, the X2C-pp-TDA is able
+to capture electronic excitations traditionally inaccessible by the
+X2C-ph-RPA/TDA thanks to the 2-particle reference shift, such as double
+excitations and those that would be described as spin-contaminated in
+particle-number conserving methods.  While these results are promising, the
+general applicability of the X2C-pp-TDA method, as with the spin-collinear
+variant, is limited as it is traditionally unable to capture excitations that
+involve contributions of orbitals from below the Fermi level.  That being said,
+there are many systems, such as triplet and diradical systems, that the
+X2C-pp-TDA provides a suitable method for the accurate description of the
 electronic manifold.
 

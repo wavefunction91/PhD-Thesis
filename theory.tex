@@ -149,7 +149,7 @@ such that
   &\alpha(\sigma) = \begin{cases} 1 & \sigma = +\frac{1}{2} \\ 0 & \sigma = -\frac{1}{2} \end{cases}, \\ 
   &\beta(\sigma)  = \begin{cases} 0 & \sigma = +\frac{1}{2} \\ 1 & \sigma = -\frac{1}{2} \end{cases}.
 \end{align}
-In general, single particle wave functions of the form \cref{eq:SpinorOrbital} will be referred to as spinor orbitals, or simply spinors.
+In general, single particle wave functions of the form \cref{eq:SpinorOrbital} will be referred to as spinor orbitals, or simply spinors. Noting the two spin components, it is also canonical to refer to these types of wave functions as ``two--component" (2C).
 For brevity in the following, we will denote $\ket{\vc{x}} \equiv \ket{\vc{r},\sigma}$ such that
 \begin{subequations}
 \begin{align}
@@ -620,6 +620,7 @@ is made simple through the introduction of so called transition operators
 \end{align}
 where
 \begin{align}
+  \label{eq:TauDef}
 \tau_{ijk\cdots}^{abc\cdots} = \left(c_a^\dagger c_b^\dagger c_c^\dagger \cdots\right) \left( c_i c_j c_k \cdots\right).
 \end{align}
 Upon action, $\ket{0^N}_{ijk\cdots}^{abc\cdots}$ is an $ M = N - n_o + n_v $ particle Slater determinant built from removing
@@ -646,11 +647,12 @@ The expansion of
 operators such that for an arbitrary $M$ particle Slater determinant,
 \begin{equation}
   \label{eq:ExcitationOp}
-  \ket{\Psi^M_n}_\hilb{F} = \op{R}_n^{M,N} \ket{0^N}_\hilb{F},
+  \ket{\Psi^M_n}_\hilb{F} = \op{R}_n^{M,N\dagger} \ket{0^N}_\hilb{F},
 \end{equation}
-where $\op{R}_n^{N,M}$ is an ``excitation" operator which is defined as
+where $\op{R}_n^{N,M\dagger}$ is an ``excitation" operator which is defined as
 \begin{align}
-&\op{R}_n^{M,N} = 
+  \label{eq:ExOpExp}
+&\op{R}_n^{M,N\dagger} = 
   \begin{cases}
     \displaystyle \sum_{abc\cdots} \left( t^n \right)^{abc\cdots} \tau^{abc\cdots} + \sum_{abc\cdots di} \left( t^n \right)^{abc\cdots d}_i \tau^{abc\cdots d}_i +
       \sum_{abc\cdots deij} \left( t^n \right)^{abc\cdots de}_{ij} \tau^{abc\cdots de}_{ij} + \cdots & M > N \\
@@ -663,11 +665,11 @@ where $\op{R}_n^{N,M}$ is an ``excitation" operator which is defined as
 Here the extent of extended sums of transition operators involving unbalanced creating and annihilation operators in the cases $M\neq N$ is to be understood from
 the context, i.e. for the special case that $M= N+1$, we obtain
 \begin{align}
-&\op{R}_n^{N+1,N} = \sum_a \left( t^n \right)^a \tau^a + \sum_{abi} \left( t^n \right)^{ab}_i \tau^{ab}_i + 
+&\op{R}_n^{N+1,N\dagger} = \sum_a \left( t^n \right)^a \tau^a + \sum_{abi} \left( t^n \right)^{ab}_i \tau^{ab}_i + 
   \sum_{abcij} \left( t^n \right)^{abc}_{ij} \tau^{abc}_{ij} + \cdots
 \end{align}
-The remarkable thing about \cref{eq:ExcitationOp} is that all possible many body wave functions may constructed from a single Slater determinant
-within an operator formalism. Thus one need only understand the manipulation of $\op{R}^{M,N}_n$ in the context of other many--body operators
+The remarkable thing about \cref{eq:ExcitationOp} is that all possible many body wave functions may constructed (hence the $\dagger$) from a single Slater determinant (or any other wave function)
+within an operator formalism. Thus one need only understand the manipulation of $\op{R}^{M,N\dagger}_n$ in the context of other many--body operators
 and how their combined action affects the reference determinant to to determine expectation values: the primary moiety which we will 
 manipulate in this work.
 
@@ -697,7 +699,7 @@ To demonstrate the utility of this concept, we examine the substitution of the r
 into the one--body inner product such that
 \begin{align}
 \label{eq:SeQuantInnerExp}
-&\innerop{\Psi_n^N}{c_p^\dagger c_q}{\Psi_m^N}_\hilb{F} = \innerop{0^N}{\op{R}^{N,N\dagger}_n c_p^\dagger c_q \op{R}^{N,N}_m}{0^N}_\hilb{F} \nonumber \\
+&\innerop{\Psi_n^N}{c_p^\dagger c_q}{\Psi_m^N}_\hilb{F} = \innerop{0^N}{\op{R}^{N,N\dagger}_n c_p^\dagger c_q \op{R}^{N,N\dagger}_m}{0^N}_\hilb{F} \nonumber \\
 &\qquad= \left( t^n \right)^*_0 \left(
      \left( t^m \right)_0 \innerop{0^N}{c_p^\dagger c_q}{0^N}_\hilb{F} +
      \sum_{ai} \left( t^m \right)^{a}_i \innerop{0^N}{c_p^\dagger c_q \tau^{a}_i}{0^N}_\hilb{F} + \cdots
@@ -1615,8 +1617,9 @@ to this work except for the property,
 \sum_A^{N_\mathrm{nuc}} \int_{\mathbb R^3} \rho_{nuc,A}^{1,0}(\vc{R}) \dd^3\vc{R} = N_\mathrm{nuc}.
 \end{equation}
 This criteria is clearly met if $\rho^{1,0}_{nuc,A}(\vc{R})$ is a normalized function. In this work, we will approximate
-$\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \todo{cite},
+$\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \cite{Dyall97_207,Saue98_920},
 \begin{equation}
+  \label{eq:GauNuc}
 \rho^{1,0}_{nuc,A}(\vc{R}) = \mathcal{N} e^{-\gamma_A(\vc{R} - \vc{R}_A)^2},
 \end{equation}
 where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
@@ -1652,6 +1655,7 @@ where we have substituted in the basis expansions of the density matrix from \cr
   &T^\NR_{\mu\nu} &&= -\frac{1}{2} \int_{\mathbb R^3} \chi^*_\mu(\vc r) \Delta \chi_\nu(\vc r)\, \dd^3\vc r, \\
   &V^{ne}_{\mu\nu} &&= -\iint_{\mathbb R^3} \frac{\chi^*_\mu(\vc r) \chi_\nu(\vc r) \rho^{1,0}_{nuc}(\vc R)}{\vert \vc r - \vc R \vert},
   \,\dd^3\vc r\dd^3\vc R\\
+  \label{eq:ERIBasis}
   &\innerop{\mu \nu}{r_{12}^{-1}}{\lambda\kappa} &&= 
     \iint_{\mathbb R^3} \frac{1}{r_{12}} \chi^*_\mu(\vc r_1) \chi^*_\nu(\vc r_2) \chi_\lambda(\vc r_1) \chi_\kappa(\vc r_2)
     \,\dd^3\vc r_1 \dd^3 \vc r_2.
@@ -1923,7 +1927,7 @@ It is possible to develop a consistent treatment of $\overline{\gamma}^1$ in rel
 and $\gamma^1$ in non--relativistic theory
 through the understanding that integral contractions over the indices of the 1RDM also imply a matrix operation
 over the dimension added as a result of the bispinor nature of the wave function. However, as we will be soley
-manipulating effective two--component relativistic hamiltonians, the explicit development of
+manipulating effective 2C relativistic hamiltonians, the explicit development of
 this consistent treatment is beyond the scope of this work (see \cref{sec:MF2C} \cref{eq:Rel2C1RDM,eq:QRel2C1RDM}).
 
 
@@ -1937,7 +1941,7 @@ Dirac--Coulomb (DC) Hamiltonian,
   \op{H}^\DC = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2. 
 \end{equation}
 It should be noted that use of the DC Hamiltonian does not effect the structure of $\hilb H^\REL$,
-however it will drastically simplify the development of practical two--component relativistic methods
+however it will drastically simplify the development of practical 2C relativistic methods
 in finite basis sets (see \cref{ch:2CEST}).
 
 
