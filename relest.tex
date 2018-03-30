@@ -3,7 +3,10 @@
 
 \section{Noncollinear Kohn--Sham Density Functional Theory}
 \label{sec:NCDFT}
+
 \subsection{Implementation}
+\label{sec:NCDFT_IMPL}
+
 On modern computing architectures, there are three primary facets one must consider when developing high--performance
 scientific software: parallelism, cache utilization, and exploitation of micro-architecture specific floating point
 operations ($\mu$-ops) such as single instruction--multiple data (SIMD) and fused multiply--add (FMA) operations. 
@@ -101,6 +104,7 @@ radial integration and 302 Lebedev~\cite{Lebedev77_99} points for the angular in
 each atom.
 
 \subsubsection{Validation}
+\label{sec:NCDFT_VALID}
 
 A series of geometrically frustrated hydrogen rings were used to gauge the validity of the 
 proposed two--component Kohn--Sham implementation. Geometrically frustrated systems

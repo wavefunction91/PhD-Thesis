@@ -379,6 +379,7 @@ be used extensively in the following developments.
 In the following, it will be useful to define the $N$--particle density matrix, $\op{\gamma}^N$,
 associated with a particular state vector $\ket{\Psi^N} \in \hilb{H}^N$ \cite{Yang89_book},
 \begin{equation}
+  \label{eq:NDenMat}
 \op{\gamma}^N = \ket{\Psi^N}\bra{\Psi^N}.
 \end{equation}
 Clearly, $\op{\gamma}^N$ is an hermitian $N$--particle on $\hilb{H}^N$ which projects its elements onto $\ket{\Psi^N}$.
@@ -1061,7 +1062,8 @@ or more compactly
 where the Fock matrix, $\spvc F^\HF \in \MatSpace{C}{2N_b}{2N_b}$ and overlap matrix $\spvc S \in \MatSpace{C}{2N_b}{2N_b}$
 are given by
 \begin{align}
-&\spvc{F}^\HF = \begin{bmatrix} \vc{F}^{\HF,\saa} & \vc{F}^{\HF,\sab} \\ \vc{F}^{\HF,\sba} & \vc{F}^{\HF,\sbb} \end{bmatrix}, \\
+&\spvc{F}^\HF = \begin{bmatrix} \vc{F}^{\HF,\saa} & \vc{F}^{\HF,\sab} \\ \vc{F}^{\HF,\sba} & \vc{F}^{\HF,\sbb} \end{bmatrix}, 
+  \label{eq:GenHFFock}\\
 &\spvc{S} = \begin{bmatrix} \vc{S} & \vc{0} \\ \vc{0} & \vc{S} \end{bmatrix},
 \end{align}
 with
@@ -1263,6 +1265,7 @@ Expanding \cref{eq:RDMSD} in \cref{eq:LCAO}, we obtain,
 \end{equation}
 where
 \begin{subequations}
+  \label{eq:1PDM}
 \begin{align}
   &P^{0}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\alpha *} + C_{\mu i}^\beta  C_{\nu i}^{\beta  *},\\
   &P^{1}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\beta  *} + C_{\mu i}^\beta  C_{\nu i}^{\alpha *},\\
@@ -1464,6 +1467,7 @@ and the structre of the 1PDM which arises from their solution. For a general Foc
 SCF 1PDM $\spvc P$ (i.e. the 1PDM resulting from the solution of the SCF equations), these relationships
 are given by
 \begin{subequations}
+  \label{eq:DenFockConstraint}
 \begin{alignat}{3}
   & \spvc F = \spvc F^\mathrm{GSCF} && \quad \text{ iff } \quad  && 
     \spvc P = \spvc P^\mathrm{GSCF} = \vc P^0 \otimes \pauli{0} + \vc P^1 \otimes \pauli{1} + \vc P^2 \otimes \pauli{2} + \vc P^3 \otimes \pauli{3}, \\
@@ -1473,6 +1477,7 @@ are given by
     \spvc P = \spvc P^\mathrm{RSCF} = \vc P^0 \otimes \pauli{0}.
 \end{alignat}
 \end{subequations}
+The consequences of these relationships will be explored in future sections.
 
 
 
@@ -1620,9 +1625,75 @@ where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions fo
 
 \subsection{Non--Relativistic Mean Field Wave Functions}
 
-
-
-
+In the case of the non--relativistic Born--Oppenheimer electronic Hamiltonian of \cref{eq:NRBOH}, the
+Fock matrix components of \cref{eq:FockComponents} take the form \todo{define K},
+\begin{subequations}
+  \label{eq:NRFockCompSpace}
+\begin{align}
+  &\op H^\mathrm{core}(\vc x; \vc x') = \delta^4(\vc x - \vc x') \left( \op T^\NR(\vc x) + \op V_{ne}(\vc x) \right) \\
+  &\op J(\vc x; \vc x') = \delta^4(\vc x - \vc x') 
+    \int_\mathbb{F} \frac{\gamma^1(\vc x_2; \vc x_2)}{\vert \vc x - \vc x_2 \vert} \,\dd^4\vc x_2 \\
+  &\op K(\vc x; \vc x') = ... 
+\end{align}
+\end{subequations}
+Carrying out the integration in a finite basis set via \cref{eq:OBBasisExp}, we obtain
+\begin{subequations}
+  \label{eq:FockCompAOBasis}
+\begin{alignat}{2}
+  &H^\mathrm{core, \sigma\sigma'}_{\mu\nu} &&= \delta_{\sigma\sigma'} \left( T^\NR_{\mu\nu} + V^{ne}_{\mu\nu} \right), \\
+  &J^{\sigma\sigma'}_{\mu\nu} &&= 2\delta_{\sigma\sigma'}
+    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\nu \kappa} P^0_{\kappa\lambda}, \\
+  &K^{\sigma\sigma'}_{\mu\nu} &&= 
+    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\kappa \nu} P^{\sigma\sigma'}_{\kappa\lambda},
+\end{alignat}
+\end{subequations}
+where we have substituted in the basis expansions of the density matrix from \cref{eq:1PDM} and introduced
+\begin{alignat}{2}
+  &T^\NR_{\mu\nu} &&= -\frac{1}{2} \int_{\mathbb R^3} \chi^*_\mu(\vc r) \Delta \chi_\nu(\vc r)\, \dd^3\vc r, \\
+  &V^{ne}_{\mu\nu} &&= -\iint_{\mathbb R^3} \frac{\chi^*_\mu(\vc r) \chi_\nu(\vc r) \rho^{1,0}_{nuc}(\vc R)}{\vert \vc r - \vc R \vert},
+  \,\dd^3\vc r\dd^3\vc R\\
+  &\innerop{\mu \nu}{r_{12}^{-1}}{\lambda\kappa} &&= 
+    \iint_{\mathbb R^3} \frac{1}{r_{12}} \chi^*_\mu(\vc r_1) \chi^*_\nu(\vc r_2) \chi_\lambda(\vc r_1) \chi_\kappa(\vc r_2)
+    \,\dd^3\vc r_1 \dd^3 \vc r_2.
+\end{alignat}
+Recognizing that the definitions of $\spvc H^\mathrm{core}$ and $\spvc J$ in \cref{eq:FockCompAOBasis} are spin diagonal, 
+we may define the Pauli components of the HF Fock matrix corresponding to \cref{eq:NRBOH} (see \cref{eq:GenHFFock}) as,
+\begin{align}
+  &\vc F^{\HF,0} = \vc H^\mathrm{core,0} + \vc J^0 - \vc K^0, \\
+  &\vc F^{\HF,k} = - \vc K^k, \quad k \in \{1,2,3\},
+\end{align}
+and KS Fock matrix (\cref{eq:KSMat}),
+\begin{align}
+  &\vc F^{\KS,0} = \vc H^\mathrm{core,0} + \vc J^0  +\vc V^{xc,0}, \\
+  &\vc F^{\KS,k} = \vc V^{xc,k}, \quad k \in \{1,2,3\},
+\end{align}
+where 
+\begin{subequations}
+  \label{eq:NRFockPauli}
+\begin{alignat}{3}
+  &H^\mathrm{core, 0}_{\mu\nu} &&= \left( T^\NR_{\mu\nu} + V^{ne}_{\mu\nu} \right), &&\\
+  &J^{0}_{\mu\nu} &&= 2
+    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\nu \kappa} P^0_{\kappa\lambda}, &&\\
+  &K^{L}_{\mu\nu} &&= 
+    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\kappa \nu} P^{L}_{\kappa\lambda},\quad &&L \in \{0,1,2,3\}, \\
+  &V^{xc,L}_{\mu\nu} &&= 
+    \int_{\mathbb R^3} \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \rho^{L}(\vc{r})} \chi^*_\mu(\vc{r})  \chi_\nu(\vc{r})\,\dd^3\vc{r},\quad &&L \in \{0,1,2,3\},
+\end{alignat}
+\end{subequations}
+Note that the spin dependence of the Fock matrix components comes solely through the mean--field dependence
+of the Fock operators on the 1RDM, thus restriction of the spin components of the 1RDM implies restriction 
+of the spin components of the Fock matrix (i.e. \cref{eq:DenFockConstraint}). This is a direct consequence
+of \cref{eq:NRBOH} being spin diagonal. This introduces a strange concept which is manifest in mean field
+theory but not in exact treatments of the electronic problem: the spin symmetry of the density and Fock
+matrices need not exhbit the same spin structure as the Hamiltoninan which they represent. This phenomena
+is known an symmetry breaking, and is a well studied problem in electronic structure theory \todo{cite}.
+The simplest example of this is the treatment of open--shell systems via \cref{eq:NRBOH}: the treatment of
+unpaired spins necessacarily introduces an explicit treatment of spin through $\vc F^3 / \vc P^3$ despite the
+fact that \cref{eq:NRBOH} has no explicit treatment thereof. It is typically the case that in non--relativistic
+electronic structure that one chooses to obtain the ground state wave function under the RSCF or USCF restrictions
+of the Fock and density matrices for closed-- and open--shell systems, respectively. However, there are well
+documented cases in which one must utilize GSCF methods even for non--relativistic theory, such as those discussed
+in \cref{sec:NCDFT_VALID}.
 
 
 
@@ -1727,6 +1798,8 @@ electronic wave function, respectively, and are both representable as spinors in
 are often referred to as bispinors \todo{cite} as they are constructed from four complex components (hence 
 $\ket{\psi} \in \hilb H^\FrC$). 
 
+
+
 The formal treatment of relativistic theory in the context of the consequences of adhering to Lorentz 
 covariance is outside the scope of this work. One should be referred to more comprehensive texts on
 the subject for a more thorough treatment of these matters \todo{cite}. There are, however, several
@@ -1759,6 +1832,7 @@ we may solve for only the electronic states in an approximate manner. In the fol
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
 
 \subsection{The Exact Two--Component Hamiltonian}
+\label{sec:X2C}
 
 The problem of the diachoimy between the electronic and positronic states of the Dirac
 equation may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
@@ -1890,25 +1964,12 @@ Given $\vc{X}$, \cref{eq:X2CTrans} may
 be constructed and in the limit that $\op v$ only contains one body operators, \cref{eq:ModDirac} is block diagonalized 
 exactly,
 \begin{equation}
+  \label{eq:X2CHam}
 \vc U^\XtC \vc H^\mathrm{MD} \vc U^{\XtC\dagger} = \begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}.
 \end{equation}
 Here we have labelled $\vc h^\XtC$ as the positive energy block diagonal of the transformed hamiltonian. $\vc h^\XtC$ 
 will serve as the source of the relativistic effects in the mean field methods used throughout this work.
 
-In the case where $\op v$ is an effective many--body potential in the context of mean field theory, the X2C method
-dictates that the transformation only be performed using the density independent terms of the Fock operator \todo{cite},
-i.e. $\op H^\mathrm{core}$ of \cref{eq:FockComponents}. Otherwise, the transformation described by $\vc U^\XtC$ would
-have to be performed as each step of the wave function optimization procedure outlined at the end  of \cref{sec:HF};
-rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
-in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
-relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
-way as to effectively include these many--body effects by way of the B\"{o}ttiger \co{ check spelling} scaling,
-\begin{equation}
-\vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
-\end{equation}
-where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo{cite}. This scaling method
-has become the field standard for approximately accounting for many--body relativistic effects in effective
-two--compoenent relativistic methods \todo{cite?}.
 
 
 
@@ -1948,7 +2009,7 @@ where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coul
 In the absense of external fields , the DCB Hamiltonian for $N$ electrons is given in atomic units by \todo{cite}
 \begin{equation}
   \label{eq:DCBHam}
-  \op{H}^\DCB = \sum_i^N  \op{h}^D(i) \otimes \vc{I}_2 + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
+  \op{H}^\DCB = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
   - \op{g}^B(i,j),
 \end{equation}
 where $\op{h}^D$ and $\op{g}^C$ are the one body Dirac Hamiltonian and two body classical Coulomb interactions of \cref{eq:DiracHam} and 
@@ -1963,17 +2024,160 @@ and have used the shorthand notations
   &\vc{a}(i) \cdot \vc{a}(j) = \sum_{k = 1}^3 \vc{a}_k(i) \vc{a}_k(j), \\
   &\vc{a}(i) \cdot \vc{r}_{ij} = (x_i - x_j) \otimes \vc{a}_1(i) + (y_i - y_j) \otimes \vc{a}_2(i) + (z_i - z_j) \otimes \vc{a}_3(i).
 \end{align}
-In analogy to the single particle case in \cref{eq:Bispinor}, the relativistic many--body electronic wave function may be written as
+It is to be understood from the context of the Born--Oppenheimer approximation that the scalar potential of \cref{eq:DiracHam}
+is taken to be the nuclear scalar potential of \cref{eq:Vne}.
+In analogy to the single particle case in \cref{eq:Bispinor}, the relativistic many--body electronic wave function may be 
+written as bispinors,
 \begin{equation}
   \label{eq:MolBispinor}
   \ket{\Psi_{el}} = 
     \begin{bmatrix}
        \ket{\Psi_{el}^\mathrm{L}} \\
        \ket{\Psi_{el}^\mathrm{S}} 
-    \end{bmatrix},
+    \end{bmatrix}, \quad \ket{\Psi_{el}} \in \hilb H^\REL,
 \end{equation}
 where the superscripts $L$ and $S$ again refer to the large and small components of the electronic wave function,
-and may be treated as spinor wave functions in analogy to the non--relativistic case.
+and may be treated as spinor wave functions in analogy to the non--relativistic case. Just like in the case of
+non--relativistic spinor wave functions, many--body bispinor wave functions may be written as the antisymmetric
+tensor product of single particle bispinors which span $\hilb H^\FrC$ (i.e. in the sense of
+\cref{eq:SlaterDet,eq:SDBasis}).
+
+Due to the increased dimensionality of the wave functions in \cref{eq:DiracEq,eq:BreitEq}, the RDM must now represent 
+a higher dimensional tensors field as the restriction of an outer product in \cref{eq:NDenMat}. As such
+we will introduce a new notation for e.g. the 1RDM,
+\begin{align}
+  \label{eq:Rel1RDM}
+  &\overline{\gamma}^1(\vc{x}; \vc{x}') = 
+    N \idotsint_\mathbb{F} \dd^4\vc{x}_{2}\cdots\dd^4\vc{x}_N \,\times \nonumber \\ &\qquad
+    \begin{bmatrix} 
+      \Psi^L(\vc{x},\vc{x}_2,\cdots) \Psi^{L*}(\vc{x}',\vc{x}_2,\cdots) &
+      \Psi^L(\vc{x},\vc{x}_2,\cdots) \Psi^{S*}(\vc{x}',\vc{x}_2,\cdots) \\
+      \Psi^S(\vc{x},\vc{x}_2,\cdots) \Psi^{L*}(\vc{x}',\vc{x}_2,\cdots) &
+      \Psi^S(\vc{x},\vc{x}_2,\cdots) \Psi^{S*}(\vc{x}',\vc{x}_2,\cdots) 
+    \end{bmatrix}. 
+\end{align}
+For the case of a Slater determinant constructed from from a set $\mathcal K_I^N = \{\ket{\psi_i}\}$ of eigen functions 
+of \cref{eq:DiracHam}, this becomes
+\begin{align}
+  &\overline\gamma^1(\vc{x}; \vc{x}') = 
+    \sum_{i \in \mathcal K^N_I} \psi_i(\vc x) \psi_i^\dagger(\vc{x}') = 
+    \sum_{i \in \mathcal K^N_I} 
+    \begin{bmatrix} 
+      \phi_i^L(\vc{x}) \phi_i^{L*}(\vc{x}') &
+      \phi_i^L(\vc{x}) \phi_i^{S*}(\vc{x}') \\
+      \phi_i^S(\vc{x}) \phi_i^{L*}(\vc{x}') &
+      \phi_i^S(\vc{x}) \phi_i^{S*}(\vc{x}') 
+    \end{bmatrix}. 
+\end{align}
+It is possible to develop a consistent treatment of $\overline{\gamma}^1$ in relativistic theory and 
+and $\gamma^1$ in non--relativistic theory
+through the understanding that integral contractions over the indices of the 1RDM also imply a matrix operation
+over the dimension added as a result of the bispinor nature of the wave function. However, as we will be soley
+manipulating effective two--component relativistic hamiltonians in this work, the explicit development of
+this consistent treatment is beyond the scope of this work (see \cref{sec:MF2C} \cref{eq:Rel2C1RDM,eq:QRel2C1RDM}).
+
+
+For the purposes of this work, we will opt to neglect the relativistic effects which arise from $\op g^B$,
+\begin{equation}
+  \innerop{\Psi_{el}}{\op g^B}{\Psi_{el}} \approx 0.
+\end{equation}
+This approximation can be justified \todo{by?}. As such we will be working strictly with the so--called
+Dirac--Coulomb (DC) Hamiltonian,
+\begin{equation}
+  \op{H}^\DC = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2. 
+\end{equation}
+It should be noted that use of the DC Hamiltonian does not effect the structure of $\hilb H^\REL$,
+however it will drastically simplify the development of practical two--component relativistic methods
+in finite basis sets.
+
+
+\subsection{Two--Component Relativistic Mean Field Wave Functions}
+\label{sec:MF2C}
+
+
+The power of of the X2C method outlined in \cref{sec:X2C} is that it allows one
+to cast mean--field relativistic electronic structure theory into a form which closely 
+resembles non--relativistic theory. 
+In the case where $\op v$ is an effective many--body potential in the context of mean field theory, the X2C method
+dictates that the transformation only be performed using the density independent terms of the Fock operator \todo{cite},
+i.e. $\op H^\mathrm{core}$ of \cref{eq:FockComponents}. Otherwise, the transformation described by $\vc U^\XtC$ would
+have to be performed as each step of the wave function optimization procedure outlined at the end  of \cref{sec:HF};
+rendering the method impractical. It is for this reason that the X2C is only exact in that case of a single electron
+in an external potential; the effective many body terms in the mean field Fock operator are neglected in the 
+relativistic treatment. To remedy this somewhat egregious approximation, $\vc h^\XtC$ is transformed in such a
+way as to effectively include these many--body effects by way of the B\"{o}ttiger \co{ check spelling} scaling,
+\begin{equation}
+\vc h^\XtC \mapsto \vc \Lambda^{B\dagger} \vc h^\XtC \vc \Lambda^{B},
+\end{equation}
+where $\vc \Lambda^B$ is the sparse matrix of B\"{o}ttiget scaling factors \todo{cite}. 
+This scaling method
+has become the field standard for approximately accounting for many--body relativistic effects in effective
+two--compoenent relativistic methods \todo{cite?}.
+
+With our restriction from the DCB to DC Hamiltonian,
+the two--body part of the electronic Hamiltonian in a two--compoenent frame workwork
+is the same as it was in the non--relativistic case, i.e. the mean--field operators
+$\op J$, $\op K$ and $\op V^{xc}$ and their basis representations $\spvc J$, $\spvc K$ and $\spvc V^{xc}$, are the same as in 
+\cref{eq:NRFockCompSpace,eq:FockCompAOBasis}. This is due to the fact that for the electronic
+eigenvectors of \cref{eq:MDRH}, the X2C transformation also block diagonalizes the 
+bispinor MO coefficients,
+\begin{equation}
+\begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}
+\begin{bmatrix} \vc C^\XtC & \vc 0 \\ \vc 0 & \vc C^- \end{bmatrix} =
+\begin{bmatrix} \vc S & \vc 0 \\ \vc 0 & \vc S^- \end{bmatrix}
+\begin{bmatrix} \vc C^\XtC & \vc 0 \\ \vc 0 & \vc C^- \end{bmatrix} 
+\begin{bmatrix} \vc \epsilon^\XtC & \vc 0 \\ \vc 0 & \vc \epsilon^- \end{bmatrix}.
+\end{equation}
+In effect, this block diagonalization manifests in the same manner as \cref{eq:USCFEq}. 
+Denoting the bispinor orbitals which may be expanded in terms of 
+$\vc C^\XtC$ as
+\begin{equation}
+  \mathcal C^\XtC = \left\lbrace
+  \psi_p(\vc r, \sigma) = 
+  \begin{bmatrix} \phi^\alpha_i (\vc r) \alpha(\sigma) \\ \phi^\beta_i(\vc r) \beta(\sigma) \\ 0 \\ 0 \end{bmatrix} =
+  \sum_\mu \begin{bmatrix} C_{\mu p}^{\XtC,\alpha} \alpha(\sigma)\\ C_{\mu p}^{\XtC,\beta}\beta(\sigma) \\ 0 \\ 0 \end{bmatrix} \chi_\mu(\vc{r}) \right\rbrace, 
+\end{equation}
+we may express the relativsitc 1RDM  (\cref{eq:Rel1RDM}) which can be constructed from a 
+subset $\mathcal K_I^N \subset \mathcal C^\XtC$ as
+\begin{equation}
+  \label{eq:Rel2C1RDM}
+  \overline{\gamma}^1(\vc{x}; \vc x')
+    \sum_{i \in \mathcal K^N_I} 
+    \begin{bmatrix} 
+      \phi_i(\vc{x}) \phi_i^{*}(\vc{x}') & 0 \\ 0 & 0 
+    \end{bmatrix}. 
+\end{equation}
+As such, we will introduce a quasi--relativistic 1RDM which simply removes the zeroed out portions of \cref{eq:Rel2C1RDM},
+\begin{equation}
+  \label{eq:QRel2C1RDM}
+  \overline{\gamma}^1(\vc{x}; \vc x') \mapsto {\gamma}^1(\vc{x}; \vc x') =
+    \sum_{i \in \mathcal K^N_I} 
+      \phi_i(\vc{x}) \phi_i^{*}(\vc{x}').
+\end{equation}
+Using this definition of $\gamma^1$, we may define the analogus mean field operators exactly as in 
+\cref{eq:FockComponents,eq:VXCBasis}, thus yielding the same expressions for $\vc J$, $\vc K$, and $\vc V^{xc}$.
+
+
+The key difference between the X2C method and non--relativistic mean field methods is in the definition of
+the core Hamiltonian. In the four--componenet treatment of relativistic theory, the density independent term
+is described by the Dirac Hamiltonian in \cref{eq:DiracHam}. However, in the X2C method, the basis representation
+of the core Hamiltoninan is simply given by $\vc h^\XtC$ in \cref{eq:X2CHam}. Thus the basis representation of
+the Fock matrix for HF and KS mean field wave functions (X2C-HF and X2C-KS), respectively) are given by
+\begin{align}
+  \spvc F^\mathrm{X2C-HF} = \spvc h^\XtC + \spvc J - \spvc K
+  \spvc F^\mathrm{X2C-KS} = \spvc h^\XtC + \spvc J + \spvc V^{xc}
+\end{align}
+such that we may decompose into the Pauli components of the Fock matrix
+\begin{align}
+  &\vc F^{0} = \vc h^{\XtC,0} + \vc J^0 + \vc X^0, \\
+  &\vc F^{k} = \vc h^{\XtC,k} +  \vc X^k,\qquad k\in \{1,2,3\},
+\end{align}
+where $\spvc F \in \{\spvc F^\mathrm{X2CHF}, \spvc F^\mathrm{X2CKS} \}$ and $\spvc X$ is $-\spvc K$ for X2C-HF
+wave functions and  $\spvc V^{xc}$ for X2C-KS wave functions. Thus, unlike the non--relativistic case of 
+\cref{eq:NRFockPauli} where the spin components of the Fock matrix are completely determined by the 1PDM, the 
+X2C Fock matrix explicitly admits spin into its Pauli components through the Pauli components of the X2C
+core Hamiltonian. As such, X2C Fock matrix is of the form \cref{eq:GSCFFock}, and thus a GSCF procedure 
+must be used in general.
 
 
 
