@@ -426,10 +426,10 @@ to the collinear auxillary variables as
 \end{align}
 where we have used $NC$ to denote non--collinearity. The connection between $\{U^{col}\}$ and $\{U^{NC}\}$
 is clear by making the substitution $\alpha \leftrightarrow +$ and $\beta \leftrightarrow -$. 
-$\{V^{col}\}$ and $\{V^{NC}\}$ may be related by recognizing $\{\rho^\saa,\rho^\saa\}$ as the diagonal contributions
+$\{V^{col}\}$ and $\{V^{NC}\}$ may be related by recognizing $\{\rho^{1,\saa},\rho^{1,\sbb}\}$ as the diagonal contributions
 of the spinor density, and thus
 \begin{equation}
-  \{\rho^\saa(\vc{r}), \rho^\sbb(\vc{r})\} \mapsto \{\rho^{1,0}(\vc{r}), \mathbf{m}^{col}(\vc{r})\}
+  \{\rho^{1,\saa}(\vc{r}), \rho^{1,\sbb}(\vc{r})\} \mapsto \{\rho^{1,0}(\vc{r}), \mathbf{m}^{col}(\vc{r})\}
 \end{equation}
 where $\mathbf{m}^{col}(\vc{r}) = \{0,0,\rho^{1,3}(\vc{r})\}$. Given the components of the spinor density matrix,
 spatial evaluation of the V--variables is given by (\cref{eq:DenMatEval})
@@ -438,7 +438,7 @@ spatial evaluation of the V--variables is given by (\cref{eq:DenMatEval})
   \rho^{1,K}(\vc{r}) &= \sum_{\mu\nu} \mathrm{Re}[P^K_{\mu\nu}] \chi_\mu(\vc{r}) \chi_\nu(\vc{r}) \quad && K \in{0,1,2,3}\\
   \nabla\rho^{1,K}(\vc{r}) &= 2\sum_{\mu\nu} \mathrm{Re}[P^K_{\mu\nu}] \chi_\mu(\vc{r}) \nabla\chi_\nu(\vc{r})\quad && K \in{0,1,2,3}
 \end{alignat}
-where the matrices $\vc P^K$ are defined as in \cref{eq:1PDM} and $\mathrm{Re}[x]$ denotes the real part of $x$. Remark that the evaluation of $\{V(\vc{r})\}$ may then be practically 
+where the matrices $\vc P^K$ are defined as in \cref{eq:1PDM} and $\mathrm{Re}[x]$ denotes the real part of $x$. Remark that the evaluation of $\{V^\NC(\vc{r})\}$ may then be practically 
 evaluated using strictly real arithmetic.
 
 Given a transformation, $\{ V^{NC}(\vc{r}) \} \mapsto \{U^{NC}(\vc{r})\}$, it is possible to perform practical
@@ -461,7 +461,7 @@ In this work, we utilize the transformation method which meets such conditions f
 \end{subequations}
 where
 \begin{align}  
-  f_{\nabla}(\vc{r}) & = sgn\left(\nabla\rho^{1,0} (\vc{r}) \cdot \left(\sum_{k=1}^3 D^{kk}(\vc r) \right)\right) \\
+  f_{\nabla}(\vc{r}) & = sgn\left(\nabla\rho^{1,0} (\vc{r}) \cdot \left(\sum_{k=1}^3 \nabla \rho^{1,k}(\vc r) \rho^{1,k}(\vc r) \right)\right) \\
   D^{KL} (\vc{r})      &  = \nabla\rho^{1,K} (\vc{r}) \cdot  \nabla \rho^{1,L} (\vc{r})  
 \end{align} 
 Using this set of transformations, we may define an electronic energy and Fock matrix which has no dependence
@@ -517,7 +517,7 @@ In practice, \cref{eq:EXCEVAL,eq:VXCGGA_eval} are evaluated numerically using a 
 \cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097},
 \begin{align}
   &E^{GGA}[\vc \rho,\nabla\vc \rho] \approx \sum_i w(\vc{r}_i) f(\{U(\vc{r}_i)\}) \label{eq:EXCGGA_num}\\
-  &V^{GGA,K}_{\mu\nu} \approx \sum_i w(\vc{r}_i) V^{xc,K}_{\mu\nu}(\vc{r}_i) \label{eq:VXCGGA_num}
+  &V^{GGA,K}_{\mu\nu} \approx \sum_i w(\vc{r}_i) V^{GGA,K}_{\mu\nu}(\vc{r}_i) \label{eq:VXCGGA_num}
 \end{align}
 where $\{w(\vc{r}_i)\}$ is a set of quadrature weights. 
 In this work, we utilize the Becke multi-center numerical integration scheme
@@ -538,7 +538,7 @@ The evaluation of \cref{eq:EXCGGA_num} is straight forward as it is a scalar fun
 in Ref.\cite{Sierka11_3097}, by substituting the definitions of the partial derivatives of the U and V variables, we arrive
 at a concise expressions for assembly of \cref{eq:VXCGGA_num} 
 \begin{align}
-&V^{xc,K}_{\mu\nu} = \sum_i Z^K_\mu(\vc{r}_i) \chi_\nu(\vc{r}_i) + Z^K_\nu(\vc{r}_i) \chi_\mu(\vc{r}_i) \label{eq:VXC_point_update}\\
+&V^{GGA,K}_{\mu\nu} = \sum_i Z^K_\mu(\vc{r}_i) \chi_\nu(\vc{r}_i) + Z^K_\nu(\vc{r}_i) \chi_\mu(\vc{r}_i) \label{eq:VXC_point_update}\\
   &Z^K_\mu(\vc{r}) = w(\vc{r})
     \left(
       \frac{1}{2} \mathcal{Z}^K_{\rho}(\vc{r}) \chi_\mu(\vc{r}) + \sum_\xi \mathcal{Z}^K_{\nabla,\xi}(\vc{r}) \nabla_\xi \chi_\mu(\vc{r})
@@ -547,11 +547,10 @@ at a concise expressions for assembly of \cref{eq:VXCGGA_num}
 where $\xi \in \{x,y,z\}$ and
 \begin{subequations}
 \begin{align}
-&\mathcal{Z}^K_{\rho}=     \frac{\partial f}{\partial \rho^K} =
-                                     \dfrac{1}{2}
+&\mathcal{Z}^K_{\rho}=     \frac{\partial f}{\partial \rho^{1,K}} =
                                      \begin{cases}
   \left( \dfrac{\partial f}{\partial n^+} + \dfrac{\partial f}{\partial n^-} \right) & K = 0 \\[12pt]
-  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) K^{K} & K \neq 0 \\
+  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) \mathscr K^{K} & K \neq 0 \\
                                      \end{cases}
 \end{align}
 \label{eq:ZrhoVar}
@@ -560,14 +559,14 @@ where $\xi \in \{x,y,z\}$ and
 \begin{subequations}
 \label{eq:ZvarphiVar}
 \begin{align}
-&\mathcal{Z}^K_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^K} = \dfrac{1}{2} \begin{cases}
-                                                          \nabla_\xi\rho^S    \left(  \dfrac{\partial f}{\partial \varphi^{++}} + \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}} \right)  
-                                                          + \sum_{k=1}^3 \nabla_\xi \rho^k H^k 
+&\mathcal{Z}^K_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^{1,K}} = \begin{cases}
+                                                          \nabla_\xi\rho^{1,0}    \left(  \dfrac{\partial f}{\partial \varphi^{++}} + \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}} \right)  
+                                                          + \sum_{k=1}^3 \nabla_\xi \rho^{1,k} \mathscr H^k 
                                                           \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} 
                                                           \right)                                                          
                                                           & K= 0 \\[8pt]                                                                                                        
-                                                          \nabla_\xi\rho^S H^K  \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
-                                                          + \nabla_\xi\rho^K
+                                                          \nabla_\xi\rho^{1,0} \mathscr H^K  \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
+                                                          + \nabla_\xi\rho^{1,K}
                                                           \left(\dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}}
                                                            \right)
                                                           & K \neq 0
@@ -578,15 +577,15 @@ where we have dropped the explicit dependence on $\vc r$ for brevity. To consoli
 \cref{eq:NCtrans,eq:smallTrans}, we now define
 \begin{subequations}
 \begin{align}
-&K^I = 
+&\mathscr K^K = 
 \begin{cases}
-  \dfrac{\rho^I}{\vert \mathbf{m} \vert} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
-  \dfrac{1}{3} & \text{ (Small }\mathbf{m}\text{)} \\[12pt]
+  \dfrac{\rho^{1,K}}{\vert \mathbf{m} \vert} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
+  \dfrac{1}{6} & \text{ (Small }\mathbf{m}\text{)} \\[12pt]
 \end{cases}\\
-&H^I = 
+&\mathscr H^K = 
 \begin{cases}
-  \dfrac{f_\nabla D^{SI} }{\sqrt{\sum_k \left(D^{Sk}\right)^2   }} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
-  \dfrac{f_\nabla}{3} & \text{(Small }\mathbf{m}\text{)} \\[12pt]
+  \dfrac{f_\nabla D^{0K} }{\sqrt{\sum_{k=1}^3 \left(D^{0k}\right)^2   }} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
+  \dfrac{f_\nabla}{6} & \text{(Small }\mathbf{m}\text{)} \\[12pt]
 \end{cases}
 \end{align}
 \end{subequations}
@@ -598,12 +597,12 @@ where we have dropped the explicit dependence on $\vc r$ for brevity. To consoli
 On modern computing architectures, there are three primary facets one must consider when developing high--performance
 scientific software: parallelism, cache utilization, and exploitation of micro-architecture specific floating point
 operations ($\mu$-ops) such as single instruction--multiple data (SIMD) and fused multiply--add (FMA) operations. 
-We refer the reader to the work of Goto, \emph{et al}\cite{Goto08_TOMS12} for an excellent discussion of these considerations in the context of matrix operations.
+We refer the reader to the work of Goto, \emph{et al} \cite{Goto08_TOMS12} for an excellent discussion of these considerations in the context of matrix operations.
 In the context of density functional theory, maximal exploitation of computational cache
 and $\mu$-ops is achieved through batching groups of integration points together to maximize screening capability and
 memory contingency. 
 There exist many batching schemes for various molecular integration quadratures in the 
-literature\cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097}.
+literature \cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097}.
 We provide the following discussion without loss of generality.
 
 As the point--wise
@@ -612,7 +611,7 @@ function evaluations required for numerical integration are completely independe
 one should expect near linear speedup with the number of processors used. 
 In the context of electronic structure theory,
 the final two facets can usually be addressed through the use of highly optimized linear algebra software, such as
-the optimized BLAS (basic linear algebra subroutines) implementations offered OpenBLAS\cite{Qing13_ICHPC25,Yunquan12_PDS684} BLIS\cite{vanDeGeijn15_TOMS14} and Intel--MKL\cite{MKL}. 
+the optimized BLAS (basic linear algebra subroutines) implementations offered OpenBLAS \cite{Qing13_ICHPC25,Yunquan12_PDS684} BLIS \cite{vanDeGeijn15_TOMS14} and Intel--MKL \cite{MKL}. 
 However, blind application of such software without careful consideration will often yield sub-optimal results,
 thus it is often the case that one must perform some level of algorithmic rearrangement to maximally utilize
 such capability. 
@@ -636,13 +635,49 @@ the cache from main memory before it can perform any operations on it. Moving da
 more expensive than floating point operations, thus it must be kept to a minimum to obtain
 optimal efficiency.
 
-We may instead factor out a portion of the sum in \cref{eq:VXC_SYR2} such that we may partition it into sum over batches of points.
-In detail, we use the macrobatch approach,\cite{Frisch96_213} where the grid points of each atoms are arranged in Lebedev spheres\cite{Lebedev77_99}  of several radii, for the numerical integration of the exchange correlation potential,
+
+\begin{figure}[t!]
+\begin{center}
+\resizebox{3.0in}{!}{%
+  \includegraphics{Batches.png}
+}
+\end{center}
+\caption{Pictorial representation of the integrand macrobatching scheme for the xc potential integration. 
+Each of the colored regions represent a set of Lebedev spheres over several radial quadrature points, with the 
+solid black dot representing the atomic nucleus. In the batching scheme, the scalar and matrix integrands
+are evaluated over the entire batch simultaneously to improving caching and $\mu$-op behaviour.
+}
+\label{fig:Batching}       % Give a unique label
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\resizebox{3.25in}{!}{%
+  \includegraphics{Scheme2.pdf}
+}
+\end{center}
+\caption{Pictorial representation of the screening and updating scheme for each
+batch in the numerical integration of the xc potential.  A list of significant
+basis functions in the batch (colored patterns in the figure) is selected and
+than partitioned out for integration of that batch.  The accumulation of the
+matrix integrand over the batch is evaluated by SYR2K  and then the final,
+unscreened result is updated as shown. This scheme allows for only sequentional
+memory access in the performance critical section of the integration and is
+responsible for drastic performance increases.}
+\label{fig:Integration}       % Give a unique label
+\end{figure}
+
+We may instead factor out a portion of the sum in \cref{eq:VXC_SYR2} such that
+we may partition it into sum over batches of points.  In this work, we utilize a
+macrobatch approach \cite{Frisch96_213}, where the grid points of each atoms are
+grouped  into Lebedev spheres \cite{Lebedev77_99} of several radial quadrature points. This scheme
+is pictorially represented in \cref{fig:Batching}. Denoting the set of all batches
+as $\mathscr B$, we obtain
 
 \begin{align}
 \label{eq:VXC_SYR2K}
-\mathbf{V}^{GGA,I} &= \sum_{S_j \in S} \left(\sum_{i\in S_j} \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T \right) \nonumber \\
-&= \sum_{S_j \in S} \mathbf{Z}^{I(j)} \left(\mathbf{X}^{(j)}\right)^T + \mathbf{X}^{(j)} \left(\mathbf{Z}^{I(j)}\right)^T
+\mathbf{V}^{GGA,I} &= \sum_{S_j \in \mathscr B} \left(\sum_{i\in S_j} \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T \right) \nonumber \\
+&= \sum_{S_j \in \mathscr B} \mathbf{Z}^{I(j)} \left(\mathbf{X}^{(j)}\right)^T + \mathbf{X}^{(j)} \left(\mathbf{Z}^{I(j)}\right)^T
 \end{align}
 where
 \begin{equation}
@@ -671,18 +706,18 @@ This reduced list of basis, evaluated for all points in the batch, is stored in 
 An important note here is that the maximum values for the batch of basis functions, $\chi_{max}(batch)$, and potential, $Z_{max}(batch)$, can be used to screen the entire contribution of the points in the batch to the integration. In this case, the integration can move to the next batch, avoiding the rank-2k update, that is the computationally most expensive part of the process,  without loosing accuracy.
 Otherwise, recognizing that $\mathbf{Z}$ and $\mathbf{X}$ exhibit the same sparsity pattern, we may define
 \begin{equation}
-\tilde{\mathbf{V}}_{(j)}^{GGA,I} = \tilde{\mathbf{Z}}^{I(j)} \left(\tilde{\mathbf{X}}^{(j)}\right)^T + 
-\tilde{\mathbf{X}}^{(j)} \left(\tilde{\mathbf{Z}}^{I(j)}\right)^T
+\tilde{\mathbf{V}}_{(j)}^{GGA,K} = \tilde{\mathbf{Z}}^{K(j)} \left(\tilde{\mathbf{X}}^{(j)}\right)^T + 
+\tilde{\mathbf{X}}^{(j)} \left(\tilde{\mathbf{Z}}^{K(j)}\right)^T
 \end{equation}
 where moieties denoted with a tilde are the packed quantities where only the basis functions which have been chosen to be evaluated for the batch are represented.
-The packed $\tilde{\mathbf{V}}_{(j)}^{GGA,I}$ may then be used to update the full $\mathbf{V}^{GGA,I}$ by mapping its elements to those in the full basis dimension.
+The packed $\tilde{\mathbf{V}}_{(j)}^{GGA,K}$ may then be used to update the full $\mathbf{V}^{GGA,K}$ by mapping its elements to those in the full basis dimension.
 
 \subsection{Discussion}
 
 In this section, we will provide validation and computational performance
-results for the proposed non--collinear KS--DFT method. The proposed method was
+results for the proposed X2C-KS method. The proposed method was
 implemented in a locally modified version of the open source
-\texttt{ChronusQ}\cite{chronusq_beta2} electronic structure software package.
+\texttt{ChronusQ} \cite{chronusq_beta2} electronic structure software package.
 All calculations were performed using Intel Haswell compute nodes (14$\times$2
 Intel\textregistered Xeon E5--2680 v4 CPUs @ 2.40 GHz, 32k L1 cache, 256k L2
 cache, 35840k L3 cache) without the exploitation of molecular point group
@@ -695,17 +730,17 @@ each atom.
 \label{sec:NCDFT_VALID}
 
 A series of geometrically frustrated hydrogen rings were used to gauge the validity of the 
-proposed two--component Kohn--Sham implementation. Geometrically frustrated systems
+proposed X2C-KS implementation. Geometrically frustrated systems
 provide an excellect test case for the validation of non--collinear electronic structure
 methods as their lowest energy mean--field solutions break $\op{S}_z$ symmetry to minimize
 Pauli repulsion \cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109} .
-Unlike their collinear counter parts (such as restricted and unrestricted Kohn--Sham), non--collinear
-Kohn--Sham is able to support this broken symmetry due to its explicit treatment of the full
+Unlike their collinear counter parts (such as RKS and UKS), X2C-KS (or more generally GKS)
+is able to support this broken symmetry due to its explicit treatment of the full
 spinor nature of the electronic density. To this end, a series of six Hydrogen rings ranging from 3 to
 8 hydrogens were constructed such that each hydrogen was placed at 1 \AA~ spacing around 
 an equidistant circle (see \cref{fig:rings}). Thus only the odd membered rings may be considered geometrically
-frustrated. All calculations involving Hydrogen rings were performed using the X2C-B3LYP/6-311+G(d,p)
-level of theory\cite{Becke93_5648,Parr88_785,Preuss89_200}. 
+frustrated. All calculations involving Hydrogen rings were performed using the X2C-B3LYP/6-311+G(D,P)
+level of theory \cite{Becke93_5648,Parr88_785,Preuss89_200}. 
 The scalar and spin densities of the Hydrogen rings solutions have been examined in \cref{fig:rings}. 
 
 
@@ -713,44 +748,23 @@ In comparison to the thorough discussion of geometric frustration of Hydrogren r
 we can see that for the even numbered Hydrogren rings,
 the symmetrical distribution of the spin and scalar densities indicates an anti--ferromagnetic spin
 alignment; the same as one would get in a collinear solutions. This is further confirmed by the fact that
-the expectation value of $\op{S}$ for these solutions was found to be zero. thus all spins must be antialligned.
+the expectation value of $\op{S}$ for these solutions was found to be zero, thus all spins must be antialligned.
 While is this perhaps not the most
 intetesting result in the context of non--collinear calculations, it does indicate that our implementation
-collapses to the expected collinear behaviour if needed. Further in the case that the spin density is small
+collapses to the expected collinear behaviour if needed. Further, in the case that the spin density is small
 in all space (the six membered Hydrogen ring), we can see that the the choice for the generalized auxillary
 variables in \todo{reference eq} is a robust and accurate choice even in the worst case scenario.
 The primary result of \cref{fig:rings} is that both the spin and scalar densities adopt a symmetrical
 distribution even for the odd membered rings; a property which would be impossible in a collinear solution
 due to the geometrical frustration of the system. An anti--ferromagnetic solution (the lowest energy
 solution within the unrestricted formalism for the Slater determinant ground state) would yield an
-asymmetric spin density. Thus, our implementation of X2C-KS is able to reproduce the expected symmetries of
+asymmetric spin density \cite{Li15_154109}. Thus, our implementation of X2C-KS is able to reproduce the expected symmetries of
 the non--collinear soltions for both even and odd membered Hydrogen rings, ensuring the robustness and 
 reilability of the proposed method.
 
 
 
 
-%Molecular systems characterized by geometrically frustrated conformations have
-%been used to gauge the reliability of the presented implementation, since
-%generalized-KS  and X2C-KS, unlike U-KS, methods are capable to support the
-%broken $\op{S}_z$ symmetry that minimizes Pauli
-%repulsion\cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109} .
-%Thus, we examined a series of neutral hydrogen rings, ranging from 3 to 8
-%hydrogen atoms, that have already been proved to show broken symmetry solutions
-%within generalized Hartree-Fock theory.\cite{Li15_154109} The used
-%conformations have 1 \AA~ spaced hydrogen atoms and only the  odd-membered
-%rings will be geometrically frustrated.  All  hydrogen rings electronic
-%structure were obtained by solving the presented X2C-KS equation  in
-%open-source \texttt{ChronusQ}\cite{chronusq_beta2} electronic structure
-%software using the hybrid Becke, 3-parameter, Lee-Yang-Parr (B3LYP) density
-%functional 
-%\cite{Becke93_5648,Parr88_785,Preuss89_200} with a 6-311+g** basis, since it is required to include the polarization of hydrogenic s-functions.\cite{Li15_154109}
-%Qualitatively,  X2C-KS solutions are given in \cref{fig:rings}, where both the spin and the charge densities are reported, respectively. The spin density in the non-collinear
-%approach is a mapping of the 2-norm of the spin magnetization vector onto the total density \cite{Wullen02_779}, ensuring the spin density to be positive and always real, and the charge density is a mapping of the electrostatic potential to the total density.
-%For even numbered rings, the anti-ferromagnetic
-%spin distribution can be observed, aside from the six rings (where the closed shell solution is the most stable one according to the $2n + 1$ rule for M\"obius-like periodicity).
-%For odd membered rings, the M\"obius-like periodicity of magnetization ordering
-%in X2C-KS results can be inspected by the totally symmetric distribution of the spin density throughout the structure in \cref{fig:rings}. This symmetric distribution can not be supported by collinear solutions\cite{Li15_154109} which are constrained to be eigenfunctions of $\op{S}_z$. Thus, X2C-B3LYP  is able to reproduce the expected symmetry of non-collinear results for odd membered rings \cite{Li15_154109}, ensuring the reliability of the  current implementation.
 
 \begin{figure}
 \begin{center}
@@ -776,29 +790,55 @@ Blue and Red represent regions of greater density magnitude respectively.}
 \label{fig:radicals}       
 \end{figure}
 
-After we have checked the reliability and presented the schematics of the integration scheme, 
-we focus on the performances of the method.
-All the following tests presented were performed without exploiting symmetry using B3LYP/6-311+G(2d,p) theory level
-All times refer to the combined wall time for 
-the numerical evaluation of $E_{XC}$ and the matrix elements  $V^{GGA,I}_{\mu\nu}$, (\cref{eq:EXCGGA_num} and \cref{eq:VXCGGA_num}) for
-each  self consistent field (SCF) step (as average over 5 steps).
-The scaling of the numerical integration
-with respect to increasing system sizes is investigated first by measuring wall timings on a series of phenoxy radicals with increasing number of symmetrical fused benzene rings ($n$=1-10). 
-These systems have been chosen, since they present a delocalized spin-density over the entire molecule (see \cref{fig:radicals}) for all values of $n$. This is very important, since the screening based on the different components of the density can be very large in regions showing zero magnetization density.
-Wall times are shown in \cref{fig:timing} as function of the total number of atoms in the systems for both the U-KS and X2C-KS implementations.
-The scaling factors are similar for both U-KS and X2C-KS integration (see the parallel fitted lines in the figure), showing how the  X2C-KS integration does not show any consistent computational overhead in the   $V^{GGA,I}_{\mu\nu}$ integration with
-respect to the common U-KS integration. 
-Finally, by employing the largest phenoxy radical of the series ($n$=10), the same wall times are recorded as function of increasing MPI processes across different computational nodes (for 1, 2, 4, 8, 12 nodes, for a total 
-of 28, 56, 112, 224, 336 CPUs) and reported in \cref{fig:nodes}. 
-The implemented algorithm presents linear ($-1.01$) with increasing number of CPUs, as can be expected since the integration over different atomic centers can be easily independently performed across different computing nodes.
+In this section, we examine the computational performance of the proposed
+X2C-KS method.  All the following tests presented were performed using
+X2C-B3LYP/6-311+G(2D,P).  All times refer to the combined wall time for the
+numerical evaluation of $ E^{GGA}$ and the matrix elements
+$V^{GGA,K}_{\mu\nu}$ (\cref{eq:EXCGGA_num} and \cref{eq:VXCGGA_num}) as an
+average over 5 SCF steps in the X2C-KS optimization.  
+
+To demostrate the efficacy of our method relative to standard UKS methods,
+we examine the relative scaling of UKS and X2C-KS with respect to system
+size. For this numerical experiment we have choses a set of phenoxy radicals
+shown in \cref{fig:radicals}. These systems were chosen as they exhibit highly
+delocalized spin--density across their entire spatial extent. This allows for
+a true comparison between UKS and X2C-KS as UKS will only support a particular
+($z$) orientation of the magnetization vector while X2C-KS will not have this
+restriction. Wall timings for single node (28 CPU core) performance on these systems are presented in \cref{fig:timings}.
+As can be seen, the scaling of UKS and X2C-KS is identical with X2C-KS
+having a slightly larger prefactor. In terms of raw wall timings, this increase in prefactor
+does not ammount to a significant computational overhead over UKS. This is to be expected as there are (linearly)
+more spin components of $\spvc V^{xc}$ is X2C-KS over UKS (per \cref{eq:DenFockConstraint}),
+thus the only difference should amount to a prefactor.
+
+
+
+
+To demostrate the scalability of the proposed method, we examine the parallel
+performance of our implementation using the largest phenoxy radical from the
+previous numerical experiment. Wall time as a function of the number of 
+parallel processes utilized (1, 2, 4, 8, 12 nodes, for a total of 28, 56, 112, 224, 336 CPU cores)
+for this system is are presented in \cref{fig:nodes}. The implementation of X2C-KS
+is shown to exhibit linear scaling over parallel processors (a slope of -1.01).
+As previously discussed in \cref{sec:NCDFT_IMPL}, this behaviour is expected
+for a proper implementaion of any KS method as the operations which are to be performed
+are completely independent. In out implementation, distributed memory parallelism
+was achieved by placing each atomic integrand (per the Becke scheme) on
+an individual MPI process while performing each atomic indegrand using shared
+memory parallelism (OpenMP) of each node.
+
 \begin{figure}
 \begin{center}
 \resizebox{3.25in}{!}{%
   \includegraphics{timings_natoms.pdf}
 }
 \end{center}
-\caption{Wall timings in seconds as a function of the total number of atoms in the systems for the evaluation of the $E_{XC}$ and the matrix elements $X_{\mu \nu}$ in one SCF step (as average over 5 steps, 6-311+G(2d,p), 100$\times$302 grid.
-  Both the U-KS, empty diamonds, and X2C-KS, filled circles, are reported for comparison. A linear fit in this log-log scale is performed to show the similar scaling for the two different integration. 
+\caption{
+Relative scaling with respect to system size on a set of phenoxy radicals for
+the UKS and proposed X2C-KS methods. Times are presented logarithmically to
+demonstrate identical scaling with differing prefactors for the two methods.
+Times presented are the average wall times for the numerical integration of
+$E^{GGA}$ and $V_{\mu\nu}^{GGA,K}$ over 5 SCF steps.  
 }
 \label{fig:timing}     
 \end{figure}
@@ -810,31 +850,50 @@ The implemented algorithm presents linear ($-1.01$) with increasing number of CP
 }
 \end{center}
 \caption{
-Wall timings in seconds as function of increasing computational CPUs of the $E_{XC}$ and the matrix 
-elements $X_{\mu \nu}$ for each SCF step (as average over 5 steps, 6-311+G(2d,p), 100$\times$302 grid, 
-2619 basis functions). A linear fit, -1.01 slope, is also represented as full line.
+Wall times for the distributed memory parallel performance of the proposed implementation of 
+X2C-KS on a large phenoxy radical. Times are presented logarithmically to demonstrate the linear 
+(-1.01) scaling of the proposed method.
+Times presented are the average wall times for the numerical integration of
+$E^{GGA}$ and $V_{\mu\nu}^{GGA,K}$ over 5 SCF steps.  
 }
 \label{fig:nodes}       
 \end{figure}
 
 \subsection{Conclusions}
-In this work, we presented an integration and assembly strategy, 
-using a two-component spinor density, for efficient evaluation
-of the exchange correlation term using localized basis
-functions. 
-The presented formulation is suitable to exploit parallelism 
-along with optimal cache utilization and micro-architecture specific floating point operations.
-This leads to the evaluation of exchange correlation
-contributions with matrices of optimal sizes. 
-We also show that the proper choice of auxiliary variables 
-correctly give rise to nonzero local torque of the xc magnetic field on the magnetization
-while maintaining net zero global torque, as is expected from
-the exact functional. 
-Several tests were used to validate 
-the reliability and the performance of the proposed strategy.
-This approach can help to extend 
-the applicability of relativistic two-component DFT 
-to systems of large size ($>$ 100 atoms). 
+
+In this work, we developed an efficient and scalable protocol for the
+integration and assembly of the xc potential in non--collinear
+KS-DFT. Initial numerical experiments demonstrate numerical stability
+and robustness for the proposed method on a set of challengeing
+molecular systems which exhibit non--collinearity due to geometrical
+frustration. We have demonstrated excellent performance of
+the proposed method both from the perspective of scaling with system
+size and linear parallel scaling on distributed memory architechtures.
+Further, we have shown that with the proposed algorithm, the computational 
+cost relative to UKS is not significant. We hope that the proposed algorithm
+will inspire development in relativistic DFT to move past proof of concept
+and torwards leveraging the lastest advances in high--performance computing.
+
+
+
+
+%In this work, we presented an integration and assembly strategy, 
+%using a two-component spinor density, for efficient evaluation
+%of the exchange correlation term using localized basis
+%functions. 
+%The presented formulation is suitable to exploit parallelism 
+%along with optimal cache utilization and micro-architecture specific floating point operations.
+%This leads to the evaluation of exchange correlation
+%contributions with matrices of optimal sizes. 
+%We also show that the proper choice of auxiliary variables 
+%correctly give rise to nonzero local torque of the xc magnetic field on the magnetization
+%while maintaining net zero global torque, as is expected from
+%the exact functional. 
+%Several tests were used to validate 
+%the reliability and the performance of the proposed strategy.
+%This approach can help to extend 
+%the applicability of relativistic two-component DFT 
+%to systems of large size ($>$ 100 atoms). 
 
 
 
