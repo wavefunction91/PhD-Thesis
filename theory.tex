@@ -984,7 +984,7 @@ where we have defined
     \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 \label{eq:ClassCoulFunc}\\
   &K[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
       \gamma^1(\vc{x}'_1; \vc{x}_2)\gamma^1(\vc{x}'_2; \vc{x}_1) 
-    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 
+    \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2  \label{eq:ExchFunc}
 \end{align}
 \Cref{eq:ConstrMin} then becomes
 \begin{equation}
@@ -1185,6 +1185,7 @@ where $\{\phi_i\}$ is the set of so called \emph{Kohn--Sham molecular orbitals} 
 $\tilde E^{xc}$ is an augmented xc functional which accounts for the difference
 of $H_s^\mathrm{free}$ and $H^\mathrm{free}$,
 \begin{equation}
+  \label{eq:KSXC_func}
   \tilde E^{xc}[\gamma^1_s] = H^\mathrm{free}[\gamma^1_s] - H_s^\mathrm{free}[\gamma^1_s] + E^{xc}[\gamma^1_s].
 \end{equation}
 Due to the introduction of the non--interacting system, or equivalently a set of orbitals,
@@ -1263,6 +1264,7 @@ for a particular reference. In this section we examine these quantities for a re
 which represents either a HF or KS-DFT determinant without loss of generality.  
 Expanding \cref{eq:RDMSD} in \cref{eq:LCAO}, we obtain,
 \begin{equation}
+  \label{eq:DenMatEval}
   \gamma^{1,K}(\vc{r}; \vc{r}') = \sum_{\mu\nu} P_{\mu\nu}^{K} \chi_\mu(\vc{r}) \chi^*_\nu(\vc{r}'), \quad K \in \{0,1,2,3\},
 \end{equation}
 where
@@ -1304,6 +1306,7 @@ where
 
 
 \subsection{Spin Symmetries of Non--Interacting Wave Functions} 
+\label{sec:SpinSymm}
 
 In this section, we consider the spin symmetries of a general Fock matrix, $\spvc F$, which could be described as either
 \cref{eq:HFMat} for Hartree--Fock wave functions, or \cref{eq:KSMat} for Kohn--Sham wave functions.
@@ -1647,7 +1650,7 @@ Carrying out the integration in a finite basis set via \cref{eq:OBBasisExp}, we 
   &J^{\sigma\sigma'}_{\mu\nu} &&= 2\delta_{\sigma\sigma'}
     \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\nu \kappa} P^0_{\kappa\lambda}, \\
   &K^{\sigma\sigma'}_{\mu\nu} &&= 
-    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\kappa \nu} P^{\sigma\sigma'}_{\kappa\lambda},
+    \sum_{\lambda\kappa} \innerop{\mu \lambda}{r_{12}^{-1}}{\kappa \nu} P^{\sigma\sigma'}_{\kappa\lambda}, \label{eq:HFX_mat}
 \end{alignat}
 \end{subequations}
 where we have substituted in the basis expansions of the density matrix from \cref{eq:1PDM} and introduced
@@ -1832,6 +1835,7 @@ we may solve for only the electronic states in an approximate manner. In \cref{s
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
 
 \subsection{The Dirac--Coulomb and Dirac--Coulomb--Breit Hamiltonians}
+\label{sec:DCBHam}
 
 Although it is rarely outright stated in the context of the electronic structure theory
 literature, there is no \emph{truly} relativistically covariant formulation of many--body quantum 

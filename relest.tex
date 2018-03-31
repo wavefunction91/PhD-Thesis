@@ -258,144 +258,274 @@ must be used in general.
 \section{An Efficient and Scalable Implementation of Non-Collinear Density Functional Theory}
 \label{sec:NCDFT}
 
-\subsection{Assembly of $\mathbf{V}^{xc}$ for Spinor Densities}
+\subsection{Motivation}
+\label{sec:NCDFT_Motiv}
 
-In this section, we examine the integration and assembly of the $E^{GGA}_{xc}$ dependent terms of
-the Kohn--Sham Fock matrix using a spinor density. In general, the exchange correlation contribution to the
+DFT (\cref{sec:DFT}) has become the primary investigative tool for quantum chemical calculations
+regarding systems at large, experimentally relevant scales. The primary reason
+for its success has been its excellent balance of accuracy and computational
+cost and the vast availability through the development of efficient and
+reliable DFT software capable of leveraging the latest advances in
+high--performance computing \cite{Genovese17_e1290}.  
+Efficient and robust numerical integration techniques for the xc potential (\cref{eq:VXCBasis}) have been
+thoroughly studied throughout the
+years \cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097},
+and their proper application is crucial to the practicality and applicability
+of DFT methods.  The wide adoption of DFT in the scientific community as
+a whole has enabled routine, \emph{ab initio} characterization of both ground
+and excited state properties for large macromolecular systems such as those of
+biological \cite{Payne14_3614,Mennucci17_294,Rega18_1126} and
+materials \cite{Ceder06_659,Skylaris16_220901,Li16_165402,Li16_7255,Li16_1601307,Li17_161}
+interest and their transient
+behavior \cite{Li16_104107,Li16_935,Li16_4501,Li17_3958}.
+
+% Spin and why its important in materials, etc
+Recently, there has been a resurgence of interest in the materials community
+for the development and design of materials which exploit properties of
+electronic spin in their applications, such as magnetic materials, spintronic
+devices, and catalytic active sites
+\cite{Berdinsky02_603,Ullrich06_2285,Sanvito11_3336,Mouritsen16_299} .  As
+such, there is a strong need for electronic structure theories that are capable
+of treating electronic spins in large scale systems. Thus, motivated by its
+success in other aspects of materials research, there has been a large emphasis
+in recent years on the extension of existing DFT methods to properly
+include electronic spin and spin interactions.
+
+% Relativistic Theory!
+At its core, a rigorous treatment of electronic spin and its interaction with
+materials in quantum systems must be rooted in relativistic quantum mechanics
+\cite{Dreizler84_353,Faegri07_book,Pyykko12_45,Wolf15_book}. 
+As was discussed in \cref{sec:RELH}, the introduction
+spin--couplings into the relativistic Hamiltonian has been demonstrated to yield profound
+effects even in light elements \cite{Pyykko12_45}, which may be physically
+realized in systems such as doped nanodiamonds which have recently been
+recognized as  fantastic candidates for the next generation of spintronic
+devices and $q$-bits in quantum
+computers \cite{Proskuryakov12_226402,Gali17_081115,Awschalom10_8513,Obrien10_7285,Petta13_1174,Li16_165402}.
+Due to this centralized importance in the treatment of electronic spin, there
+has been a lot of effort in recent years to extend existing electronic
+structure methods to include relativistic effects, chief among them being
+extensions of DFT based methods in both the
+ground \cite{Helgaker02_814,Liu03_597,Cheng07_104106,Saue11_1439} and
+excited \cite{Jensen03_522,Liu04_6658,Saue09_2091,Li16_5379,Li17_2591}
+electronic states.  
+Relativistic analogues to the Hohenberg--Kohn
+theorems require the exact energy functional not only to be a functional of the
+electronic density, but also of the current
+density \cite{Vignale95_485,Engel98_138,Faegri07_book,Ullrich04_20,Rajagopal96_book,Wolf15_book,Rasolt87_2360,Boeij07_174111,Gross07_100401,Gross08_245106}.
+While some work has gone into the development of these types of
+functionals \cite{Tozer08_074101,Colwell95_10095,Sandratskii98_91,Ullrich09_859,Gross13_156401,Furche12_164105,Teale15_4169},
+the bulk of widely used exchange correlation functionals do not include these
+effects due to the fact that their contribution is typically small. 
+
+
+% Spin non--collinearity + retrofitting functionals in 2 / 4 C
+One of the central challenges in relativistic DFT is in that the introduction
+of spin couplings into the Hamiltonian necessarily introduce spin
+non--collinearity  in the electronic density for open--shell systems, i.e the
+spin magnetization vector is no longer restricted to coincide with the
+$z$--axis (see \cref{sec:SpinSymm,sec:MF2C}). In this regard, unlike the collinear
+theory, non-collinear DFT requires the functional to depend on scalar and magnetization
+densities (\cref{eq:Densities}).
+Unfortunately, density functionals commonly
+employed in quantum chemistry have been developed for collinear densities, and
+therefore, there is no straightforward way to employ them in non-collinear
+systems.  
+%
+%In this context, any  non-collinear DFT generalization  needs also to
+%pay particular attention on preserving the property that the self-consistent xc
+%magnetic field cannot exert a net torque on the system as a whole (zero-torque
+%theorem) \cite{Gyorffy01_206403}.  On the other hand,  the local torque does not
+%need to vanish identically at every point in space, since this local
+%contribution is required to obtain accurate spin dynamics and a proper
+%time-evolution of the
+%magnetization\cite{Gyorffy01_206403,Gyorffy03_354,Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Li17_2591}.
+%
+In this context, any generalization of collinear DFT to non-collinear densities
+must adhere to the so called zero--torque theorem \cite{Gyorffy01_206403},
+namely that the xc magnetic field (see \cref{apx:ZeroTorque} \cref{eq:xcMagField}) cannot
+exert a net torque on the magnetization density. However, if such a generalization
+does not admit local torque by the xc magnetic field, one cannot resolve proper
+time--evolution of the magnetization density in the absense of fields
+\cite{Gyorffy01_206403,Gyorffy03_354,Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Li17_2591}.
+%
+Several efforts have been made to adapt common density functionals
+developed for collinear densities for use 
+relativistic calculations in this manner, both in the context of relativistic
+two-component \cite{Wullen02_779,Liu03_597,Ziegler04_12191,Liu05_144101,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Li17_2591}
+and four-component
+\cite{Helgaker02_814,Saue03_10418,Servedio99_23,Liu03_597,Engel04_012505}
+methods.  
+However, in stark contrast to its non--relativistic collinear counterpart, no work has gone into developing highly optimized
+numerical integration techniques for these relativistic DFT methods. Thus, in this work, we outline an efficient algorithm 
+and practical considerations for the integration of the xc potential in non--collinear relativistic DFT.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Assembly of the Exchange--Correlation Potential for Spinor Densities}
+
+In this section, we examine the integration and assembly of the $\tilde E^{xc}$ (\cref{eq:KSXC_func})
+dependent terms of the KS Fock matrix using a spinor density (see
+\cref{sec:MF2C}).  In this work, we will limit our discussion to those
+functionals which may be characterized under the hybrid generalized gradient
+approximation (hybrid GGA), where $\tilde E^{xc}$ takes the form
+\begin{equation}
+  \label{eq:XCFUN}
+\tilde E^{xc}[\gamma^1] = E^{GGA}[\vc\rho^1,\nabla\vc\rho^1] - c_{x}K[\gamma^1] .
+\end{equation}
+Here, the full $\tilde E^{xc}$ has been partitioned into a pure GGA exchange correlation functional, $E^{GGA}$, 
+which is a functional of the electronic density ($\vc \rho^1$) and its gradient (see \cref{eq:Densities}),
+and a scaled ($c_x \in [0,1]$) Hartree--Fock exchange energy (\cref{eq:ExchFunc}).
+In general, the exchange correlation contribution to the
 electronic energy may be written as an integral over an exchange correlation (xc) integration kernel, $f$,
 \begin{equation}
-  \label{eq:EXCGGA}
-E_{xc}^{GGA}[\rho, \nabla \rho] = \int \mathrm{d}^3 \vc r \text{  }f(\{ U(\vc{r}) \}) ,
+  \label{eq:EXCEVAL}
+E^{GGA}[\vc \rho^1, \nabla \vc \rho^1] = \int \mathrm{d}^3 \vc r \text{  }f(\{ U(\vc{r}) \}) ,
 \end{equation}
 where we have introduced a set of auxiliary ``U"--variables, $\{U(\vc{r})\}$, upon which
-the xc kernel depends. These need not be the density variables ($\rho, \nabla \rho$) directly,
+the xc kernel depends. These need not be the density variables ($\vc \rho^1, \nabla \vc \rho^1$) directly,
 which we will refer to as ``V"--variables, $\{V(\vc{r})\}$, but rather have complete flexibility in
-functional form. In non--relativistic, spin--polarized density functional theory, these sets of variables
+functional form. In non--relativistic, spin--polarized (collinear) DFT, these sets of variables
 may be defined as
 \begin{equation}
   \label{eq:Vcol}
-  \{ V^{col}(\vc{r}) \} = \{ \rho^\alpha(\vc{r}), \rho^\beta(\vc{r}), \nabla \rho^\alpha(\vc{r}), \nabla \rho^\beta(\vc{r}) \} 
+  \{ V^{col}(\vc{r}) \} = \{ \rho^{1,\saa}(\vc{r}), \rho^{1,\sbb}(\vc{r}), \nabla \rho^{1,\saa}(\vc{r}), \nabla \rho^{1,\sbb}(\vc{r}) \} 
 \end{equation}
 and
 \begin{equation}
   \label{eq:Ucol}
-  \{ U^{col}(\vc{r}) \} = \{ \rho^\alpha(\vc{r}), \rho^\beta(\vc{r}), \gamma^{\alpha\alpha}(\vc{r}), \gamma^{\alpha\beta}(\vc{r}), \gamma^{\beta\beta}(\vc{r}) \}
+  \{ U^{col}(\vc{r}) \} = \{ \rho^{1,\saa}(\vc{r}), \rho^{1,\sbb}(\vc{r}), \varphi^\saa(\vc{r}), \varphi^\sab(\vc{r}), \varphi^\sbb(\vc{r}) \}
 \end{equation}
 where
 \begin{equation}
-  \gamma^{\sigma\sigma'}(\vc{r}) = \nabla \rho^\sigma(\vc{r}) \cdot \nabla \rho^{\sigma'}(\vc{r})
+  \varphi^{\sigma\sigma'}(\vc{r}) = \nabla \rho^{1,\sigma\sigma}(\vc{r}) \cdot \nabla \rho^{1,\sigma'\sigma'}(\vc{r})
 \end{equation}
 The practical utility for the use of these two separate sets of variables 
 is especially apparent in the context of two--component density functional theory
 as it allows for a simple retrofitting of standard xc functionals for relativistic calculations
 by simply redefining the transformations from the V variables of relativistic theory. 
 
-In the following, we will make use of the transformation
-of the spin blocked density of \cref{eq:2CDen} to the variables $\{\rho^S,\rho^z,\rho^y,\rho^x\}$
-via \cref{eq:CompTrans}.  Defining
-the magnetization density as $\mathbf{m}(\vc{r}) = \{\rho^z(\vc{r}), \rho^y(\vc{r}), \rho^x(\vc{r})\}$, non--collinear
-analogues for \cref{eq:Vcol,eq:Ucol} may be defined as
+Define the scalar and magnetization densities as in \cref{eq:Densities}, we may define 2C analogues
+to the collinear auxillary variables as
 \begin{align}
   \label{eq:NCAuxVar}
-  &\{ V^{NC}(\vc{r}) \} = \{ \rho^S(\vc{r}), \mathbf{m}(\vc{r}), \nabla \rho^S, \nabla \mathbf{m}(\vc{r}) \} \\
-  &\{ U^{NC}(\vc{r}) \} = \nonumber \\ &\quad\{ n^+(\vc{r}), n^-(\vc{r}), \gamma^{++}(\vc{r}), \gamma^{+-}(\vc{r}), \gamma^{--}(\vc{r}) \}
+  &\{ V^{NC}(\vc{r}) \} = \{ \rho^{1,0}(\vc{r}), \mathbf{m}(\vc{r}), \nabla \rho^{1,0}(\vc r), \nabla \mathbf{m}(\vc{r}) \} \\
+  &\{ U^{NC}(\vc{r}) \} = \{ n^+(\vc{r}), n^-(\vc{r}), \varphi^{++}(\vc{r}), \varphi^{+-}(\vc{r}), \varphi^{--}(\vc{r}) \}
 \end{align}
 where we have used $NC$ to denote non--collinearity. The connection between $\{U^{col}\}$ and $\{U^{NC}\}$
 is clear by making the substitution $\alpha \leftrightarrow +$ and $\beta \leftrightarrow -$. 
-$\{V^{col}\}$ and $\{V^{NC}\}$ may be related by recognizing $\{\rho^\alpha,\rho^\beta\}$ as the diagonal contributions
+$\{V^{col}\}$ and $\{V^{NC}\}$ may be related by recognizing $\{\rho^\saa,\rho^\saa\}$ as the diagonal contributions
 of the spinor density, and thus
 \begin{equation}
-  \{\rho^\alpha(\vc{r}), \rho^\beta(\vc{r})\} \mapsto \{\rho^S(\vc{r}), \mathbf{m}^{col}(\vc{r})\}
+  \{\rho^\saa(\vc{r}), \rho^\sbb(\vc{r})\} \mapsto \{\rho^{1,0}(\vc{r}), \mathbf{m}^{col}(\vc{r})\}
 \end{equation}
-where $\mathbf{m}^{col}(\vc{r}) = \{\rho^z(\vc{r}),0,0\}$. Given the components of the spinor density matrix,
-spatial evaluation of the V--variables is given by
-\begin{align}
+where $\mathbf{m}^{col}(\vc{r}) = \{0,0,\rho^{1,3}(\vc{r})\}$. Given the components of the spinor density matrix,
+spatial evaluation of the V--variables is given by (\cref{eq:DenMatEval})
+\begin{alignat}{2}
   \label{eq:VVarEval}
-  \rho^I(\vc{r}) &= 
-%    \sum_{\mu\nu} P^I_{\mu\nu} \chi_\mu(\vc{r}) \chi_\nu(\vc{r}) = 
-    \sum_{\mu\nu} \mathrm{Re}[P^I_{\mu\nu}] \chi_\mu(\vc{r}) \chi_\nu(\vc{r})\\
-  \nabla\rho^I(\vc{r}) &= 
-%    \sum_{\mu\nu} P^I_{\mu\nu} \nabla \left(\chi_\mu(\vc{r}) \chi_\nu(\vc{r})\right) = 
-    2\sum_{\mu\nu} \mathrm{Re}[P^I_{\mu\nu}] \chi_\mu(\vc{r}) \nabla\chi_\nu(\vc{r})
-\end{align}
-where $\mathrm{Re}[x]$ denotes the real part of $x$. Remark that the evaluation of $\{V(\vc{r})\}$ may then be practically 
+  \rho^{1,K}(\vc{r}) &= \sum_{\mu\nu} \mathrm{Re}[P^K_{\mu\nu}] \chi_\mu(\vc{r}) \chi_\nu(\vc{r}) \quad && K \in{0,1,2,3}\\
+  \nabla\rho^{1,K}(\vc{r}) &= 2\sum_{\mu\nu} \mathrm{Re}[P^K_{\mu\nu}] \chi_\mu(\vc{r}) \nabla\chi_\nu(\vc{r})\quad && K \in{0,1,2,3}
+\end{alignat}
+where the matrices $\vc P^K$ are defined as in \cref{eq:1PDM} and $\mathrm{Re}[x]$ denotes the real part of $x$. Remark that the evaluation of $\{V(\vc{r})\}$ may then be practically 
 evaluated using strictly real arithmetic.
 
-Given a transformation, $\{ V^{NC}(\vc{r}) \} \mapsto \{U^{NC}_I(\vc{r})\}$, it is possible to perform practical
+Given a transformation, $\{ V^{NC}(\vc{r}) \} \mapsto \{U^{NC}(\vc{r})\}$, it is possible to perform practical
 density functional calculations using standard implementations of collinear xc functionals, such
 as those provided by \texttt{libxc} \cite{Burnus12_2272,Marques18_1}. However, defining such a transformation is not 
 a trivial task, as the added spin degrees of freedom in the non--collinear spinor density and
 Fock matrix must obey to stricter conditions than their collinear counterparts, such as orientation
-invariance and adhering to the zero--torque theorem for the xc potential.\cite{Gyorffy01_206403}
-Several definitions of the generalized density variables have been proposed.\cite{Wullen02_779,Ullrich05_073102,Frisch07_125119,Frisch12_2193,Scuseria13_035117}
+invariance and adhering to the zero--torque theorem for the xc potential \cite{Gyorffy01_206403}.
+Several definitions of the generalized density variables have been proposed \cite{Wullen02_779,Ullrich05_073102,Frisch07_125119,Frisch12_2193,Scuseria13_035117}.
 In this work, we utilize the transformation method which meets such conditions from Ref.\cite{Li17_2591} 
 \begin{subequations}
   \label{eq:NCtrans}
   \begin{align}    
-    n^\pm(\vc{r})        & = \frac{1}{2}\rho^S(\vc{r}) \pm \frac{1}{2} \vert\mathbf{m}(\vc{r})\vert\\
-    \gamma^{\pm\pm}(\vc{r}) & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\  
-                         & + \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber \\
-                         & \pm \frac{f_{\nabla}(\vc{r})}{2}\sqrt{ \sum_k D^{Sk} (\vc{r})^2} \nonumber \\
-    \gamma^{+-}(\vc{r})      & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\ 
-                         & - \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber
+    n^\pm(\vc{r})        & = \rho^{1,0}(\vc{r}) \pm \vert\mathbf{m}(\vc{r})\vert\\
+     \varphi^{\pm\pm}(\vc{r}) & = D^{00}(\vc r)   + \sum_{k=1}^3 D^{kk} (\vc r) 
+                           \pm f_{\nabla}(\vc{r})\sqrt{ \sum_{k=1}^3 D^{0k}(\vc{r})^2} \\
+     \varphi^{+-}(\vc{r})      & = D^{00} (\vc r)
+                           - \sum_{k=1}^3 D^{kk} (\vc r)
   \end{align}
 \end{subequations}
 where
 \begin{align}  
-  f_{\nabla}(\vc{r}) & = sgn\left(\nabla\rho^S (\vc{r}) \cdot \left(\sum_k \nabla\rho^k (\vc{r}) \cdot \rho^k (\vc{r}) \right)\right) \\
-  D^{IJ} (\vc{r})      &  = \nabla\rho^I (\vc{r}) \cdot  \nabla \rho^J (\vc{r})  
+  f_{\nabla}(\vc{r}) & = sgn\left(\nabla\rho^{1,0} (\vc{r}) \cdot \left(\sum_{k=1}^3 D^{kk}(\vc r) \right)\right) \\
+  D^{KL} (\vc{r})      &  = \nabla\rho^{1,K} (\vc{r}) \cdot  \nabla \rho^{1,L} (\vc{r})  
 \end{align} 
 Using this set of transformations, we may define an electronic energy and Fock matrix which has no dependence
-on the global orientation of $\mathbf{m}(\vc{r})$ and which satisfies the zero torque theorem (see Appendix) for
-the exchange correlation potential also in the GGA framework.
+on the global orientation of $\mathbf{m}(\vc{r})$ and which satisfies the zero torque theorem (see \cref{apx:ZeroTorque}) for
+the xc potential within in the GGA framework.
 
-In the limit of small $\mathbf{m}(\vc{r})$ ($\lvert \mathbf{m}(\vc{r}) \rvert < 10^{-12}$, in this work), the transformations outlined in 
-\cref{eq:NCtrans} yield numerically unstable
-expressions for the exchange correlation potential.\cite{Li17_2591} Thus one must define another set of transformations for practical
-implementations of non--collinear DFT to ensure proper convergence in the limit of small $\mathbf{m}(\vc{r})$. In summary,
-this change for small $\mathbf{m}(\vc{r})$ may be described by the following substitutions in \cref{eq:NCtrans},
+In the limit of small $\mathbf{m}(\vc{r})$ ($\lvert \mathbf{m}(\vc{r}) \rvert <
+10^{-12}$, in this work), the transformations outlined in \cref{eq:NCtrans}
+yield numerically unstable expressions for the exchange correlation
+potential \cite{Li17_2591}. Thus one must define another set of transformations
+for practical implementations of non--collinear DFT to ensure proper
+convergence in the limit of small $\mathbf{m}(\vc{r})$. In summary, this change
+for small $\mathbf{m}(\vc{r})$ may be described by the following substitutions
+in \cref{eq:NCtrans},
 \begin{subequations}
   \label{eq:smallTrans}
 %  \begin{align}  
 %    n^\pm(\vc{r})        & = \frac{1}{2}\rho^S(\vc{r}) \pm \frac{1}{2} \left( \frac{1}{3}\sum_k \rho^k(\vc{r}) \right) \\ 
-%    \gamma^{\pm\pm}(\vc{r}) & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r})  \\
+%    \varphi^{\pm\pm}(\vc{r}) & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r})  \\
 %                         & + \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber \\
 %                         & \pm \frac{f_{\nabla}(\vc{r})}{2} \left( \frac{1}{3}\sum_k D^{Sk}  (\vc{r}) \right) \nonumber \\
-%    \gamma^\pm(\vc{r})      & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\ 
+%    \varphi^\pm(\vc{r})      & = \frac{1}{4}\nabla\rho^S (\vc{r})\cdot \nabla\rho^S (\vc{r}) \\ 
 %                         & - \frac{1}{4}\sum_k \nabla\rho^k (\vc{r}) \cdot \nabla\rho^k (\vc{r}) \nonumber
 %  \end{align}
 \begin{align}
-  \vert \mathbf{m}(\vc{r}) \vert   &\mapsto m_s(\vc r) = \frac{1}{3}\sum_k \rho^k(\vc{r}),\\
-  \sqrt{ \sum_k \left( D^{Sk} (\vc{r}) \right)^2} &\mapsto \nabla \rho^S(\vc r) \cdot \nabla m_s(\vc r).
+  \vert \mathbf{m}(\vc{r}) \vert   &\mapsto m_s(\vc r) = \frac{1}{3}\sum_{k=1}^3 \rho^{1,k}(\vc{r}),\\
+  \sqrt{ \sum_{k=1}^3 \left( D^{0k} (\vc{r}) \right)^2} &\mapsto \nabla \rho^{1,0}(\vc r) \cdot \nabla m_s(\vc r).
 \end{align}
 \end{subequations}
 Using these mappings ensures no orientation dependence of $\mathbf{m}$ while maintaining numerical stability
 in the resulting expression for the xc potential. While \cref{eq:smallTrans} formally violates the zero
 torque theorem, its influence on the over all nature of the electronic density has been shown to be 
-negligible\cite{Li17_2591}.
+negligible \cite{Li17_2591}.
 
-Differentiating \cref{eq:EXCGGA} with respect to the elements of the density matrix, we obtain for \cref{eq:VXCdef}
+Differentiating \cref{eq:EXCEVAL} with respect to the elements of the density matrix, we obtain for \cref{eq:VXCBasis} 
+(or more specifically its Pauli components)
+\begin{equation}
+  V^{xc,L}_{\mu\nu} = V^{GGA,L}_{\mu\nu} - c_{HF} K^L_{\mu\nu},\quad L \in \{0,1,2,3\},
+\end{equation}
+where $\spvc K$ is the HF exchange matrix (\cref{eq:HFX_mat}) and
 \begin{align}
   \label{eq:VXCGGA_eval}
-V^{GGA,I}_{\mu\nu} &= \sum_{\Gamma \Gamma'} \int \mathrm{d}^3 \vc r \text{  }
-  \frac{\partial f }{\partial U^\Gamma(\mathbf{r})}
-  \frac{\partial U^\Gamma(\mathbf{r})}{\partial V^{\Gamma'}(\mathbf{r})}
-  \frac{\partial V^{\Gamma'}(\mathbf{r})}{\partial P^{I}_{\mu\nu}} \\ &= \nonumber \int \mathrm{d}^3 \vc r \text{  } V^{GGA,I}_{\mu\nu}(\vc{r})
+V^{GGA,K}_{\mu\nu} &= \sum_{\Gamma \Gamma'} \int \mathrm{d}^3 \vc r \text{  }
+  \frac{\partial f }{\partial U^{\NC,\Gamma}(\mathbf{r})}
+  \frac{\partial U^{\NC,\Gamma}(\mathbf{r})}{\partial V^{\NC,\Gamma'}(\mathbf{r})}
+  \frac{\partial V^{\NC,\Gamma'}(\mathbf{r})}{\partial P^{K}_{\mu\nu}} \\ &= \nonumber \int \mathrm{d}^3 \vc r \text{  } V^{GGA,K}_{\mu\nu}(\vc{r})
 \end{align}  
-where the partial derivatives of $f$ are the same as in collinear DFT, and the partial derivatives of $\{V(\vc{r})\}$ may be
+where the partial derivatives of $f$ are the same as in collinear DFT, and the partial derivatives of $\{V^\NC(\vc{r})\}$ may be
 identified through differentiating \cref{eq:VVarEval} for a particular spin component. We refer the reader to the Appendix
-of Ref.\cite{Li17_2591} for explicit expressions for the partial derivatives of $\{U(\vc{r})\}$.
+of Ref.\cite{Li17_2591} for explicit expressions for the Jacobians between $\{U^\NC(\vc{r})\}$ and $\{V^\NC(\vc{r})\}$ .
 
-In practice, \cref{eq:EXCGGA,eq:VXCGGA_eval} are evaluated numerically using a molecular quadrature scheme,
-\cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097}
+In practice, \cref{eq:EXCEVAL,eq:VXCGGA_eval} are evaluated numerically using a molecular quadrature scheme
+\cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,Reveles04_681,Sierka11_3097},
 \begin{align}
-  &E_{xc}^{GGA}[\rho,\nabla\rho] \approx \sum_i w(\vc{r}_i) f(\{U(\vc{r}_i)\}) \label{eq:EXCGGA_num}\\
-  &V^{GGA,I}_{\mu\nu} \approx \sum_i w(\vc{r}_i) V^{GGA,I}_{\mu\nu}(\vc{r}_i) \label{eq:VXCGGA_num}
+  &E^{GGA}[\vc \rho,\nabla\vc \rho] \approx \sum_i w(\vc{r}_i) f(\{U(\vc{r}_i)\}) \label{eq:EXCGGA_num}\\
+  &V^{GGA,K}_{\mu\nu} \approx \sum_i w(\vc{r}_i) V^{xc,K}_{\mu\nu}(\vc{r}_i) \label{eq:VXCGGA_num}
 \end{align}
 where $\{w(\vc{r}_i)\}$ is a set of quadrature weights. 
-In this work, we utilize the Becke multi-center numerical integration scheme,\cite{Becke88_2547}
-where the integral is evaluated on series of overlapping atomic centered grids, transformed, through their weights, into ``fuzzy'', overlapping, and analytically continuous cells instead. 
-We also refer the reader to a more thorough discussion regarding specific details.\cite{Becke88_2547,Frisch96_213}
+In this work, we utilize the Becke multi-center numerical integration scheme
+\cite{Becke88_2547}, where the integral is evaluated on series of overlapping
+atomic centered grids, transformed, through their weights, into ``fuzzy'',
+overlapping, and analytically continuous cells instead.  We refer the
+reader to a more thorough discussion regarding specific
+details of the numerical integration \cite{Becke88_2547,Frisch96_213}.
 %%%%% We can put this back if we need to
 %Here, we simply remark that the hallmark of the Becke integration scheme is that the the molecular integrand is decomposed
 %into a sum over overlapping atomic integrands,
@@ -408,39 +538,39 @@ The evaluation of \cref{eq:EXCGGA_num} is straight forward as it is a scalar fun
 in Ref.\cite{Sierka11_3097}, by substituting the definitions of the partial derivatives of the U and V variables, we arrive
 at a concise expressions for assembly of \cref{eq:VXCGGA_num} 
 \begin{align}
-&V^{GGA,I}_{\mu\nu} = \sum_i Z^I_\mu(\vc{r}_i) \chi_\nu(\vc{r}_i) + Z^I_\nu(\vc{r}_i) \chi_\mu(\vc{r}_i) \label{eq:VXC_point_update}\\
-  &Z^I_\mu(\vc{r}) = w(\vc{r})
+&V^{xc,K}_{\mu\nu} = \sum_i Z^K_\mu(\vc{r}_i) \chi_\nu(\vc{r}_i) + Z^K_\nu(\vc{r}_i) \chi_\mu(\vc{r}_i) \label{eq:VXC_point_update}\\
+  &Z^K_\mu(\vc{r}) = w(\vc{r})
     \left(
-      \frac{1}{2} \mathcal{Z}^I_{\rho}(\vc{r}) \chi_\mu(\vc{r}) + \sum_\xi \mathcal{Z}^I_{\nabla,\xi}(\vc{r}) \nabla_\xi \chi_\mu(\vc{r})
-    \right) \label{eq:ZImu}
+      \frac{1}{2} \mathcal{Z}^K_{\rho}(\vc{r}) \chi_\mu(\vc{r}) + \sum_\xi \mathcal{Z}^K_{\nabla,\xi}(\vc{r}) \nabla_\xi \chi_\mu(\vc{r})
+    \right) \label{eq:ZKmu}
 \end{align}
 where $\xi \in \{x,y,z\}$ and
 \begin{subequations}
 \begin{align}
-&\mathcal{Z}^I_{\rho}=     \frac{\partial f}{\partial \rho^I} =
+&\mathcal{Z}^K_{\rho}=     \frac{\partial f}{\partial \rho^K} =
                                      \dfrac{1}{2}
                                      \begin{cases}
-  \left( \dfrac{\partial f}{\partial n^+} + \dfrac{\partial f}{\partial n^-} \right) & I = S \\[12pt]
-  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) K^{I} & I \neq S \\
+  \left( \dfrac{\partial f}{\partial n^+} + \dfrac{\partial f}{\partial n^-} \right) & K = 0 \\[12pt]
+  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) K^{K} & K \neq 0 \\
                                      \end{cases}
 \end{align}
 \label{eq:ZrhoVar}
 \end{subequations}
 
 \begin{subequations}
-\label{eq:ZgammaVar}
+\label{eq:ZvarphiVar}
 \begin{align}
-&\mathcal{Z}^I_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^I} = \dfrac{1}{2} \begin{cases}
-                                                          \nabla_\xi\rho^S    \left(  \dfrac{\partial f}{\partial \gamma^{++}} + \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}} \right)  
-                                                          + \sum_k \nabla_\xi \rho^k H^k 
-                                                          \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} 
+&\mathcal{Z}^K_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^K} = \dfrac{1}{2} \begin{cases}
+                                                          \nabla_\xi\rho^S    \left(  \dfrac{\partial f}{\partial \varphi^{++}} + \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}} \right)  
+                                                          + \sum_{k=1}^3 \nabla_\xi \rho^k H^k 
+                                                          \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} 
                                                           \right)                                                          
-                                                          & I= S \\[8pt]                                                                                                        
-                                                          \nabla_\xi\rho^S H^I  \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} \right) 
-                                                          + \nabla_\xi\rho^I
-                                                          \left(\dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}}
+                                                          & K= 0 \\[8pt]                                                                                                        
+                                                          \nabla_\xi\rho^S H^K  \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
+                                                          + \nabla_\xi\rho^K
+                                                          \left(\dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}}
                                                            \right)
-                                                          & I \neq S
+                                                          & K \neq 0
                                                         \end{cases}                                                                                                                                     
 \end{align}
 \end{subequations}
@@ -713,6 +843,21 @@ to systems of large size ($>$ 100 atoms).
 
 
 \section{The Relativistic Particle--Particle Random Phase Approximation}
+
+At times, the KS-DFT description is not sufficient for the proper description
+of the electronic wave function. This case is encountered in general when
+the wave function cannot be descibed properly as a single Slater determinant.
+As such, in this section is oulined a two--component many--body expansion 
+method (ala \cref{eq:ExcitationOp}) which includes relatativistic effects
+and tackles the electron correlation problem though representing the wave function
+as a linear combination of several Slater determinants. The following sections
+have been adapted and reproduced with permission from David B. Williams--Young,
+Franco Egidi, and Xiaosong Li. Relativistic Two--Component Particle--Particle
+Tamm--Dancoff Approximation. \emph{J. Chem. Theory Comput.} \textbf{2016}, 12(11),
+pp 5379-5384. Copyright 2016 American Chemical Society.
+
+
+
 
 \subsection{Motivation}
 
