@@ -1,9 +1,191 @@
 \chapter{Molecular Response Properties Through Model Order Reduction}
 
+
+The previous sections have developed the formal theory to practically obtain the stationary 
+(\cref{eq:TIQWave}) electronic ground and excited states of molecular systems.
+While such developments provide the basis of any practical quantum theory, the majority of interesting chemical
+phenomena result for the departure from the a stationary state through the action of some external perturbation,
+i.e. light. In this chapter we will focus on the interaction and response of molecular systems with external 
+electromagnetic fields which will allow us to probe many physically observable quantities such as
+the photoabsorption cross section. The following sections have been adapted and reproduced in part with
+permission from Roel van Beeumen, David B. Williams-Young, Joeseph M. Kasper, Chao Yang, Esmond G. Ng,
+and Xiaosong Li. Model Order Reduction Algorithm for Estimating the Absorption Spectrum. 
+\emph{J. Chem. Theory Comput.} \textbf{2017}, 13(10), pp 4950-4961. Copyright 2017 American Chemical
+Society.
+
+
+% Semi--Classical Light Matter
+\section{Semi--Classical Light--Matter Interaction}
+\label{sec:SCLMI}
+
+In this section, we will provide a brief overview of the non-relativistic treatment of
+light--matter interaction for molecular systems. As such, we will not be concerned with
+the nature of retartation effects of transverse photons nor the quantized nature of
+the photon itself; hence this is referred to as a semi-classical treatment of light-matter
+interation. This will allow us to treat this interaction solely as the interaction of
+the molecular system with an external, time--dependent, classical electromagnetic field. 
+
+\subsection{Classical Electromagnetic Fields}
+
+Classically, the mechanics of electromagentic fields is governed by Maxwell's equations
+\todo{cite JAckson Barron}. In the absense of charge sources, Maxwell's equations are given in differential
+form and SI (or atomic) units by,
+\begin{subequations}
+\label{eq:MaxwellEB}
+\begin{alignat}{1}
+&\nabla \cdot \vc E(\vc{r},t) = 0, \\
+&\nabla \cdot \vc B(\vc r,t) = 0, \\
+&\nabla \times \vc E(\vc r,t ) = -\partial_t \vc {B}(\vc r,t ),\\
+&\nabla \times \vc B(\vc r,t ) = \frac{1}{c^2}\partial_t \vc {E}(\vc r,t ),
+\end{alignat}
+\end{subequations}
+where $\vc E$ and $\vc B$ are the classical vector fields which describe the electric and
+magnetic compoenents of the electromagnetic field, respectively. The top two equations
+of \cref{eq:MaxwellEB} describe the divergence of the $\vc E$ and $\vc B$ fields, while
+the latter two describe the curl, where '$\times$' denotes the cross produce. In the description of
+the interactions of these fields with matter, it is useful to define a set of auxilary variables
+\todo{cite Jackson Barron} ,
+\begin{subequations}
+\label{eq:SVPot}
+\begin{align}
+  \vc B(\vc r, t)  &= \nabla \times \vc A(\vc r, t),\\
+  \vc E(\vc r, t)  &= -\nabla U(\vc r, t) - \partial_t \vc A(\vc r, t),
+\end{align}
+\end{subequations}
+where $U$ and $\vc A$ are the so-called scalar and vector potentials, respectively. Using
+the definitions in \cref{eq:SVPot}, \cref{eq:MaxwellEB} becomes a set to two homogenous 
+differential equations
+\begin{subequations}
+\label{eq:MaxwellSV}
+\begin{align}
+&\Delta U(\vc r,t ) - \partial_t (\nabla \cdot \vc A(\vc r,t )) = 0\\
+& \Delta A_\xi(\vc r, t) - \frac{1}{c^2} \partial^2_t A_\xi(\vc r,t) - \nabla_\xi \left( \nabla \cdot \vc A(\vc{r},t) + \frac{1}{c^2}\partial_t U(\vc r,t)\right)
+ = 0, \quad \xi \in \{x,y,z\}.
+\end{align}
+\end{subequations}
+The remarkable thing about the use of $U$ and $\vc A$ is that, due to \cref{eq:SVPot}, the  physical $\vc E$ and $\vc B$ fields
+which they represent are invariant under linear gauge transformation \todo{cite Jackson Barron},
+\begin{subequations}
+\label{eq:GaugeFix}
+\begin{align}
+  \vc A(\vc r, t) &\mapsto \vc A'(\vc r, t) = \vc A(\vc r,t) + \nabla \chi(\vc r, t), \\ 
+  U(\vc r,t) &\mapsto U'(\vc r, t) = U(\vc r, t) - \partial_t \chi(\vc r, t),
+\end{align}
+\end{subequations}
+where $\chi(\vc r,t)$ is an arbitrary differentiable, real valued function, refered to as a gauge function.
+The pair $(\vc A', U')$ yield the same $\vc E$ and $\vc B$ fields as $(\vc A, U)$ under \cref{eq:SVPot},
+thus the physical singificance of \cref{eq:MaxwellSV} is invariant under this transformation.
+
+Of particular interest to this work are the monochromatic planewave solutions to \cref{eq:MaxwellEB,eq:MaxwellSV}
+which take on the form \todo{cite}
+\begin{subequations}
+\begin{align}
+\vc E(\vc r, t) = \vc E_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}\\
+\vc B(\vc r, t) = \vc B_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}
+\end{align}
+\end{subequations}
+where $\vc k$ is the wave vector determining the direction of propagation, and $\omega = c\vert\vc k\vert$ is the
+angular frequency. $\vc E_0$ and $\vc B_0$ are the amplitudes of the $\vc E$ and $\vc B$ fields respectively.
+By \cref{eq:GaugeFix}, we may always choose a gauge such that $U(\vc r,t) = 0$ for planewaves. 
+This gauge choice is known as the Weyl gauge \todo{cite}. As such, the vector potential (\cref{eq:SVPot}) becomes \todo{confirm}
+\begin{equation}
+\vc A(\vc r, t) = -\int_0^t \vc E(\vc r, t') \dd t' = -\frac{1}{\omega} \vc E'_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}.
+\end{equation}
+where $\vc E'_0 = \ii \vc E_0$. 
+In the limit of molecular length dimensions, for reasonably low frequency light it is reasonable to assume
+\begin{equation}
+\vc k \cdot \vc r \approx 0.
+\end{equation}
+That is to say that the wave length of the oscillating field is much larger than the molecule it  self, thus
+from the molecular perspective, it is experiencing a uniformly distrubuted field despite the global topology of
+the physical wave front. This approximation is known as the electric dipole approximation (EDA), and will be used
+throughout the work. Within the EDA, the spatial portion of the wave front is truncated in a Taylor series,
+\begin{equation}
+e^{\ii\vc k \cdot \vc r} = 1 + \sum_{n=1}^\infty \frac{(\ii \vc k \cdot \vc r)^n}{n!} \approx 1.
+\end{equation}
+Thus the vector potential becomes
+\begin{equation}
+\label{eq:EDAV}
+\vc A(\vc r, t) \approx \vc A_\mathrm{EDA}(t) = -\frac{1}{\omega} \vc E'_0 e^{-\ii\omega t}.
+\end{equation}
+As such, the magnetic field vanishes within the EDA,
+\begin{equation}
+\vc B(\vc r, t) \approx 0, \qquad \text{EDA}.
+\end{equation}
+
+
+\subsection{Non--Relativistic Molecular Hamiltonian in the Presence of Fields}
+
+In the presence of an electromagnetic field described $(\vc A,U)$, the
+Born--Oppenhemier Hamiltonian (\cref{eq:NRBOH}) for a system with $N$ electrons
+becomes
+\begin{equation}
+\op H^\mathrm{BO}_{el} \mapsto \op H_{el}(t) = 
+  \frac{1}{2} \sum_{i=1}^N \left( \op{\vc p}(i) + \op{\vc A}(i \prm t) \right)^2 - 
+  \op V_{ne}(i) - \op U(i \prm t) + \frac{1}{2}\sum_{i\neq j = 1}^N \op g^C(i,j),
+\end{equation}
+where the operators $\op U$ and $\op {\vc A}$ are scalar (in the sense of density scalar,
+i.e. void of spin dependence) multiplicitive operators which represent the external field.
+That is to say
+\begin{equation}
+\op{A}_\xi(\vc r \prm t )\, \phi(\vc x\prm t )  = \phi(\vc x\prm t ) \,A_\xi(\vc r, t) , \quad \op{U}(\vc r \prm t) \,\phi(\vc x\prm t ) = \phi(\vc x\prm t ) \,U(\vc r, t)
+\end{equation}
+with $\ket{\phi (t)} \in \hilb H^1$.
+As a vector, $\vc A$ and $\op{\vc A}$ both carry Cartesian indicies $\xi\in \{x,y,z\}$, the same as
+$\op{\vc{p}}$.
+Time dependence has been noted by $t$ following a $\vert$ to separate out time and particle
+dependence.  Expanding the square, we obtain
+\begin{equation}
+\op H_{el}(t) = \op H^\mathrm{BO}_{el} + \op V_{ext}(t)
+\end{equation}
+where
+\begin{align}
+\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i \prm t) + \op{\vc A}(i \prm t) \cdot \op{\vc p}(i) + \op{A}^2(i \, \vert \, t) - 
+  U(i \prm t) \nonumber \\
+  &\approx \sum_{i=1}^N  \op{\vc A}(i \prm t) \cdot \op{\vc p}(i) - U(i \prm t). \label{eq:CouGaugeOp}
+\end{align}
+The approximation in \Cref{eq:CouGaugeOp} has introduced two concepts implicitly. The first being the removal of the term 
+$\op{\vc p} \cdot \op{\vc A}$, which has been achieved by enforcing $\nabla \cdot \vc A = 0$. This choice is referred
+to as the Coulomb gauge, and is always possible through the proper choice of gauge function (\cref{eq:GaugeFix}). The
+actual approximation in \cref{eq:CouGaugeOp} is in the neglection of the $A^2$ term. In the weak field strength limit,
+the $A^2$ is quadratic in the field strength, while $\op{\vc A} \cdot \op{\vc p}$ is linear. In this limit, we may 
+approximation $A^2 \approx 0$, thus this approximation is referred to as the weak field approximation.
+Inserting in the expression for the vector potential in the EDA (\cref{eq:EDAV}) and invoking the Weyl gauge, 
+we obtain
+\begin{equation}
+\label{eq:VextVel}
+\op V_{ext}(t) \approx -\sum_{i=1}^N \frac{e^{-i\omega t}}{\omega} ( \vc E'_0 \cdot \op{\vc p}(i) ).
+\end{equation}
+
+The extraneous factor of $\omega$ may be removed by another gauge transformation, $\chi(\vc r,t) = -\vc r \cdot \vc A_\mathrm{EDA}$,
+such that
+\begin{align}
+  \vc A_\mathrm{EDA}(\vc r, t) &\mapsto \vc A_\mathrm{EDA}(\vc r, t) - \nabla (\vc r \cdot \vc A_\mathrm{EDA}(\vc r,t))  = 0, \\
+  U_\mathrm{EDA}(\vc r,t)  &\mapsto \vc r \cdot \partial_t \vc A_\mathrm{EDA}(\vc r,t) = -\ii e^{-i \omega t} (\vc E'_0 \cdot \vc r) =  e^{-i \omega t}(\vc E_0 \cdot \vc r).
+\end{align}
+which transforms \cref{eq:VextVel} to
+\begin{equation}
+\label{eq:VextLen}
+\op V_{ext}(t) \approx -\sum_{i=1}^N e^{-i\omega t} ( \vc E_0 \cdot \op{\vc r}(i) ),
+\end{equation}
+where $\op{\vc r}$ is the position operator.
+
+% Polarization Propagator
+\subsection{Molecular Response and the Polarization Propagator}
+\label{sec:PolarProp}
+
+In this section we examine the response of a molecular system subject to an external, time dependent perturbation, $\op V_{ext}(t)$.
+
+% Absorption Cross Section
+\subsection{The Linear Absorption Cross Section}
+\label{sec:AbsorptionTheory}
+
 \section{Interpolatory Model Order Reduction of Linear Dynamical Systems}
 \label{lds:dyn-sys}
 
-In this section, we briefly review the theory of model order reduction for linear dynamical systems. The next section will examine its connection to the computation of the absorption spectrum within the FOPPA.
+In this section, we briefly review the theory of model order reduction for
+linear dynamical systems. The next section will examine its connection to the
+computation of the absorption spectrum within the FOPPA.
 
 % --- Linear dynamical systems --- %
 \subsection{Linear dynamical systems}
@@ -19,12 +201,12 @@ We consider the linear multiple-input multiple-output (MIMO) system
 \end{equation}
 where $s$ is a derivative or shift operator, $\bH \inRR{n}$ and $\bS \inRR{n}$ are the system matrices, $\bfb \inR[n][m]$, and $\bfc \inR[n][p]$. We call $n$ the dimension  (order) of the system $\bSigma$, $\bfx \inR[n][m]$ the state vector, $u \inR$ the input, and $\bfy \inR[p][m]$ the output \cite{Antoulas2005}. Note that the system $\bSigma$ is completely characterized by the quadruple $(\bH,\bS,\bfb,\bfc)$.
 
-The transfer function, $\bfgamma(s)$, of $\bSigma$ is defined as
+The transfer function, $\bfvarpi(s)$, of $\bSigma$ is defined as
 \begin{equation}
-  \bfgamma(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb,
+  \bfvarpi(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb,
   \label{eq:siso-tf}
 \end{equation}
-and describes the relation between the input and output of $\bSigma$, i.e., $\bfy(s) = \bfgamma(s) u(s)$. For the remainder, we will assume that $n \gg 1$, $m \ll n$, $p \ll n$, and $u(s) \equiv 1$ for all $s$.
+and describes the relation between the input and output of $\bSigma$, i.e., $\bfy(s) = \bfvarpi(s) u(s)$. For the remainder, we will assume that $n \gg 1$, $m \ll n$, $p \ll n$, and $u(s) \equiv 1$ for all $s$.
 
 % --- State space transformation --- %
 \subsection{State space transformation}
@@ -59,7 +241,7 @@ Let the system $\bSigma$ be given by \eqref{eq:siso} and define a non-singular m
 \end{equation}
 where $\bHh = \bV\T \bH \bV$, $\bSh = \bV\T \bS \bV$, $\bfbh = \bV\T \bfb$, and $\bfch\T = \bfc\T \bV$. Note that the length of the state vector $\bfxh$ and the dimension of $\bSigmah$ are only $k \ll n$. The purpose of MOR is to construct a $\bV$ such that the transfer function of $\bSigmah$ approximates very well the one of $\bSigma$,
 \begin{equation}
-  \bfgamma_\bSigma(s) \approx \bfgamma_{\bSigmah}(s),
+  \bfvarpi_\bSigma(s) \approx \bfvarpi_{\bSigmah}(s),
   \label{eq:tf-match}
 \end{equation}
 for all query $s$.
@@ -68,18 +250,18 @@ for all query $s$.
 \subsection{Model order reduction via moment matching}
 \label{lds:mm}
 
-One way to construct a matrix $\bV$ such that \eqref{eq:tf-match} holds is by examining the concepts of moments and moment matching\cite{Antoulas2005}. Let the transfer function $\bfgamma$ of $\bSigma$ be given by \eqref{eq:siso-tf}. Then the $\ell$th moment of $\bfgamma$ around the point $s = s_\star$ is defined as the $\ell$th derivative of $\bfgamma$ evaluated at $s_\star$, i.e.,
+One way to construct a matrix $\bV$ such that \eqref{eq:tf-match} holds is by examining the concepts of moments and moment matching\cite{Antoulas2005}. Let the transfer function $\bfvarpi$ of $\bSigma$ be given by \eqref{eq:siso-tf}. Then the $\ell$th moment of $\bfvarpi$ around the point $s = s_\star$ is defined as the $\ell$th derivative of $\bfvarpi$ evaluated at $s_\star$, i.e.,
 \begin{equation}
-  \bfm_\ell(s_\star) := (-1)^\ell \left.\frac{d^\ell}{ds^\ell} \bfgamma(s) \right|_{s=s_\star},
+  \bfm_\ell(s_\star) := (-1)^\ell \left.\frac{d^\ell}{ds^\ell} \bfvarpi(s) \right|_{s=s_\star},
   \label{eq:moment}
 \end{equation}
-for $\ell \geq 0$. Consequently, since $\bfgamma(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb$, the moments at $s_\star$ are
+for $\ell \geq 0$. Consequently, since $\bfvarpi(s) = \bfc\T \left( \bH - s\bS \right)\inv \bfb$, the moments at $s_\star$ are
 $$
   \bfm_\ell(s_\star) = \bfc\T \left( \bH - s_\star \bS \right)^{-(\ell+1)} \bfb, \qquad \ell > 0.
 $$
-Note also that the moments determine the coefficients of the Taylor series expansion of the transfer function $\bfgamma$ in the neighborhood of $s_\star$
+Note also that the moments determine the coefficients of the Taylor series expansion of the transfer function $\bfvarpi$ in the neighborhood of $s_\star$
 \begin{equation}
-  \bfgamma(s) = \bfm_0(s_\star) + \bfm_1(s_\star) \frac{s - s_\star}{1!} + \bfm_2(s_\star) \frac{(s - s_\star)^2}{2!} + \cdots
+  \bfvarpi(s) = \bfm_0(s_\star) + \bfm_1(s_\star) \frac{s - s_\star}{1!} + \bfm_2(s_\star) \frac{(s - s_\star)^2}{2!} + \cdots
 \end{equation}
 
 Model order reduction via moment matching consists of constructing a subspace $\bV \inR[n][km]$ such that the original and reduced order model match moments
