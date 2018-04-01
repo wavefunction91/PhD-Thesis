@@ -72,20 +72,57 @@ Abstract to go here
 \preface{
 %
   The pursiut of scientific endeavours can not be done in a vacuum: it is largely a collaborative
-  effort in the context of the scientific body as a whle. 
+  effort in the context of the scientific body as a whole. 
   As such, it would be  prudent to outline my contributions to the research presented in the
   following chapters.
 
   \Cref{ch:Theory} presents a reasonably in-depth overview of the theoretical preliminaries which
   provide a basis for the research in the chapters which follow. While a major part of my graduate
-  research career was the pursuit of a deep understanding of these theories both from a mathematical
+  research career has been the pursuit of a deep understanding of these theories both from a mathematical
   and physical perspective, I would be remiss to attribute any of the fundamental theoretical
-  developments outlines in  \cref{ch:Theory} solely to myself. \Cref{ch:Theory} depends heavily
+  developments outlined in  \cref{ch:Theory} solely to myself. \Cref{ch:Theory} depends heavily
   on the body of scientific literature relating to electronic structure theory and quantum mechanics
-  in general: both contemporary and historical texts. The novel aspect of \cref{eq:Theory} is in
+  in general: both contemporary and historical texts. The novel aspect of \cref{ch:Theory} is in
   the presentation of these methods in a cohesive and consistent manner such that the treatments of
-  relativistic and non--relativistic theory are in a sense equivalent. This is 
-% 
+  relativistic and non--relativistic theory are in a sense equivalent. Much of the formal development
+  of the manipulations of these operators in terms of the Pauli matrices was done in collaboration
+  with Dr. Franco Egidi (FE).
+
+  \Cref{ch:2CEST} outlines my primary contributions to the field of relativistic electronic structure theory.
+  The first project discussed presents a scalable implementation of non--collinear Kohn--Sham density
+  functional theory in a Gaussian basis set. The general protocol for the generalized density variables
+  utilized in this work were developed by Frisch \emph{et al} \todo{cite} and Egidi, \emph{et al} \todo{cite},
+  through no implementation details were devulged in either of those papers. My primary contribution to this
+  work was the implementation of the proposed algorithm and in the formal development of the efficient
+  intermediates used for the assembly of the Fock matrix. This work was done in collaboration with Dr. Alessio
+  Petrone (AP), where much of the code development was done through interations between him and myself. The
+  proof for the adherence of these generalized density variables to the zero-torque theorem was done in 
+  collaboration with Shichao Sun. The distributed memory implementation of the numerical intergration
+  was written by myself. The efficient intermediates were originally derived by myself, then further refined
+  through discussions with AP. Further, the framework within which this algorithm was developed 
+  (ChronusQ) has been primarly development by myself to this point. The majority of the tests cases were
+  performed by AP and were selected by the two of us.
+
+  The second project discussed in \cref{ch:2CEST} presents an extension of the particle-particle Tamm-Dancoff
+  approximation to two-component relativistic Hamiltonians. This project was originally inspired through 
+  email discussions with Professor Weitao Yang and is student Dr. Yang Yang at Duke University. They provided
+  me with non-relativstic test cases which accelereted the developement of this algorithm in Gaussian. The
+  development of this algorithm in Gaussian was written by myself, but much of the development would have 
+  been stalled had it not been for thorough discussion with FE at the time. The test cases for
+  this algorithm were chosen by FE and ran by myself. Analysis of the reuslts in the context of the
+  two-component time-dependnet Hartree-Fock algorithm was done in equal parts by myself and FE.
+
+  \Cref{ch:MOR} presents a novel algorithm for the estimation of the linear absorption spectrum
+  by model order reduction. This work was done in extensive collaboration with Dr. Chao Yang 
+  and his student Roel van Beeuman (RB) at Lawerence Berkley National Lab. The initial idea
+  for applying model order reduction to the absorption spectrum is due to RB. The formal
+  development of the final algorithm was due to extensive discussion between RB and myself.
+  RB provided a proof-of-concept MATLAB implementation of the algorithm using data provided
+  by myself. The MATLAB implementation provided the primary reference from which I wrote the 
+  production implementation in ChronusQ using small test systems. The validation of the algorithm
+  for larger test cases was done by myself. The full eigendecomposition reference values were
+  obtained by RB on the Cori supercomputer using matrices provided by myself.
+%
 }
 
 
