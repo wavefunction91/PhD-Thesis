@@ -121,28 +121,27 @@ Born--Oppenhemier Hamiltonian (\cref{eq:NRBOH}) for a system with $N$ electrons
 becomes
 \begin{equation}
 \op H^\mathrm{BO}_{el} \mapsto \op H_{el}(t) = 
-  \frac{1}{2} \sum_{i=1}^N \left( \op{\vc p}(i) + \op{\vc A}(i \prm t) \right)^2 - 
-  \op V_{ne}(i) - \op U(i \prm t) + \frac{1}{2}\sum_{i\neq j = 1}^N \op g^C(i,j),
+  \frac{1}{2} \sum_{i=1}^N \left( \op{\vc p}(i) + \op{\vc A}(i,t) \right)^2 - 
+  \op V_{ne}(i) - \op U(i , t) + \frac{1}{2}\sum_{i\neq j = 1}^N \op g^C(i,j),
 \end{equation}
 where the operators $\op U$ and $\op {\vc A}$ are scalar (in the sense of density scalar,
 i.e. void of spin dependence) multiplicitive operators which represent the external field.
 That is to say
 \begin{equation}
-\op{A}_\xi(\vc r \prm t )\, \phi(\vc x\prm t )  = \phi(\vc x\prm t ) \,A_\xi(\vc r, t) , \quad \op{U}(\vc r \prm t) \,\phi(\vc x\prm t ) = \phi(\vc x\prm t ) \,U(\vc r, t)
+\op{A}_\xi(\vc r , t )\, \phi(\vc x, t )  = \phi(\vc x, t ) \,A_\xi(\vc r, t) , \quad \op{U}(\vc r , t) \,\phi(\vc x, t ) = \phi(\vc x, t ) \,U(\vc r, t)
 \end{equation}
 with $\ket{\phi (t)} \in \hilb H^1$.
 As a vector, $\vc A$ and $\op{\vc A}$ both carry Cartesian indicies $\xi\in \{x,y,z\}$, the same as
 $\op{\vc{p}}$.
-Time dependence has been noted by $t$ following a $\vert$ to separate out time and particle
-dependence.  Expanding the square, we obtain
+Expanding the square, we obtain
 \begin{equation}
 \op H_{el}(t) = \op H^\mathrm{BO}_{el} + \op V_{ext}(t)
 \end{equation}
 where
 \begin{align}
-\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i \prm t) + \op{\vc A}(i \prm t) \cdot \op{\vc p}(i) + \op{A}^2(i \, \vert \, t) - 
-  U(i \prm t) \nonumber \\
-  &\approx \sum_{i=1}^N  \op{\vc A}(i \prm t) \cdot \op{\vc p}(i) - U(i \prm t). \label{eq:CouGaugeOp}
+\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i , t) + \op{\vc A}(i , t) \cdot \op{\vc p}(i) + \op{A}^2(i \, \vert \, t) - 
+  U(i , t) \nonumber \\
+  &\approx \sum_{i=1}^N  \op{\vc A}(i , t) \cdot \op{\vc p}(i) - U(i , t). \label{eq:CouGaugeOp}
 \end{align}
 The approximation in \Cref{eq:CouGaugeOp} has introduced two concepts implicitly. The first being the removal of the term 
 $\op{\vc p} \cdot \op{\vc A}$, which has been achieved by enforcing $\nabla \cdot \vc A = 0$. This choice is referred
@@ -166,19 +165,87 @@ such that
 which transforms \cref{eq:VextVel} to
 \begin{equation}
 \label{eq:VextLen}
-\op V_{ext}(t) \approx -\sum_{i=1}^N e^{-i\omega t} ( \vc E_0 \cdot \op{\vc r}(i) ),
+\op V_{ext}(t) \approx -\sum_{i=1}^N ( \vc E(t) \cdot \op{\vc r}(i) ),
 \end{equation}
-where $\op{\vc r}$ is the position operator.
+where $\op{\vc r}$ is the position operator and $\vc E(t) = e^{-\ii\omega t}\vc E_0$.
 
 % Polarization Propagator
-\subsection{Molecular Response and the Polarization Propagator}
+\section{Molecular Response and the Polarization Propagator}
 \label{sec:PolarProp}
 
-In this section we examine the response of a molecular system subject to an external, time dependent perturbation, $\op V_{ext}(t)$.
+In this section we examine the response of a molecular system subject to an external, scalar, time-periodic perturbation, 
+$\op V_{ext}(t)$, such as the semi-classical EDA matter-field operator in \cref{eq:VextLen}. 
+%As such, we may
+%write our operator in terms of the scalar density field operator (\cref{eq:ScalarDenFieldOp}) ,
+%\begin{equation}
+%\left( \op V_{ext} (t) \right)_\mathcal{F} = 2\int_{\mathbb R^3} \op V^0_{ext}(\vc r,t) \op \rho^{1,0}(\vc r) \dd^3\vc r
+%\end{equation}
+To this end, we consider a
+quantum system which is initially in some adiabatic state (\cref{eq:TIQWave}), specifically the ground adiabatic state,
+such that
+\begin{equation}
+\lim_{t \rightarrow -\infty} \ket{\Psi (t)} = \ket{\Psi_0}.
+\end{equation}
+To ensure causality of the perturbation, we will multiply the perturbing operator by a small, time-dependent infentesimle
+\todo{cite} such that
+\begin{equation}
+\op H(t) = \op H_0 + \op V'_{ext}(t)
+\end{equation}
+where $\op V'_{ext}(t) = e^{\eta t } \op V_{ext}(t)$ with $\eta \ll 1$.
 
-% Absorption Cross Section
-\subsection{The Linear Absorption Cross Section}
-\label{sec:AbsorptionTheory}
+Given a time-independent one--body scalar operator, $\op P$, the linear time evolution (response) of the expecation value of that operator
+is given by the Kubo relation \todo{cite}
+\begin{equation}
+\label{eq:Kubo}
+P(t) \equiv \innerop{\Psi(t)}{\op P}{\Psi(t)} = P(-\infty) + \int_{-\infty}^\infty \RetGF{\op P}{\op V'_{ext}(t' \prm t'-t)} \dd t',
+\end{equation}
+where the moiety $\RetGF{\cdot}{\cdot}$ is the retarded two-time Green's function \todo{cite},
+\begin{equation}
+  \label{eq:RetGFTime}
+  \RetGF{\op P}{\op V'_{ext}(t' \prm t)} = -\ii \Theta(-t) \innerop{\Psi_0}{\left[\op P, \op V'_{ext}(t' \prm t) \right]}{\Psi_0},
+\end{equation}
+and we have have expressed the external potential in the interaction picture,
+\begin{equation}
+\op V'_{ext}(t' \prm t) = \exp\left[\ii \op H_0 t\right] \op V'_{ext}(t') \exp\left[-\ii \op H_0 t\right].
+\end{equation}
+Here, the paramter list after the $\vert$ denote the time coordinates arising from the interaction picture, not the proper time of 
+the Hamiltonian.
+Thus the problem of detemining the linear response of a system due to an external perturbation is reduced to determining
+the form of \cref{eq:RetGFTime}.
+
+It is often useful to examine \cref{eq:RetGFTime} in the frequency domain rather than the time-domain. As $\op V_{ext}(t)$ is
+taken to be time periodic, we may decompose it into its Fourier components as
+\begin{equation}
+  \RetGF{\op P}{\op V'_{ext}(t' \prm t'-t)} = \int_{-\infty}^\infty \RetGF{\op P}{\op V_{ext}(\omega \prm t'-t)} e^{-\ii \omega t' + \eta t'}\dd\omega.
+\end{equation}
+Substituting this back into \cref{eq:Kubo} and making the variable substitution $s = t' - t$, which implies $t' = s + t$, we may write
+\begin{equation}
+P(t) = P(-\infty) +\int_{-\infty}^\infty  e^{-\ii \omega t + \eta t} \left(\int_{-\infty}^\infty \RetGF{\op P}{\op V_{ext}(\omega \prm s)} 
+e^{-\ii \omega s + \eta s} \dd s\right)
+\dd \omega.
+\end{equation}
+When $\op V_{ext}(t)$ takes the form of \cref{eq:VextLen}, we obtain 
+\begin{equation}
+\label{eq:FTV}
+\op V_{ext}(\omega) = -\op{\vc r} \cdot \vc E(\omega),
+\end{equation}
+where $\vc E(\omega)$ is the Fourier transform of $\vc E(t)$. Thus
+\begin{equation}
+\label{eq:FTResponse}
+P(t) = P(-\infty) - \sum_{\xi \in \{x,y,z\}} \int_{-\infty}^\infty \retGF{\op P}{\op \xi}_{\omega - \ii\eta} E_\xi(\omega) e^{-\ii\omega t + \eta t} \dd\omega 
+\end{equation}
+Here $\op \xi$ is the $\xi$-th component of the position operator and
+\begin{equation}
+\label{eq:RetGFFT}
+\retGF{\op P}{\op \xi}_{\omega - \ii\eta} = \int_{-\infty}^\infty \RetGF{\op P}{\op \xi ( \prm t)} e^{-\ii \omega t + \eta t} \dd t.
+\end{equation}
+The empty space before the interaction picture parameter list indicates that $\op \xi$ does not have Fourier components. \Cref{eq:FTResponse} is general
+to any time-dependent operator which admits a Fourier transform that factors as \cref{eq:FTV}.
+
+
+
+
+
 
 \section{Interpolatory Model Order Reduction of Linear Dynamical Systems}
 \label{lds:dyn-sys}

@@ -550,7 +550,7 @@ where $\xi \in \{x,y,z\}$ and
 &\mathcal{Z}^K_{\rho}=     \frac{\partial f}{\partial \rho^{1,K}} =
                                      \begin{cases}
   \left( \dfrac{\partial f}{\partial n^+} + \dfrac{\partial f}{\partial n^-} \right) & K = 0 \\[12pt]
-  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) \mathscr K^{K} & K \neq 0 \\
+  \left( \dfrac{\partial f}{\partial n^+} - \dfrac{\partial f}{\partial n^-} \right) \mathfrak K^{K} & K \neq 0 \\
                                      \end{cases}
 \end{align}
 \label{eq:ZrhoVar}
@@ -561,11 +561,11 @@ where $\xi \in \{x,y,z\}$ and
 \begin{align}
 &\mathcal{Z}^K_{\nabla,\xi} = \frac{\partial f}{\partial \nabla_\xi \rho^{1,K}} = \begin{cases}
                                                           \nabla_\xi\rho^{1,0}    \left(  \dfrac{\partial f}{\partial \varphi^{++}} + \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}} \right)  
-                                                          + \sum_{k=1}^3 \nabla_\xi \rho^{1,k} \mathscr H^k 
+                                                          + \sum_{k=1}^3 \nabla_\xi \rho^{1,k} \mathfrak H^k 
                                                           \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} 
                                                           \right)                                                          
                                                           & K= 0 \\[8pt]                                                                                                        
-                                                          \nabla_\xi\rho^{1,0} \mathscr H^K  \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
+                                                          \nabla_\xi\rho^{1,0} \mathfrak H^K  \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
                                                           + \nabla_\xi\rho^{1,K}
                                                           \left(\dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}}
                                                            \right)
@@ -577,12 +577,12 @@ where we have dropped the explicit dependence on $\vc r$ for brevity. To consoli
 \cref{eq:NCtrans,eq:smallTrans}, we now define
 \begin{subequations}
 \begin{align}
-&\mathscr K^K = 
+&\mathfrak K^K = 
 \begin{cases}
   \dfrac{\rho^{1,K}}{\vert \mathbf{m} \vert} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
   \dfrac{1}{6} & \text{ (Small }\mathbf{m}\text{)} \\[12pt]
 \end{cases}\\
-&\mathscr H^K = 
+&\mathfrak H^K = 
 \begin{cases}
   \dfrac{f_\nabla D^{0K} }{\sqrt{\sum_{k=1}^3 \left(D^{0k}\right)^2   }} & \text{(Significant }\mathbf{m}\text{)} \\[20pt]
   \dfrac{f_\nabla}{6} & \text{(Small }\mathbf{m}\text{)} \\[12pt]
@@ -672,12 +672,12 @@ we may partition it into sum over batches of points.  In this work, we utilize a
 macrobatch approach \cite{Frisch96_213}, where the grid points of each atoms are
 grouped  into Lebedev spheres \cite{Lebedev77_99} of several radial quadrature points. This scheme
 is pictorially represented in \cref{fig:Batching}. Denoting the set of all batches
-as $\mathscr B$, we obtain
+as $\mathfrak B$, we obtain
 
 \begin{align}
 \label{eq:VXC_SYR2K}
-\mathbf{V}^{GGA,I} &= \sum_{S_j \in \mathscr B} \left(\sum_{i\in S_j} \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T \right) \nonumber \\
-&= \sum_{S_j \in \mathscr B} \mathbf{Z}^{I(j)} \left(\mathbf{X}^{(j)}\right)^T + \mathbf{X}^{(j)} \left(\mathbf{Z}^{I(j)}\right)^T
+\mathbf{V}^{GGA,I} &= \sum_{S_j \in \mathfrak B} \left(\sum_{i\in S_j} \mathbf{z}^I_i \boldsymbol{\chi}_i^T + \boldsymbol{\chi}_i \left(\mathbf{z}^I_i\right)^T \right) \nonumber \\
+&= \sum_{S_j \in \mathfrak B} \mathbf{Z}^{I(j)} \left(\mathbf{X}^{(j)}\right)^T + \mathbf{X}^{(j)} \left(\mathbf{Z}^{I(j)}\right)^T
 \end{align}
 where
 \begin{equation}
