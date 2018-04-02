@@ -15,6 +15,76 @@ and Xiaosong Li. Model Order Reduction Algorithm for Estimating the Absorption S
 Society.
 
 
+\section{Motivation}
+
+With recent advances in  laser light source technology, X-ray
+absorption spectroscopy (XAS) has become an important probative tool in
+chemical physics.\cite{Stohr13_book} The ability of XAS to simultaneously
+characterize both the electronic and geometrical structure of chemical systems
+has made it indispensable in the fields of catalysis and
+photophysics.\cite{Koch87_519,Chasse12_4870,Solomon95_2259,Hodgson00_5775,Hessler01_262}
+However, despite the capability of XAS to obtain a wealth of chemically
+relevant information, the complexity of experimentally obtained XAS spectra
+often requires a theoretical supplement to obtain a meaningful interpretation
+of the query phenomenon.\cite{Li16_639,Li16_JA2} Thus, the ability to properly
+describe the high-energy electronic excitations of molecular systems
+theoretically is critical in modern electronic structure theory.
+
+In light of its importance in physical chemistry, the prediction of XAS properties poses an interesting challenge for traditional electronic structure methods. 
+This challenge is rooted in the fact that the X-Ray region is buried deep within the eigenspectrum of the Hamiltonian and is often spectrally dense. 
+For example, in near edge X-Ray absorption fine structure (NEXAFS) spectroscopy, the spectrum consists of many excited states that correspond to excitations of core electrons to diffuse quasi bound levels. 
+Thus, as system sizes increase, the number of states in the given energy region increases dramatically. 
+Further, it is important to note that, because very large basis sets are often required to properly describe the rather diffuse nature of these excited states, the increase in complexity leads to poor scaling with system size.
+
+Many electronic structure methods have been extended to the
+description of high-energy, X-ray electronic excitations in recent years. In
+the time domain, real-time density functional theory\cite{Li05_233,Li07_199,Li11_184102} has been shown to
+excellently reproduce the X-ray \emph{K}-edge for molecules within relatively
+short simulation times.\cite{Govind12_3284,Lopata16_3741} For large systems,
+however, time-domain methods have difficulty taking full advantage of
+concurrency on modern computing architectures, and are thus not yet a
+sustainable avenue in routine theoretical inquiry of these phenomena. In contrast,
+frequency domain approaches are often favored in these types of calculations as
+they may be cast as computationally scalable linear algebra problems which are
+well suited for massive concurrency. Frequency domain approaches to treat
+electronic excitations may be separated into two categories which obtain equivalent information:
+methods which aim to obtain a spectral decomposition of the quantum propagator, i.e., eigenproblem based methods, and methods which solve the response problem directly through the solution of linear systems of equations. 
+
+Recasting electronic structure methods into eigenproblems has long been the de facto standard frequency domain method for electronically excited states. Through knowledge of the poles (eigenroots) of the quantum propagator, one has direct access to information regarding the electronic excitations (resonances) of the molecular system. In addition, such a spectral decomposition may be used to treat off-resonant perturbations through interpolation schemes known as sum-over-states expressions\cite{Yeager84_33}.
+Much work has gone into the development of these methods in both wave function theory, such as those based on
+the 
+coupled-cluster (CC)\cite{olje1988,Monkhorst77_421,Jorgensen90_3333,Bartlett93_7029,Bartlett93_414} 
+and algebraic diagrammatic construction (ADC)\cite{Dreuw14_4583,Dreuw14_1900} 
+expansions of the many-body wave function,
+and self-consistent field theory, such as the linear response time-dependent Hartree--Fock (TD-HF)\cite{Hattig98_1,Ring_book,Jorgensen_book,Rowe68_153} and density functional theory
+(TD-DFT)\cite{Casida95_book,HeadGordon05_4009}. These methods have been shown to accurately predict and reproduce both low-\cite{Ruud12_543,Bartlett09_Book} and high-energy\cite{Li11_3540,Li15_2994,Li15_4146,DeSimone03_115,Neese07_2783,Asmuruf10_12024,Govind12_3284} electronic excitations in molecular systems.  Despite
+their accuracy, however, eigenproblem based methods possess an inherent challenge in the
+description of high-energy excited states when the eigenroots of interest
+are buried deep in the eigenspectrum.  Traditional methods used to partially
+diagonalize the propagator, such as the
+block-Davidson method\cite{Davidson75_87,Scott86_817,Morgan92_287}, are designed to converge to the extreme ends of the
+eigenspectrum with no built-in mechanism to establish the spectrum's interior. 
+Several approaches have been described to overcome this problem~\cite{zuev_etal2015}, including
+energy specific\cite{Li11_3540,Li15_4146} and
+restricted energy window methods\cite{DeSimone03_115,Neese07_2783,Asmuruf10_12024} when the eigenroots of interest are well-separated. Further, in spectrally dense regions of the propagator's eigenspectrum, iterative diagonalization algorithms require the resolution of many more roots than is often practical to ensure smooth convergence.
+
+Methods which solve the response problem through the solutions of linear systems offer an attractive alternative to eigenproblem based approaches in the description of high-energy excitations because they have an intrinsic
+mechanism to probe the interior of the energy spectrum. In these methods, the
+probing frequency of the applied perturbation is a chosen parameter.\cite{Hattig98_1,Ruud12_543} Thus,
+the interior of the spectrum is easily probed through a number of solutions
+of linear system of equations in the desired frequency domain. This simplicity 
+does, however, come at a seemly significant computational cost compared to eigenproblem based methods.
+While eigenproblems are able to directly obtain many poles of the eigenspectrum
+simultaneously, one must solve the linear problem many times
+over some discretization of the frequency domain to obtain similar results.
+In general, this discretization must be quite dense to achieve a reasonable 
+accuracy and thus can be more expensive than their eigenproblem based counterparts. Approaches using linear systems and based on the complex
+polarization propagator (CPP), such as CPP-CC\cite{Norman12_1616,Norman13_124311,Coriani13_211102} and CPP-SCF,\cite{Rubio_Book,Ruud12_543,Yeager84_33,Oddershede01_JCP}
+have been shown to be successful in the description of both high\cite{Norman16_1991,Norman12_022507,Norman10_5096,Agren06_143001,Norman16_13591} and low\cite{Mathieu15_21866} energy properties of molecular systems and have been extended to relativistic Hamiltonians as well\cite{Norman10_064105}.
+
+In this work, we introduce a general framework for the prediction of spectrally interior molecular response properties based on model order reduction (MOR) via interpolation. MOR techniques have been successfully applied in different fields of computation science and engineering, where it reduces the computational complexity of mathematical models in numerical simulations. Examples include structural dynamics, sound and vibration analysis, and control theory \cite{Antoulas2005}. The MOR algorithm proposed in this paper aims to overcome the large computational overhead associated with the spectral discretization required by linear system based methods while maintaining the accuracy associated with eigenproblem based methods. Further, the proposed algorithm will be shown to allow for the massively scalable parallelism that is well suited for modern computing architectures.
+
+
 % Semi--Classical Light Matter
 \section{Semi--Classical Light--Matter Interaction}
 \label{sec:SCLMI}
@@ -140,7 +210,7 @@ Expanding the square, we obtain
 \end{equation}
 where
 \begin{align}
-\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i , t) + \op{\vc A}(i , t) \cdot \op{\vc p}(i) + \op{A}^2(i \, \vert \, t) - 
+\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i , t) + \op{\vc A}(i , t) \cdot \op{\vc p}(i) + \op{A}^2(i, t) - 
   U(i , t) \nonumber \\
   &\approx \sum_{i=1}^N  \op{\vc A}(i , t) \cdot \op{\vc p}(i) - U(i , t). \label{eq:CouGaugeOp}
 \end{align}
@@ -192,21 +262,23 @@ To ensure causality of the perturbation, we will multiply the perturbing operato
 \begin{equation}
 \op H(t) = \op H_0 + \op V'_{ext}(t)
 \end{equation}
-where $\op V'_{ext}(t) = e^{\eta t } \op V_{ext}(t)$ with $\eta \ll 1$.
+where $\op H_0$ is a Hamiltoninan for which we may solve \cref{eq:TIQWave} and 
+$\op V'_{ext}(t) = e^{\eta t } \op V_{ext}(t)$ with $\eta \ll 1$. For molecular systems, $\op H_0 = \op H^\BO_{el}$.
 
-Given a time-independent one--body scalar operator, $\op P$, the linear time evolution (response) of the expecation value of that operator
+Given a time-independent one--body scalar operator, $\op O^1$, the linear time evolution (response) of the expecation value of that operator
 is given by the Kubo relation \todo{cite}
 \begin{equation}
 \label{eq:Kubo}
-P(t) \equiv \innerop{\Psi(t)}{\op P}{\Psi(t)} = P(-\infty) + \int_{-\infty}^\infty \RetGF{\op P}{\op V'_{ext}(t' \prm t'-t)} \dd t',
+O^1(t) \equiv \innerop{\Psi(t)}{\op O^1}{\Psi(t)} = O^1(-\infty) + \int_{-\infty}^\infty \RetGF{\op O^1}{\op V'_{ext}(t' \prm t'-t)} \dd t',
 \end{equation}
-where the moiety $\RetGF{\cdot}{\cdot}$ is the retarded two-time Green's function \todo{cite},
+where the moiety $\RetGF{\cdot}{\cdot}$ is the retarded two-time Green's function (RGFT) \todo{cite},
 \begin{equation}
   \label{eq:RetGFTime}
-  \RetGF{\op P}{\op V'_{ext}(t' \prm t)} = -\ii \Theta(-t) \innerop{\Psi_0}{\left[\op P, \op V'_{ext}(t' \prm t) \right]}{\Psi_0},
+  \RetGF{\op O^1}{\op V'_{ext}(t' \prm t)} = -\ii \Theta(-t) \innerop{\Psi_0}{\left[\op O^1, \op V'_{ext}(t' \prm t) \right]}{\Psi_0},
 \end{equation}
 and we have have expressed the external potential in the interaction picture,
 \begin{equation}
+  \label{eq:IntPicture}
 \op V'_{ext}(t' \prm t) = \exp\left[\ii \op H_0 t\right] \op V'_{ext}(t') \exp\left[-\ii \op H_0 t\right].
 \end{equation}
 Here, the paramter list after the $\vert$ denote the time coordinates arising from the interaction picture, not the proper time of 
@@ -217,11 +289,11 @@ the form of \cref{eq:RetGFTime}.
 It is often useful to examine \cref{eq:RetGFTime} in the frequency domain rather than the time-domain. As $\op V_{ext}(t)$ is
 taken to be time periodic, we may decompose it into its Fourier components as
 \begin{equation}
-  \RetGF{\op P}{\op V'_{ext}(t' \prm t'-t)} = \int_{-\infty}^\infty \RetGF{\op P}{\op V_{ext}(\omega \prm t'-t)} e^{-\ii \omega t' + \eta t'}\dd\omega.
+  \RetGF{\op O^1}{\op V'_{ext}(t' \prm t'-t)} = \int_{-\infty}^\infty \RetGF{\op O^1}{\op V_{ext}(\omega \prm t'-t)} e^{-\ii \omega t' + \eta t'}\dd\omega.
 \end{equation}
 Substituting this back into \cref{eq:Kubo} and making the variable substitution $s = t' - t$, which implies $t' = s + t$, we may write
 \begin{equation}
-P(t) = P(-\infty) +\int_{-\infty}^\infty  e^{-\ii \omega t + \eta t} \left(\int_{-\infty}^\infty \RetGF{\op P}{\op V_{ext}(\omega \prm s)} 
+O^1(t) = O^1(-\infty) +\int_{-\infty}^\infty  e^{-\ii \omega t + \eta t} \left(\int_{-\infty}^\infty \RetGF{\op O^1}{\op V_{ext}(\omega \prm s)} 
 e^{-\ii \omega s + \eta s} \dd s\right)
 \dd \omega.
 \end{equation}
@@ -233,19 +305,65 @@ When $\op V_{ext}(t)$ takes the form of \cref{eq:VextLen}, we obtain
 where $\vc E(\omega)$ is the Fourier transform of $\vc E(t)$. Thus
 \begin{equation}
 \label{eq:FTResponse}
-P(t) = P(-\infty) - \sum_{\xi \in \{x,y,z\}} \int_{-\infty}^\infty \retGF{\op P}{\op \xi}_{\omega - \ii\eta} E_\xi(\omega) e^{-\ii\omega t + \eta t} \dd\omega 
+O^1(t) = O^1(-\infty) - \sum_{\xi \in \{x,y,z\}} \int_{-\infty}^\infty \retGF{\op O^1}{\op \xi}_{\omega - \ii\eta} E_\xi(\omega) e^{-\ii\omega t + \eta t} \dd\omega 
 \end{equation}
 Here $\op \xi$ is the $\xi$-th component of the position operator and
 \begin{equation}
 \label{eq:RetGFFT}
-\retGF{\op P}{\op \xi}_{\omega - \ii\eta} = \int_{-\infty}^\infty \RetGF{\op P}{\op \xi ( \prm t)} e^{-\ii \omega t + \eta t} \dd t.
+\retGF{\op O^1}{\op \xi}_{\omega - \ii\eta} = \int_{-\infty}^\infty \RetGF{\op O^1}{\op \xi ( \prm t)} e^{-\ii \omega t + \eta t} \dd t,
 \end{equation}
+is the frequency space representation of the Green's function (RGFF).
 The empty space before the interaction picture parameter list indicates that $\op \xi$ does not have Fourier components. \Cref{eq:FTResponse} is general
 to any time-dependent operator which admits a Fourier transform that factors as \cref{eq:FTV}.
+Due to \cref{eq:SeQuantOp}, the RGFT and RGFF for one-body operators are known as the time-- and frequency--space
+polarization propagators, respectively.
 
+The previous development of the relationship between the time evolution of the quantum state and the polarization
+propagator has been for the exact many--body quantum state. As such, we must develop a protol to approximate
+the expansions in e.g. \cref{eq:FTResponse} in order to allow for practical calculations of molecular response. 
+The formal development of the expansion of the polarization propagator in orders of the two--body potential
+is given elagantly elsewhere \todo{cite}. To first order in the HF approximation, the polarization propagtor for two arbitrary 
+one--body operators, $\op O^1_1$ and $\op O^1_2$, known as the first order polarization propagator method (FOPPA) is given by
+\begin{equation}
+  \label{eq:FOPPA}
+  \retGF{\op O^1_1}{\op O^1_2}_z = \vc {\overline {O}}^{1\dagger}_1 \vc {\overline {X}}^1_2(z).
+\end{equation}
+where $z \in \mathbb C$ is an arbitrary complex parameter and
+\begin{equation}
+  (\vc{\overline H} - z \vc{\overline S}) \vc{\overline X}^1_2(z) = \vc{\overline O}^1_2.
+\end{equation}
+We have defined the matrices
+\begin{align}
+  &\vc{\overline H} = \begin{bmatrix} \vc A & \vc B \\ \vc B^* & \vc A^* \end{bmatrix}, \\
+  &\vc{\overline S} = \begin{bmatrix} \vc I & \vc 0 \\ \vc 0 & -\vc I \end{bmatrix}, \\
+  &\vc{\overline O}^1 = \begin{bmatrix} \vc O^1 \\ \vc O^{1*} \end{bmatrix},
+\end{align}
+where $\vc{\overline O}^1 \in \{ \vc{\overline O}^1_1, \vc{\overline O}^1_2 \}$. The matrix
+elements are given as follows
+\begin{align}
+  &A_{ai,bj} = \innerop{\vc 0^\HF}{[\tau^i_a,[\op H^\BO_{el}, \tau_j^b]]}{\vc 0^\HF} = 
+    \delta_{ij}\delta_{ab}(\epsilon^\HF_a - \epsilon^\HF_i) + \innerop{aj}{r_{12}^{-1}}{ib} - \innerop{aj}{r_{12}^{-1}}{bi} \\
+  &B_{ai,bj} = \innerop{\vc 0^\HF}{[\tau^a_i,[\op H^\BO_{el}, \tau_j^b]]}{\vc 0^\HF} = 
+    \innerop{ab}{r_{12}^{-1}}{ij} - \innerop{ab}{r_{12}^{-1}}{ji} \\
+  &O^1_{ai} = \innerop{\vc 0^\HF}{[\op O^1,\tau^{a}_i]}{\vc 0^\HF} = \innerop{\phi_a}{\op O^1(1)}{\phi_i}
+\end{align}
+where $\mathcal C = \{ \phi_p \}$ forms the single partile HF basis.
 
-
-
+\section{The Linear Absorption Spectrum}
+In the semi-classical theory of molecular light-matter interaction within the electric dipole approximation, the isotropic absorption cross section for the interaction with plane-polarized light, $\sigma(\omega)$, at a particular perturbing frequency, $\omega$, is proportional to the trace of the dynamic polarizability tensor, $\bfalpha(\omega)$,
+\begin{equation}
+  \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfalpha(\omegat) \right]\right), \qquad \omegat = \omega + i\eta,
+  \label{eq:abs-spectrum}
+\end{equation}
+where $\eta > 0$ is a small damping parameter to ensure the convergence of $\bfalpha$ in the spectral neighborhoods of resonant perturbations. Within the linear response regime of the first-order polarization propagator approximation (FOPPA)\cite{Yeager84_33}, the dynamic polarizability tensor may be written as
+\begin{equation}
+  \bfalpha(\omegat) = \bfd\T \bG\inv(\omegat) \bfd, \qquad 
+  \bfd = \begin{bmatrix}
+    \bfd_x & \bfd_y & \bfd_z \\
+    \bfd_x & \bfd_y & \bfd_z
+  \end{bmatrix}.
+  \label{eq:polar-tensor}
+\end{equation}
 
 
 \section{Interpolatory Model Order Reduction of Linear Dynamical Systems}

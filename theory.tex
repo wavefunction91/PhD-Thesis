@@ -1549,12 +1549,12 @@ $\op{g}^C$ is the two body Coulomb operator which describes the electrostatic in
 In the spinor representation, these operators take the general form (in atomic units)
 \begin{align}
   \label{eq:SpinorKinMom}
-  &\spop{\vc{p}}(\vc{x}_\xi) = -\ii \nabla_\xi \otimes \op{I}_S(\xi) \quad \Longrightarrow \quad 
-  \spop{T}^\NR(\vc{x}_\xi) = - \frac{1}{2m_\xi} \Delta_\xi \otimes \op{I}_S(\xi),
+  &\spop{\vc{p}}(\vc{r}_\xi) = -\ii \nabla_\xi \otimes \op{I}_S(\xi) \quad \Longrightarrow \quad 
+  \spop{T}^\NR(\vc{r}_\xi) = - \frac{1}{2m_\xi} \Delta_\xi \otimes \op{I}_S(\xi),
 \end{align}
 \begin{align}
   \label{eq:SpinorCoulomb}
-  &\spop{g}^C(\vc{x}_\xi,\vc{x}_\zeta) = 
+  &\spop{g}^C(\vc{r}_\xi,\vc{r}_\zeta) = 
     \frac{Z_\xi Z_\zeta}{r_{\xi\zeta}} \otimes \op{I}_S(\xi) \otimes \op{I}_S(\zeta), \qquad r_{\xi\zeta} = \vert \vc{r}_\xi - \vc{r}_\zeta \vert
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
@@ -1624,7 +1624,7 @@ component of the wave function and is valid in the inertial frame of the electro
 \end{equation}
 where
 \begin{align}
-  &\op{V}_{ne}(\vc{x}_i) = 
+  &\spop{V}_{ne}(\vc{r}_i) = 
     -\sum^{N_\mathrm{nuc}}_A \left(\int_{\mathbb R^3} \frac{Z_A\rho^{1,0}_\mathrm{nuc,A}(\vc{R})}{\vert \vc{r}_i - \vc{R} \vert} \dd^3\vc{R}\right) \otimes \pauli{0}, \label{eq:Vne}\\
 &E_{nn} = \frac{1}{2} \sum^{N_\mathrm{nuc}}_{A\neq B} \iint_{\mathbb R^3} \frac{Z_AZ_B\rho^{1,0}_\mathrm{nuc,A}(\vc{R})\rho^{1,0}_\mathrm{nuc,B}(\vc{R}')}{\vert \vc{R} - \vc{R}' \vert} \dd^3\vc{R} \dd^3\vc{R}'.
 \end{align}
