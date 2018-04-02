@@ -62,7 +62,7 @@ adhere to Fermi--Dirac statistics, namely that they must exhibit anti-symmetric 
 where $\hilb{P}_{ij}$ is the particle permutation operator which interchanges particle $i$ and $j$ 
 (for a more thorough discussion on linear operators acting on $\hilb{H}^N$, see \cref{sec:LO}). Remark
 that this notion of particle interchange is intimately related to \cref{eq:SepHilbert}. With this additional
-constraint, we may construct a basis for $\hilb{H}^N_-$ with elements \todo{find a good reference}
+constraint, we may construct a basis for $\hilb{H}^N_-$ with elements \cite{Ostlund12_book}
 \begin{equation}
   \label{eq:SlaterDet}
   \ket{\Phi^N_I} = \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } \bigotimes_{i = 1 }^N \ket{\phi_{\xi(i)}},
@@ -106,7 +106,7 @@ projects the vectors of the Hilbert space onto a convenient basis.
 To this end, we consider a specific single particle basis, $\set{\ket{\vc{r},\sigma} = \ket{\vc{r}}\otimes\ket{\sigma}}$, 
 which consists of the simultaneous eigenfunctions
 of both the position and $z$--spin operators, denoted $\op{\vc{r}}$ and $\op{S}_z$,
-such that
+such that \cite{Yang89_book}
 \begin{subequations}
 \begin{align}
   \op{\vc{r}}\ket{\vc{r},\sigma} &= \ket{\vc{r},\sigma}\vc{r}, \qquad \vc{r}\in\mathbb{R}^3, \\
@@ -114,7 +114,7 @@ such that
 \end{align}
 \end{subequations}
 Here, we have denoted the particle's position and $z$--axis spin projection as $\vc{r}$ and $\sigma$, respectively.
-Namely, if $\hilb{H}^1$ represents a spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\hilb{H}^1$ 
+Namely, if $\hilb{H}^1$ represents a non-relativistc spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\hilb{H}^1$ 
 and admits the following orthonormality  condition on the $\hilb{H}^1$ inner product,
 \begin{equation}
   \label{eq:SpinorInner}
@@ -211,13 +211,17 @@ the action of an operator $\op{O}^1$ on the spinor basis $\set{\ket{\vc{x}}}$ fr
 \cref{eq:H1Identity},
 \begin{align}
   \op{O}^1 = \op{1}_1 \op{O}^1 \op{1}_1 = \iint_{\mathbb F} 
-    \ket{\vc{x}} \innerop{\vc{x}}{\op{O}^1}{\vc{x}'}\bra{\vc{x}'} \dd^4\vc{x} \dd^4\vc{x}',
+    \ket{\vc{x}} \op{O}^1(\vc x; \vc x') \bra{\vc x'} \dd^4\vc{x} \dd^4\vc{x}',
 \end{align}
-such that for $\ket{\psi},\ket{\chi} \in \hilb{H}^1$,
+where
+\begin{align}
+\op{O}^1(\vc x; \vc x') = \innerop{\vc{x}}{\op{O}^1}{\vc{x}'}.
+\end{align}
+For $\ket{\psi},\ket{\chi} \in \hilb{H}^1$ we have
 \begin{align}
   \label{eq:SpinorOpInner1}
   \innerop{\psi}{\op{O}^1}{\chi} &= \iint_{\mathbb F}
-    \psi^*(\vc{x}) \innerop{\vc{x}}{\op{O}^1}{\vc{x}'} \chi({\vc{x}'}) \dd^4\vc{x} \dd^4\vc{x}' \nonumber \\
+    \psi^*(\vc{x}) \op{O}^1(\vc x; \vc x') \chi({\vc{x}'}) \dd^4\vc{x} \dd^4\vc{x}' \nonumber \\
   &= \int_{\mathbb R^3} 
     \begin{bmatrix}
       \psi^\alpha(\vc{r}) \\
@@ -236,10 +240,8 @@ Here we have made an assumption which is crucial to the following developments, 
 are \emph{spatially local}, i.e.
 \begin{equation}
   \label{eq:LocalSpinorOp1}
-\innerop{\vc{x}}{\op{O}^1}{\vc{x}'}  \equiv \innerop{\vc{r},\sigma}{\op{O}^1}{\vc{r}',\sigma'} = \delta^3(\vc{r} - \vc{r'}) \op{O}^{1,\sigma\sigma'}(\vc{r}').
+\op{O}^1(\vc x; \vc x') = \delta^3(\vc{r} - \vc{r'}) \op{O}^{1,\sigma\sigma'}(\vc{r}').
 \end{equation}
-In general, operators need not be spatially local, and as such must be specified with two coordinate indices, i.e. $\op{O}^1(\vc{x};\vc{x}')$
-(see \cref{eq:DenMatSpace} for instance).
 However, it will be the case that the linear operators which correspond to observables of the physical system will typically be spatially local,
 and instances where this is not the case will be treated explicitly. 
 
@@ -251,7 +253,7 @@ This notion of operator representation may be generalized to $N$--particle opera
     \dd^4\vc{x}_1 \cdots   \dd^4\vc{x}_N
     \idotsint_{\mathbb F}
     \dd^4\vc{x}'_1 \cdots  \dd^4\vc{x}'_N \times \nonumber\\
-    &\qquad\ket{\vc{x}_1,\ldots,\vc{x}_N} \innerop{\vc{x}_1,\ldots,\vc{x}_N}{\op{O}^{N}}{\vc{x}'_1,\ldots,\vc{x}'_N}\bra{\vc{x}'_1,\ldots,\vc{x}'_N} 
+    &\qquad\ket{\vc{x}_1,\ldots,\vc{x}_N} \op O^N (\vc{x}_1,\ldots,\vc{x}_N; \vc{x}'_1,\ldots,\vc{x}'_N) \bra{\vc{x}'_1,\ldots,\vc{x}'_N} 
 \end{align}
 such that for arbitrary $N$--body Hartree products constructed from $\set{\ket{\psi_p}},\set{\ket{\chi_p}} \subset \hilb{H}^N$
 \begin{align}
@@ -265,7 +267,7 @@ such that for arbitrary $N$--body Hartree products constructed from $\set{\ket{\
 where we have again assumed operator spatial locality,
 \begin{equation}
   \label{eq:LocalSpinorOpN}
-  \innerop{\vc{x}_1,\ldots,\vc{x}_N}{\op{O}^{N}}{\vc{x}'_1,\ldots,\vc{x}'_N} = 
+  \op O^N (\vc{x}_1,\ldots,\vc{x}_N; \vc{x}'_1,\ldots,\vc{x}'_N) = 
     \left(\prod_{i=1}^N\delta^3(\vc{r}_i - \vc{r}'_i)\right) 
     \op{O}^{1,\sigma_1\sigma_1'\cdots\sigma_N\sigma_N'}(\vc{r}_1',\ldots,\vc{r}_N').
 \end{equation}
@@ -273,17 +275,17 @@ For brevity, this representation of $N$ particle operators will
 often be interpreted as rank--2$N$ tensors in the basis of spin eigenfunctions, 
 \begin{equation}
 \label{eq:SpinorOpN}
-\spop{O}^N (\vc{x}_1,\ldots,\vc{x}_N) \equiv \sum_{\sigma_1\cdots\sigma_N}\sum_{\sigma'_1\cdots\sigma'_N}  \op{O}^{N,\sigma_1\sigma_1'\cdots\sigma_N\sigma_N'}(\vc{r}_1,\ldots,\vc{r}_N) 
+\spop{O}^N (\vc{r}_1,\ldots,\vc{r}_N) \equiv \sum_{\sigma_1\cdots\sigma_N}\sum_{\sigma'_1\cdots\sigma'_N}  \op{O}^{N,\sigma_1\sigma_1'\cdots\sigma_N\sigma_N'}(\vc{r}_1,\ldots,\vc{r}_N) 
   \otimes \bigotimes_{i=1}^N \vc{e}_{\sigma_i} \otimes \vc{e}_{\sigma_i'}, 
 \end{equation}
 where 
 \begin{align}
 \vc{e}_\alpha = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \qquad \vc{e}_\beta = \begin{bmatrix} 0 \\ 1 \end{bmatrix}. 
 \end{align}
-The product operation of operators denoted $\spop{O}^N(\vc{x}_1,\ldots,\vc{x}_N)$ and their action onto spinor wave functions 
+The product operation of operators denoted $\spop{O}^N(\vc{r}_1,\ldots,\vc{r}_N)$ and their action onto spinor wave functions 
 (or more specifically, Hartree products) will be a rank-$N$ tensor contraction over spin indices as depicted in \cref{eq:SpinorOpInner1} 
 and more generally in \cref{eq:SpinorOpInnerN}. 
-For the remainder of this work, we will refer to the projections $\spop{O}^N(\vc{x}_1,\ldots,\vc{x}_N)$ as 
+For the remainder of this work, we will refer to the projections $\spop{O}^N(\vc{r}_1,\ldots,\vc{r}_N)$ as 
 spinor representations of $\op{O}^N$, or simply spinor operators when appropriate. 
 The super-scripted moieties $\op{O}^{N,\sigma_1\sigma'_1\cdots}$ will be referred to as the spinor operator
 coefficients relative to the spin basis.
@@ -296,7 +298,7 @@ In the following developments, it will be useful to examine \cref{eq:SpinorOpN} 
 $\vc{e}_\alpha$ and $\vc{e}_\beta$ to that of the Pauli matrices,
 \begin{equation}
   \label{eq:SpinorOpPauli}
-  \spop{O}^N (\vc{x}_1,\ldots,\vc{x}_N) = \sum_{K_1\cdots K_N}\op{O}^{N,K_1\cdots K_N}(\vc{r}_1,\ldots,\vc{r}_N) \otimes \bigotimes_{i = 1}^N \pauli{K_i}
+  \spop{O}^N (\vc{r}_1,\ldots,\vc{r}_N) = \sum_{K_1\cdots K_N}\op{O}^{N,K_1\cdots K_N}(\vc{r}_1,\ldots,\vc{r}_N) \otimes \bigotimes_{i = 1}^N \pauli{K_i}
 \end{equation}
 where 
 \begin{equation}
@@ -336,9 +338,9 @@ To demonstrate this state of affairs, it is convenient to examine the action of 
 spinor wave function of the form \cref{eq:SlaterDetSpace},
 \begin{align}
   \label{eq:MOpSpace}
-  &\spop{O}^M(\vc{x}_i,\vc{x}_j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
+  &\spop{O}^M(\vc{r}_i,\vc{r}_j,\ldots) \Phi_I^N(\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N) = \nonumber \\ &\qquad \quad
     \frac{1}{\sqrt{N!}} \sum_{\xi \in S_N(\hilb{K}^N_I)} \Sign{\xi} \text{ } 
-    \left(\spop{O}^M(\vc{x}_i,\vc{x}_j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
+    \left(\spop{O}^M(\vc{r}_i,\vc{r}_j,\ldots) \phi_{\xi(i)}(\vc{x}_i)\phi_{\xi(j)}(\vc{x}_j)\cdots\right)
     \prod_{k \neq (i,j,\ldots) }^{N-M} \phi_{\xi(k)}(\vc{x}_k),
 \end{align}
 where $(i,j,\ldots)$ is an $M$--element tuple specifying the subset of particles upon which it acts.
@@ -430,11 +432,11 @@ in terms of the 1 and 2RDMs which correspond to that vector
   \label{eq:GenDenMatInner}
 \begin{align}
 &\innerop{\Psi^N}{\sum_i \op{O}^1(i)}{\Psi^N} = \sum_{\sigma_1\sigma_1'} \int_{\mathbb{R}^3} 
-  \left.\left( \op{O}^{1,\sigma_1\sigma_1'}(\vc{r}_1) \gamma^1(\vc{r}_1,\sigma_1; \vc{r}'_1, \sigma_1') \right) \right \vert_{\vc{r}'_1 = \vc{r}_1}
+  \left.\left( \op{O}^{1,\sigma_1\sigma_1'}(\vc{r}_1) \gamma^1(\vc{r}_1,\sigma'_1; \vc{r}'_1, \sigma_1) \right) \right \vert_{\vc{r}'_1 = \vc{r}_1}
     \dd^3\vc{r}_1,\\
 &\innerop{\Psi^N}{\sum_{i \neq j} \op{O}^2(i,j)}{\Psi^N} = \sum_{\sigma_1\sigma_1'\sigma_2\sigma_2'}\iint_{\mathbb{R}^3} \dd^3\vc{r}_1 \dd^3\vc{r}_2  \times\nonumber \\
 &\qquad \left.\left( 
-    \op{O}^{2,\sigma_1\sigma_1'\sigma_2\sigma_2'}(\vc{r}_1,\vc{r}_2) \gamma^2(\vc{r}_1,\sigma_1,\vc{r}_2,\sigma_2; \vc{r}'_1, \sigma_1',\vc{r}'_2, \sigma_2')
+    \op{O}^{2,\sigma_1\sigma_1'\sigma_2\sigma_2'}(\vc{r}_1,\vc{r}_2) \gamma^2(\vc{r}_1,\sigma'_1,\vc{r}_2,\sigma'_2; \vc{r}'_1, \sigma_1,\vc{r}'_2, \sigma_2)
   \right) \right \vert_{\vc{r}'_1 = \vc{r}_1, \vc{r}'_2 = \vc{r}_2}. 
 \end{align}
 \end{subequations}
@@ -448,7 +450,7 @@ Motivated by the spin sums in \cref{eq:GenDenMatInner}, it is useful to cast the
 \cref{eq:LocalSpinorOp1,eq:LocalSpinorOpN} such that
 \begin{equation}
   \label{eq:RDMSpinBasis}
-  \spn{\gamma}^P(\vc{x}_1,\vc{x}_2,\ldots;\vc{x}'_1,\vc{x}'_2,\ldots ) \equiv 
+  \spn{\gamma}^P(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) \equiv 
     \gamma^{P,\,\sigma_1\sigma'_1\sigma_2\sigma'_2\cdots}(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) 
     \otimes \bigotimes_{i=1}^P \vc{e}_{\sigma_i} \otimes \vc{e}_{\sigma_i'}.
 \end{equation}
@@ -459,11 +461,11 @@ As was the case for spinor operators in \cref{sec:LO}, hermiticity of the densit
 place any specific restrictions on the hermiticity on the spinor coefficients.
 In analogy to \cref{eq:SpinorOpPauli}, we may construct hermitian coefficients via
 \begin{equation}
-  \spn{\gamma}^P(\vc{x}_1,\vc{x}_2,\ldots;\vc{x}'_1,\vc{x}'_2,\ldots ) \equiv 
+  \spn{\gamma}^P(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) \equiv 
     \gamma^{P,\,K_1 K_2 \cdots}(\vc{r}_1,\vc{r}_2,\ldots;\vc{r}'_1,\vc{r}'_2,\ldots ) 
     \otimes \bigotimes_{i=1}^P \pauli{K_i}.
 \end{equation}
-This realization allows for a simplification of  \cref{eq:GenDenMatInner}, such that, \todo{reference appendix}
+This realization allows for a simplification of  \cref{eq:GenDenMatInner}, such that (see \cref{apx:SpinorOp})
 \begin{subequations}
   \label{eq:SpinBasisDenMatInner}
 \begin{align}
@@ -515,8 +517,8 @@ as the diagonal elements of the Pauli components of the 1 and 2RDMs. They may be
 as Pauli components of moieties satisfying
 \begin{align}
   \label{eq:Densities}
-&\spn{\rho^1}(\vc{x}) = \sum_K \rho^{1,K}(\vc{r}) \otimes \pauli{K}\\
-&\spn{\rho^2}(\vc{x},\vc{x}') = \sum_{KK'} \rho^{2,KK'}(\vc{r},\vc{r}') \otimes \pauli{K}\otimes \pauli{K'}
+&\spn{\rho^1}(\vc{r}) = \sum_K \rho^{1,K}(\vc{r}) \otimes \pauli{K}\\
+&\spn{\rho^2}(\vc{r},\vc{r}') = \sum_{KK'} \rho^{2,KK'}(\vc{r},\vc{r}') \otimes \pauli{K}\otimes \pauli{K'}
 \end{align} 
 In this work, we will refer to
 the moieties $\spn{\rho}^{1}$ and $\spn{\rho}^{2}$ as the  one and two particle
@@ -625,7 +627,7 @@ where
 \end{align}
 Upon action, $\ket{0^N}_{ijk\cdots}^{abc\cdots}$ is an $ M = N - n_o + n_v $ particle Slater determinant built from removing
 orbitals $i,j,k,\ldots$ from $\ket{0^N}$ and replacing them with orbitals $a,b,c,\ldots \in \hilb{V}$. The set of all
-$\tau$ operators generates all $M$--particle Slater determinants from the $N$--particle reference \todo{cite Dalgaard}.
+$\tau$ operators generates all $M$--particle Slater determinants from the $N$--particle reference and is complete given any reference \cite{Dalgaard79_169}.
 It is worth noting at this point that due to that anti-commutation relations of \cref{eq:SeQuantComm}, $\tau^{abc\cdots}_{ijk\cdots}$
 is anti symmetric with respect to permutation of adjacent creation and annihilation operators, i.e.
 \begin{equation}
@@ -716,112 +718,118 @@ of the form \cref{eq:SlaterDet} or \cref{eq:SlaterDetSpace}, which involve the e
 into tensor contractions of few body integrals (\cref{eq:DiracInts}) and transition amplitudes ($\vc{t}^n$),
 with inner products involving strings of creation and annihilation operators. Given the prior, one may heavily exploit the
 commutation relationships of \cref{eq:SeQuantComm} to easily evaluate inner products of arbitrary operator strings through
-various diagrammatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book,Ohrn73_book} \todo{more cites}.
+various diagrammatic techniques or explicitly by Wick's theorem \cite{Walecka12_book,Schuck04_book,Ohrn73_book}.
 
-\Cref{eq:SeQuantOp} may be cast into a more illuminating form by the introduction of the so called field operators which connect
-the second quantized and spinor representations of operators and expectation values \cite{Walecka12_book,Schuck04_book,Yang89_book,Ohrn73_book},
-\begin{subequations}
-\label{eq:FieldOperators}
-\begin{align}
-\psi (\vc{x}) = \sum_p \phi_p(\vc{x}) c_p &\quad \text{ field annihilation operator},\\
-\psi^\dagger(\vc{x}) = \sum_p \phi^*_p(\vc{x}) c^\dagger_p &\quad \text{ field creation operator}.
-\end{align}
-\end{subequations}
-%Analogously to \cref{eq:SeQuantComm}, the field operators obey the following commutation relations,
-%\begin{subequations}
-%  \label{eq:FieldComm}
-%\begin{align}
-%  &[\psi^\dagger(\vc{x}), \psi^\dagger(\vc{x}')]_+ = 0,\\
-%  &[\psi(\vc{x}), \psi(\vc{x}')]_+ = 0,\\
-%  &[\psi(\vc{x}), \psi^\dagger(\vc{x}')]_+ = \delta^4(\vc{x} - \vc{x}'),
-%\end{align}
-%\end{subequations}
-From these definitions and the expressions for the tensor elements of \cref{eq:DiracInts}, it is clear
-that the second quantized operator representations may be cast as \cite{Walecka12_book,Yang89_book},
-\begin{subequations}
-\label{eq:FieldOpRep}
-\begin{align}
-  &\op{O}_\hilb{F}^1 = \int_{\mathbb F} \psi^\dagger(\vc{x}_1) \,\spop{O}^1(\vc{x}_1) \,\psi(\vc{x}_1) \,\,\dd^4 \vc{x}_1, \\
-  &\op{O}_\hilb{F}^2 = \iint_{\mathbb F} \psi^\dagger(\vc{x}_2)\psi^\dagger(\vc{x}_1) \,\spop{O}^2(\vc{x}_1,\vc{x}_2) \,\psi(\vc{x}_1)\psi(\vc{x}_2) 
-    \,\,\dd^4 \vc{x}_1\dd^4 \vc{x}_2.
-\end{align}
-\end{subequations}
-Here the action of the 1-- and 2--particle spinor operators on the field operators is understood to be the same
-as their action on the products on spinor orbitals as in \cref{eq:DiracInts}, i.e. tensor contraction. Upon immediate
-inspection, \cref{eq:FieldOpRep} offers no simplification over \cref{eq:SeQuantOp}. However, we may recast 
-\cref{eq:FieldOpRep} as the expectation value of a non--local operator, which in the case of one particle operators
-yields,
-\begin{align}
-  &\op{O}_\hilb{F}^1 = \sum_{\sigma_1\sigma'_1}\int_{\mathbb R^3} 
-    \left.\left(\op{O}^{1,\sigma_1\sigma'_1} (\vc{r}_1) \, \psi^\dagger(\vc{r}'_1,\sigma'_1) \psi(\vc{r}_1,\sigma_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
-    \,\dd^3 \vc{r}_1. 
-\end{align}
-Here we have used the fact that as a single particle operator, operators which depended on primed indices to not act on those
-without primes, and visa verse. In analogy to \cref{eq:GenDenMatInner,eq:RDMSpinBasis}, we can define a second quantized analogue to
-the 1RDM such that,
-\begin{align}
-  \label{eq:DenOpInner}
-  &\op{O}_\hilb{F}^1 = \int_{\mathbb F} 
-    \left.\left(\spop{O}^{1} (\vc{x}_1) \, \spop{\gamma}^1(\vc{x}_1; \vc{x}'_1) \right) \right\vert_{\vc{x}'_1 = \vc{x}_1 } 
-    \,\dd^4 \vc{x}_1, \qquad \spop{\gamma}^1(\vc{x},\vc{x}') = \psi^\dagger(\vc{x}') \psi(\vc{x}).
-\end{align}
-In this work, we will refer to $\spop{\gamma}^1$ as the one--particle density matrix operator due to the fact that for
-a particular vector $\ket{\Psi} \in \hilb{H}^N$ we obtain
-\begin{equation}
-\label{eq:DenMatOpRelation}
-\gamma^1(\vc{x},\vc{x}') = \innerop{\Psi}{\spop{\gamma}^1(\vc{x},\vc{x}')}{\Psi}_\hilb{F},
-\end{equation}
-where $\gamma^1$ is the 1RDM corresponding to $\ket{\Psi}$. In further analogy to the treatment of density
-matrices in \cref{sec:DenMat}, we may define the Pauli components of the one-particle density matrix operators,
-\begin{subequations}
-  \label{eq:PauliDenMatOp}
-\begin{align}
-  &\op{\gamma}^{1,0}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) , \\
-  &\op{\gamma}^{1,1}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
-  &\op{\gamma}^{1,2}(\vc{r};\vc{r}') = \frac{\ii}{2} \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
-  &\op{\gamma}^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) .,
-\end{align}
-\end{subequations}
-such that \cref{eq:DenOpInner} becomes,
-\begin{equation}
-  \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
-    \left.\left(\op{O}^{1,K} (\vc{r}_1) \, \op{\gamma}^{1,K}(\vc{r}_1; \vc{r}'_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
-    \,\dd^3 \vc{r}_1.
-\end{equation}
-In particular, if $\op{O}^1$ is void of any differential character, we may recast
-\begin{equation}
-  \label{eq:ScalarDenFieldOp}
-  \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
-    \op{O}^{1,K} (\vc{r}_1) \, \op{\rho}^{1,K}(\vc{r}_1)  
-    \,\dd^3 \vc{r}_1,
-\end{equation}
-where we have defined an analogy to the Pauli components of the spinor density as
-the \emph{density operators},
-\begin{equation}
-\op{\rho}^{1,K}(\vc{r}) \equiv \op{\gamma}^{1,K}(\vc{r},\vc{r}).
-\end{equation}
-%It follows immediately that these operators are the Pauli components of a spinor operator,
-%\begin{equation}
-%\spop{\rho}^1 (\vc{x}) = \sum_K \op{\rho}^{1,K}(\vc{r}) \otimes \pauli{K},
-%\end{equation}
-%which we will refer to as the spinor density operator. 
-It follows from \cref{eq:PauliDenMatOp} that
-\begin{equation}
-\rho^K(\vc{r}) = \innerop{\Psi}{\op{\rho}^K(\vc{r})}{\Psi}.
-\end{equation}
-Consistent analogies for the 2RDM can be made, but as the primary focus in this work will be the manipulation
-of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogous
-spinor operators. It should be noted that unlike most operators, the expectation values of 
-$\spop{\gamma}^1$ and $\spop{\rho}^1$ are tensor fields on $\mathbb R^3$, rather than scalar fields.
 
-\todo{Note that rho does not consist of the elements of a tensor operator}
-\todo{Transition densities}
-%One of the key aspects of defining the density operators as opposed to the densities and density matrices
-%themselves is that it allows for proper generalization to off diagonal density analogues, i.e.
-%for $\ket{\Psi^N_m}, \ket{\Psi^N_n} \in \hilb{H}^N$,
-%\begin{equation}
-%T^{mn}(\vc{x}) =
-%\end{equation}
+
+
+% FIELD OP
+
+
+
+%  %% \Cref{eq:SeQuantOp} may be cast into a more illuminating form by the introduction of the so called field operators which connect
+%  %% the second quantized and spinor representations of operators and expectation values \cite{Walecka12_book,Schuck04_book,Yang89_book,Ohrn73_book},
+%  %% \begin{subequations}
+%  %% \label{eq:FieldOperators}
+%  %% \begin{align}
+%  %% \psi (\vc{x}) = \sum_p \phi_p(\vc{x}) c_p &\quad \text{ field annihilation operator},\\
+%  %% \psi^\dagger(\vc{x}) = \sum_p \phi^*_p(\vc{x}) c^\dagger_p &\quad \text{ field creation operator}.
+%  %% \end{align}
+%  %% \end{subequations}
+%  %% %Analogously to \cref{eq:SeQuantComm}, the field operators obey the following commutation relations,
+%  %% %\begin{subequations}
+%  %% %  \label{eq:FieldComm}
+%  %% %\begin{align}
+%  %% %  &[\psi^\dagger(\vc{x}), \psi^\dagger(\vc{x}')]_+ = 0,\\
+%  %% %  &[\psi(\vc{x}), \psi(\vc{x}')]_+ = 0,\\
+%  %% %  &[\psi(\vc{x}), \psi^\dagger(\vc{x}')]_+ = \delta^4(\vc{x} - \vc{x}'),
+%  %% %\end{align}
+%  %% %\end{subequations}
+%  %% From these definitions and the expressions for the tensor elements of \cref{eq:DiracInts}, it is clear
+%  %% that the second quantized operator representations may be cast as \cite{Walecka12_book,Yang89_book},
+%  %% \begin{subequations}
+%  %% \label{eq:FieldOpRep}
+%  %% \begin{align}
+%  %%   &\op{O}_\hilb{F}^1 = \int_{\mathbb F} \psi^\dagger(\vc{x}_1) \,\spop{O}^1(\vc{r}_1) \,\psi(\vc{x}_1) \,\,\dd^4 \vc{x}_1, \\
+%  %%   &\op{O}_\hilb{F}^2 = \iint_{\mathbb F} \psi^\dagger(\vc{x}_2)\psi^\dagger(\vc{x}_1) \,\spop{O}^2(\vc{r}_1,\vc{r}_2) \,\psi(\vc{x}_1)\psi(\vc{x}_2) 
+%  %%     \,\,\dd^4 \vc{x}_1\dd^4 \vc{x}_2.
+%  %% \end{align}
+%  %% \end{subequations}
+%  %% Here the action of the 1-- and 2--particle spinor operators on the field operators is understood to be the same
+%  %% as their action on the products on spinor orbitals as in \cref{eq:DiracInts}, i.e. tensor contraction. Upon immediate
+%  %% inspection, \cref{eq:FieldOpRep} offers no simplification over \cref{eq:SeQuantOp}. However, we may recast 
+%  %% \cref{eq:FieldOpRep} as the expectation value of a non--local operator, which in the case of one particle operators
+%  %% yields,
+%  %% \begin{align}
+%  %%   &\op{O}_\hilb{F}^1 = \sum_{\sigma_1\sigma'_1}\int_{\mathbb R^3} 
+%  %%     \left.\left(\op{O}^{1,\sigma_1\sigma'_1} (\vc{r}_1) \, \psi^\dagger(\vc{r}'_1,\sigma_1) \psi(\vc{r}_1,\sigma'_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
+%  %%     \,\dd^3 \vc{r}_1. 
+%  %% \end{align}
+%  %% Here we have used the fact that as a single particle operator, operators which depended on primed indices to not act on those
+%  %% without primes, and visa verse. In analogy to \cref{eq:GenDenMatInner,eq:RDMSpinBasis}, we can define a second quantized analogue to
+%  %% the 1RDM such that,
+%  %% \begin{align}
+%  %%   \label{eq:DenOpInner}
+%  %%   &\op{O}_\hilb{F}^1 = \int_{\mathbb F} 
+%  %%     \left(\op{O}^{1} (\vc x_1'; \vc{x}_1) \, \op{\gamma}^1(\vc{x}_1; \vc{x}'_1) \right)     \,\dd^4 \vc{x}_1\,\dd^4 \vc{x}'_1, \qquad \op{\gamma}^1(\vc{x};\vc{x}') = \psi^\dagger(\vc{x}') \psi(\vc{x}).
+%  %% \end{align}
+%  %% In this work, we will refer to $\spop{\gamma}^1$ as the one--particle density matrix operator due to the fact that for
+%  %% a particular vector $\ket{\Psi} \in \hilb{H}^N$ we obtain
+%  %% \begin{equation}
+%  %% \label{eq:DenMatOpRelation}
+%  %% \gamma^1(\vc{x};\vc{x}') = \innerop{\Psi}{\op{\gamma}^1(\vc{x};\vc{x}')}{\Psi}_\hilb{F},
+%  %% \end{equation}
+%  %% where $\gamma^1$ is the 1RDM corresponding to $\ket{\Psi}$. In further analogy to the treatment of density
+%  %% matrices in \cref{sec:DenMat}, we may define the Pauli components of the one-particle density matrix operators,
+%  %% \begin{subequations}
+%  %%   \label{eq:PauliDenMatOp}
+%  %% \begin{align}
+%  %%   &\op{\gamma}^{1,0}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) , \\
+%  %%   &\op{\gamma}^{1,1}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) + \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
+%  %%   &\op{\gamma}^{1,2}(\vc{r};\vc{r}') = \frac{\ii}{2} \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\beta ) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\alpha)\right) , \\
+%  %%   &\op{\gamma}^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \left(\op{\gamma}^1{}(\vc{r},\alpha;\vc{r}',\alpha) - \op{\gamma}^1(\vc{r},\beta; \vc{r}',\beta )\right) .,
+%  %% \end{align}
+%  %% \end{subequations}
+%  %% such that \cref{eq:DenOpInner} becomes,
+%  %% \begin{equation}
+%  %%   \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
+%  %%     \left.\left(\op{O}^{1,K} (\vc{r}_1) \, \op{\gamma}^{1,K}(\vc{r}_1; \vc{r}'_1) \right) \right\vert_{\vc{r}'_1 = \vc{r}_1 } 
+%  %%     \,\dd^3 \vc{r}_1.
+%  %% \end{equation}
+%  %% In particular, if $\op{O}^1$ is void of any differential character, we may recast
+%  %% \begin{equation}
+%  %%   \label{eq:ScalarDenFieldOp}
+%  %%   \op{O}_\hilb{F}^1 = 2\sum_K \int_{\mathbb R^3} 
+%  %%     \op{O}^{1,K} (\vc{r}_1) \, \op{\rho}^{1,K}(\vc{r}_1)  
+%  %%     \,\dd^3 \vc{r}_1,
+%  %% \end{equation}
+%  %% where we have defined an analogy to the Pauli components of the spinor density as
+%  %% the \emph{density operators},
+%  %% \begin{equation}
+%  %% \op{\rho}^{1,K}(\vc{r}) \equiv \op{\gamma}^{1,K}(\vc{r},\vc{r}).
+%  %% \end{equation}
+%  %% %It follows immediately that these operators are the Pauli components of a spinor operator,
+%  %% %\begin{equation}
+%  %% %\spop{\rho}^1 (\vc{x}) = \sum_K \op{\rho}^{1,K}(\vc{r}) \otimes \pauli{K},
+%  %% %\end{equation}
+%  %% %which we will refer to as the spinor density operator. 
+%  %% It follows from \cref{eq:PauliDenMatOp} that
+%  %% \begin{equation}
+%  %% \rho^K(\vc{r}) = \innerop{\Psi}{\op{\rho}^K(\vc{r})}{\Psi}.
+%  %% \end{equation}
+%  %% Consistent analogies for the 2RDM can be made, but as the primary focus in this work will be the manipulation
+%  %% of single Slater determinants, all of resulting arithmetic can be done in terms of the 1RDM and analogous
+%  %% spinor operators. It should be noted that unlike most operators, the expectation values of 
+%  %% $\spop{\gamma}^1$ and $\spop{\rho}^1$ are tensor fields on $\mathbb R^3$, rather than scalar fields.
+%  %% 
+%  %% %\todo{Note that rho does not consist of the elements of a tensor operator}
+%  %% %\todo{Transition densities}
+%  %% %One of the key aspects of defining the density operators as opposed to the densities and density matrices
+%  %% %themselves is that it allows for proper generalization to off diagonal density analogues, i.e.
+%  %% %for $\ket{\Psi^N_m}, \ket{\Psi^N_n} \in \hilb{H}^N$,
+%  %% %\begin{equation}
+%  %% %T^{mn}(\vc{x}) =
+%  %% %\end{equation}
 
 In essence, second quantization provides a common language which allows one to factor elements of a particular many--body
 quantum theory into parts which are dependent and independent of the single--particle basis. Such a state of affairs has
@@ -840,7 +848,7 @@ of both time--dependent and time--independent quantum theory. Thus, for the time
 ourselves to Hamiltonians which are independent of time, though this will not be the case in general
 (see \cref{sec:SCLMI} for instance).
 Within this consideration, the electronic Hamiltonians one typically encounters for molecular systems with $N$ electrons,
-$\op{H}_{el} : \hilb{H}^{N_{el}} \rightarrow \hilb{H}^{N_{el}}$ take the general form
+$\op{H}_{el} : \hilb{H}^{N} \rightarrow \hilb{H}^{N}$ take the general form
 \begin{equation}
 \label{eq:GenElHam}
 \op{H}_{el} = \sum_{i}^{N} \left( \op{h}(i) + \op{v}(i) \right) + \frac{1}{2}\sum_{i \neq j}^{N} \op{g}(i,j),
@@ -849,8 +857,8 @@ where $\op{h}$ and $\op{v}$ are the one--body free particle Hamiltonian and pote
 $\op{g}$ is a two--body operator which describes the interaction between two electrons.
 At this point, the explicit structure of these operators are immaterial to the following developments; simply
 noting that the presence of $\op{g}$ renders direct solution of \cref{eq:QWave} for the many body
-wave function impractical \todo{cite}. Nevertheless, one may write down a general form for the solution
-of \cref{eq:QWave} with this Hamiltonian as \todo{cite Sakurai}
+wave function impractical. Nevertheless, one may write down a general form for the solution
+of \cref{eq:QWave} with this Hamiltonian as \cite{Napolitano17_book} 
 \begin{equation}
 \ket{\Psi (t)} = \exp \left[ -i(t - t_0) \op{H}_{el} \right] \ket{\Psi (t_0) },
 \end{equation}
@@ -896,7 +904,7 @@ In practice, one may determine the ground state by minimizing the energy functio
 \label{eq:EnergyFunctional}
 E[\Psi] = \frac{\innerop{\Psi}{\op{H}_{el}}{\Psi}}{\inner{\Psi}{\Psi}},
 \end{equation}
-which admits a sole minimum at the ground electronic state due to the variational theorem \todo{cite}.
+which admits a sole minimum at the ground electronic state due to the variational theorem \cite{Ostlund12_book,Napolitano17_book}.
 
 \section{Mean Field Quantum Mechanics and Basis Set Expansions}
 
@@ -906,7 +914,7 @@ Up to this point, no approximations in the treatment of the many body wave funct
 to say, given that $\mathcal{C}$ is a complete, countable basis for $\hilb{H}^1$, all of the developments
 in this and the previous sections treat the electronic many body problem \emph{exactly}. However, even a cursory
 inspection of the nature of $\mathcal{C}$ indicates that it must be countably infinite in order to 
-satisfy completeness on $\hilb{H}^1$ \todo{confirm, cite?}. Thus it must be truncated in some systematic
+satisfy completeness on $\hilb{H}^1$. Thus it must be truncated in some systematic
 way in order for it to be useful in any practical treatment of the many body problem.
 Unfortunately, any truncation of \cref{eq:SDBasis} or \cref{eq:CIExp} will make it impossible in general to
 construct exact many body states, such as those of \cref{eq:TIQWave}.
@@ -916,7 +924,7 @@ in \cref{eq:EnergyFunctional} over all possible Slater determinants. In effect, 
 construct the best single Slater determinant approximation to the many--body ground electronic state
 which may serve as a reference determinant in the context of \cref{eq:ExcitationOp} for better approximations
 for  true many body wave functions. The approximation which describes the ground state wave function as the 
-minimizing Slater determinant of \cref{eq:EnergyFunctional} is known as the Hartree--Fock (HF) approximation \todo{cites}.
+minimizing Slater determinant of \cref{eq:EnergyFunctional} is known as the Hartree--Fock (HF) approximation \cite{Ostlund12_book,Yang89_book}.
 
 Before delving into the specifics of how one might go about optimizing $\mathcal{C}$ to minimize 
 \cref{eq:EnergyFunctional}, one might note that in the absence of $\op{g}$, i.e. many body operators
@@ -947,7 +955,7 @@ $E_\mathrm{NI}$ over the possible Slater determinants which may be constructed f
 one must select the $N$ orbitals with the lowest eigenenergy to build the determinant.
 This choice yields an ordering on $\mathcal{C}$ which orders orbitals in increasing orbital eigenenergy.
 This ordering also happens to correspond identically to the phenomenological ordering dictated by the
-Aufbau principle \todo{cite}.
+Aufbauprinzip.
 
 Due to the fact that a single Slater determinant is completely described by its orbital configuration,
 minimizing \cref{eq:EnergyFunctional} over Slater determinants amounts to determining a configuration
@@ -978,12 +986,12 @@ written as a functional of the 1RDM which may be constructed from that configura
 where we have defined
 \begin{align}
   &H^\core[\gamma^1] = 
-    \iint_\mathbb{F} \left( \spop{h}(\vc{x}_1; \vc{x}_1') + \spop{v}(\vc{x}_1; \vc{x}_1')\right) \gamma^1(\vc{x}'_1; \vc{x}_1) \, \dd^4\vc{x}_1 \dd^4\vc{x}'_1\,\,  \label{eq:CoreFunc}
+    \iint_\mathbb{F} \left( \op{h}(\vc{x}_1; \vc{x}_1') + \op{v}(\vc{x}_1; \vc{x}_1')\right) \gamma^1(\vc{x}'_1; \vc{x}_1) \, \dd^4\vc{x}_1 \dd^4\vc{x}'_1\,\,  \label{eq:CoreFunc}
     \\
-  &J[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
+  &J[\gamma^1] = \iiiint_\mathbb{F} \op{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
       \gamma^1(\vc{x}'_1; \vc{x}_1)\gamma^1(\vc{x}'_2; \vc{x}_2) 
     \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2 \label{eq:ClassCoulFunc}\\
-  &K[\gamma^1] = \iiiint_\mathbb{F} \spop{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
+  &K[\gamma^1] = \iiiint_\mathbb{F} \op{g}(\vc{x}_1, \vc{x}_2; \vc{x}_1', \vc{x}_2') 
       \gamma^1(\vc{x}'_1; \vc{x}_2)\gamma^1(\vc{x}'_2; \vc{x}_1) 
     \dd^4\vc{x}_1 \dd^4\vc{x}'_1\dd^4\vc{x}_2 \dd^4\vc{x}'_2  \label{eq:ExchFunc}
 \end{align}
@@ -998,30 +1006,30 @@ conjugates of each other, thus requiring both terms to go to zero simultaneously
 \begin{align}
   \label{eq:HFNonCan}
   \sum_{j \in \mathcal{K}^N}
-  \int_{\mathbb F} \left( \spop{F}^\HF(\vc{x}_1; \vc{x}_1')\delta_{ij}   - \delta^4(\vc{x} _1- \vc{x}_1')\lambda_{ij} \right)
+  \int_{\mathbb F} \left( \op{F}^\HF(\vc{x}_1; \vc{x}_1')\delta_{ij}   - \delta^4(\vc{x} _1- \vc{x}_1')\lambda_{ij} \right)
     \phi_j(\vc{x}_1')\,\dd^4\vc{x}_1' = 0 ,\quad \forall \phi_i(\vc{x}) \in \mathcal{K}^N,
 \end{align}
 where
 \begin{align}
   \label{eq:HFFockSpace}
-&\spop{F}^\HF(\vc{x}; \vc{x}') = 
-  \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1}(\vc{x}'; \vc{x})} = \spop{H}(\vc{x};\vc{x}') + \spop{J}(\vc{x};\vc{x}') - \spop{K}(\vc{x};\vc{x}'),\\
-&\spop{H}^\core(\vc{x}; \vc{x}') = \frac{\delta H[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})},\qquad 
-\spop{J}(\vc{x}; \vc{x}') = \frac{\delta J[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})}, \qquad
-\spop{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} . \label{eq:FockComponents}
+&\op{F}^\HF(\vc{x}; \vc{x}') = 
+  \frac{\delta E^\mathrm{HF}[\gamma^1]}{\delta \gamma^{1}(\vc{x}'; \vc{x})} = \op{H}(\vc{x};\vc{x}') + \op{J}(\vc{x};\vc{x}') - \op{K}(\vc{x};\vc{x}'),\\
+&\op{H}^\core(\vc{x}; \vc{x}') = \frac{\delta H[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})},\qquad 
+\op{J}(\vc{x}; \vc{x}') = \frac{\delta J[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})}, \qquad
+\op{K}(\vc{x}; \vc{x}') = \frac{\delta K[\gamma^1]}{\delta \gamma^1(\vc{x}'; \vc{x})} . \label{eq:FockComponents}
 \end{align}
-\Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\spop{F}^\HF$ is
-known as the Fock operator corresponding to \cref{eq:GenElHam} \todo{cite}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the functionals
+\Cref{eq:HFNonCan} is the general form of a set of non--linear integrodifferential equations known as the Hartree--Fock equations and $\op{F}^\HF$ is
+known as the Fock operator corresponding to \cref{eq:GenElHam} \cite{Ostlund12_book,Yang89_book}. The non--linearity of \cref{eq:HFNonCan} comes in the fact that the functionals
 $J$ and $K$ are quadratic in the density matrix, thus their functional derivative still maintains a dependence on $\gamma^1$. 
 A configuration's satisfaction of \cref{eq:HFNonCan} is the minimal requirement for the corresponding Slater determinant to minimize \cref{eq:EnergyFunctional}
 
-Using the fact that $\gamma^1$ (and thus $\spop F^\HF$) is invariant to unitary transformation of the orbitals which comprise its construction (\cref{eq:UnitarySD}),
+Using the fact that $\gamma^1$ (and thus $\op F^\HF$) is invariant to unitary transformation of the orbitals which comprise its construction (\cref{eq:UnitarySD}),
 we may choose to transform \cref{eq:HFNonCan} in such a way as to diagonalize the matrix of Lagrange multipliers, 
-$\mathcal U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
+$\vc U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
 \begin{equation}
 \label{eq:HFEq}
-\int_{\mathbb F} \spop{F}^\HF(\vc{x}_1; \vc{x}_1') \tilde\phi_i(\vc{x}_1'), \dd^4\vc{x}'_1 = \tilde\lambda_i \tilde\phi_i(\vc{x}_1), 
-  \qquad \tilde\phi_i = \sum_j\mathcal U_{ij}\phi_j. 
+\int_{\mathbb F} \op{F}^\HF(\vc{x}_1; \vc{x}_1') \tilde\phi_i(\vc{x}_1'), \dd^4\vc{x}'_1 = \tilde\lambda_i \tilde\phi_i(\vc{x}_1), 
+  \qquad \tilde\phi_i = \sum_j U_{ij}\phi_j. 
 \end{equation}
 \Cref{eq:HFEq} is known as the canonical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonical Hartree-Fock molecular orbital (HF-MO). 
 Due to \cref{eq:UnitarySD}, the Slater determinant which is formed from $\{\tilde \phi_i\}$ is equivalent to the one fromed
@@ -1060,7 +1068,7 @@ Substituting \cref{eq:LCAO} into \cref{eq:HFEq} projecting on the left by $\chi_
 or more compactly
 \begin{equation}
 \label{eq:OccRHEq}
-\spvc F^\HF \,\spvc C^\HF_o = \spvc S\, \spvc C^\HF_o\, \spvc \epsilon_o^\HF
+\spvc F^\HF \,\spvc C^\HF_o = \spvc S\, \spvc C^\HF_o\, \vc \epsilon_o^\HF
 \end{equation}
 where the Fock matrix, $\spvc F^\HF \in \MatSpace{C}{2N_b}{2N_b}$ and overlap matrix $\spvc S \in \MatSpace{C}{2N_b}{2N_b}$
 are given by
@@ -1075,7 +1083,7 @@ with
 \end{equation}
 \begin{subequations}
 \begin{align}
-  &\vc{F}^\HF=  \vc{H}^\core + \vc J - \vc K, \label{eq:HFMat}\\ 
+  &\spvc{F}^\HF=  \spvc{H}^\core + \spvc J - \spvc K, \label{eq:HFMat}\\ 
 &X_{\mu\nu}^{\sigma\sigma'} =  \iint_{\mathbb R^3} \chi^*_\nu(\vc{r}) \op{X}^{\sigma\sigma'}(\vc{r}; \vc{r}') \chi_\mu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}',
 \quad \vc{X} \in \{ \vc{H}^\core , \vc J , \vc K \}. \label{eq:OBBasisExp}\\
 &S_{\mu\nu} = \inner{\chi_\mu}{\chi_\nu}. 
@@ -1083,16 +1091,16 @@ with
 \end{subequations}
 Here, the rectangular matrices $\vc{C}_o^{\HF,\sigma} \in \MatSpace{C}{N_b}{N}$
 are the spin--basis coefficients which expand the occupied HF-MOs (in the sense
-of second quantization) in the basis set. $\spvc \epsilon_o^\HF \in
+of second quantization) in the basis set. $\vc \epsilon_o^\HF \in
 \MatSpace{R}{2N_b}{N}$ is the diagonal matrix of occupied HF-MO eigenenergies. 
 
 Clearly, \cref{eq:OccRHEq} represents a partial diagonalization of $\spvc F^\HF$ in the case when $N < 2N_b$ and does not
 yield coefficients of all of the elements of $\mathcal{C}$. If instead we examine the full diagonalization of $\spvc F^\HF$,
 \begin{equation}
 \label{eq:RHEq}
-\spvc F^\HF \,\spvc C^\HF = \spvc S\, \spvc C^\HF\, \spvc \epsilon^\HF,
+\spvc F^\HF \,\spvc C^\HF = \spvc S\, \spvc C^\HF\, \vc \epsilon^\HF,
 \end{equation}
-where $\spvc{C}^\HF \in \MatSpace{C}{2N_b}{2N_b}, \spvc \epsilon^\HF \in \MatSpace{R}{2N_b}{2N_b}$ represent a full rank 
+where $\spvc{C}^\HF \in \MatSpace{C}{2N_b}{2N_b}, \vc \epsilon^\HF \in \MatSpace{R}{2N_b}{2N_b}$ represent a full rank 
 eigendecomposition of $\spvc F^\HF$. Thus from a set of $N_b$ basis functions, one may construct a set of orbitals
 which has $\vert \mathcal{C} \vert = 2N_b$ such that $\Span{\mathcal{C}} = \Span{\{\chi_\mu\}}$. That is to say that if $\{\chi_\mu\}$
 is complete on $\hilb H^1$, so is $\mathcal{C}$. \Cref{eq:RHEq} is known as the Roothaan--Hall equation.
@@ -1125,9 +1133,9 @@ account for electron correlation effects.
 
 The Hohenberg--Kohn (HK) theorem states that there exists a bijection between
 an external scalar potential and the scalar one--body density of the many--body
-wave function \todo{cite Hohenberg}. More generally, the HK theorem may be
+wave function \cite{Kohn64_864}. More generally, the HK theorem may be
 extended to the 1RDM if the external potential has spin structure or is
-generally non--local in character \todo{cite Gilbert}. Thus the total energy of
+generally non--local in character \cite{Gilbert75_2111}. Thus the total energy of
 the many--body state may be written in terms of functionals of the 1RDM,
 \begin{equation}
   \label{eq:HK}
@@ -1152,7 +1160,7 @@ There are a number of problems implicit in \cref{eq:HK,eq:HKFunc}. The most prob
 exact form of $E^{xc}$ is unknown, thus rendering the practical treatment of DFT as an exact method impossible. In
 practice however, the lack of knowledge of an exact $E^{xc}$ is not so egregious that it becomes an impractical
 tool for chemical inquiry. Due to the vast availability of approximate xc--functionals which have been developed to
-reproduce certain physical quantities, such as energies and \todo{add more things here}, the cost--to--accuracy ratio 
+reproduce certain physical quantities, the cost--to--accuracy ratio 
 over methods which use explicit many--body expansions is within the realm of tolerability for routine inquiry into chemical 
 phenomena. There is another, more subtle problem relating to the form \cref{eq:HKFunc} in that the exact form for
 $H^\mathrm{free}$ is just as complex as $E^{xc}$ in the case when $\gamma^1$ is derived from a truly interacting
@@ -1164,12 +1172,12 @@ contains an infinite sum over orbital products such that
   \int_{\mathbb{F}} \gamma^1(\vc{x};\vc{x}') \psi_i(\vc{x}') \,\dd^4\vc{x}' = f_i\psi_i(\vc{x}).
 \end{equation}
 Thus in DFT methods which rely solely on the HK theorems, one must make rather crude approximations to the $H^\mathrm{free}$
-functional, such as the Thomas--Fermi functional \todo{cite}, for practical calculations.
+functional, such as the Thomas--Fermi functional \cite{Yang89_book}, for practical calculations.
 
 A solution to the problem of handling $H^\mathrm{free}$ in a consistent manner
 comes from Kohn--Sham density functional theory (KS-DFT), where one
 reintroduces the concept of a fictitious non--interacting (Slater determinant)
-wave function to represent the true many--body wave function \todo{cite KS}. As
+wave function to represent the true many--body wave function \cite{Sham65_1133}. As
 such the total energy of the system may be written as,
 \begin{equation}
   \label{eq:KSFunc}
@@ -1194,18 +1202,18 @@ we may derive a set of SCF equations in analogy to the HF approximation which mi
 In analogy of \cref{eq:HFEq}, we may write
 \begin{equation}
   \label{eq:KSEqCan}
-  \int_{\mathbb F} \spop{F}^\KS(\vc{x}_1; \vc{x}_1') \phi_i(\vc{x}_1') \,\dd^4\vc{x}'_1 = 
+  \int_{\mathbb F} \op{F}^\KS(\vc{x}_1; \vc{x}_1') \phi_i(\vc{x}_1') \,\dd^4\vc{x}'_1 = 
     \epsilon^\KS_i \phi_i(\vc{x}_1), 
 \end{equation}
 where
 \begin{align}
   \label{eq:KSFockSpace}
-  &\spop{F}^\KS(\vc{x}; \vc{x}') = 
-    \spop{H}^\mathrm{core}(\vc{x}; \vc{x}') + \spop{J}(\vc{x}; \vc{x}') +
-    \spop{V}^{xc}(\vc{x}; \vc{x}') \\
-  &\spop{V}^{xc}(\vc{x}; \vc{x}') = \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^1_s(\vc{x}';\vc{x})},
+  &\op{F}^\KS(\vc{x}; \vc{x}') = 
+    \op{H}^\mathrm{core}(\vc{x}; \vc{x}') + \op{J}(\vc{x}; \vc{x}') +
+    \op{V}^{xc}(\vc{x}; \vc{x}') \\
+  &\op{V}^{xc}(\vc{x}; \vc{x}') = \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^1_s(\vc{x}';\vc{x})},
 \end{align}
-and $\spop V^{xc}$ is referred to as the \emph{exchange--correlation} (xc) potential. \Cref{eq:KSEqCan}
+and $\op V^{xc}$ is referred to as the \emph{exchange--correlation} (xc) potential. \Cref{eq:KSEqCan}
 is known generally as the Kohn--Sham (KS) equations. In comparison with \cref{eq:FockEq}, we may
 identify \cref{eq:KSFockSpace} as an effective one--body operator by the effective potential for KS-DFT as,
 \begin{equation}
@@ -1225,13 +1233,13 @@ Further, unlike the HF approximation, in the limit where the orbital set $\mathc
 and one has exact forms for the $E^{xc}$ functional, KS-DFT is \emph{exact}. Neither of these limits are realizable
 in practice, but nevertheless, electronic structure methods based on KS-DFT have seen enormous success in
 the prediction of many chemical phenomena which would be computationally inaccessible over explicit many--body methods
-\todo{cite HG + others}.
+\cite{HeadGordon05_4009,Casida95_book}.
 
 Casting \cref{eq:KSFockSpace} onto a finite basis as in \cref{eq:LCAO}, we obtain a generalized eigenvalue problem analogous to
-the Roothaan--Hall equation of \cref{eq:RHEq} \todo{cite Pople},
+the Roothaan--Hall equation of \cref{eq:RHEq} \cite{Johnson92_557},
 \begin{equation}
 \label{eq:RH-KSEq}
-\spvc F^\KS \,\spvc C^\KS = \spvc S\, \spvc C^\KS\, \spvc \epsilon^\KS,
+\spvc F^\KS \,\spvc C^\KS = \spvc S\, \vc C^\KS\, \vc \epsilon^\KS,
 \end{equation}
 where
 \begin{align}
@@ -1243,7 +1251,7 @@ where
     &V^{xc,\sigma\sigma'}_{\mu\nu} =
     \iint_{\mathbb R^3} \chi^*_\mu(\vc{r}) \frac{\delta \tilde E^{xc}[\gamma^1_s]}{\delta \gamma^{\sigma'\sigma}(\vc{r}';\vc{r})} \chi_\nu(\vc{r}')\,\dd^3\vc{r}\dd^3\vc{r}'.
 \end{align}
-Here, $\spvc{C}^\KS \in \MatSpace{C}{2N_b}{2N_b}$ and $\spvc\epsilon^KS \in \MatSpace{R}{2N_b}{2N_b}$ are the KS-MO
+Here, $\spvc{C}^\KS \in \MatSpace{C}{2N_b}{2N_b}$ and $\vc\epsilon^{KS} \in \MatSpace{R}{2N_b}{2N_b}$ are the KS-MO
 coefficients and orbital eigenenergies, respectively. In the limit when the external potential
 is spatially local but has spin structure, \cref{eq:VXCBasis} may be written as
 \begin{equation}
@@ -1279,28 +1287,34 @@ where
 \end{align}
 \end{subequations}
 Somewhat erroniously, the matrix $\spvc P$ is referred to as the one particle density matrix (1PDM), which is not to be
-confused with the 1RDM, although they are related through the above expansion. We may further define an analogus two
-particle density matrix (2PDM), $\vc \Gamma$, which is again not to be confused with the 2RDM, such that \co{check ordering here}
-\begin{equation}
-  \gamma^{2,K_1K_2}(\vc{r}_1, \vc{r}_2; \vc{r}'_1, \vc{r}'_2) = 
-    \sum_{\mu\nu\lambda\kappa} \Gamma^{K_1K_2}_{\mu\nu\lambda\kappa} 
-      \chi_\mu(\vc{r}_1) \chi_\nu(\vc{r}_2) \chi^*_\lambda(\vc{r}'_1) \chi^*_\kappa(\vc{r}'_2), 
-\end{equation}
-where \co{figure this out}
-\begin{equation}
-  \Gamma^{K_1 K_2}_{\mu\nu\lambda\kappa} = ...
-\end{equation}
-The utility of the definions of the 1PDM and 2PDM  are clearly seen in the evaluation of expectation values
+confused with the 1RDM, although they are related through the above expansion. 
+%%
+%
+%We may further define an analogus two
+%particle density matrix (2PDM), $\vc \Gamma$, which is again not to be confused with the 2RDM, such that \co{check ordering here}
+%\begin{equation}
+%  \gamma^{2,K_1K_2}(\vc{r}_1, \vc{r}_2; \vc{r}'_1, \vc{r}'_2) = 
+%    \sum_{\mu\nu\lambda\kappa} \Gamma^{K_1K_2}_{\mu\nu\lambda\kappa} 
+%      \chi_\mu(\vc{r}_1) \chi_\nu(\vc{r}_2) \chi^*_\lambda(\vc{r}'_1) \chi^*_\kappa(\vc{r}'_2), 
+%\end{equation}
+%where \co{figure this out}
+%\begin{equation}
+%  \Gamma^{K_1 K_2}_{\mu\nu\lambda\kappa} = ...
+%\end{equation}
+The utility of the 
+%definions of the 1PDM and 2PDM  are 
+definition of the 1PDM is
+clearly seen in the evaluation of expectation values
 of operators expressed in the basis set,
 \begin{align}
   \label{eq:BasisDenMatInner}
-  \innerop{\Phi^N_0}{\sum_i \op{O}^1(i)}{\Phi^N_0} &= 2\sum_K Tr \left[ \vc{P}^K \vc{O}^{1,K} \right] \\
-  \innerop{\Phi^N_0}{\sum_{i\neq j} \op{O}^2(i,j)}{\Phi^N_0} &= 4\sum_{K_1K_2} Tr \left[ \vc{\Gamma}^{K_1K_2} \vc{O}^{2,K_1K_2} \right]
+  \innerop{\Phi^N_0}{\sum_i \op{O}^1(i)}{\Phi^N_0} &= 2\sum_K Tr \left[ \vc{P}^K \vc{O}^{1,K} \right] %\\
+%  \innerop{\Phi^N_0}{\sum_{i\neq j} \op{O}^2(i,j)}{\Phi^N_0} &= 4\sum_{K_1K_2} Tr \left[ \vc{\Gamma}^{K_1K_2} \vc{O}^{2,K_1K_2} \right]
 \end{align}
 where
 \begin{align}
-  O_{\mu\nu}^{1,K} &= \innerop{\chi_\mu}{\op{O}^{1,K}(1)}{\chi_\nu},\\
-  O_{\mu\nu\lambda\kappa}^{2,K_1K_2} &= \innerop{\chi_\mu\chi_\nu}{\op{O}^{2,K_1K_2}(1,2)}{\chi_\lambda\chi_\kappa}.
+  O_{\mu\nu}^{1,K} &= \innerop{\chi_\mu}{\op{O}^{1,K}(1)}{\chi_\nu}.%,\\
+%  O_{\mu\nu\lambda\kappa}^{2,K_1K_2} &= \innerop{\chi_\mu\chi_\nu}{\op{O}^{2,K_1K_2}(1,2)}{\chi_\lambda\chi_\kappa}.
 \end{align}
 
 
@@ -1316,7 +1330,7 @@ which takes the form of generalized Hartree--Fock (GHF) and generalized Kohn--Sh
 In GSCF, no assumptions are made regarding the spin symmetry of the non--interacting wave function, i.e. the resulting lowest 
 energy
 GSCF wave function need not be an eigenfunction of $\op{S}_z$ or $\op{S}^2$ regardless of the symmetries are inherent
-from the electronic Hamiltonian \todo{cite Josh and Pauldus}. In general, if the electronic Hamiltonian contains non--trivial 
+from the electronic Hamiltonian \cite{Li15_154109,Paldus03_67}. In general, if the electronic Hamiltonian contains non--trivial 
 spin structure,
 a GSCF framework must be employed and the Fock matrix may be decomposed in the same manner as the general operators
 in \cref{eq:SpinorOpPauli} via ,
@@ -1350,7 +1364,7 @@ $\op{S}^2$, the SCF matrix equations can adopt the block diagonal form,
     \vc{\epsilon}^{\alpha} & \vc{0} \\ \vc{0} & \vc{\epsilon}^{\beta}
   \end{bmatrix}.
 \end{equation}
-\Cref{eq:USCFEq} is referred to as the Pople--Nebst equation \todo{cite}, and the restriction on the SCF
+\Cref{eq:USCFEq} is referred to as the Pople--Nebst equation \cite{Ostlund12_book}, and the restriction on the SCF
 solution is known as unrestricted SCF (USCF), or analogously UHF (UKS) for Hartree--Fock (Kohn--Sham) wave functions.
 The block structure of \cref{eq:USCFEq} warrants brief discussion as a number of new concepts have been implicitly
 introduced. Due to the enforced block structure, the eigenvectors of \cref{eq:USCFEq} are not generally able
@@ -1374,26 +1388,26 @@ may be energically ordered in and of themselves, but no global orbital energetic
 To demonstrate the validity of this block diagonalization,
 we examine the conditions under which \cref{eq:GSCFFock} commutes with $\op{S}_z = \frac{1}{2} \op{1} \otimes \pauli{3}$,
 \begin{equation}
-  \left[ \vc F^\mathrm{GSCF}, \vc S_z \right] = 
+  \left[ \spvc F^\mathrm{GSCF}, \spvc S_z \right] = 
     \frac{1}{2} \left[ \vc F^{1}, \vc S \right] \otimes \left[ \pauli{1}, \pauli{3} \right] + 
     \frac{1}{2} \left[ \vc F^{2}, \vc S \right] \otimes \left[ \pauli{2}, \pauli{3} \right], 
-  \qquad \vc S_z = \frac{1}{2} \vc{S} \otimes \pauli{3}.
+  \qquad \spvc S_z = \frac{1}{2} \vc{S} \otimes \pauli{3}.
 \end{equation}
 Here $\vc S_z$ is the basis representation  of $\op S_z$. Due to the non--zero commutation relationships of the Pauli matrices,
 we may state
 \begin{equation}
-  \left[ \vc F^\mathrm{GSCF}, \vc S_z \right] = \vc 0 \quad \text{iff} \quad 
+  \left[ \spvc F^\mathrm{GSCF}, \spvc S_z \right] = \vc 0 \quad \text{iff} \quad 
     \left[ \vc F^{1}, \vc S \right] = \left[ \vc F^{2}, \vc S \right] = \vc 0,
 \end{equation}
 which is in general only satisfied if $\vc F^1 = \vc F^2 = \vc 0$. Thus we may define a restriction of
 the GSCF Fock matrix as
 \begin{equation}
   \label{eq:USCFFock}
-  \vc F^\mathrm{USCF} = \vc F^0 \otimes \pauli{0} + \vc F^3 \otimes \pauli{3}
+  \spvc F^\mathrm{USCF} = \vc F^0 \otimes \pauli{0} + \vc F^3 \otimes \pauli{3}
                       = 
                       \begin{bmatrix}
                         \vc{F}^0 + \vc F^3 & \vc{0} \\ \vc{0} & \vc{F}^0 - \vc F^3
-                      \end{bmatrix} \quad \text{s.t.} \quad \left[ \vc F^\mathrm{USCF}, \vc S_z \right] = \vc 0,
+                      \end{bmatrix} \quad \text{s.t.} \quad \left[ \spvc F^\mathrm{USCF}, \spvc S_z \right] = \vc 0,
 \end{equation}
 which clearly has the same block structure as \cref{eq:USCFEq}. Constructing a ground state configuration 
 from \cref{eq:USCFEq} introduces ambiguity in that that projection onto the $z$--spin axis must be
@@ -1402,7 +1416,7 @@ chosen \emph{a priori}. The $z$--spin projection of a reference determinant may 
 \begin{equation}
   \innerop{\Phi^N_0}{\op{S}_z}{\Phi^N_0} = Tr \left[ \vc P^3 \vc S \right] = \frac{N^\alpha - N^\beta}{2}, \quad N = N^\alpha + N^\beta,
 \end{equation}
-where we have used the fact that $\vc C^\dagger \vc S \vc C = \vc I$ by convention. Here $N^\alpha$ and 
+where we have used the fact that $\spvc\, C^\dagger \spvc\, S \spvc C = \vc I$ by convention. Here $N^\alpha$ and 
 $N^\beta$ are taken to be the number of elements from $\mathcal C^\alpha$ and $\mathcal C^\beta$ which
 have been chosen to make up the ground state determinant, respectively. Thus, in USCF, one may enforce a particular
 spin configration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
@@ -1447,7 +1461,7 @@ This block structure arises from that fact that $\op S^2$ symmetry implies simul
 commutation of the Fock matrix with each of $\op S_x, \op S_y, \op S_z$. From the
 form of \cref{eq:USCFFock}, this may only be achieved if the Fock matrix takes the form
 \begin{equation}
-\vc{F}^\mathrm{RSCF} = \vc F^0 \otimes \pauli{0},
+\spvc{F}^\mathrm{RSCF} = \vc F^0 \otimes \pauli{0},
 \end{equation}
 which clearly has the same block structure as \cref{eq:RSCFEq}. By this restriction,
 $\mathcal C$ is again partitioned into two sets of of orbitals which correspond to
@@ -1510,7 +1524,7 @@ system containing $N_\mathrm{el}$ electrons and $N_\mathrm{nuc}$ nuclei in the a
 %provides a sufficient model for systems when effects such as those which arise from special relativity are unimportant.
 $\op{H}^\NR$ is so fundamental to the description
 of quantum molecular systems in that it is the linear operator on $\hilb{H}^\NR$ which represents the non--relativistic 
-total energy of the system.  In the absence of external fields, $\op{H}^\NR$ takes the form
+total energy of the system.  In the absence of external fields, $\op{H}^\NR$ takes the form \cite{Ostlund12_book,Napolitano17_book,Tully98_407}
 \begin{equation}
   \label{eq:FullHNR}
   \op{H}^\NR = \op{H}_{el}^\NR + \op{H}_{nuc}^\NR + \op{H}_{mix}^\NR
@@ -1545,10 +1559,10 @@ In the spinor representation, these operators take the general form (in atomic u
 \end{align}
 where $\nabla_\xi$ and $\Delta_\xi$ are the gradient and Laplacian operators acting on the $\xi$-th spatial coordinate,
 respectively. $Z_\xi$ is the charge of the $\xi$-th particle, which in atomic units is given by $-1$ for electrons and 
-the number of protons for a particular nucleus, respectively . 
+the number of protons for a particular nucleus, respectively. 
 $\op{I}_S(\xi)$  is the identity spin operator for particle $\xi$, which has been introduced to make a
 careful distinction between the spinor basis of electrons, which are spin--1/2 fermions, and nuclei, which are in general
-\emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \todo{cite}. For electrons, $\op{I}_S=\pauli{0}$.
+\emph{not} spin--1/2 fermions and thus carry a much more complicated spin structure \cite{Levine75_book}. For electrons, $\op{I}_S=\pauli{0}$.
 The presence of $\op{I}_S$ in \cref{eq:SpinorKinMom,eq:SpinorCoulomb} may be interpreted as the action of these operators 
 \emph{do not} manipulate the spin degrees of freedom of the total wave function.
 
@@ -1563,7 +1577,7 @@ and nuclear degrees of freedom. \Cref{eq:FullNRSCH} will be referred to as the m
 equation. In this work, all non--relativistic specializations of \cref{eq:QWave} will be referred to
 as Sch\"{o}dinger equations due to the presence of the kinetic energy operator in their Hamiltonian.
 As such, they are direct quantum analogues of the classical Hamiltonian which was the basis
-of the original Schr\"{o}dinger Hamiltoninan of the general form
+of the original Schr\"{o}dinger Hamiltoninan of the general form \cite{Napolitano17_book}
 \begin{equation}
 \label{eq:SchHam}
 \op{H}(t) = \op{T}^\NR + \op{V}(t).
@@ -1594,7 +1608,7 @@ the nuclear kinetic energy to be negligible, i.e.
 \begin{equation}
 \innerop{\Psi_{el}}{\sum_A^{N_\mathrm{nuc}} \op{T}^\NR(A) }{\Psi_{el}} \approx 0.
 \end{equation}
-This assumption is referred to as the Born--Oppenheimer approximation (a concept distinct from from the 
+This assumption is referred to as the Born--Oppenheimer approximation \cite{Tully98_407} (a concept distinct from from the 
 Born--Oppenheimer ansatz for the molecular wave function). This is typically a safe assumption for reasonably
 heavy nuclei as the ratio of the electronic and nuclear kinetic energies are of the same order as
 the ratio of the electronic and proton masses, $\mathcal{O}(10^{3})$. Thus, from the electronic perspective,
@@ -1602,7 +1616,7 @@ the nuclear configuration is approximately static, and the electrons only ``feel
 potential of a fixed nuclear wave function at any given time. This approach is therefore analogous to
 the mean field treatment of the Hartree--Fock wave function in \cref{eq:HFEq}. Denoting a particular fixed nuclear wave
 function $\ket{\Theta_{nuc}^{fix}}$, we may write down a Hamiltonian which acts on the electronic 
-component of the wave function and is valid in the inertial frame of the electrons,
+component of the wave function and is valid in the inertial frame of the electrons \cite{Tully98_407},
 \begin{equation}
 \label{eq:NRBOH}
 \op{H}^\BO_{el} = \innerop{\Theta_{nuc}^{fix}}{\op{H}^\NR - \sum_A^{N_\mathrm{nuc}}\op{T}^\NR(A)}{\Theta_{nuc}^{fix}}
@@ -1624,23 +1638,27 @@ This criteria is clearly met if $\rho^{1,0}_{nuc,A}(\vc{R})$ is a normalized fun
 $\rho^{1,0}_{nuc,A}(\vc{R})$ as a classical charge distribution described by a single Gaussian function \cite{Dyall97_207,Saue98_920},
 \begin{equation}
   \label{eq:GauNuc}
-\rho^{1,0}_{nuc,A}(\vc{R}) = \mathcal{N} e^{-\gamma_A(\vc{R} - \vc{R}_A)^2},
+\rho^{1,0}_{nuc,A}(\vc{R}) = \left(\frac{\upsilon_A}{\pi}\right)^{3/2}e^{-\upsilon_A(\vc{R} - \vc{R}_A)^2},
 \end{equation}
-where $\vc{R}_A$ is the classical nuclear position and \todo{give expressions for exponent and normalization condition}
+where $\vc{R}_A$ is the classical nuclear position and 
+\begin{equation}
+\upsilon_A = \frac{3}{2 \zeta}, \qquad \zeta = 0.836 M_A^{1/3} + 0.570.
+\end{equation}
+
 
 
 
 \subsection{Non--Relativistic Mean Field Wave Functions}
 
 In the case of the non--relativistic Born--Oppenheimer electronic Hamiltonian of \cref{eq:NRBOH}, the
-Fock matrix components of \cref{eq:FockComponents} take the form \todo{define K},
+Fock matrix components of \cref{eq:FockComponents} take the form \cite{Yang89_book},
 \begin{subequations}
   \label{eq:NRFockCompSpace}
 \begin{align}
   &\op H^\mathrm{core}(\vc x; \vc x') = \delta^4(\vc x - \vc x') \left( \op T^\NR(\vc x) + \op V_{ne}(\vc x) \right) \\
   &\op J(\vc x; \vc x') = \delta^4(\vc x - \vc x') 
     \int_\mathbb{F} \frac{\gamma^1(\vc x_2; \vc x_2)}{\vert \vc x - \vc x_2 \vert} \,\dd^4\vc x_2 \\
-  &\op K(\vc x; \vc x') = ... 
+  &\op K(\vc x; \vc x') = \frac{\gamma^1(\vc x; \vc x')}{\vert \vc x - \vc x' \vert}
 \end{align}
 \end{subequations}
 Carrying out the integration in a finite basis set via \cref{eq:OBBasisExp}, we obtain
@@ -1690,7 +1708,7 @@ of the spin components of the Fock matrix (i.e. \cref{eq:DenFockConstraint}). Th
 of \cref{eq:NRBOH} being spin diagonal. This introduces a strange concept which is manifest in mean field
 theory but not in exact treatments of the electronic problem: the spin symmetry of the density and Fock
 matrices need not exhbit the same spin structure as the Hamiltoninan which they represent. This phenomena
-is known an symmetry breaking, and is a well studied problem in electronic structure theory \todo{cite}.
+is known an symmetry breaking, and is a well studied problem in electronic structure theory \cite{Li15_154109,Paldus03_67}.
 The simplest example of this is the treatment of open--shell systems via \cref{eq:NRBOH}: the treatment of
 unpaired spins necessacarily introduces an explicit treatment of spin through $\vc F^3 / \vc P^3$ despite the
 fact that \cref{eq:NRBOH} has no explicit treatment thereof. It is typically the case that in non--relativistic
@@ -1735,7 +1753,7 @@ Hamiltonian through the interaction with an external magnetic field, $\vc{B}$, v
   \frac{1}{2} \sum_{i = 1}^{N_\mathrm{el}}\sum_{k=1}^3 B^k \left( \pauli{k}(i) + \op{L}_k(i) \right),
 \end{equation}
 due to observation of the linear relationship between the magnetic field strength and energy level splittings in the Stern--Gerlach 
-experiment\cite{Napolitano17_book}. Here, $\op{\vc L}$ is the one body orbital angular momentum operator. 
+experiment \cite{Napolitano17_book}. Here, $\op{\vc L}$ is the one body orbital angular momentum operator. 
 It is well known, however, that $\op{H}^\mathrm{Zeeman}$ only yields a proper physical description
 of the electronic spin degrees of freedom in the strong field limit \todo{cite}, whereas in the weak field limit, intrinsic magnetic
 effects which arise from special relativity, such as spin--orbit coupling, become energetically competitive.
@@ -1748,7 +1766,7 @@ one might be tempted to think in terms of a classical analogue for the quantum p
 the dynamics of classical bodies is approximately governed by Newtonian mechanics: the classical analogue of the Schr\"{o}dinger equation.  Within such a mindset, one might consider
 relativistic effects as only being important for heavy elements, such as Gold or Uranium, due to the fact that their core electrons
 move at velocities which are a considerable fraction of the speed of light. However, as is often the case with the quantization
-of classical mechanics, such a simplistic assumption yields qualitatively incorrect model physics even for light elements such as Carbon and Oxygen\todo{cite Pyyko}.
+of classical mechanics, such a simplistic assumption yields qualitatively incorrect model physics even for light elements such as Carbon and Oxygen \cite{Pyykko12_45}.
 The realization of relativistic effects in light elements typically manifests in context of the \emph{ab initio} introduction of spin couplings
 into the Hamiltonian, which not surprisingly also solves the aforementioned problem with treating electronic spin non--relativistically. 
 The following sections provide a brief overview of the treatment of relativistic effects in molecular quantum mechanics.
@@ -1758,7 +1776,7 @@ The following sections provide a brief overview of the treatment of relativistic
 \subsection{The Dirac Equation}
 
 Fundamental to the treatment of relativistic effects in the electronic problem is the 
-Dirac equation \todo{cite},
+Dirac equation \cite{Wolf15_book,Faegri07_book},
 \begin{equation}
 \label{eq:DiracEq}
 \op{h}^D \ket{\psi (t)} = \ii \partial_t \ket{\psi (t)},
@@ -1785,7 +1803,7 @@ and have used short hand notation
 \end{equation}
 where $\op {\vc p}$ is the linear momentum operator of \cref{eq:SpinorKinMom}. \Cref{eq:DiracEq} governs
 the quantum mecanical behaviour of a spin--1/2 fermion in full adherence to the principles of special
-relativity, i.e. it is fully covariant under Lorentz transformations \todo{cite}.
+relativity, i.e. it is fully covariant under Lorentz transformations \cite{Wolf15_book,Faegri07_book}.
 
 
 Examining the form of \cref{eq:DiracHam}, it is clear that the coordinate space spanned by $\mathbb F$
@@ -1799,23 +1817,23 @@ description of the electronic such that,
 where $\ket{\phi^L}$ and $\ket{\phi^S}$ are referred to as the ``large" and ``small" component of the 
 electronic wave function, respectively, and are both representable as spinors in the sense of
 \cref{eq:SpinorOrbital}. Represented as a vector of two spinors, the wave functions relating to the Dirac equation
-are often referred to as bispinors \todo{cite} as they are constructed from four complex components (hence 
+are often referred to as bispinors \cite{Wolf15_book} as they are constructed from four complex components (hence 
 $\ket{\psi} \in \hilb H^\FrC$). 
 
 
 
 The formal treatment of relativistic theory in the context of the consequences of adhering to Lorentz 
 covariance is outside the scope of this work. One should be referred to more comprehensive texts on
-the subject for a more thorough treatment of these matters \todo{cite}. There are, however, several
+the subject for a more thorough treatment of these matters \cite{Wolf15_book,Faegri07_book} \co{add more?}. There are, however, several
 aspects of \cref{eq:DiracEq} which will play an important role in the following developments. Perhaps
 the largest departure from non--relativistic quantum mechanics is in the spectrum of \cref{eq:DiracHam}.
 Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitoned
-into three regions relative to the rest mass of the electron \todo{cite}: a strictly positive energy continuium 
+into three regions relative to the rest mass of the electron: a strictly positive energy continuium 
 $E > 0$, a strictly negative energy continuium $E < -2c^2$, and a set of discrete states with $E \in (-c^2,0)$ which
 arise due to the presence of the external potential. The solutions of the Dirac equation with $E > -c^2$
 may be interpreted as an analogue to the non--relativistic electrons, while the solutions with $E < -c^2$
 have no non--relativistic analogue. They are typically interpreted as the positronic solutions to the Dirac
-equation \todo{cite}. As this work is to treat the electronic problem in molecular physics, we will
+equation \cite{Feynman49_749}. As this work is to treat the electronic problem in molecular physics, we will
 be interested in treating the electronic solutions to the Dirac equation, not the positronic solutions.
 However, this does not negate the presence of these positronic states, and their presence is
 crutial to a rigorus treatment of relativisic efffects in molecular physics.
@@ -1830,7 +1848,7 @@ to the Dirac equation is a constrained minimization over only \emph{electronic} 
 as there are an infinite number of continuium positronic solutions. Minimization of 
 \cref{eq:EnergyFunctional} over purely electronic Slater determinants in generally impractical using standard 
 optimization techniques and requres rather opaque projection schemes to avoid variational
-collapse into the positronic regime \todo{cite}. However, as we know \emph{a priori} that
+collapse into the positronic regime \cite{Wolf15_book}. However, as we know \emph{a priori} that
 the electronic solutions are the ones of interest, we may transform \cref{eq:DiracHam} such that
 we may solve for only the electronic states in an approximate manner. In \cref{sec:X2C},
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
@@ -1844,12 +1862,12 @@ mechanics. This is due to the fact that the Coulomb interaction only treats the 
 of charged particles and is thus manifestly incapable of adhering to the principles of special relativity.
 One must venture into the realm of quantum field theory (QFT) in order to develop truly covariant quantized 
 descriptions of the electromagnetic force; however, QFT has proven to be rather difficult to exploit in
-the context of practical calculations on molecular systems \todo{cite Liu}. Here, we will work with
+the context of practical calculations on molecular systems \cite{Liu14_983,Liu15_631}. Here, we will work with
 \emph{approximate} relativistic descriptions of molecular quantum mechanics within a Hamiltonian
-formulation, which have been shown to have good agreement with experiment \todo{cite}.
+formulation, which have been shown to have good agreement with experiment \todo{cite exp benchmark, etc}.
 For simplicity in the subsequent developments, we will posit \emph{a priori} the validity of the 
 Born--Oppenheimer ansatz and approximations of the previous section in the context of relativistic
-theory \todo{cite}. Further, while no approximation of the quantum nature of the nuclei was required in the 
+theory \cite{Wolf15_book}. Further, while no approximation of the quantum nature of the nuclei was required in the 
 context of the Sch\"{o}dinger equation, in the context of relativistic theory we will approximate
 nuclei to be classical charge distributions, i.e. no intrinsic angular momentum (spin) which
 yields an absence of magnetic interactions into the Hamiltonian within the fixed nuclei approximation.
@@ -1865,7 +1883,7 @@ by the Breit equation,
 \op{H}^\DCB \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
 \end{equation}
 where $\op{H}^\DCB : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb--Breit (DCB) Hamiltonian.
-In the absense of external fields , the DCB Hamiltonian for $N$ electrons is given in atomic units by \todo{cite}
+In the absense of external fields , the DCB Hamiltonian for $N$ electrons is given in atomic units by \cite{Wolf15_book,Faegri07_book}
 \begin{equation}
   \label{eq:DCBHam}
   \op{H}^\DCB = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
