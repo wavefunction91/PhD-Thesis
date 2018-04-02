@@ -84,272 +84,12 @@ have been shown to be successful in the description of both high\cite{Norman16_1
 
 In this work, we introduce a general framework for the prediction of spectrally interior molecular response properties based on model order reduction (MOR) via interpolation. MOR techniques have been successfully applied in different fields of computation science and engineering, where it reduces the computational complexity of mathematical models in numerical simulations. Examples include structural dynamics, sound and vibration analysis, and control theory \cite{Antoulas2005}. The MOR algorithm proposed in this paper aims to overcome the large computational overhead associated with the spectral discretization required by linear system based methods while maintaining the accuracy associated with eigenproblem based methods. Further, the proposed algorithm will be shown to allow for the massively scalable parallelism that is well suited for modern computing architectures.
 
+% ============================================= %
+% == LINEAR RESPONSE AND ABSORPTION SPECTRUM == %
+% ============================================= %
+\section{Linear response and absorption spectrum}
+\label{sec:lras}
 
-% Semi--Classical Light Matter
-\section{Semi--Classical Light--Matter Interaction}
-\label{sec:SCLMI}
-
-In this section, we will provide a brief overview of the non-relativistic treatment of
-light--matter interaction for molecular systems. As such, we will not be concerned with
-the nature of retartation effects of transverse photons nor the quantized nature of
-the photon itself; hence this is referred to as a semi-classical treatment of light-matter
-interation. This will allow us to treat this interaction solely as the interaction of
-the molecular system with an external, time--dependent, classical electromagnetic field. 
-
-\subsection{Classical Electromagnetic Fields}
-
-Classically, the mechanics of electromagentic fields is governed by Maxwell's equations
-\todo{cite JAckson Barron}. In the absense of charge sources, Maxwell's equations are given in differential
-form and SI (or atomic) units by,
-\begin{subequations}
-\label{eq:MaxwellEB}
-\begin{alignat}{1}
-&\nabla \cdot \vc E(\vc{r},t) = 0, \\
-&\nabla \cdot \vc B(\vc r,t) = 0, \\
-&\nabla \times \vc E(\vc r,t ) = -\partial_t \vc {B}(\vc r,t ),\\
-&\nabla \times \vc B(\vc r,t ) = \frac{1}{c^2}\partial_t \vc {E}(\vc r,t ),
-\end{alignat}
-\end{subequations}
-where $\vc E$ and $\vc B$ are the classical vector fields which describe the electric and
-magnetic compoenents of the electromagnetic field, respectively. The top two equations
-of \cref{eq:MaxwellEB} describe the divergence of the $\vc E$ and $\vc B$ fields, while
-the latter two describe the curl, where '$\times$' denotes the cross produce. In the description of
-the interactions of these fields with matter, it is useful to define a set of auxilary variables
-\todo{cite Jackson Barron} ,
-\begin{subequations}
-\label{eq:SVPot}
-\begin{align}
-  \vc B(\vc r, t)  &= \nabla \times \vc A(\vc r, t),\\
-  \vc E(\vc r, t)  &= -\nabla U(\vc r, t) - \partial_t \vc A(\vc r, t),
-\end{align}
-\end{subequations}
-where $U$ and $\vc A$ are the so-called scalar and vector potentials, respectively. Using
-the definitions in \cref{eq:SVPot}, \cref{eq:MaxwellEB} becomes a set to two homogenous 
-differential equations
-\begin{subequations}
-\label{eq:MaxwellSV}
-\begin{align}
-&\Delta U(\vc r,t ) - \partial_t (\nabla \cdot \vc A(\vc r,t )) = 0\\
-& \Delta A_\xi(\vc r, t) - \frac{1}{c^2} \partial^2_t A_\xi(\vc r,t) - \nabla_\xi \left( \nabla \cdot \vc A(\vc{r},t) + \frac{1}{c^2}\partial_t U(\vc r,t)\right)
- = 0, \quad \xi \in \{x,y,z\}.
-\end{align}
-\end{subequations}
-The remarkable thing about the use of $U$ and $\vc A$ is that, due to \cref{eq:SVPot}, the  physical $\vc E$ and $\vc B$ fields
-which they represent are invariant under linear gauge transformation \todo{cite Jackson Barron},
-\begin{subequations}
-\label{eq:GaugeFix}
-\begin{align}
-  \vc A(\vc r, t) &\mapsto \vc A'(\vc r, t) = \vc A(\vc r,t) + \nabla \chi(\vc r, t), \\ 
-  U(\vc r,t) &\mapsto U'(\vc r, t) = U(\vc r, t) - \partial_t \chi(\vc r, t),
-\end{align}
-\end{subequations}
-where $\chi(\vc r,t)$ is an arbitrary differentiable, real valued function, refered to as a gauge function.
-The pair $(\vc A', U')$ yield the same $\vc E$ and $\vc B$ fields as $(\vc A, U)$ under \cref{eq:SVPot},
-thus the physical singificance of \cref{eq:MaxwellSV} is invariant under this transformation.
-
-Of particular interest to this work are the monochromatic planewave solutions to \cref{eq:MaxwellEB,eq:MaxwellSV}
-which take on the form \todo{cite}
-\begin{subequations}
-\begin{align}
-\vc E(\vc r, t) = \vc E_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}\\
-\vc B(\vc r, t) = \vc B_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}
-\end{align}
-\end{subequations}
-where $\vc k$ is the wave vector determining the direction of propagation, and $\omega = c\vert\vc k\vert$ is the
-angular frequency. $\vc E_0$ and $\vc B_0$ are the amplitudes of the $\vc E$ and $\vc B$ fields respectively.
-By \cref{eq:GaugeFix}, we may always choose a gauge such that $U(\vc r,t) = 0$ for planewaves. 
-This gauge choice is known as the Weyl gauge \todo{cite}. As such, the vector potential (\cref{eq:SVPot}) becomes \todo{confirm}
-\begin{equation}
-\vc A(\vc r, t) = -\int_0^t \vc E(\vc r, t') \dd t' = -\frac{1}{\omega} \vc E'_0 e^{\ii\vc k \cdot \vc r} e^{-\ii\omega t}.
-\end{equation}
-where $\vc E'_0 = \ii \vc E_0$. 
-In the limit of molecular length dimensions, for reasonably low frequency light it is reasonable to assume
-\begin{equation}
-\vc k \cdot \vc r \approx 0.
-\end{equation}
-That is to say that the wave length of the oscillating field is much larger than the molecule it  self, thus
-from the molecular perspective, it is experiencing a uniformly distrubuted field despite the global topology of
-the physical wave front. This approximation is known as the electric dipole approximation (EDA), and will be used
-throughout the work. Within the EDA, the spatial portion of the wave front is truncated in a Taylor series,
-\begin{equation}
-e^{\ii\vc k \cdot \vc r} = 1 + \sum_{n=1}^\infty \frac{(\ii \vc k \cdot \vc r)^n}{n!} \approx 1.
-\end{equation}
-Thus the vector potential becomes
-\begin{equation}
-\label{eq:EDAV}
-\vc A(\vc r, t) \approx \vc A_\mathrm{EDA}(t) = -\frac{1}{\omega} \vc E'_0 e^{-\ii\omega t}.
-\end{equation}
-As such, the magnetic field vanishes within the EDA,
-\begin{equation}
-\vc B(\vc r, t) \approx 0, \qquad \text{EDA}.
-\end{equation}
-
-
-\subsection{Non--Relativistic Molecular Hamiltonian in the Presence of Fields}
-
-In the presence of an electromagnetic field described $(\vc A,U)$, the
-Born--Oppenhemier Hamiltonian (\cref{eq:NRBOH}) for a system with $N$ electrons
-becomes
-\begin{equation}
-\op H^\mathrm{BO}_{el} \mapsto \op H_{el}(t) = 
-  \frac{1}{2} \sum_{i=1}^N \left( \op{\vc p}(i) + \op{\vc A}(i,t) \right)^2 - 
-  \op V_{ne}(i) - \op U(i , t) + \frac{1}{2}\sum_{i\neq j = 1}^N \op g^C(i,j),
-\end{equation}
-where the operators $\op U$ and $\op {\vc A}$ are scalar (in the sense of density scalar,
-i.e. void of spin dependence) multiplicitive operators which represent the external field.
-That is to say
-\begin{equation}
-\op{A}_\xi(\vc r , t )\, \phi(\vc x, t )  = \phi(\vc x, t ) \,A_\xi(\vc r, t) , \quad \op{U}(\vc r , t) \,\phi(\vc x, t ) = \phi(\vc x, t ) \,U(\vc r, t)
-\end{equation}
-with $\ket{\phi (t)} \in \hilb H^1$.
-As a vector, $\vc A$ and $\op{\vc A}$ both carry Cartesian indicies $\xi\in \{x,y,z\}$, the same as
-$\op{\vc{p}}$.
-Expanding the square, we obtain
-\begin{equation}
-\op H_{el}(t) = \op H^\mathrm{BO}_{el} + \op V_{ext}(t)
-\end{equation}
-where
-\begin{align}
-\op V_{ext}(t) &= \sum_{i=1}^N \op{\vc p}(i) \cdot \op{\vc A}(i , t) + \op{\vc A}(i , t) \cdot \op{\vc p}(i) + \op{A}^2(i, t) - 
-  U(i , t) \nonumber \\
-  &\approx \sum_{i=1}^N  \op{\vc A}(i , t) \cdot \op{\vc p}(i) - U(i , t). \label{eq:CouGaugeOp}
-\end{align}
-The approximation in \Cref{eq:CouGaugeOp} has introduced two concepts implicitly. The first being the removal of the term 
-$\op{\vc p} \cdot \op{\vc A}$, which has been achieved by enforcing $\nabla \cdot \vc A = 0$. This choice is referred
-to as the Coulomb gauge, and is always possible through the proper choice of gauge function (\cref{eq:GaugeFix}). The
-actual approximation in \cref{eq:CouGaugeOp} is in the neglection of the $A^2$ term. In the weak field strength limit,
-the $A^2$ is quadratic in the field strength, while $\op{\vc A} \cdot \op{\vc p}$ is linear. In this limit, we may 
-approximation $A^2 \approx 0$, thus this approximation is referred to as the weak field approximation.
-Inserting in the expression for the vector potential in the EDA (\cref{eq:EDAV}) and invoking the Weyl gauge, 
-we obtain
-\begin{equation}
-\label{eq:VextVel}
-\op V_{ext}(t) \approx -\sum_{i=1}^N \frac{e^{-i\omega t}}{\omega} ( \vc E'_0 \cdot \op{\vc p}(i) ).
-\end{equation}
-
-The extraneous factor of $\omega$ may be removed by another gauge transformation, $\chi(\vc r,t) = -\vc r \cdot \vc A_\mathrm{EDA}$,
-such that
-\begin{align}
-  \vc A_\mathrm{EDA}(\vc r, t) &\mapsto \vc A_\mathrm{EDA}(\vc r, t) - \nabla (\vc r \cdot \vc A_\mathrm{EDA}(\vc r,t))  = 0, \\
-  U_\mathrm{EDA}(\vc r,t)  &\mapsto \vc r \cdot \partial_t \vc A_\mathrm{EDA}(\vc r,t) = -\ii e^{-i \omega t} (\vc E'_0 \cdot \vc r) =  e^{-i \omega t}(\vc E_0 \cdot \vc r).
-\end{align}
-which transforms \cref{eq:VextVel} to
-\begin{equation}
-\label{eq:VextLen}
-\op V_{ext}(t) \approx -\sum_{i=1}^N ( \vc E(t) \cdot \op{\vc r}(i) ),
-\end{equation}
-where $\op{\vc r}$ is the position operator and $\vc E(t) = e^{-\ii\omega t}\vc E_0$.
-
-% Polarization Propagator
-\section{Molecular Response and the Polarization Propagator}
-\label{sec:PolarProp}
-
-In this section we examine the response of a molecular system subject to an external, scalar, time-periodic perturbation, 
-$\op V_{ext}(t)$, such as the semi-classical EDA matter-field operator in \cref{eq:VextLen}. 
-%As such, we may
-%write our operator in terms of the scalar density field operator (\cref{eq:ScalarDenFieldOp}) ,
-%\begin{equation}
-%\left( \op V_{ext} (t) \right)_\mathcal{F} = 2\int_{\mathbb R^3} \op V^0_{ext}(\vc r,t) \op \rho^{1,0}(\vc r) \dd^3\vc r
-%\end{equation}
-To this end, we consider a
-quantum system which is initially in some adiabatic state (\cref{eq:TIQWave}), specifically the ground adiabatic state,
-such that
-\begin{equation}
-\lim_{t \rightarrow -\infty} \ket{\Psi (t)} = \ket{\Psi_0}.
-\end{equation}
-To ensure causality of the perturbation, we will multiply the perturbing operator by a small, time-dependent infentesimle
-\todo{cite} such that
-\begin{equation}
-\op H(t) = \op H_0 + \op V'_{ext}(t)
-\end{equation}
-where $\op H_0$ is a Hamiltoninan for which we may solve \cref{eq:TIQWave} and 
-$\op V'_{ext}(t) = e^{\eta t } \op V_{ext}(t)$ with $\eta \ll 1$. For molecular systems, $\op H_0 = \op H^\BO_{el}$.
-
-Given a time-independent one--body scalar operator, $\op O^1$, the linear time evolution (response) of the expecation value of that operator
-is given by the Kubo relation \todo{cite}
-\begin{equation}
-\label{eq:Kubo}
-O^1(t) \equiv \innerop{\Psi(t)}{\op O^1}{\Psi(t)} = O^1(-\infty) + \int_{-\infty}^\infty \RetGF{\op O^1}{\op V'_{ext}(t' \prm t'-t)} \dd t',
-\end{equation}
-where the moiety $\RetGF{\cdot}{\cdot}$ is the retarded two-time Green's function (RGFT) \todo{cite},
-\begin{equation}
-  \label{eq:RetGFTime}
-  \RetGF{\op O^1}{\op V'_{ext}(t' \prm t)} = -\ii \Theta(-t) \innerop{\Psi_0}{\left[\op O^1, \op V'_{ext}(t' \prm t) \right]}{\Psi_0},
-\end{equation}
-and we have have expressed the external potential in the interaction picture,
-\begin{equation}
-  \label{eq:IntPicture}
-\op V'_{ext}(t' \prm t) = \exp\left[\ii \op H_0 t\right] \op V'_{ext}(t') \exp\left[-\ii \op H_0 t\right].
-\end{equation}
-Here, the paramter list after the $\vert$ denote the time coordinates arising from the interaction picture, not the proper time of 
-the Hamiltonian.
-Thus the problem of detemining the linear response of a system due to an external perturbation is reduced to determining
-the form of \cref{eq:RetGFTime}.
-
-It is often useful to examine \cref{eq:RetGFTime} in the frequency domain rather than the time-domain. As $\op V_{ext}(t)$ is
-taken to be time periodic, we may decompose it into its Fourier components as
-\begin{equation}
-  \RetGF{\op O^1}{\op V'_{ext}(t' \prm t'-t)} = \int_{-\infty}^\infty \RetGF{\op O^1}{\op V_{ext}(\omega \prm t'-t)} e^{-\ii \omega t' + \eta t'}\dd\omega.
-\end{equation}
-Substituting this back into \cref{eq:Kubo} and making the variable substitution $s = t' - t$, which implies $t' = s + t$, we may write
-\begin{equation}
-O^1(t) = O^1(-\infty) +\int_{-\infty}^\infty  e^{-\ii \omega t + \eta t} \left(\int_{-\infty}^\infty \RetGF{\op O^1}{\op V_{ext}(\omega \prm s)} 
-e^{-\ii \omega s + \eta s} \dd s\right)
-\dd \omega.
-\end{equation}
-When $\op V_{ext}(t)$ takes the form of \cref{eq:VextLen}, we obtain 
-\begin{equation}
-\label{eq:FTV}
-\op V_{ext}(\omega) = -\op{\vc r} \cdot \vc E(\omega),
-\end{equation}
-where $\vc E(\omega)$ is the Fourier transform of $\vc E(t)$. Thus
-\begin{equation}
-\label{eq:FTResponse}
-O^1(t) = O^1(-\infty) - \sum_{\xi \in \{x,y,z\}} \int_{-\infty}^\infty \retGF{\op O^1}{\op \xi}_{\omega - \ii\eta} E_\xi(\omega) e^{-\ii\omega t + \eta t} \dd\omega 
-\end{equation}
-Here $\op \xi$ is the $\xi$-th component of the position operator and
-\begin{equation}
-\label{eq:RetGFFT}
-\retGF{\op O^1}{\op \xi}_{\omega - \ii\eta} = \int_{-\infty}^\infty \RetGF{\op O^1}{\op \xi ( \prm t)} e^{-\ii \omega t + \eta t} \dd t,
-\end{equation}
-is the frequency space representation of the Green's function (RGFF).
-The empty space before the interaction picture parameter list indicates that $\op \xi$ does not have Fourier components. \Cref{eq:FTResponse} is general
-to any time-dependent operator which admits a Fourier transform that factors as \cref{eq:FTV}.
-Due to \cref{eq:SeQuantOp}, the RGFT and RGFF for one-body operators are known as the time-- and frequency--space
-polarization propagators, respectively.
-
-The previous development of the relationship between the time evolution of the quantum state and the polarization
-propagator has been for the exact many--body quantum state. As such, we must develop a protol to approximate
-the expansions in e.g. \cref{eq:FTResponse} in order to allow for practical calculations of molecular response. 
-The formal development of the expansion of the polarization propagator in orders of the two--body potential
-is given elagantly elsewhere \todo{cite}. To first order in the HF approximation, the polarization propagtor for two arbitrary 
-one--body operators, $\op O^1_1$ and $\op O^1_2$, known as the first order polarization propagator method (FOPPA) is given by
-\begin{equation}
-  \label{eq:FOPPA}
-  \retGF{\op O^1_1}{\op O^1_2}_z = \vc {\overline {O}}^{1\dagger}_1 \vc {\overline {X}}^1_2(z).
-\end{equation}
-where $z \in \mathbb C$ is an arbitrary complex parameter and
-\begin{equation}
-  (\vc{\overline H} - z \vc{\overline S}) \vc{\overline X}^1_2(z) = \vc{\overline O}^1_2.
-\end{equation}
-We have defined the matrices
-\begin{align}
-  &\vc{\overline H} = \begin{bmatrix} \vc A & \vc B \\ \vc B^* & \vc A^* \end{bmatrix}, \\
-  &\vc{\overline S} = \begin{bmatrix} \vc I & \vc 0 \\ \vc 0 & -\vc I \end{bmatrix}, \\
-  &\vc{\overline O}^1 = \begin{bmatrix} \vc O^1 \\ \vc O^{1*} \end{bmatrix},
-\end{align}
-where $\vc{\overline O}^1 \in \{ \vc{\overline O}^1_1, \vc{\overline O}^1_2 \}$. The matrix
-elements are given as follows
-\begin{align}
-  &A_{ai,bj} = \innerop{\vc 0^\HF}{[\tau^i_a,[\op H^\BO_{el}, \tau_j^b]]}{\vc 0^\HF} = 
-    \delta_{ij}\delta_{ab}(\epsilon^\HF_a - \epsilon^\HF_i) + \innerop{aj}{r_{12}^{-1}}{ib} - \innerop{aj}{r_{12}^{-1}}{bi} \\
-  &B_{ai,bj} = \innerop{\vc 0^\HF}{[\tau^a_i,[\op H^\BO_{el}, \tau_j^b]]}{\vc 0^\HF} = 
-    \innerop{ab}{r_{12}^{-1}}{ij} - \innerop{ab}{r_{12}^{-1}}{ji} \\
-  &O^1_{ai} = \innerop{\vc 0^\HF}{[\op O^1,\tau^{a}_i]}{\vc 0^\HF} = \innerop{\phi_a}{\op O^1(1)}{\phi_i}
-\end{align}
-where $\mathcal C = \{ \phi_p \}$ forms the single partile HF basis.
-
-\section{The Linear Absorption Spectrum}
 In the semi-classical theory of molecular light-matter interaction within the electric dipole approximation, the isotropic absorption cross section for the interaction with plane-polarized light, $\sigma(\omega)$, at a particular perturbing frequency, $\omega$, is proportional to the trace of the dynamic polarizability tensor, $\bfalpha(\omega)$,
 \begin{equation}
   \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfalpha(\omegat) \right]\right), \qquad \omegat = \omega + i\eta,
@@ -364,6 +104,122 @@ where $\eta > 0$ is a small damping parameter to ensure the convergence of $\bfa
   \end{bmatrix}.
   \label{eq:polar-tensor}
 \end{equation}
+Here, $\{ \bfd_\xi\text{ } \vert\text{ } \xi \in \{ x,y,z \} \}$ is the set of
+dipole operators expressed in the MO basis.
+In the following algorithmic developments, we restrict the discussion to the FOPPA using a
+Hartree--Fock reference (TD-HF), although the algorithm presented is completely
+general to any choice of propagator or reference. Within TD-HF, $\bG(\omegat)$
+may be written as
+\begin{equation}
+  \bG(\omegat) = \bH - \omegat\bS,
+  \label{eq:defG}
+\end{equation}
+where
+\begin{equation}
+  \bH = \begin{bmatrix}
+    \bA & \bB \\
+    \bB & \bA
+  \end{bmatrix}, \qquad
+  \bS = \begin{bmatrix*}
+    \bI & \vc 0 \\
+    \vc 0 & -\bI
+  \end{bmatrix*},
+  \label{eq:defH}
+\end{equation}
+with $\bS = \bS\T = \bS\inv$ and
+\begin{subequations}
+  \label{eq:FOPPA-defs}
+\begin{align}
+  &A_{ai,bj} = \innerop{0^\HF}{[\tau^i_a,[\op H^\BO_{el}, \tau_j^b]]}{0^\HF} = 
+    \delta_{ij}\delta_{ab}(\epsilon^\HF_a - \epsilon^\HF_i) + \innerop{aj}{r_{12}^{-1}}{ib} - \innerop{aj}{r_{12}^{-1}}{bi} \\
+  &B_{ai,bj} = \innerop{0^\HF}{[\tau^a_i,[\op H^\BO_{el}, \tau_j^b]]}{0^\HF} = 
+    \innerop{ab}{r_{12}^{-1}}{ij} - \innerop{ab}{r_{12}^{-1}}{ji} \\
+  &d_{\xi,ai} = \innerop{0^\HF}{[\op O^1,\tau^{a}_i]}{0^\HF} = \innerop{\phi_a}{\op r_\xi }{\phi_i}
+\end{align}
+\end{subequations}
+Here, we have denoted $\ket{0^\HF}$ as the HF ground state and $\{\op r_\xi\}$ as to components of the position
+operator. $\{\epsilon^\HF_p\}$ is obtained by solving \cref{eq:RHEq} and the integrals $\innerop{\cdot}{r^{-1}_{12}}{\cdot}$
+are given as in \cref{eq:ERI-MO}. Further, we have adopted the index convention for occupied and unoccupied HF-MOs
+as in \cref{sec:SQ}. The definitions in \cref{eq:FOPPA-defs} are general to both two-component relativistic and 
+non-relativistic HF references. However, in the following, we will restrict our treatment to that of non-relativistic theory
+such that we may emply the use of strictly real HF-MOs. This will allow for signification simpliciation of the resulting
+expressions.
+
+
+In order to study the spectrum of the pencil $(\bH,\bS)$ let
+\begin{equation}
+  \bOmega = \bS\inv\bH = \begin{bmatrix*}
+    \bA & \bB \\
+    -\bB & -\bA
+  \end{bmatrix*}.
+  \label{eq:defOmega}
+\end{equation}
+Although the matrix $\bOmega$ is non-symmetric, it has a number of special properties \cite{olje1988,beme1998,bali2012}. 
+If $\bH$ is positive definite, it may be shown that $\bOmega$ possesses a structured eigendecomposition \cite{Jorgensen_book,SJYDL2016}, i.e.,
+\begin{equation}
+  \begin{bmatrix*} \bA & \bB \\ -\bB & -\bA \end{bmatrix*}
+  = \begin{bmatrix*} \bU & \bV \\ \bV & \bU \end{bmatrix*}
+    \begin{bmatrix*} \bLambda & \vc 0 \\ \vc 0 & -\bLambda \end{bmatrix*}
+    \begin{bmatrix*} \bU & -\bV \\ -\bV & \bU \end{bmatrix*}\T
+\end{equation}
+where $\bLambda = \diag(\lambda_1,\dotsc,\lambda_n)$ consists of strictly positive eigenvalues, 
+and the eigenvectors are normalized with respect to the metric $\bS$,
+\begin{equation}
+  \begin{bmatrix*} \bU & -\bV \\ -\bV & \bU \end{bmatrix*}\T
+  \begin{bmatrix*} \bU &  \bV \\  \bV & \bU \end{bmatrix*} = \bI.
+  \label{eq:eigvec-normalization}
+\end{equation}
+
+As $\bH$ is taken to be real in this work, it possesses additional properties that may be exploited in the development of efficient algorithms for estimating the absorption spectrum of the target system. In particular, we may apply the following similarity transformation
+\begin{equation}
+  \bT = \frac{1}{\sqrt{2}} \begin{bmatrix*}
+     \bI & \bI \\
+    -\bI & \bI
+  \end{bmatrix*}, \qquad \bT\inv = \bT\T,
+\label{eq:defT}
+\end{equation}
+to $\bG(\omegat)$, yielding
+\begin{equation}
+  \bT\T \bG(\omegat) \bT = \begin{bmatrix}
+    \bK & \vc 0 \\
+    \vc 0 & \bM
+  \end{bmatrix} - \omegat \begin{bmatrix}
+    \vc 0 & \bI \\
+    \bI & \vc 0
+  \end{bmatrix},
+  \label{eq:}
+\end{equation}
+where
+\begin{align}
+  \bM &\equiv \bA + \bB, \label{eq:defM} \\
+  \bK &\equiv \bA - \bB, \label{eq:defK}
+\end{align}
+which are, in most cases, positive definite. In this case, the polarizability tensor may be reformulated as
+\begin{equation}
+  \bfalpha(\omegat) = \bfdt\T \bGt\inv(\omegat) \bfdt, \qquad \bfdt = \begin{bmatrix}
+    \bfd_x & \bfd_y & \bfd_z
+  \end{bmatrix},
+  \label{eq:polar-tensor-MK}
+\end{equation}
+where
+\begin{equation}
+  \bGt(\omegat) = \bM\bK - \omegat^2\bI.
+  \label{eq:defGt}
+\end{equation}
+Note that the dimension of $\bGt(\omegat)$ is only half the dimension of $\bG(\omegat)$. Furthermore, it can be shown that
+\begin{align}
+ \bM &= (\bX - \bY) \bLambda (\bX - \bY)\T, \\
+ \bK &= (\bX + \bY) \bLambda (\bX + \bY)\T,
+\end{align}
+and
+\begin{equation}
+  (\bX - \bY)\T (\bX + \bY) = \bI,
+\end{equation}
+such that the eigenvalues $\pm\bLambda$ may be computed by
+\begin{equation}
+  \bM\bK = (\bX - \bY) \bLambda^2 (\bX + \bY)\T.
+\end{equation}
+Remark that by making use of $\bM\bK$, the dimension of the eigenvalue problem is also reduced by a factor of 2.\cite{Haser93_1262,Frisch98_8218}
 
 
 \section{Interpolatory Model Order Reduction of Linear Dynamical Systems}
@@ -465,14 +321,267 @@ If all moments to be matched are chosen at zero, i.e., $s_j = 0$ for $j = 1,2,\l
 \end{equation}
 It can be shown that the matrix $\bV$ defined in \eqref{eq:defV-app} spans a rational Krylov subspace and matches all the $0$th moments at $s_j$. For more information about the connections between moment matching and rational interpolation, we refer the interested reader to Section~11 of Antoulas' model order reduction book \cite{Antoulas2005}.
 
-\section{Application of Model Order Reduction to the Linear Absorption 
-  Cross Section}
+\section{Estimating absorption spectrum without explicitly computing eigenvalues and eigenvectors}
+\label{sec:est}
 
-\subsection{Computational results}
+The most straightforward way to evaluate the absorption spectrum is to compute eigenvalues and the corresponding eigenvectors of $(\bH,\bS)$. However, as we indicated earlier, when the dimension of $\bH$ and $\bS$ becomes large (spectrally dense), this approach can be prohibitively expensive (complicated). 
+
+It has been shown\cite{brabec_etal2015} that a special $\bK$-inner product
+Lanczos algorithm can be used to provide a good approximation to the overall
+structure of the absorption spectrum without explicitly computing the
+eigenvalues and eigenvectors of $(\bH,\bS)$.  In particular, the Lanczos
+algorithm can reveal major absorption peaks in the low frequency region of the
+spectrum without too many iterations. However, the algorithm gives limited
+resolution of the absorption spectrum in the spectral interior as the
+Krylov subspace constructed by the Lanczos iteration contains little spectral
+information associated with interior eigenvalues of $(\bH,\bS)$.
+
+We now propose an alternative way to evaluate the absorption spectrum without explicitly computing the eigenvalues and eigenvectors of $(\bH,\bS)$. This scheme focuses on approximating the dynamic polarizability tensor $\bfalpha(\omegat)$ defined in \eqref{eq:polar-tensor} and the absorption spectrum $\sigma(\omega)$ defined in \eqref{eq:abs-spectrum} within a specific energy window directly.
+
+Firstly, observe that the dynamic polarizability tensor \eqref{eq:polar-tensor} may be viewed simply as the expectation value of the inverse of $\bH -\omegat \bS$. Hence, the evaluation of $\bfalpha(\omegat)$ may be recast into a problem of solving linear equations, i.e., for a specific frequency $\omega$, we can directly evaluate the absorption spectrum \eqref{eq:abs-spectrum} as follows
+\begin{equation}
+  \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfd\T \bfx(\omegat) \right]\right),
+\end{equation}
+where $\bfx$ is the solution of the linear system
+\begin{equation}
+  \left( \bH - \omegat\bS \right) \bfx(\omegat) = \bfd.
+  \label{eq:lin-sys}
+\end{equation}
+
+Secondly, the dynamic polarizability tensor \eqref{eq:polar-tensor} may also be viewed as the transfer function, i.e., the relation between input and output, of the linear dynamical system (see \cref{lds:mimo})
+\begin{equation}
+  \left\{\begin{aligned}
+    \left( \bH - \omegat\bS \right) \bfx(\omegat) &= \bfd \\
+                                     \bfy(\omega) &= \bfd\T \bfx(\omegat)
+  \end{aligned}\right..
+  \label{eq:MIMO}
+\end{equation}
+Consequently, the absorption spectrum can directly be obtained from the output variable $\bfy$
+\begin{equation}
+  \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfy(\omega) \right]\right).
+\end{equation}
+In order to evaluate the output $\bfy$ of system \eqref{eq:MIMO} for a given frequency, we again need to solve a linear system of the form \eqref{eq:lin-sys}.
+
+Finally, by exploiting the block structure of $\bH$ and performing a state space transformation with \eqref{eq:defT} (see \cref{lds:ss-transf}), we obtain an equivalent linear dynamical system for \eqref{eq:MIMO}, but with a halved order,
+\begin{equation}
+  \left\{\begin{aligned}
+    \left( \bM\bK - \omegat^2\bI \right) \bfxt(\omegat) &= \bfdt \\
+                                           \bfy(\omega) &= 2\,\bfdt\T \bK\,\bfxt(\omegat)
+  \end{aligned}\right.,
+  \label{eq:MIMO-MK}
+\end{equation}
+such that we obtain the following, compact expressions for the dynamic polarizability tensor
+\begin{equation}
+  \bfalpha(\omegat) = 2\,\bfdt\T \bK \left( \bM\bK - \omegat^2\bI \right)\inv \bfdt,
+  \label{eq:polar-tensor-lin-MK}
+\end{equation}
+and the absorption spectrum
+\begin{equation}
+  \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfdt\T \bK \left( \bM\bK - \omegat^2\bI \right)\inv \bfdt \right]\right).
+  \label{eq:abs-spectrum-lin-MK}
+\end{equation}
+Note that the dimension of the linear systems to be solved in \eqref{eq:abs-spectrum-lin-MK} is only half of the dimension of the linear system shown in \eqref{eq:lin-sys}.
+
+Clearly, we cannot afford to evaluate $\sigma(\omega)$ for all $\omega$'s of interest. However, this connection to linear dynamical systems allows us to employ MOR techniques (see \cref{lds:mor}) to reduce the number of $\sigma(\omega)$ evaluations in the full dimension. More precisely, we construct a function $\hat{\sigma}(\omega)$ that approximates $\sigma(\omega)$ within a specific energy window $[\omega_\mathrm{min},\omega_\mathrm{max}]$, but is much cheaper to evaluate.  The construction of such an approximate function only requires solving a few linear systems of the form \eqref{eq:lin-sys} or \eqref{eq:MIMO-MK} at a few selected frequencies $\tau_j$, $j = 1,2,\ldots,k$. The solutions of these linear systems are then used to construct a reduced order model which interpolates the full dynamic polarizability at $\tau_j$, and provides an approximation to the dynamic polarizability tensor \eqref{eq:polar-tensor} at other frequencies within the predefined energy window. When $k$ is small, both the construction and the evaluation of the reduced order model is significantly lower than other approaches that are either based on solving an eigenvalue problem or \eqref{eq:lin-sys} at many different frequencies.
+
+% ==================================== %
+% == INTERPOLATION BASED ALGORITHMS == %
+% ==================================== %
+\section{Interpolation based algorithms}
+\label{sec:mor}
+
+Let the dimension of the matrix $\bH$ defined in \eqref{eq:defH} be $2n \times 2n$. The dimension of the lower dimensional matrix $\bHh$ that we construct for the reduced order model is $3k \times 3k$, where $k \ll n$. One way to construct such a matrix is to first construct a subspace spanned by orthonormal columns of a matrix $\bV \inR[2n][3k]$ and then project $\bH$ onto such a subspace $\bV$, i.e.,
+\begin{equation}
+  \bHh = \bV\T \bH \bV.
+\end{equation}
+If we also let $\bSh = \bV\T \bS \bV$ and $\bfdh = \bV\T \bfd$, then the absorption spectrum can be approximated by
+\begin{equation}
+  \sigmah(\omega) \propto \omega \imag\left(\trace\left[ \bfdh\T \left( \bHh - \omegat\bSh \right)\inv \bfdh \right]\right).
+  \label{eq:abs-spectrum-k}
+\end{equation}
+
+Clearly, the choice of the subspace $\bV$ is crucial in maintaining the 
+fidelity of the reduced order model.  The subspace we use to construct the reduced order model takes the form
+\begin{equation}
+  \bV = \Span{\left( \bH - \tau_1\bS \right)\inv \bfd \quad \left( \bH - \tau_2\bS \right)\inv \bfd \quad \cdots \quad \left( \bH - \tau_k\bS \right)\inv \bfd },
+  \label{eq:defV}
+\end{equation}
+where $\tau_j$, $j = 1,2,\ldots,k$, are the interpolation frequencies carefully 
+chosen within the energy window of interest to ensure that
+\begin{equation}
+  \sigma(\omega) \approx \sigmah(\omega),
+\end{equation}
+for all $\omega$ in the energy window of interest. It follows from the way $\bV$ is constructed in \eqref{eq:defV} that $\bfalphah$ interpolates $\bfalpha$ at the interpolation frequencies, i.e.,
+\begin{equation}
+  \bfalpha(\tau_j) = \bfalphah(\tau_j), \qquad j = 1,2,\ldots,k.
+\end{equation}
+
+Furthermore, since the linear systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} have symmetric system matrices $(\bH,\bS)$ and $\bM\bK$, respectively, and the input and output matrices $\bfb$ and $\bfc$ are linearly dependent, the Galerkin projection becomes a Petrov--Galerkin projection\cite{Antoulas2005}. Hence, the original systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} and its corresponding reduced order systems of dimension $k$ match $2k$ moments instead of only $k$ moments in the general case\cite{Antoulas2005}. In order words, we can obtain the same accuracy for the reduced order models with fewer interpolation frequencies than the general (non-linearly dependent) case.
+
+\Algref{alg:mor} summarizes the construction of the reduced order model and how it is used to obtain an approximation of the absorption spectrum within an energy window of interest. Clearly, the higher the model order $k$, the more accurate the approximation. In the next section, we will show that even for a relatively small $k$, we can obtain a quite accurate approximation for $\sigma(\omega)$ in an interior spectral window that contains thousands of eigenvalues. 
+
+%%% ALGORITHM %%%
+\begin{algorithm2e}[hbtp]
+\caption{Absorption spectrum via model order reduction}%
+\label{alg:mor}%
+\SetKwInOut{input}{Input}
+\SetKwInOut{output}{Output}
+\BlankLine
+\input{Matrices $\bH,\bS,\bfd$, \\
+       Interpolation frequencies $\tau_1,\tau_2\ldots,\tau_k$, \\
+       Frequencies $\omega_1,\omega_2,\ldots,\omega_N$, and $\eta$.}
+\BlankLine
+\output{Absorption spectrum $\sigmah(\omega_1),\sigmah(\omega_2),\ldots,\sigmah(\omega_N)$.}
+\BlankLine
+\BlankLine
+\For{$j=1,2,\ldots,k$}{
+  \vspace{2pt}
+  \nl Linear system solve $\bfx_j = \left( \bH - \tau_j\bS \right)\inv \bfd$.
+}
+\nl QR factorization $\bX = \bV\bR$.\\
+\nl Construct $\bHh = \bV\T \bH \bV$, $\bSh = \bV\T \bS \bV$, and $\bfdh = \bV\T \bfd$. \\
+\BlankLine
+\For{$j=1,2,\ldots,N$}{
+  \vspace{2pt}
+  \nl Compute $\sigmah(\omega_j) = \omega \imag\left(\trace\left[ \bfdh\T \left( \bHh - (\omega_j + i\eta)\bSh \right)\inv \bfdh \right]\right)$.
+}
+\end{algorithm2e}
+
+Although \algref{alg:mor} provides a general framework for constructing a reduced order model for estimating the absorption spectrum defined by $(\bH,\bS)$, it is more efficient to exploit the structure of $(\bH,\bS)$ and construct a reduced order model for \eqref{eq:MIMO-MK} instead. Such a reduced order model may be obtained by projecting \eqref{eq:MIMO-MK} onto a subspace defined by
+\begin{equation}
+  \bVt = \Span{ \left( \bM\bK - \tau_1^2\bI \right)\inv \bfdt \quad
+                    \left( \bM\bK - \tau_2^2\bI \right)\inv \bfdt \quad
+                     \cdots \quad
+                    \left( \bM\bK - \tau_k^2\bI \right)\inv \bfdt },
+  \label{eq:defV-MK}
+\end{equation}
+where $\tau_j$, $j = 1,2,\ldots,k$, are again the interpolation frequencies. Because the matrix $\bM\bK$ is self-adjoint with respect to the $\bK$-inner product, it is more convenient to carry out the projection using the $\bK$-inner product and projecting $\bM\bK$ onto a subspace spanned by a $\bK$-orthonormal basis, i.e., $\bVt\T \bK \bVt = \bI$ is satisfied. If we let
+\begin{align}
+  \widehat{\bM\bK} &= \bVt\T \bK \bM \bK \bVt, \\
+  \bfdh &= \bVt\T \bK \bfdt,
+\end{align}
+then the approximation to the absorption spectrum provided by the structure exploiting reduced order model can be expressed by
+\begin{equation}
+  \sigmah(\omega) \propto \omega \imag\left(\trace\left[ \bfdh\T \left( \widehat{\bM\bK} - \omegat^2\bI \right)\inv \bfdh \right]\right).
+  \label{eq:abs-spectrum-k-MK}
+\end{equation}
+By exploiting the block structure of $\bH$, we can prove that \eqref{eq:abs-spectrum-k} and \eqref{eq:abs-spectrum-k-MK} are equivalent. However, the latter is cheaper to construct, both in terms of the number of floating point operations and memory usage, since it only involves matrices of size $n\times n$ and vectors of size $n$. The structure exploiting model order reduction algorithm for approximating the absorption spectrum is outlined in \algref{alg:mor-MK}.
+
+%%% ALGORITHM %%%
+\begin{algorithm2e}[hbtp]
+\caption{Absorption spectrum via structure exploiting model order reduction}%
+\label{alg:mor-MK}%
+\SetKwInOut{input}{Input}
+\SetKwInOut{output}{Output}
+\BlankLine
+\input{Matrices $\bM,\bK,\bfdt$, \\
+       Interpolation frequencies $\tau_1,\tau_2\ldots,\tau_k$, \\
+       Frequencies $\omega_1,\omega_2,\ldots,\omega_N$, and $\eta$.}
+\BlankLine
+\output{Absorption spectrum $\sigmah(\omega_1),\sigmah(\omega_2),\ldots,\sigmah(\omega_N)$.}
+\BlankLine
+\BlankLine
+\For{$j=1,2,\ldots,k$}{
+  \vspace{2pt}
+  \nl Linear system solve $\bfxt_j = \left( \bM\bK - \tau_j^2\bI \right)\inv \bfdt$.
+}
+\nl QR factorization $\bXt = \bVt\bRt$, with $\bVt\T \bK \bVt = \bI$.\\
+\nl Construct $\widehat{\bM\bK} = \bVt\T \bK\bM\bK \bVt$ and $\bfdh = \bVt\T \bK \bfdt$. \\
+\BlankLine
+\For{$j=1,2,\ldots,N$}{
+  \vspace{2pt}
+  \nl Compute $\sigmah(\omega_j) = \omega \imag\left(\trace\left[ \bfdh\T \left( \widehat{\bM\bK} - (\omega_j + i\eta)^2\bI \right)\inv \bfdh \right]\right)$.
+}
+\end{algorithm2e}
+
+Note that both \algref{alg:mor,alg:mor-MK} require a choice of the interpolation frequencies $\tau_j$. The number of these interpolation frequencies and their locations solely determine the quality of the absorption spectrum approximations. The simplest way to choose these interpolation frequencies is to partition the energy window of interest evenly by a uniform interpolation grid. However, because the absorption spectrum can be highly oscillatory in certain regions within the energy window, a very fine grid may be needed to resolve the high oscillation. As a result, the order of the reduced order model, which is proportional to the number of interpolation frequencies, can be exceedingly high.
+
+%%% FIGURE %%%
+\begin{figure}[hbtp]
+\figname{adaptive}
+\begin{tikzpicture}
+\begin{axis}[%
+ width=\textwidth,%
+ height=0.5\textwidth,%
+ axis x line=bottom,%
+ axis y line=left,%
+ xmin=0,%
+ xmax=9,%
+ ymin=0,%
+ ymax=5,%
+ xtick={0.5,...,8.5},%
+ xticklabels={$\omega_\mathrm{min}$,,,,,,,,$\omega_\mathrm{max}$},%
+ ytick={-1},%
+ ylabel={error estimate},%
+ grid=major,%
+ label style={font=\small},%
+ tick label style={font=\small},
+]
+\addplot[only marks,mark=square*]
+  coordinates {
+    (0.5,0)
+    (2.5,0)
+    (4.5,0)
+    (6.5,0)
+    (8.5,0)
+  };
+\addplot[only marks,mark=triangle*,mark size=3pt]
+  coordinates {
+    (1.5,0)
+    (3.5,0)
+    (5.5,0)
+    (7.5,0)
+  };
+\addplot[only marks,mark=*,fill=white]
+  coordinates {
+    (1,0)
+    (2,0)
+    (3,0)
+    (4,0)
+    (5,0)
+    (6,0)
+    (7,0)
+    (8,0)
+  };
+\addplot[only marks,mark=*] plot
+  coordinates {
+    (2,0)
+    (3,0)
+    (4,0)
+    (7,0)
+    (8,0)
+  };
+\legend{added in level 1,added in level 2,candidates for level 3,added in level 3}
+%
+\addplot[fill=white!95!black,draw=none] (1.51,0.01) -- (1.51,5) -- (2.49,5) -- (2.49,0.01);
+\addplot[fill=white!95!black,draw=none] (2.51,0.01) -- (2.51,5) -- (3.49,5) -- (3.49,0.01);
+\addplot[fill=white!95!black,draw=none] (3.51,0.01) -- (3.51,5) -- (4.49,5) -- (4.49,0.01);
+\addplot[fill=white!95!black,draw=none] (6.51,0.01) -- (6.51,5) -- (7.49,5) -- (7.49,0.01);
+\addplot[fill=white!95!black,draw=none] (7.51,0.01) -- (7.51,5) -- (8.49,5) -- (8.49,0.01);
+\addplot[dotted,black] (2,0) -- (2,5);
+\addplot[dotted,black] (3,0) -- (3,5);
+\addplot[dotted,black] (4,0) -- (4,5);
+\addplot[dotted,black] (7,0) -- (7,5);
+\addplot[dotted,black] (8,0) -- (8,5);
+%
+\addplot[no marks,dashed,black] (0,3) -- (9,3);
+\addplot[no marks] (0.5,3) node[above] {\scriptsize tolerance};
+%
+\addplot[blue,thick] expression[domain=0.5:8.5,samples=300] {2.5*sin(deg(x/2.25-0.5))*sin(2*deg(x/2.25-0.25)) + 2.5 + x/10};
+%
+\end{axis}
+\end{tikzpicture}
+\caption{Adaptive refinement strategy for selecting the interpolation frequencies.}
+\label{fig:adaptive-strategy}
+\end{figure}
+
+A more effective strategy for choosing the interpolation frequencies is to choose these frequencies in an adaptive fashion. We now propose a refinement strategy, which is graphically illustrated in \figref{fig:adaptive-strategy}. To start this procedure, we choose in the first level a coarse, uniform grid of interpolation frequencies (marked by {\scriptsize$\blacksquare$}) to construct the level-1 reduced order model. The set of interpolation frequencies is refined by adding the midpoints (marked by {\footnotesize$\blacktriangle$}) between two adjacent level-1 interpolation frequencies. This enlarged set forms the second level of interpolation frequencies, yielding a more accurate level-2 reduced order model. Next, we choose the midpoints between two adjacent level-2 interpolation frequencies as candidates (marked by $\circ$) to enlarge the set in the third level. We also estimate the approximation error by computing the relative difference between the level-1 and level-2 reduced order models for the entire energy window. If the error estimate at an interval between two adjacent level-2 interpolation frequencies is above a prescribed error tolerance, the midpoint (marked by $\bullet$) is added to the existing set of interpolation frequencies. The enlarge set results in an even more accurate level-3 reduced order model. This refinement process continues until the error estimate at the entire energy window is below the threshold or when the refined model order exceeds an prescribed upper bound.
+
+\section{Computational results}
 \label{sec:MORresults}
 
 The proposed automatic MOR algorithm has been implemented in the Chronus
-Quantum software package\cite{chronusq_beta} and in
+Quantum software package\cite{chronusq_beta2} and in
 MATLAB\footnote[4]{https://bitbucket.org/roelvb/mor4absspectrum}.
 The following numerical experiments were performed using a single
 Sandy--Bridge Intel Xeon compute node (E5-2650 v2 @ 2.60 GHz) with 16
@@ -497,7 +606,7 @@ Several numerical experiments were performed to demonstrate the performance and 
 We also examined how the order of the reduced order model changes as the damping factor $\eta$ changes and as the size of the molecular system increases as well as the overall computational scaling of the proposed method using the aforementioned water clusters. Numerical comparisons are made to the Lorentzian broadened poles of the propagator using the oscillator strengths \cite{Ball64_844,Harris69_3947,McKoy75_1168}. The eigenvalues and oscillator strengths were computed via BSEPACK\cite{bsepack,SJYDL2016} on a Cray XC40 with Haswell Intel Xeon compute nodes (E5-2698 v3 @2.3 GHz, 2x16 cores, 128 GB DDR4 RAM). The broadening factor was set equal to $\eta$ for comparison with the approximate MOR experiments.
 
 % --- Real versus complex interpolation frequencies --- %
-\subsubsection{Real versus complex interpolation frequencies}
+\subsection{Real versus complex interpolation frequencies}
 \label{sec:MORresults-points}
 
 We start with a cluster of 5 water molecules and are interested in computing
@@ -505,11 +614,11 @@ the absorption spectrum in the energy window $[540\,\eV,600\,\eV]$. The
 dimension of the matrix $\mathbf{H}$ \cref{eq:defH} was $2n = 6$,500 and $\mathbf{H}$ had
 394 eigenvalues in the energy window. The damping factor was $\eta = 1\,\eV$
 and the tolerance for solving the linear systems was set to $10^{-6}$. The
-damping factor was chosen to roughly \ch{encompass}{mimic} the effects of the core-hole
+damping factor was chosen to roughly mimic the effects of the core-hole
 lifetime of the $K$-edge transitions in oxygen and vibrational
-broadening\cite{Stohr_book}. \ins{It is important to note that the broadening due to
+broadening\cite{Stohr_book}. It is important to note that the broadening due to
 the damping parameter in these simulations is purely phenomenological, as no
-vibronic effects are being explicitly treated.}
+vibronic effects are being explicitly treated.
 
 \begin{figure}[hbtp]
 \fignames{fixed-}
@@ -577,7 +686,7 @@ same type of interpolation frequencies are used.
 The corresponding computational expense for the previous two experiments is reported in \cref{tab:real-vs-complex} using various metrics. We observe that for both fixed and adaptive model orders, the computational cost required for \cref{alg:mor-MK} was significantly lower than that of \cref{alg:mor}. This is expected as both methods are mathematically equivalent and the former only deals with linear systems of half the dimension of the latter. Furthermore, although \emph{real} interpolation frequencies allow us to solve only \emph{real} linear systems, we observe that in case of adaptively chosen model orders, the drastic decrease in model order required for complex interpolation frequencies over real frequencies offsets this advantage. Finally, we note at the bottom of \cref{tab:real-vs-complex} that the use of \cref{alg:mor-MK} with complex interpolation frequencies reduces the computational expense by a factor of almost 10 compared to conventional complex polarization propagator calculations on a fine grid.
 
 % --- Computational scaling --- %
-\subsubsection{Computational scaling}
+\subsection{Computational scaling}
 \label{sec:MORresults-scaling}
 
 We now consider water clusters consisting of 5, 10, 15, 20, and 25 water molecules. The corresponding matrix dimensions are shown in \cref{tab:waters}. The energy window $[540\,\eV,600\,\eV]$ and damping factor $\eta = 1\,\eV$ were the same as for the previous experiments. We computed the absorption spectrum via \cref{alg:mor-MK} with complex interpolation frequencies chosen adaptively. The obtained absorption spectra are shown in \cref{fig:water}.
@@ -700,7 +809,7 @@ It is worth noting that the vector space dimension of the linear problem
 also scales quadratically with system size.
 
 % --- Effect of damping factor --- %
-\subsubsection{Effect of damping factor}
+\subsection{Effect of damping factor}
 \label{sec:MORbroad}
 
 We examine the effect of the damping factor on the overall effectiveness of the proposed MOR algorithm in the low damping limit. We revisit the case of water clusters containing 5 water molecules from the previous subsections over the same energy widow. Specifically, we examine the effect on the damping parameter $\eta\in[0.1,1]\,\eV$ on the model order required to achieve a convergence of 1 percent in the absorption spectrum. The MOR results were obtains via \cref{alg:mor-MK} using adaptively chosen complex interpolation frequencies. The resulting spectra are presented in \cref{fig:damping}(a)--(c).
@@ -709,16 +818,16 @@ We examine the effect of the damping factor on the overall effectiveness of the 
 \begin{figure}[hbtp]
 \centering
 \figname{water_cluster_eta_0.5}%
-\subfloat[$\eta = 0.5\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.5}{1}{$k = 104$}{eta_0.5}}
+\subfloat[$\eta = 0.5\,\eV$]{\plotspectrumos{water_cluster_eta_0.5}{1}{$k = 104$}{eta_0.5}}
 \figname{water_cluster_eta_0.3}%
-\subfloat[$\eta = 0.3\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.3}{1}{$k = 157$}{eta_0.3}}\\[10pt]
+\subfloat[$\eta = 0.3\,\eV$]{\plotspectrumos{water_cluster_eta_0.3}{1}{$k = 157$}{eta_0.3}}\\[10pt]
 \figname{water_cluster_eta_0.1}%
-\subfloat[$\eta = 0.1\ins{\,\eV}$]{\plotspectrumos{water_cluster_eta_0.1}{1}{$k = 214$}{eta_0.1}}
+\subfloat[$\eta = 0.1\,\eV$]{\plotspectrumos{water_cluster_eta_0.1}{1}{$k = 214$}{eta_0.1}}
 \figname{water_clusters_damping}%
-\subfloat[$k$ \ch{in}{as a} function of $\eta$]{\begin{tikzpicture}
+\subfloat[$k$ as a function of $\eta$]{\begin{tikzpicture}
 \begin{axis}[%
  width=0.5\textwidth,%
- xlabel={damping factor $\eta$\ins{ (eV)}},%
+ xlabel={damping factor $\eta$ (eV)},%
  ylabel={reduced model order $k$},%
  xmin=0.1,xmax=1,%
  xtick={0.1,0.2,...,1},%
@@ -737,7 +846,7 @@ The effect of the damping factor on the automatically selected model order is il
 % ================ %
 % == CONCLUSION == %
 % ================ %
-\subsection{Conclusion}
+\section{Conclusion}
 \label{sec:MORconclusion}
 In this work, we have presented a novel, adaptive algorithm for the \emph{ab
 initio} prediction of the absorption spectrum based on model order reduction
@@ -766,7 +875,3 @@ parallelism on a massive scale as each of the linear system solutions is
 completely independent from the other, thus allowing for minimal communication.
 With the proposed MOR algorithm, routine study of X-Ray absorption spectra for
 medium-to-large sized systems is simplified.
-
-\section{Extraction of Property Dominant Eigenspaces from Model Basis}
-
-
