@@ -22,10 +22,10 @@ Choosing the standard basis of $\GL{C}{2}$ as $U^2 \times U^2$,
 we may recast \cref{eq:XSpinBlock} as
 \begin{equation}
 \label{eq:XSpinComp}
-  \spinor{2}{X} = \sum_{\sigma\sigma'} \spinor{2}{X}^{\sigma\sigma'} \otimes \mathbf{e}_\sigma \otimes \mathbf{e}_{\sigma'} 
+  \spinor{2}{X} = \sum_{\sigma\sigma'} \spinor{2}{X}^{\sigma\sigma'} \otimes \vc{e}_\sigma \otimes \vc{e}_{\sigma'} 
   \qquad 
-  \mathbf{e}_\alpha = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad 
-  \mathbf{e}_\beta  = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+  \vc{e}_\alpha = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad 
+  \vc{e}_\beta  = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
 \end{equation}
 
 In this work, we rely on a change of basis to simplify the subsequent derivations and arithmetic in the development
@@ -54,10 +54,10 @@ components (the other being that of \cref{eq:XSpinComp}),
   \pauli{1} 
 \end{bmatrix} = \mathscr{T} 
 \begin{bmatrix}
-  \mathbf{e}_\alpha \otimes \mathbf{e}_\alpha  \\
-  \mathbf{e}_\alpha \otimes \mathbf{e}_\beta  \\
-  \mathbf{e}_\beta  \otimes \mathbf{e}_\alpha   \\
-  \mathbf{e}_\beta  \otimes \mathbf{e}_\beta
+  \vc{e}_\alpha \otimes \vc{e}_\alpha  \\
+  \vc{e}_\alpha \otimes \vc{e}_\beta  \\
+  \vc{e}_\beta  \otimes \vc{e}_\alpha   \\
+  \vc{e}_\beta  \otimes \vc{e}_\beta
 \end{bmatrix} \qquad
 %
 \mathscr{T} = 
@@ -112,6 +112,27 @@ $\spinor{2}{Y}$ (denoted $\mathrm{Tr}[\spinor{2}{X}\spinor{2}{Y}]$) simply as
 \end{equation}
 This simplicity of this expression is due to the fact that the trace operation over the Kronecker product is given by
 \begin{equation}
-\mathrm{Tr}[\mathbf{A} \otimes \mathbf{B}] = \mathrm{Tr}[\mathbf{A}]\mathrm{Tr}[\mathbf{B}]
+\mathrm{Tr}[\vc{A} \otimes \vc{B}] = \mathrm{Tr}[\vc{A}]\mathrm{Tr}[\vc{B}]
 \end{equation}
 and that the Pauli matricies are traceless with the exception of $\pauli{0}$ which has a trace of 2.
+
+This notion of Pauli representation may be extended to any aribtrary even--ranked spinor such that
+\begin{equation}
+\spinor{2N}{X} = \sum_{\sigma_1\sigma_1'\cdots \sigma_N\sigma_N'} \spinor{2N}{X}^{\sigma_1\sigma_1'\cdots \sigma_N\sigma_N'} \otimes 
+  \bigotimes_{i = 1}^N  \vc e_{\sigma_i} \otimes \vc e_{\sigma_i'}.
+\end{equation}
+By resolving the $\mathscr{T}$ identity $N$ times, we obtain
+\begin{equation}
+\spinor{2N}{X} = \sum_{K_1\cdots K_N} \spinor{2N}{X}^{K_1\cdots K_N} \otimes
+  \bigotimes_{i=1}^N \pauli{K_i},
+\end{equation}
+where
+\begin{equation}
+\spinor{2N}{X}^{K_1\cdots K_N} = \frac{1}{2N} \sum_{\sigma_1\sigma_1'\cdots \sigma_N\sigma_N'} 
+  \mathscr{T}^*_{\sigma_1\sigma'_1}\cdots\mathscr{T}^*_{\sigma_N\sigma'_N}\spinor{2N}{X}^{\sigma_1\sigma_1'\cdots \sigma_N\sigma_N'}  
+\end{equation}
+%The utility of such a transformation becomes apparent when we examing tensor contractions involving two even-rank spinors. For example,
+%consider the tensor contraction of a rank-4 spinor $\spinor{4}{X}$ with a rank-2 spinor $\spinor{2}{Y}$ to form a rank-2 spinor $\spinor{2}{Z}$.
+%\begin{equation}
+%\spinor{2}{Z}^{\sigma\sigma'} = \sum_{\tau\tau'}\spinor{4}{X}^{\sigma\sigma'\tau\tau'} \spinor{2}{Y}^{\tau\tau'}
+%\end{equation}
