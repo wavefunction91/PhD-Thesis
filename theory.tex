@@ -167,7 +167,7 @@ a specific element of $\set{\ket{\vc{x}}}$, the vectors
 \end{equation}
 form a basis form a basis for $\hilb{H}^N$. Extending \cref{eq:SpinorInner,eq:H1Identity} in a similar manner, we may state
 \begin{equation}
-  \inner{\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N}{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \prod_{i=1}^N \delta^3(\vc{r}'_i - \vc{r}_i)\delta_{\sigma_i\sigma'_i},
+  \inner{\vc{x}'_1,\vc{x}'_2,\ldots,\vc{x}'_N}{\vc{x}_1,\vc{x}_2,\ldots,\vc{x}_N} = \prod_{i=1}^N \delta^4(\vc{x}'_i - \vc{x}_i),
 \end{equation}
 \begin{equation}
   \op{1}_N = \idotsint_{\mathbb F} \bigotimes_{i=1}^N \ket{\vc{x}_i} \bra{\vc{x}_i} \dd^4\vc{x}_i,
@@ -1823,7 +1823,7 @@ $\ket{\psi} \in \hilb H^\FrC$).
 
 The formal treatment of relativistic theory in the context of the consequences of adhering to Lorentz 
 covariance is outside the scope of this work. One should be referred to more comprehensive texts on
-the subject for a more thorough treatment of these matters \cite{Wolf15_book,Faegri07_book} . There are, however, several
+the subject for a more thorough treatment of these matters \cite{Wolf15_book,Faegri07_book}. There are, however, several
 aspects of \cref{eq:DiracEq} which will play an important role in the following developments. Perhaps
 the largest departure from non--relativistic quantum mechanics is in the spectrum of \cref{eq:DiracHam}.
 Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitioned
@@ -1852,7 +1852,7 @@ the electronic solutions are the ones of interest, we may transform \cref{eq:Dir
 we may solve for only the electronic states in an approximate manner. In \cref{sec:X2C},
 we will briefly discuss this procedure in the context of the exact two--component Hamiltonian.
 
-\subsection{The Dirac--Coulomb and Dirac--Coulomb--Breit Hamiltonians}
+\subsection{The Dirac--Coulomb Molecular Hamiltonian}
 \label{sec:DCBHam}
 
 Although it is rarely outright stated in the context of the electronic structure theory
@@ -1881,7 +1881,7 @@ by the Dirac--Coulomb equation in cases where retardation effects may be conside
 \label{eq:DCEq}
 \op{H}^\DC \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
 \end{equation}
-where $\op{H}^\DC : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb(DC) Hamiltonian.
+where $\op{H}^\DC : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb (DC) Hamiltonian.
 In the absence of external fields , the DC Hamiltonian for $N$ electrons is given in atomic units by \cite{Wolf15_book,Faegri07_book}
 \begin{equation}
   \label{eq:DCHam}

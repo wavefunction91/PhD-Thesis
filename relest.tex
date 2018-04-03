@@ -284,7 +284,7 @@ Recently, there has been a resurgence of interest in the materials community
 for the development and design of materials which exploit properties of
 electronic spin in their applications, such as magnetic materials, spintronic
 devices, and catalytic active sites
-\cite{Berdinsky02_603,Ullrich06_2285,Sanvito11_3336,Mouritsen16_299} .  As
+\cite{Berdinsky02_603,Ullrich06_2285,Sanvito11_3336,Mouritsen16_299}.  As
 such, there is a strong need for electronic structure theories that are capable
 of treating electronic spins in large scale systems. Thus, motivated by its
 success in other aspects of materials research, there has been a large emphasis
@@ -901,7 +901,7 @@ and towards leveraging the latest advances in high--performance computing.
 
 
 
-\section{The Relativistic Particle--Particle Random Phase Approximation}
+\section{The Relativistic Particle--Particle Tamm-Dancoff Approximation}
 
 At times, the KS-DFT description is not sufficient for the proper description
 of the electronic wave function. This case is encountered in general when
@@ -1147,7 +1147,7 @@ problem \cite{Yang13_224105}, but these alterations to the pp-TDA method have
 not been explored in this work.
 
 \begin{table}[htbp]
-  \caption{Calculated and reference \cite{NIST_ASD} excited-state fine structure splittings (in meV) for 
+  \caption{Calculated and reference  excited-state fine structure splittings (in meV) for 
   single excitations of some atomic systems. The presence of a superscript ``$\circ$" in the term symbol 
   denotes an odd state with respect to space inversion.}
  \label{tb:SingleEx}
@@ -1163,17 +1163,17 @@ not been explored in this work.
   X2C-ph-RPA & \multirow{3}{*}{$^3$P$^\circ_{2}-^3$P$^\circ_{1}$} &  9.75 & 21.02  & 39.96 \\
   X2C-ph-TDA &                                                    &  4.82 & 15.96  & 33.50 \\
   X2C-pp-TDA &                                                    &  5.55 & 18.40  & 38.40 \\
-  Ref        &                                                    &  5.05 & 15.36  & 32.45 \\
+  Ref \cite{NIST_ASD}       &                                                    &  5.05 & 15.36  & 32.45 \\
   \hline
   X2C-ph-RPA & \multirow{3}{*}{$^3$P$^\circ_{1}-^3$P$^\circ_{0}$} &  0.33 &  1.82  &  4.43 \\
   X2C-ph-TDA &                                                    &  0.33 &  1.82  &  4.31 \\
   X2C-pp-TDA &                                                    &  0.42 &  2.17  &  5.08 \\
-  Ref        &                                                    &  0.41 &  1.73  &  4.10 \\
+  Ref \cite{NIST_ASD}       &                                                    &  0.41 &  1.73  &  4.10 \\
   \hline
   X2C-ph-RPA & \multirow{3}{*}{$^3$P$^\circ_{2}-^3$P$^\circ_{1}$} &  0.67 &  3.67  &  9.09 \\
   X2C-ph-TDA &                                                    &  0.67 &  3.68  &  8.86 \\
   X2C-pp-TDA &                                                    &  0.84 &  4.50  & 11.04 \\
-  Ref        &                                                    &  0.84 &  3.65  &  9.07 \\ 
+  Ref  \cite{NIST_ASD}      &                                                    &  0.84 &  3.65  &  9.07 \\ 
   \hline
   \\
   \\
@@ -1240,7 +1240,7 @@ found among the excited states computed via X2C-ph-RPA.
 %-------------------------------------------------------------------------------
 % CONCLUSION
 %-------------------------------------------------------------------------------
-\subsection{Conclusion}
+\subsection{Conclusions}
 
 In this work, a scheme for the extension of the pp-TDA method to relativistic
 two-component wave functions has been presented.  This scheme involves the

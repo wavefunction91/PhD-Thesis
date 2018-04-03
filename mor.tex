@@ -19,14 +19,14 @@ Society.
 
 With recent advances in  laser light source technology, X-ray
 absorption spectroscopy (XAS) has become an important probative tool in
-chemical physics.\cite{Stohr13_book} The ability of XAS to simultaneously
+chemical physics \cite{Stohr13_book}. The ability of XAS to simultaneously
 characterize both the electronic and geometrical structure of chemical systems
 has made it indispensable in the fields of catalysis and
-photophysics.\cite{Koch87_519,Chasse12_4870,Solomon95_2259,Hodgson00_5775,Hessler01_262}
+photophysics \cite{Koch87_519,Chasse12_4870,Solomon95_2259,Hodgson00_5775,Hessler01_262}.
 However, despite the capability of XAS to obtain a wealth of chemically
 relevant information, the complexity of experimentally obtained XAS spectra
 often requires a theoretical supplement to obtain a meaningful interpretation
-of the query phenomenon.\cite{Li16_639,Li16_8752} Thus, the ability to properly
+of the query phenomenon \cite{Li16_639,Li16_8752}. Thus, the ability to properly
 describe the high-energy electronic excitations of molecular systems
 theoretically is critical in modern electronic structure theory.
 
@@ -38,9 +38,9 @@ Further, it is important to note that, because very large basis sets are often r
 
 Many electronic structure methods have been extended to the
 description of high-energy, X-ray electronic excitations in recent years. In
-the time domain, real-time density functional theory\cite{Li05_233,Li07_199,Li11_184102} has been shown to
+the time domain, real-time density functional theory \cite{Li05_233,Li07_199,Li11_184102} has been shown to
 excellently reproduce the X-ray \emph{K}-edge for molecules within relatively
-short simulation times.\cite{Govind12_3284,Lopata16_3741} For large systems,
+short simulation times \cite{Govind12_3284,Lopata16_3741}. For large systems,
 however, time-domain methods have difficulty taking full advantage of
 concurrency on modern computing architectures, and are thus not yet a
 sustainable avenue in routine theoretical inquiry of these phenomena. In contrast,
@@ -50,27 +50,27 @@ well suited for massive concurrency. Frequency domain approaches to treat
 electronic excitations may be separated into two categories which obtain equivalent information:
 methods which aim to obtain a spectral decomposition of the quantum propagator, i.e., eigenproblem based methods, and methods which solve the response problem directly through the solution of linear systems of equations. 
 
-Recasting electronic structure methods into eigenproblems has long been the de facto standard frequency domain method for electronically excited states. Through knowledge of the poles (eigenroots) of the quantum propagator, one has direct access to information regarding the electronic excitations (resonances) of the molecular system. In addition, such a spectral decomposition may be used to treat off-resonant perturbations through interpolation schemes known as sum-over-states expressions\cite{Yeager84_33}.
+Recasting electronic structure methods into eigenproblems has long been the de facto standard frequency domain method for electronically excited states. Through knowledge of the poles (eigenroots) of the quantum propagator, one has direct access to information regarding the electronic excitations (resonances) of the molecular system. In addition, such a spectral decomposition may be used to treat off-resonant perturbations through interpolation schemes known as sum-over-states expressions \cite{Yeager84_33}.
 Much work has gone into the development of these methods in both wave function theory, such as those based on
 the 
-coupled-cluster (CC)\cite{olje1988,Monkhorst77_421,Jorgensen90_3333,Bartlett93_7029,Bartlett93_414} 
-and algebraic diagrammatic construction (ADC)\cite{Dreuw14_4583,Dreuw14_1900} 
+coupled-cluster (CC) \cite{olje1988,Monkhorst77_421,Jorgensen90_3333,Bartlett93_7029,Bartlett93_414} 
+and algebraic diagrammatic construction (ADC) \cite{Dreuw14_4583,Dreuw14_1900} 
 expansions of the many-body wave function,
-and self-consistent field theory, such as the linear response time-dependent Hartree--Fock (TD-HF)\cite{Hattig98_1,Ring_book,Jorgensen_book,Rowe68_153} and density functional theory
-(TD-DFT)\cite{Casida95_book,HeadGordon05_4009}. These methods have been shown to accurately predict and reproduce both low-\cite{Ruud12_543,Bartlett09_Book} and high-energy\cite{Li11_3540,Li15_2994,Li15_4146,DeSimone03_115,Neese07_2783,Asmuruf10_12024,Govind12_3284} electronic excitations in molecular systems.  Despite
+and self-consistent field theory, such as the linear response time-dependent Hartree--Fock (TD-HF) \cite{Hattig98_1,Ring_book,Jorgensen_book,Rowe68_153} and density functional theory
+(TD-DFT) \cite{Casida95_book,HeadGordon05_4009}. These methods have been shown to accurately predict and reproduce both low- \cite{Ruud12_543,Bartlett09_Book} and high-energy \cite{Li11_3540,Li15_2994,Li15_4146,DeSimone03_115,Neese07_2783,Asmuruf10_12024,Govind12_3284} electronic excitations in molecular systems.  Despite
 their accuracy, however, eigenproblem based methods possess an inherent challenge in the
 description of high-energy excited states when the eigenroots of interest
 are buried deep in the eigenspectrum.  Traditional methods used to partially
 diagonalize the propagator, such as the
-block-Davidson method\cite{Davidson75_87,Scott86_817,Morgan92_287}, are designed to converge to the extreme ends of the
+block-Davidson method \cite{Davidson75_87,Scott86_817,Morgan92_287}, are designed to converge to the extreme ends of the
 eigenspectrum with no built-in mechanism to establish the spectrum's interior. 
-Several approaches have been described to overcome this problem~\cite{zuev_etal2015}, including
-energy specific\cite{Li11_3540,Li15_4146} and
-restricted energy window methods\cite{DeSimone03_115,Neese07_2783,Asmuruf10_12024} when the eigenroots of interest are well-separated. Further, in spectrally dense regions of the propagator's eigenspectrum, iterative diagonalization algorithms require the resolution of many more roots than is often practical to ensure smooth convergence.
+Several approaches have been described to overcome this problem~ \cite{zuev_etal2015}, including
+energy specific \cite{Li11_3540,Li15_4146} and
+restricted energy window methods \cite{DeSimone03_115,Neese07_2783,Asmuruf10_12024} when the eigenroots of interest are well-separated. Further, in spectrally dense regions of the propagator's eigenspectrum, iterative diagonalization algorithms require the resolution of many more roots than is often practical to ensure smooth convergence.
 
 Methods which solve the response problem through the solutions of linear systems offer an attractive alternative to eigenproblem based approaches in the description of high-energy excitations because they have an intrinsic
 mechanism to probe the interior of the energy spectrum. In these methods, the
-probing frequency of the applied perturbation is a chosen parameter.\cite{Hattig98_1,Ruud12_543} Thus,
+probing frequency of the applied perturbation is a chosen parameter \cite{Hattig98_1,Ruud12_543}. Thus,
 the interior of the spectrum is easily probed through a number of solutions
 of linear system of equations in the desired frequency domain. This simplicity 
 does, however, come at a seemly significant computational cost compared to eigenproblem based methods.
@@ -79,8 +79,8 @@ simultaneously, one must solve the linear problem many times
 over some discretization of the frequency domain to obtain similar results.
 In general, this discretization must be quite dense to achieve a reasonable 
 accuracy and thus can be more expensive than their eigenproblem based counterparts. Approaches using linear systems and based on the complex
-polarization propagator (CPP), such as CPP-CC\cite{Norman12_1616,Norman13_124311,Coriani13_211102} and CPP-SCF,\cite{Rubio_Book,Ruud12_543,Yeager84_33,Oddershede01_JCP}
-have been shown to be successful in the description of both high\cite{Norman16_1991,Norman12_022507,Norman10_5096,Agren06_143001,Norman16_13591} and low\cite{Mathieu15_21866} energy properties of molecular systems and have been extended to relativistic Hamiltonians as well\cite{Norman10_064105}.
+polarization propagator (CPP), such as CPP-CC \cite{Norman12_1616,Norman13_124311,Coriani13_211102} and CPP-SCF, \cite{Rubio_Book,Ruud12_543,Yeager84_33,Oddershede01_JCP}
+have been shown to be successful in the description of both high \cite{Norman16_1991,Norman12_022507,Norman10_5096,Agren06_143001,Norman16_13591} and low \cite{Mathieu15_21866} energy properties of molecular systems and have been extended to relativistic Hamiltonians as well \cite{Norman10_064105}.
 
 In this work, we introduce a general framework for the prediction of spectrally interior molecular response properties based on model order reduction (MOR) via interpolation. MOR techniques have been successfully applied in different fields of computation science and engineering, where it reduces the computational complexity of mathematical models in numerical simulations. Examples include structural dynamics, sound and vibration analysis, and control theory \cite{Antoulas2005,Farhat12_IJNME,Farhat13_IJNME}. The MOR algorithm proposed in this paper aims to overcome the large computational overhead associated with the spectral discretization required by linear system based methods while maintaining the accuracy associated with eigenproblem based methods. Further, the proposed algorithm will be shown to allow for the massively scalable parallelism that is well suited for modern computing architectures.
 
@@ -95,7 +95,7 @@ In the semi-classical theory of molecular light-matter interaction within the el
   \sigma(\omega) \propto \omega \imag\left(\trace\left[ \bfalpha(\omegat) \right]\right), \qquad \omegat = \omega + i\eta,
   \label{eq:abs-spectrum}
 \end{equation}
-where $\eta > 0$ is a small damping parameter to ensure the convergence of $\bfalpha$ in the spectral neighborhoods of resonant perturbations. Within the linear response regime of the first-order polarization propagator approximation (FOPPA)\cite{Yeager84_33}, the dynamic polarizability tensor may be written as
+where $\eta > 0$ is a small damping parameter to ensure the convergence of $\bfalpha$ in the spectral neighborhoods of resonant perturbations. Within the linear response regime of the first-order polarization propagator approximation (FOPPA) \cite{Yeager84_33}, the dynamic polarizability tensor may be written as
 \begin{equation}
   \bfalpha(\omegat) = \bfd\T \bG\inv(\omegat) \bfd, \qquad 
   \bfd = \begin{bmatrix}
@@ -118,7 +118,7 @@ where
 \begin{equation}
   \bH = \begin{bmatrix}
     \bA & \bB \\
-    \bB & \bA
+    \bB^* & \bA^*
   \end{bmatrix}, \qquad
   \bS = \begin{bmatrix*}
     \bI & \vc 0 \\
@@ -142,8 +142,9 @@ operator. $\{\epsilon^\HF_p\}$ is obtained by solving \cref{eq:RHEq} and the int
 are given as in \cref{eq:ERI-MO}. Further, we have adopted the index convention for occupied and unoccupied HF-MOs
 as in \cref{sec:SQ}. The definitions in \cref{eq:FOPPA-defs} are general to both two-component relativistic and 
 non-relativistic HF references. However, in the following, we will restrict our treatment to that of non-relativistic theory
-such that we may employ the use of strictly real HF-MOs. This will allow for signification simplification of the resulting
-expressions.
+such that we may employ the use of strictly real HF-MOs. Further, due to the fact that the Born--Oppenheimer Hamiltonian
+is spin-independent, we may utilzize RHF / UHF wave functions (\cref{sec:SpinSymm}) for the reference determinant. 
+This will allow for significat simplification of the resulting expressions due to spin orthogonality \cite{Yeager84_33}.
 
 
 In order to study the spectrum of the pencil $(\bH,\bS)$ let
@@ -219,7 +220,7 @@ such that the eigenvalues $\pm\bLambda$ may be computed by
 \begin{equation}
   \bM\bK = (\bX - \bY) \bLambda^2 (\bX + \bY)\T.
 \end{equation}
-Remark that by making use of $\bM\bK$, the dimension of the eigenvalue problem is also reduced by a factor of 2.\cite{Haser93_1262,Frisch98_8218}
+Remark that by making use of $\bM\bK$, the dimension of the eigenvalue problem is also reduced by a factor of 2 \cite{Haser93_1262,Frisch98_8218}.
 
 
 \section{Interpolatory Model Order Reduction of Linear Dynamical Systems}
@@ -292,7 +293,7 @@ for all query $s$.
 \subsection{Model order reduction via moment matching}
 \label{lds:mm}
 
-One way to construct a matrix $\bV$ such that \eqref{eq:tf-match} holds is by examining the concepts of moments and moment matching\cite{Antoulas2005}. Let the transfer function $\bfvarpi$ of $\bSigma$ be given by \eqref{eq:siso-tf}. Then the $\ell$th moment of $\bfvarpi$ around the point $s = s_\star$ is defined as the $\ell$th derivative of $\bfvarpi$ evaluated at $s_\star$, i.e.,
+One way to construct a matrix $\bV$ such that \eqref{eq:tf-match} holds is by examining the concepts of moments and moment matching \cite{Antoulas2005}. Let the transfer function $\bfvarpi$ of $\bSigma$ be given by \eqref{eq:siso-tf}. Then the $\ell$th moment of $\bfvarpi$ around the point $s = s_\star$ is defined as the $\ell$th derivative of $\bfvarpi$ evaluated at $s_\star$, i.e.,
 \begin{equation}
   \bfm_\ell(s_\star) := (-1)^\ell \left.\frac{d^\ell}{ds^\ell} \bfvarpi(s) \right|_{s=s_\star},
   \label{eq:moment}
@@ -326,7 +327,7 @@ It can be shown that the matrix $\bV$ defined in \eqref{eq:defV-app} spans a rat
 
 The most straightforward way to evaluate the absorption spectrum is to compute eigenvalues and the corresponding eigenvectors of $(\bH,\bS)$. However, as we indicated earlier, when the dimension of $\bH$ and $\bS$ becomes large (spectrally dense), this approach can be prohibitively expensive (complicated). 
 
-It has been shown\cite{brabec_etal2015} that a special $\bK$-inner product
+It has been shown \cite{brabec_etal2015} that a special $\bK$-inner product
 Lanczos algorithm can be used to provide a good approximation to the overall
 structure of the absorption spectrum without explicitly computing the
 eigenvalues and eigenvectors of $(\bH,\bS)$.  In particular, the Lanczos
@@ -416,7 +417,7 @@ for all $\omega$ in the energy window of interest. It follows from the way $\bV$
   \bfalpha(\tau_j) = \bfalphah(\tau_j), \qquad j = 1,2,\ldots,k.
 \end{equation}
 
-Furthermore, since the linear systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} have symmetric system matrices $(\bH,\bS)$ and $\bM\bK$, respectively, and the input and output matrices $\bfb$ and $\bfc$ are linearly dependent, the Galerkin projection becomes a Petrov--Galerkin projection\cite{Antoulas2005}. Hence, the original systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} and its corresponding reduced order systems of dimension $k$ match $2k$ moments instead of only $k$ moments in the general case\cite{Antoulas2005}. In order words, we can obtain the same accuracy for the reduced order models with fewer interpolation frequencies than the general (non-linearly dependent) case.
+Furthermore, since the linear systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} have symmetric system matrices $(\bH,\bS)$ and $\bM\bK$, respectively, and the input and output matrices $\bfb$ and $\bfc$ are linearly dependent, the Galerkin projection becomes a Petrov--Galerkin projection \cite{Antoulas2005}. Hence, the original systems \eqref{eq:MIMO} and \eqref{eq:MIMO-MK} and its corresponding reduced order systems of dimension $k$ match $2k$ moments instead of only $k$ moments in the general case \cite{Antoulas2005}. In order words, we can obtain the same accuracy for the reduced order models with fewer interpolation frequencies than the general (non-linearly dependent) case.
 
 \Algref{alg:mor} summarizes the construction of the reduced order model and how it is used to obtain an approximation of the absorption spectrum within an energy window of interest. Clearly, the higher the model order $k$, the more accurate the approximation. In the next section, we will show that even for a relatively small $k$, we can obtain a quite accurate approximation for $\sigma(\omega)$ in an interior spectral window that contains thousands of eigenvalues. 
 
@@ -581,7 +582,7 @@ A more effective strategy for choosing the interpolation frequencies is to choos
 \label{sec:MORresults}
 
 The proposed automatic MOR algorithm has been implemented in the Chronus
-Quantum software package\cite{chronusq_beta2} and in
+Quantum software package \cite{chronusq_beta2} and in
 MATLAB\footnote[4]{https://bitbucket.org/roelvb/mor4absspectrum}.
 The following numerical experiments were performed using a single
 Sandy--Bridge Intel Xeon compute node (E5-2650 v2 @ 2.60 GHz) with 16
@@ -592,7 +593,7 @@ All of the geometries for the water clusters used in this work may be
 found in the supplemental information.
 
 The implementation of the MOR utilizes a synchronized approach to the
-Generalized Minimum Residual (GMRES)\cite{Walker88_152} algorithm for the
+Generalized Minimum Residual (GMRES) \cite{Walker88_152} algorithm for the
 solution of the linear systems. In this approach \cite{shak2016}, each linear
 system is solved individually via the standard GMRES algorithm but its
 matrix-vector products (GEMVs), which constitutes the dominant cost, are synchronized
@@ -603,7 +604,7 @@ the use of Level 3 BLAS operations. In all experiments we used a block size of
 
 Several numerical experiments were performed to demonstrate the performance and accuracy of the proposed MOR algorithms. Since the interpolation points are merely used to construct a reduced order model, it is conceivable that we may choose them to be real numbers instead of complex numbers that contain a small imaginary damping factor.  The advantage of choosing real interpolation points is that all linear systems can be solved in real arithmetic. However, as we will see below, this approach may not lead to any performance gain and can even lead to a performance degradation.
 
-We also examined how the order of the reduced order model changes as the damping factor $\eta$ changes and as the size of the molecular system increases as well as the overall computational scaling of the proposed method using the aforementioned water clusters. Numerical comparisons are made to the Lorentzian broadened poles of the propagator using the oscillator strengths \cite{Ball64_844,Harris69_3947,McKoy75_1168}. The eigenvalues and oscillator strengths were computed via BSEPACK\cite{bsepack,SJYDL2016} on a Cray XC40 with Haswell Intel Xeon compute nodes (E5-2698 v3 @2.3 GHz, 2x16 cores, 128 GB DDR4 RAM). The broadening factor was set equal to $\eta$ for comparison with the approximate MOR experiments.
+We also examined how the order of the reduced order model changes as the damping factor $\eta$ changes and as the size of the molecular system increases as well as the overall computational scaling of the proposed method using the aforementioned water clusters. Numerical comparisons are made to the Lorentzian broadened poles of the propagator using the oscillator strengths \cite{Ball64_844,Harris69_3947,McKoy75_1168}. The eigenvalues and oscillator strengths were computed via BSEPACK \cite{bsepack,SJYDL2016} on a Cray XC40 with Haswell Intel Xeon compute nodes (E5-2698 v3 @2.3 GHz, 2x16 cores, 128 GB DDR4 RAM). The broadening factor was set equal to $\eta$ for comparison with the approximate MOR experiments.
 
 % --- Real versus complex interpolation frequencies --- %
 \subsection{Real versus complex interpolation frequencies}
@@ -616,7 +617,7 @@ dimension of the matrix $\mathbf{H}$ \cref{eq:defH} was $2n = 6$,500 and $\mathb
 and the tolerance for solving the linear systems was set to $10^{-6}$. The
 damping factor was chosen to roughly mimic the effects of the core-hole
 lifetime of the $K$-edge transitions in oxygen and vibrational
-broadening\cite{Stohr_book}. It is important to note that the broadening due to
+broadening \cite{Stohr13_book}. It is important to note that the broadening due to
 the damping parameter in these simulations is purely phenomenological, as no
 vibronic effects are being explicitly treated.
 
@@ -846,7 +847,7 @@ The effect of the damping factor on the automatically selected model order is il
 % ================ %
 % == CONCLUSION == %
 % ================ %
-\section{Conclusion}
+\section{Conclusions}
 \label{sec:MORconclusion}
 In this work, we have presented a novel, adaptive algorithm for the \emph{ab
 initio} prediction of the absorption spectrum based on model order reduction
