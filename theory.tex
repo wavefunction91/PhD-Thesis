@@ -114,7 +114,7 @@ such that \cite{Yang89_book}
 \end{align}
 \end{subequations}
 Here, we have denoted the particle's position and $z$--axis spin projection as $\vc{r}$ and $\sigma$, respectively.
-Namely, if $\hilb{H}^1$ represents a non-relativistc spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\hilb{H}^1$ 
+Namely, if $\hilb{H}^1$ represents a non-relativistic spin--1/2 fermion, $\set{\ket{\vc{r},\sigma}}$ forms a complete basis for $\hilb{H}^1$ 
 and admits the following orthonormality  condition on the $\hilb{H}^1$ inner product,
 \begin{equation}
   \label{eq:SpinorInner}
@@ -487,7 +487,7 @@ determinant constructed from configuration $\hilb{K}^N_I$, the Pauli components 
   &\gamma^{1,3}(\vc{r};\vc{r}') = \frac{1}{2}   \sum_{i\in\hilb{K}^N_I}\left(\phi^{\alpha}_i(\vc{r})\phi^{\alpha*}_i(\vc{r}') - \phi^{\beta}_i(\vc{r})\phi^{\beta *}_i(\vc{r}') \right). 
 \end{align}
 \end{subequations}
-The expressions for the 2RDM may be derived from the Grassmann product form in \cref{eq:RDMSD}. It is important to note that
+The expressions for the 2RDM may be derived from the Grassman product form in \cref{eq:RDMSD}. It is important to note that
 \cref{eq:SpinorDensityMat} is $N$--representable (i.e. it represents an $N$--particle Slater determinant) if and only if
 the orbitals used in its construction are orthonormal \cite{Yang89_book}. Thus this places a restriction on the possible
 choices of orbitals which may be used in the construction of Slater determinants for which we would like to utilize the
@@ -1031,7 +1031,7 @@ $\vc U: \lambda_{ij} \rightarrow \tilde\lambda_{i} \delta_{ij}$,
   \qquad \tilde\phi_i = \sum_j U_{ij}\phi_j. 
 \end{equation}
 \Cref{eq:HFEq} is known as the canonical Hartree--Fock equation and $\tilde \phi_i$ is referred to as a canonical Hartree-Fock molecular orbital (HF-MO). 
-Due to \cref{eq:UnitarySD}, the Slater determinant which is formed from $\{\tilde \phi_i\}$ is equivalent to the one fromed
+Due to \cref{eq:UnitarySD}, the Slater determinant which is formed from $\{\tilde \phi_i\}$ is equivalent to the one formed
 from $\{\phi_i\}$, we will henceforth only consider sets $\mathcal C$ such that $\vc \lambda$ is diagonalized.
 Clearly, \cref{eq:HFEq} has the same form as \cref{eq:FockOp,eq:FockEq}. Thus within the HF approximation, the effective external potential
 is given by
@@ -1043,7 +1043,7 @@ and we may identify the diagonalized Lagrange multipliers as orbital eigenenergi
 \begin{equation}
 \tilde\lambda_i \equiv \epsilon^\HF_i.
 \end{equation}
-$\{ \epsilon^\HF_i \}$ will be referred to as the set of canonical HF eigenenrgies.
+$\{ \epsilon^\HF_i \}$ will be referred to as the set of canonical HF eigenenergies.
 The realization of \cref{eq:HFPot} is rather profound in that states that the minimizing Slater determinant of \cref{eq:EnergyFunctional}
 is the one constructed from a set of \emph{self--consistent, mean field} orbitals. That is to say that each of the HF-MOs which make of
 this configuration in effect ``feel" the effect of the other orbitals through action of the Fock operator, i.e. the orbitals themselves 
@@ -1116,7 +1116,7 @@ often referred to as a SCF equation.
 
 The Hartree--Fock approximation provides an excellent reference determinant for systematic improvement
 by way of \cref{eq:ExcitationOp}. However, in order to obtain the exact many--body wave function, one must
-obtain the full expansion of \cref{eq:ExcitationOp}; a feat which is computationally intractible for all but
+obtain the full expansion of \cref{eq:ExcitationOp}; a feat which is computationally intractable for all but
 the simplest problems. Even at very low orders of truncation, obtaining the 
 coefficients for these types of expansions is often so computationally demanding that only relatively
 small molecular systems are able to be studied on a routine basis. This poses a rather formidable problem
@@ -1285,7 +1285,7 @@ where
   &P^{3}_{\mu\nu} = \frac{1}{2}   \sum_i C_{\mu i}^\alpha C_{\nu i}^{\alpha *} - C_{\mu i}^\beta  C_{\nu i}^{\beta  *}.
 \end{align}
 \end{subequations}
-Somewhat erroniously, the matrix $\spvc P$ is referred to as the one particle density matrix (1PDM), which is not to be
+Somewhat erroneously, the matrix $\spvc P$ is referred to as the one particle density matrix (1PDM), which is not to be
 confused with the 1RDM, although they are related through the above expansion. 
 %%
 %
@@ -1383,7 +1383,7 @@ coefficients both \emph{technically} expand the $\alpha$ and $\beta$ components 
 \cref{eq:SpinorOrbital}, but if a MO coefficient vector pertains to an orbital of a particular spin character, 
 the coefficients of that vector which pertain to the opposite spin function are restricted to be zero. Thus yielding
 the block structure of the MO coefficients in \cref{eq:USCFEq}. As such, the the $\alpha$ and $\beta$ blocks of \cref{eq:USCFEq}
-may be energically ordered in and of themselves, but no global orbital energetic ordering is implied.
+may be energetically ordered in and of themselves, but no global orbital energetic ordering is implied.
 To demonstrate the validity of this block diagonalization,
 we examine the conditions under which \cref{eq:GSCFFock} commutes with $\op{S}_z = \frac{1}{2} \op{1} \otimes \pauli{3}$,
 \begin{equation}
@@ -1418,14 +1418,14 @@ chosen \emph{a priori}. The $z$--spin projection of a reference determinant may 
 where we have used the fact that $\spvc\, C^\dagger \spvc\, S \spvc C = \vc I$ by convention. Here $N^\alpha$ and 
 $N^\beta$ are taken to be the number of elements from $\mathcal C^\alpha$ and $\mathcal C^\beta$ which
 have been chosen to make up the ground state determinant, respectively. Thus, in USCF, one may enforce a particular
-spin configration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
-The ground state configuration is constructed by choosing the $N^\alpha$ orbtials from $\mathcal C^\alpha$ with
+spin configuration by restricting the number of $\alpha$ and $\beta$ orbitals in the resulting determinant.
+The ground state configuration is constructed by choosing the $N^\alpha$ orbitals from $\mathcal C^\alpha$ with
 the lowest $\alpha$ orbital eigenvalues ($\vc\epsilon^\alpha$), and the $N^\beta$ orbitals from $\mathcal C^\beta$ with the lowest
 $\beta$ orbital eigenvalues ($\vc\epsilon^\beta$).
-This restricting does not, however, gurantee a particular spin--multiplicity as the resulting wave function 
-is not gurenteed to be an eigenfunction of $\op S^2$. 
-USCF is typically used in cases where the electronic Hamiltoninan is either spin independent and the desired 
-determinant is resticted to have $N^\alpha \neq N^\beta$ (i.e. open--shell systems), or when the electronic Hamiltonian depends only on
+This restricting does not, however, guarantee a particular spin--multiplicity as the resulting wave function 
+is not guaranteed to be an eigenfunction of $\op S^2$. 
+USCF is typically used in cases where the electronic Hamiltonian is either spin independent and the desired 
+determinant is restricted to have $N^\alpha \neq N^\beta$ (i.e. open--shell systems), or when the electronic Hamiltonian depends only on
 $\pauli{0}$ and $\pauli{3}$. In essence, the USCF equations enforce a particular projection onto the $z$--spin
 axis while the GSCF equations to not. As such, USCF determinants are referred to as \emph{collinear} solutions
 (i.e. collinear with the $z$--spin axis) while GSCF determinants are referred to as \emph{non--collinear}
@@ -1456,7 +1456,7 @@ or more compactly
 \begin{equation}
 \vc F^\saa \vc C^\alpha = \vc S \vc C^\alpha \vc \epsilon^\alpha.
 \end{equation}
-This block structure arises from that fact that $\op S^2$ symmetry implies simultanious
+This block structure arises from that fact that $\op S^2$ symmetry implies simultaneous
 commutation of the Fock matrix with each of $\op S_x, \op S_y, \op S_z$. From the
 form of \cref{eq:USCFFock}, this may only be achieved if the Fock matrix takes the form
 \begin{equation}
@@ -1472,7 +1472,7 @@ orbitals, $\mathcal S = \{ \psi_m(\vc{r}) \}$ with $\vert \mathcal S \vert = N_b
 \end{equation}
 and similarly for $\beta$. In a sense, $\mathcal C^\alpha$ and $\mathcal C^\beta$ may be considered
 somewhat equivalent in the fact that there exists an isomorphism between their elements in which the image of each
-orbtial of a particular spin set is the orbital in the other spin set which has the same spatial part and energy eigenvalue
+orbital of a particular spin set is the orbital in the other spin set which has the same spatial part and energy eigenvalue
 (via the degenerate block structure of \cref{eq:RSCFEq}). As such, there should be no preference in the inclusion
 of an orbital from one set or its image in the other. Thus the ground state configuration may be constructed by 
 choosing the $N/2$ equivalent pairs of the two sets with the lowest energy eigenvalues, i.e. inclusion of a particle
@@ -1482,7 +1482,7 @@ and the system in question may be restricted to be closed shell (i.e. the same n
 in the configuration due to pairing).
 
 As it often the case, it is useful to examine relationship between the the above restrictions on the SCF equations
-and the structre of the 1PDM which arises from their solution. For a general Fock matrix $\spvc F$ and corresponding
+and the structure of the 1PDM which arises from their solution. For a general Fock matrix $\spvc F$ and corresponding
 SCF 1PDM $\spvc P$ (i.e. the 1PDM resulting from the solution of the SCF equations), these relationships
 are given by
 \begin{subequations}
@@ -1576,7 +1576,7 @@ and nuclear degrees of freedom. \Cref{eq:FullNRSCH} will be referred to as the m
 equation. In this work, all non--relativistic specializations of \cref{eq:QWave} will be referred to
 as Sch\"{o}dinger equations due to the presence of the kinetic energy operator in their Hamiltonian.
 As such, they are direct quantum analogues of the classical Hamiltonian which was the basis
-of the original Schr\"{o}dinger Hamiltoninan of the general form \cite{Napolitano17_book}
+of the original Schr\"{o}dinger Hamiltonian of the general form \cite{Napolitano17_book}
 \begin{equation}
 \label{eq:SchHam}
 \op{H}(t) = \op{T}^\NR + \op{V}(t).
@@ -1706,10 +1706,10 @@ of the Fock operators on the 1RDM, thus restriction of the spin components of th
 of the spin components of the Fock matrix (i.e. \cref{eq:DenFockConstraint}). This is a direct consequence
 of \cref{eq:NRBOH} being spin diagonal. This introduces a strange concept which is manifest in mean field
 theory but not in exact treatments of the electronic problem: the spin symmetry of the density and Fock
-matrices need not exhbit the same spin structure as the Hamiltoninan which they represent. This phenomena
+matrices need not exhibit the same spin structure as the Hamiltoninan which they represent. This phenomena
 is known an symmetry breaking, and is a well studied problem in electronic structure theory \cite{Li15_154109,Paldus03_67}.
 The simplest example of this is the treatment of open--shell systems via \cref{eq:NRBOH}: the treatment of
-unpaired spins necessacarily introduces an explicit treatment of spin through $\vc F^3 / \vc P^3$ despite the
+unpaired spins necessarily introduces an explicit treatment of spin through $\vc F^3 / \vc P^3$ despite the
 fact that \cref{eq:NRBOH} has no explicit treatment thereof. It is typically the case that in non--relativistic
 electronic structure that one chooses to obtain the ground state wave function under the RSCF or USCF restrictions
 of the Fock and density matrices for closed-- and open--shell systems, respectively. However, there are well
@@ -1801,7 +1801,7 @@ and have used short hand notation
   \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},
 \end{equation}
 where $\op {\vc p}$ is the linear momentum operator of \cref{eq:SpinorKinMom}. \Cref{eq:DiracEq} governs
-the quantum mecanical behaviour of a spin--1/2 fermion in full adherence to the principles of special
+the quantum mechanical behavior of a spin--1/2 fermion in full adherence to the principles of special
 relativity, i.e. it is fully covariant under Lorentz transformations \cite{Wolf15_book,Faegri07_book}.
 
 
@@ -1826,27 +1826,27 @@ covariance is outside the scope of this work. One should be referred to more com
 the subject for a more thorough treatment of these matters \cite{Wolf15_book,Faegri07_book} . There are, however, several
 aspects of \cref{eq:DiracEq} which will play an important role in the following developments. Perhaps
 the largest departure from non--relativistic quantum mechanics is in the spectrum of \cref{eq:DiracHam}.
-Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitoned
-into three regions relative to the rest mass of the electron: a strictly positive energy continuium 
-$E > 0$, a strictly negative energy continuium $E < -2c^2$, and a set of discrete states with $E \in (-c^2,0)$ which
+Unlike the single particle Schr\"{o}dinger equation, the spectrum of \cref{eq:DiracHam} is partitioned
+into three regions relative to the rest mass of the electron: a strictly positive energy continuum 
+$E > 0$, a strictly negative energy continuum $E < -2c^2$, and a set of discrete states with $E \in (-c^2,0)$ which
 arise due to the presence of the external potential. The solutions of the Dirac equation with $E > -c^2$
 may be interpreted as an analogue to the non--relativistic electrons, while the solutions with $E < -c^2$
 have no non--relativistic analogue. They are typically interpreted as the positronic solutions to the Dirac
 equation \cite{Feynman49_749}. As this work is to treat the electronic problem in molecular physics, we will
 be interested in treating the electronic solutions to the Dirac equation, not the positronic solutions.
 However, this does not negate the presence of these positronic states, and their presence is
-crutial to a rigorus treatment of relativisic efffects in molecular physics.
+crucial to a rigorous treatment of relativistic effects in molecular physics.
 
 If \cref{eq:DiracEq} is interpreted as a mean field Hamiltonian where $\op v$ somehow encompasses
 the effects of a ``sea" of other electrons in the system, the presence of the positronic solutions
 causes a number of practical problems in obtaining mean--field electronic solutions of the form
-\cref{eq:FockEq}. This is due to the fact that in our presentation of mean--field quantum mehcanics,
+\cref{eq:FockEq}. This is due to the fact that in our presentation of mean--field quantum mechanics,
 the premise was built on \emph{minimization} of the energy functional in \cref{eq:EnergyFunctional}
-over Slater determinants. The analogus problem of determining a mean--field electronic solution
+over Slater determinants. The analogous problem of determining a mean--field electronic solution
 to the Dirac equation is a constrained minimization over only \emph{electronic} solutions, 
-as there are an infinite number of continuium positronic solutions. Minimization of 
+as there are an infinite number of continuum positronic solutions. Minimization of 
 \cref{eq:EnergyFunctional} over purely electronic Slater determinants in generally impractical using standard 
-optimization techniques and requres rather opaque projection schemes to avoid variational
+optimization techniques and requires rather opaque projection schemes to avoid variational
 collapse into the positronic regime \cite{Wolf15_book}. However, as we know \emph{a priori} that
 the electronic solutions are the ones of interest, we may transform \cref{eq:DiracHam} such that
 we may solve for only the electronic states in an approximate manner. In \cref{sec:X2C},
@@ -1873,7 +1873,7 @@ yields an absence of magnetic interactions into the Hamiltonian within the fixed
 This approximation is justified because energetic corrections due to the interaction between
 the magnetic moments of electrons and nuclei are $\mathcal{O}(10^3)$ smaller than the internal
 magnetic interactions between electrons due to the disparity in mass between electrons and nuclei \cite{Wolf15_book}.
-This appoximation will drastically simplify the resulting quantum mechanical treatment.
+This approximation will drastically simplify the resulting quantum mechanical treatment.
 
 Within the context of the electronic problem, relativistic quantum mechanics is approximately governed
 by the Dirac--Coulomb equation in cases where retardation effects may be considered negligible,
@@ -1882,7 +1882,7 @@ by the Dirac--Coulomb equation in cases where retardation effects may be conside
 \op{H}^\DC \ket{\Psi_{el} (t)} = \ii \partial_t \ket{\Psi_{el} (t)},
 \end{equation}
 where $\op{H}^\DC : \hilb{H}^\REL \rightarrow \hilb{H}^\REL$ is the Dirac--Coulomb(DC) Hamiltonian.
-In the absense of external fields , the DC Hamiltonian for $N$ electrons is given in atomic units by \cite{Wolf15_book,Faegri07_book}
+In the absence of external fields , the DC Hamiltonian for $N$ electrons is given in atomic units by \cite{Wolf15_book,Faegri07_book}
 \begin{equation}
   \label{eq:DCHam}
   \op{H}^\DC = \sum_i^N  \op{h}^D(i) + \frac{1}{2} \sum_{i \neq j}\op{g}^C(i,j) \otimes \vc{I}_2 
@@ -1913,7 +1913,7 @@ written as bispinors,
 \end{equation}
 where the superscripts $L$ and $S$ again refer to the large and small components of the electronic wave function,
 and may be treated as spinor wave functions in analogy to the non--relativistic case. Just like in the case of
-non--relativistic spinor wave functions, many--body bispinor wave functions may be written as the antisymmetric
+non--relativistic spinor wave functions, many--body bispinor wave functions may be written as the anti-symmetric
 tensor product of single particle bispinors which span $\hilb H^\FrC$ (i.e. in the sense of
 \cref{eq:SlaterDet,eq:SDBasis}).
 
@@ -1947,8 +1947,8 @@ of \cref{eq:DiracHam}, this becomes
 It is possible to develop a consistent treatment of $\overline{\gamma}^1$ in relativistic theory and 
 and $\gamma^1$ in non--relativistic theory
 through the understanding that integral contractions over the indices of the 1RDM also imply a matrix operation
-over the dimension added as a result of the bispinor nature of the wave function. However, as we will be soley
-manipulating effective 2C relativistic hamiltonians, the explicit development of
+over the dimension added as a result of the bispinor nature of the wave function. However, as we will be solely
+manipulating effective 2C relativistic Hamiltonians, the explicit development of
 this consistent treatment is beyond the scope of this work (see \cref{sec:MF2C} \cref{eq:Rel2C1RDM,eq:QRel2C1RDM}).
 
 

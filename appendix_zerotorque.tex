@@ -40,8 +40,8 @@ given by \cref{eq:NCAuxVar}.
 Thus, the local and global torque expressions may also be similarly as they are linear in $\mathbf{B}_{GGA}(\vc r)$,
 \begin{align}
 &\mathscr{T}_i(\vc r) = \mathscr{T}^\rho_i(\vc r) + \mathscr{T}^\nabla_i(\vc r),\\
-&\mathscr{T}^\rho_i(\vc r) = \sum_{jk}\varepsilon_{ijk} \rho^j(\vc r) B^{(\rho),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\rho), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\rho}(\vc{r}) \label{eq:localTRho},\\
-&\mathscr{T}^\nabla_i(\vc r) = \sum_{jk}\varepsilon_{ijk} \rho^j(\vc r) B^{(\nabla),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\nabla), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\nabla}(\vc{r}) \label{eq:localTG}.
+&\mathscr{T}^\rho_i(\vc r) = \sum_{j,k=1}^3\varepsilon_{ijk} \rho^j(\vc r) B^{(\rho),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\rho), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\rho}(\vc{r}) \label{eq:localTRho},\\
+&\mathscr{T}^\nabla_i(\vc r) = \sum_{j,k=1}^3\varepsilon_{ijk} \rho^j(\vc r) B^{(\nabla),k}_{GGA}(\vc r), \qquad \mathscr{T}_i^{(\nabla), global} = \int \mathrm{d}^3\vc r\text{ } \mathscr{T}_i^{\nabla}(\vc{r}) \label{eq:localTG}.
 \end{align}
 
 To identify the local and global torque contributions from \cref{eq:BxcR}, we  may consolidate it with the magnetization components of \cref{eq:ZrhoVar},
@@ -52,26 +52,26 @@ B^{(\rho),k}_{GGA}(\vc r) = \mathcal{Z}^k_{\rho}(\vc r) = \frac{1}{2} \left(\dfr
 Substituting into \cref{eq:localTRho}, we obtain,
 \begin{equation}
 \mathscr{T}^\rho_i(\vc r) = \frac{1}{2} \left(\dfrac{\partial f}{\partial n^+(\vc r)} - \dfrac{\partial f}{\partial n^-(\vc r)}\right) 
-  \sum_{jk} \frac{\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r)}{\vert\mathbf{m}(\vc r)\vert}  = 0, \quad \Longrightarrow \quad \mathscr{T}_i^{(\rho), global} = 0 \label{eq:torR}
+  \sum_{j,k = 1}^3 \frac{\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r)}{\vert\mathbf{m}(\vc r)\vert}  = 0, \quad \Longrightarrow \quad \mathscr{T}_i^{(\rho), global} = 0 \label{eq:torR}
 \end{equation}
-where we have utilized the fact that $\sum_{jk}\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r) = 0$. Thus the local torque contribution of this term is zero in all space, implying that
+where we have utilized the fact that $\sum_{j,k =1}^3\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r) = 0$. Thus the local torque contribution of this term is zero in all space, implying that
 its global torque contribution is zero as well.
 
 Similarly, we may identify \cref{eq:BxcGR} with the magnetization components of \cref{eq:ZvarphiVar},
 \begin{equation}
-B^{(\rho),k}_{GGA}(\vc r) = \sum_\xi \nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \label{eq:BxcGR_eval} .
+B^{(\rho),k}_{GGA}(\vc r) = \sum_{\xi \in \{x,y,z\}} \nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \label{eq:BxcGR_eval} .
 \end{equation}
 However, unlike  \cref{eq:torR}, the torque arising from \cref{eq:BxcGR_eval} is \emph{not} zero in all space. We must them examine its global torque contribution,
 \begin{align}
   \mathscr{T}_i^{(\nabla), global} 
-    &= \sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \rho^j(\vc r) \text{ }\nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \nonumber \\
-    &= -\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \mathcal{Z}^k_{\nabla,\xi}(\vc r) \left(\nabla_\xi \rho^j(\vc r)\right) .
+    &= \sum_{j,k=1}^3 \sum_{\xi \in \{x,y,z\}} \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \rho^j(\vc r) \text{ }\nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \nonumber \\
+    &= -\sum_{j,k=1}^3 \sum_{\xi \in \{x,y,z\}} \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \mathcal{Z}^k_{\nabla,\xi}(\vc r) \left(\nabla_\xi \rho^j(\vc r)\right) .
 \end{align}
 Here, we have integrated the first line by parts and utilized the fact that the density and its derivatives disappear at the boundary by definition.
 Substituting in the expressions from \cref{eq:ZvarphiVar},
 \begin{align}
   \mathscr{T}_i^{(\nabla), global} 
-    = -\frac{1}{2}\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } 
+    = -\frac{1}{2}\sum_{j,k=1}^3 \sum_{\xi \in \{x,y,z\}} \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } 
     \nabla_\xi \rho^j(\vc r)
     &\left(
       \nabla_\xi\rho^S(\vc r) \mathfrak H^k(\vc r)  \left( \dfrac{\partial f}{\partial \varphi^{++}(\vc r)} - \dfrac{\partial f}{\partial \varphi^{--}(\vc r)} \right) 

@@ -5,7 +5,7 @@
 \section{The Exact Two--Component Hamiltonian}
 \label{sec:X2C}
 
-The problem of the diachoimy between the electronic and positronic states of the Dirac
+The problem of the dichotomy between the electronic and positronic states of the Dirac
 equation may be attributed to the $c \op{\vc{p}} \cdot \vc a$ terms which couple the 
 large and small components of the bispinor in \cref{eq:DiracHam}. In an attempt
 to decouple these equations, we may perform a similarity transformation under an operator $\op{U}$, such that
@@ -14,7 +14,7 @@ to decouple these equations, we may perform a similarity transformation under an
 \label{eq:FW}
 \op h^D \mapsto \op h^\TwC  = \op U \op h^D \op U^{-1} = \begin{bmatrix} \op h^+ & 0 \\ 0 & \op h^- \end{bmatrix}.
 \end{equation}
-where both $\op h^+$ and $\op h^-$ are effective 2C operaters (i.e. they act on spinors).
+where both $\op h^+$ and $\op h^-$ are effective 2C operators (i.e. they act on spinors).
 In general, $\op U$ is referred to as a Foldy-Wouthuysen (FW) transformation \cite{Wouthuysen50_29}.
 In essence, the FW transformation convolves the information contained in the large and small
 component of the bispinor such that solution of \cref{eq:DiracEq} amounts to solving two decoupled 
@@ -38,17 +38,17 @@ form expression such as \cref{eq:NWRep}, and power series approximations must be
 use of them in practical calculations 
 \footnote{It is actually in the FW transformation in the presence of the scalar nuclear  potential 
 that we are able to define terms like ``spin--orbit" coupling and the mass--velocity correction. The Dirac Equation need not know explicitly 
-about these effects and accounts for them implicity through the coupling of the large and small components
+about these effects and accounts for them implicitly through the coupling of the large and small components
 of the electronic wave function. These terms which we typically associate with relativistic effects are in fact
 terms in a series expansion which is only good in the non--relativistic limit.}
 \cite{Wolf15_book}. 
 This series expansion may be avoided in the case of basis set calculations 
 in the that problem of block--diagonalization of an operator in a basis representation is a well defined
-numberical linear algebra problem.
+numerical linear algebra problem.
 
 To this end, we will account for relativistic effects using the exact two--component (X2C) method \cite{Peng06_044102,Li16_3711,Saue07_064102,Cheng07_104106,Reiher13_184105,Liu16_204}.
 The name X2C is a misnomer due to the fact that it is only ``exact" in the one electron case. There
-exist many basis set methods to obtain effective 2C Hamiltoninans such as \cref{eq:FW} \cite{Wolf15_book,Hess02_9215,Liu10_1679,Kroll74_89,Hess86_3742,Dyall97_9618,Snijders93_4597},
+exist many basis set methods to obtain effective 2C Hamiltonians such as \cref{eq:FW} \cite{Wolf15_book,Hess02_9215,Liu10_1679,Kroll74_89,Hess86_3742,Dyall97_9618,Snijders93_4597},
 but the X2C method is an especially attractive method in that it is a one step transformation, rather than
 an iterative procedure such as those involved in the Douglass--Kroll--Hess method and its variants \cite{Hess02_9215}.
 The X2C method operates under the assumption that there exists a linear, energy independent transformation which
@@ -62,9 +62,9 @@ solutions
 \end{equation}
 where $E$ and $v$ are the expectation values of the Dirac Hamiltonian and the potential operator in the bispinor, respectively.
 The approximation on the right of \cref{eq:KineticBalance}, where we have defined the so--called pseudo large component, $\ket{\phi^{PL}}$,
-holds in the non--relativstic limit ($E \approx v$, i.e. small momentum)
+holds in the non--relativistic limit ($E \approx v$, i.e. small momentum)
 and is known as the kinetic balance condition for the small component of the electronic wave function \cite{Wolf15_book}. 
-Thus the action of the Dirac Hamitloninan on the bispinor may now be written as
+Thus the action of the Dirac Hamiltonian on the bispinor may now be written as
 \begin{equation}
 \label{eq:ModDirac}
 \begin{bmatrix}
@@ -119,7 +119,7 @@ with $\mathcal C^+ \cap \mathcal C^- = \emptyset$ and $\vert \mathcal C^+ \vert 
 &\phi_p^{PL\pm,\sigma}(\vc{r}) = \sum_\mu C^{PL\pm,\sigma}_{\mu p} \chi_\mu(\vc r). 
 \end{align}
 To decouple \cref{eq:MDRH},
-the X2C method employs the use of a unitary operator in the basis represetation \cite{Reiher13_184105,Liu16_204},
+the X2C method employs the use of a unitary operator in the basis representation \cite{Reiher13_184105,Liu16_204},
 \begin{equation}
 \label{eq:X2CTrans}
 \vc U^\XtC = \begin{bmatrix} \vc Y_1 & - \vc X^\dagger \vc Y_2 \\ \vc X \vc Y_1 & \vc Y_2 \end{bmatrix},
@@ -138,7 +138,7 @@ exactly,
   \label{eq:X2CHam}
 \vc U^\XtC \vc H^\mathrm{MD} \vc U^{\XtC\dagger} = \begin{bmatrix} \vc h^\XtC & \vc 0 \\ \vc 0 & \vc h^- \end{bmatrix}.
 \end{equation}
-Here we have labelled $\vc h^\XtC$ as the positive energy block diagonal of the transformed hamiltonian. $\vc h^\XtC$ 
+Here we have labeled $\vc h^\XtC$ as the positive energy block diagonal of the transformed Hamiltonian. $\vc h^\XtC$ 
 will serve as the source of the relativistic effects in the mean field methods used throughout this work.
 
 
@@ -197,7 +197,7 @@ $\vc C^\XtC$ as
   \begin{bmatrix} \phi^\alpha_i (\vc r) \alpha(\sigma) \\ \phi^\beta_i(\vc r) \beta(\sigma) \\ 0 \\ 0 \end{bmatrix} =
   \sum_\mu \begin{bmatrix} C_{\mu p}^{\XtC,\alpha} \alpha(\sigma)\\ C_{\mu p}^{\XtC,\beta}\beta(\sigma) \\ 0 \\ 0 \end{bmatrix} \chi_\mu(\vc{r}) \right\rbrace, 
 \end{equation}
-we may express the relativsitc 1RDM  (\cref{eq:Rel1RDM}) which can be constructed from a 
+we may express the relativistic 1RDM  (\cref{eq:Rel1RDM}) which can be constructed from a 
 subset $\mathcal K_I^N \subset \mathcal C^\XtC$ as
 \begin{equation}
   \label{eq:Rel2C1RDM}
@@ -214,14 +214,14 @@ As such, we will introduce a quasi--relativistic 1RDM which simply removes the z
     \sum_{i \in \mathcal K^N_I} 
       \phi_i(\vc{x}) \phi_i^{*}(\vc{x}').
 \end{equation}
-Using this definition of $\gamma^1$, we may define the analogus mean field operators exactly as in 
+Using this definition of $\gamma^1$, we may define the analogous mean field operators exactly as in 
 \cref{eq:FockComponents,eq:VXCBasis}, thus yielding the same expressions for $\vc J$, $\vc K$, and $\vc V^{xc}$.
 
 
 The key difference between the X2C method and non--relativistic mean field methods is in the definition of
-the core Hamiltonian. In the four--componenet treatment of relativistic theory, the density independent term
+the core Hamiltonian. In the four--component treatment of relativistic theory, the density independent term
 is described by the Dirac Hamiltonian in \cref{eq:DiracHam}. However, in the X2C method, the basis representation
-of the core Hamiltoninan is simply given by $\vc h^\XtC$ in \cref{eq:X2CHam}. Thus the basis representation of
+of the core Hamiltonian is simply given by $\vc h^\XtC$ in \cref{eq:X2CHam}. Thus the basis representation of
 the Fock matrix for HF and KS mean field wave functions (X2C-HF and X2C-KS), respectively) are given by
 \begin{alignat}{2}
   \label{eq:X2CHFRH}
@@ -273,7 +273,7 @@ years \cite{Becke88_2547,Jackson90_7453,Laming93_997,Johnson95_169,Frisch96_213,
 and their proper application is crucial to the practicality and applicability
 of DFT methods.  The wide adoption of DFT in the scientific community as
 a whole has enabled routine, \emph{ab initio} characterization of both ground
-and excited state properties for large macromolecular systems such as those of
+and excited state properties for large macro molecular systems such as those of
 biological \cite{Payne14_3614,Mennucci17_294,Rega18_1126} and
 materials \cite{Ceder06_659,Skylaris16_220901,Li16_165402,Li16_7255,Li16_1601307,Li17_161}
 interest and their transient
@@ -346,7 +346,7 @@ must adhere to the so called zero--torque theorem \cite{Gyorffy01_206403},
 namely that the xc magnetic field (see \cref{apx:ZeroTorque} \cref{eq:xcMagField}) cannot
 exert a net torque on the magnetization density. However, if such a generalization
 does not admit local torque by the xc magnetic field, one cannot resolve proper
-time--evolution of the magnetization density in the absense of fields
+time--evolution of the magnetization density in the absence of fields
 \cite{Gyorffy01_206403,Gyorffy03_354,Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Li17_2591}.
 %
 Several efforts have been made to adapt common density functionals
@@ -418,7 +418,7 @@ as it allows for a simple retrofitting of standard xc functionals for relativist
 by simply redefining the transformations from the V variables of relativistic theory. 
 
 Defining the scalar and magnetization densities as in \cref{eq:Densities}, we may define 2C analogues
-to the collinear auxillary variables as
+to the collinear auxiliary variables as
 \begin{align}
   \label{eq:NCAuxVar}
   &\{ V^{NC}(\vc{r}) \} = \{ \rho^{1,0}(\vc{r}), \mathbf{m}(\vc{r}), \nabla \rho^{1,0}(\vc r), \nabla \mathbf{m}(\vc{r}) \} \\
@@ -645,7 +645,7 @@ optimal efficiency.
 \caption{Pictorial representation of the integrand macrobatching scheme for the xc potential integration. 
 Each of the colored regions represent a set of Lebedev spheres over several radial quadrature points, with the 
 solid black dot representing the atomic nucleus. In the batching scheme, the scalar and matrix integrands
-are evaluated over the entire batch simultaneously to improving caching and $\mu$-op behaviour.
+are evaluated over the entire batch simultaneously to improving caching and $\mu$-op behavior.
 }
 \label{fig:Batching}       % Give a unique label
 \end{figure}
@@ -661,7 +661,7 @@ batch in the numerical integration of the xc potential.  A list of significant
 basis functions in the batch (colored patterns in the figure) is selected and
 than partitioned out for integration of that batch.  The accumulation of the
 matrix integrand over the batch is evaluated by SYR2K  and then the final,
-unscreened result is updated as shown. This scheme allows for only sequentional
+unscreened result is updated as shown. This scheme allows for only sequential
 memory access in the performance critical section of the integration and is
 responsible for drastic performance increases.}
 \label{fig:Integration}       % Give a unique label
@@ -731,36 +731,36 @@ each atom.
 
 A series of geometrically frustrated hydrogen rings were used to gauge the validity of the 
 proposed X2C-KS implementation. Geometrically frustrated systems
-provide an excellect test case for the validation of non--collinear electronic structure
+provide an excellent test case for the validation of non--collinear electronic structure
 methods as their lowest energy mean--field solutions break $\op{S}_z$ symmetry to minimize
 Pauli repulsion \cite{Gross07_196405,Frisch07_125119,Frisch12_2193,Scuseria13_035117,Yamaguchi01_670,Blochl03_15772,Truhlar11_2629,Truhlar13_5349,Li15_154109} .
 Unlike their collinear counter parts (such as RKS and UKS), X2C-KS (or more generally GKS)
 is able to support this broken symmetry due to its explicit treatment of the full
 spinor nature of the electronic density. To this end, a series of six Hydrogen rings ranging from 3 to
-8 hydrogens were constructed such that each hydrogen was placed at 1 \AA~ spacing around 
+8 Hydrogens were constructed such that each hydrogen was placed at 1 \AA~ spacing around 
 an equidistant circle (see \cref{fig:rings}). Thus only the odd membered rings may be considered geometrically
 frustrated. All calculations involving Hydrogen rings were performed using the X2C-B3LYP/6-311+G(D,P)
 level of theory \cite{Becke93_5648,Parr88_785,Preuss89_200}. 
 The scalar and spin densities of the Hydrogen rings solutions have been examined in \cref{fig:rings}. 
 
 
-In comparison to the thorough discussion of geometric frustration of Hydrogren rings in Ref \cite{Li15_154109}, 
-we can see that for the even numbered Hydrogren rings,
+In comparison to the thorough discussion of geometric frustration of Hydrogen rings in Ref \cite{Li15_154109}, 
+we can see that for the even numbered Hydrogen rings,
 the symmetrical distribution of the spin and scalar densities indicates an anti--ferromagnetic spin
 alignment; the same as one would get in a collinear solutions. This is further confirmed by the fact that
 the expectation value of $\op{S}$ for these solutions was found to be zero, thus all spins must be antialligned.
 While is this perhaps not the most
-intetesting result in the context of non--collinear calculations, it does indicate that our implementation
-collapses to the expected collinear behaviour if needed. Further, in the case that the spin density is small
-in all space (the six membered Hydrogen ring), we can see that the the choice for the generalized auxillary
-variables in \todo{reference eq} is a robust and accurate choice even in the worst case scenario.
+interesting result in the context of non--collinear calculations, it does indicate that our implementation
+collapses to the expected collinear behavior if needed. Further, in the case that the spin density is small
+in all space (the six membered Hydrogen ring), we can see that the the choice for the generalized auxiliary
+variables in \cref{eq:smallTrans} is a robust and accurate choice even in the worst case scenario.
 The primary result of \cref{fig:rings} is that both the spin and scalar densities adopt a symmetrical
 distribution even for the odd membered rings; a property which would be impossible in a collinear solution
 due to the geometrical frustration of the system. An anti--ferromagnetic solution (the lowest energy
 solution within the unrestricted formalism for the Slater determinant ground state) would yield an
 asymmetric spin density \cite{Li15_154109}. Thus, our implementation of X2C-KS is able to reproduce the expected symmetries of
-the non--collinear soltions for both even and odd membered Hydrogen rings, ensuring the robustness and 
-reilability of the proposed method.
+the non--collinear solutions for both even and odd membered Hydrogen rings, ensuring the robustness and 
+reliability of the proposed method.
 
 
 
@@ -797,9 +797,9 @@ numerical evaluation of $ E^{GGA}$ and the matrix elements
 $V^{GGA,K}_{\mu\nu}$ (\cref{eq:EXCGGA_num} and \cref{eq:VXCGGA_num}) as an
 average over 5 SCF steps in the X2C-KS optimization.  
 
-To demostrate the efficacy of our method relative to standard UKS methods,
+To demonstrate the efficacy of our method relative to standard UKS methods,
 we examine the relative scaling of UKS and X2C-KS with respect to system
-size. For this numerical experiment we have choses a set of phenoxy radicals
+size. For this numerical experiment we have chooses a set of phenoxy radicals
 shown in \cref{fig:radicals}. These systems were chosen as they exhibit highly
 delocalized spin--density across their entire spatial extent. This allows for
 a true comparison between UKS and X2C-KS as UKS will only support a particular
@@ -807,21 +807,21 @@ a true comparison between UKS and X2C-KS as UKS will only support a particular
 restriction. Wall timings for single node (28 CPU core) performance on these systems are presented in \cref{fig:timing}.
 As can be seen, the scaling of UKS and X2C-KS is identical with X2C-KS
 having a slightly larger prefactor. In terms of raw wall timings, this increase in prefactor
-does not ammount to a significant computational overhead over UKS. This is to be expected as there are (linearly)
+does not amount to a significant computational overhead over UKS. This is to be expected as there are (linearly)
 more spin components of $\spvc V^{xc}$ is X2C-KS over UKS (per \cref{eq:DenFockConstraint}),
 thus the only difference should amount to a prefactor.
 
 
 
 
-To demostrate the scalability of the proposed method, we examine the parallel
+To demonstrate the solubility of the proposed method, we examine the parallel
 performance of our implementation using the largest phenoxy radical from the
 previous numerical experiment. Wall time as a function of the number of 
 parallel processes utilized (1, 2, 4, 8, 12 nodes, for a total of 28, 56, 112, 224, 336 CPU cores)
 for this system is are presented in \cref{fig:nodes}. The implementation of X2C-KS
 is shown to exhibit linear scaling over parallel processors (a slope of -1.01).
-As previously discussed in \cref{sec:NCDFT_IMPL}, this behaviour is expected
-for a proper implementaion of any KS method as the operations which are to be performed
+As previously discussed in \cref{sec:NCDFT_IMPL}, this behavior is expected
+for a proper implementation of any KS method as the operations which are to be performed
 are completely independent. In out implementation, distributed memory parallelism
 was achieved by placing each atomic integrand (per the Becke scheme) on
 an individual MPI process while performing each atomic indegrand using shared
@@ -864,15 +864,15 @@ $E^{GGA}$ and $V_{\mu\nu}^{GGA,K}$ over 5 SCF steps.
 In this work, we developed an efficient and scalable protocol for the
 integration and assembly of the xc potential in non--collinear
 KS-DFT. Initial numerical experiments demonstrate numerical stability
-and robustness for the proposed method on a set of challengeing
+and robustness for the proposed method on a set of challenging
 molecular systems which exhibit non--collinearity due to geometrical
 frustration. We have demonstrated excellent performance of
 the proposed method both from the perspective of scaling with system
-size and linear parallel scaling on distributed memory architechtures.
+size and linear parallel scaling on distributed memory architectures.
 Further, we have shown that with the proposed algorithm, the computational 
 cost relative to UKS is not significant. We hope that the proposed algorithm
 will inspire development in relativistic DFT to move past proof of concept
-and torwards leveraging the lastest advances in high--performance computing.
+and towards leveraging the latest advances in high--performance computing.
 
 
 
@@ -905,9 +905,9 @@ and torwards leveraging the lastest advances in high--performance computing.
 
 At times, the KS-DFT description is not sufficient for the proper description
 of the electronic wave function. This case is encountered in general when
-the wave function cannot be descibed properly as a single Slater determinant.
-As such, in this section is oulined a two--component many--body expansion 
-method (ala \cref{eq:ExcitationOp}) which includes relatativistic effects
+the wave function cannot be described properly as a single Slater determinant.
+As such, in this section is outlined a two--component many--body expansion 
+method (ala \cref{eq:ExcitationOp}) which includes relativistic effects
 and tackles the electron correlation problem though representing the wave function
 as a linear combination of several Slater determinants. The following sections
 have been adapted and reproduced with permission from David B. Williams--Young,
@@ -964,7 +964,7 @@ cost-effective relativistic electronic structure methods able to model such effe
 
 
 Thus, in this work, we extend the pp-TDA formalism for use with 
-relatvistic GSCF reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
+relativistic GSCF reference determinants, specifically the X2C-HF reference of \cref{sec:X2C,sec:MF2C}. 
 However, the presented formalism may be employed in any case where the GSCF method must be
 employed, such as the spin-frustrated systems explored in \cref{sec:NCDFT_VALID},
 even in the absence of relativistic effects. 
@@ -993,7 +993,7 @@ context of a spinor reference.
 From an (exact) $M$-particle ground state, $\ket{\Psi_0^M}$, the excitation operator
 of \cref{eq:ExcitationOp} which constructs all ground and excited 
 $N$-particle states ($\ket{\Psi_0^N}$ and $\ket{\Psi_n^N}$ respectively) may be written
-convieniently as a projector $\op{R}^{N,M\dagger}_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$, such that
+conveniently as a projector $\op{R}^{N,M\dagger}_n = \ket{\Psi_n^N}\bra{\Psi_0^M}$, such that
 \begin{equation}
   \ket{\Psi_n^N} = \op{R}^{N,M\dagger}_n \ket{\Psi_0^M}.
 \end{equation}
@@ -1008,7 +1008,7 @@ probing de-excitation operator $\delta \op{R}$ , to obtain the eigenenergies of 
 
 \Cref{eq:EOM} is formally exact and completely independent of the chosen
 reference, provided one has access to the exact $N$- and $M$-particle states,
-or eqivalently a closed form expression for the projector (such as \cref{eq:ExOpExp}).
+or equivalently a closed form expression for the projector (such as \cref{eq:ExOpExp}).
 In practice, one may take the expectation value of \cref{eq:EOM} using some
 approximate $M$-particle ground state, which in the present work will be
 a Slater determinant, $\ket{\Phi_0^M}$, to obtain
@@ -1068,7 +1068,7 @@ basis rather than a collinear (RSCF / USCF) orbital basis, and that the
 orbitals have been optimized in the presence of relativistic spin-orbit
 effects via the X2C method.
 Unlike the collinear case, where significat simplification of \cref{eq:ppTDA} is
-achieved through exploitation of the spin orthonality of the reference 
+achieved through exploitation of the spin orthogonality of the reference 
 \cite{Yang13_224105,Yang13_174110}, the general non-collinear case presented in this
 work cannot be further simplified.
 
