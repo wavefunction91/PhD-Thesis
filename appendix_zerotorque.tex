@@ -6,12 +6,12 @@ The local torque does not need to vanish identically at every point in space and
 The local torque of the xc magnetic field is the tensor field defined by \cite{Gyorffy01_206403}
 \begin{equation}
 \label{eq:localT}
-\mathscr{T}_i(\vc{r}) = \sum_{jk} \varepsilon_{ijk} \rho^j(\vc{r}) B_{GGA}^k(\vc{r})
+\mathscr{T}_i(\vc{r}) = \sum_{j,k = 1}^3 \varepsilon_{ijk} \rho^j(\vc{r}) B_{GGA}^k(\vc{r}), \quad i \in \{1,2,3\},
 \end{equation}
 where $\varepsilon_{ijk}$ is the rank-3 Levi-Civita tensor and the xc magnetic field is given by
 \begin{equation}
 \label{eq:xcMagField}
-B_{GGA}^k(\vc{r}) = \frac{\delta E_{GGA}[\rho,\nabla\rho]}{\delta \rho^k(\vc{r})} .
+B_{GGA}^k(\vc{r}) = \frac{\delta E^{GGA}[\rho,\nabla\rho]}{\delta \rho^k(\vc{r})} .
 \end{equation}
 From \cref{eq:localT}, we may define the global torque of the xc magnetic field as
 \begin{equation}
@@ -27,12 +27,12 @@ B_{GGA}^{k}(\vc{r}) &= \frac{\partial f}{\partial \rho^k(\vc{r})} - \nabla \cdot
 where
 \begin{align}
 &B^{(\rho),k}_{GGA}(\vc r) = \frac{\partial f}{\partial n^+(\vc{r})} \frac{\partial n^+(\vc{r})}{\partial \rho^k(\vc{r})} + 
-  \frac{\partial f}{\partial n^-(\vc{r})} \frac{\partial n^-(\vc{r})}{\partial \rho^k(\vc{r})} \label{eq:BxcR}\\ 
+  \frac{\partial f}{\partial n^-(\vc{r})} \frac{\partial n^-(\vc{r})}{\partial \rho^k(\vc{r})} \label{eq:BxcR}, \\ 
 &B^{(\nabla),k}_{GGA}(\vc r)= \nabla \cdot 
   \left(
-    \frac{\partial f}{\partial \gamma^{++}(\vc{r})}\frac{\partial \gamma^{++}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
-    \frac{\partial f}{\partial \gamma^{+-}(\vc{r})}\frac{\partial \gamma^{+-}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
-    \frac{\partial f}{\partial \gamma^{--}(\vc{r})}\frac{\partial \gamma^{--}(\vc r)}{\partial \nabla \rho^k(\vc{r})}   
+    \frac{\partial f}{\partial \varphi^{++}(\vc{r})}\frac{\partial \varphi^{++}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
+    \frac{\partial f}{\partial \varphi^{+-}(\vc{r})}\frac{\partial \varphi^{+-}(\vc r)}{\partial \nabla \rho^k(\vc{r})} + 
+    \frac{\partial f}{\partial \varphi^{--}(\vc{r})}\frac{\partial \varphi^{--}(\vc r)}{\partial \nabla \rho^k(\vc{r})}   
   \right) . \label{eq:BxcGR}
 \end{align}
 We refer the reader to the Appendix of Ref. \cite{Li17_2591} for explicit expressions for the partial derivatives of $\{U^{NC}(\vc{r})\}$
@@ -57,7 +57,7 @@ Substituting into \cref{eq:localTRho}, we obtain,
 where we have utilized the fact that $\sum_{jk}\varepsilon_{ijk}\rho^j(\vc r)\rho^k(\vc r) = 0$. Thus the local torque contribution of this term is zero in all space, implying that
 its global torque contribution is zero as well.
 
-Similarly, we may identify \cref{eq:BxcGR} with the magnetization components of \cref{eq:ZgammaVar},
+Similarly, we may identify \cref{eq:BxcGR} with the magnetization components of \cref{eq:ZvarphiVar},
 \begin{equation}
 B^{(\rho),k}_{GGA}(\vc r) = \sum_\xi \nabla_\xi \mathcal{Z}^k_{\nabla,\xi}(\vc r) \label{eq:BxcGR_eval} .
 \end{equation}
@@ -68,28 +68,28 @@ However, unlike  \cref{eq:torR}, the torque arising from \cref{eq:BxcGR_eval} is
     &= -\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } \mathcal{Z}^k_{\nabla,\xi}(\vc r) \left(\nabla_\xi \rho^j(\vc r)\right) .
 \end{align}
 Here, we have integrated the first line by parts and utilized the fact that the density and its derivatives disappear at the boundary by definition.
-Substituting in the expressions from \cref{eq:ZgammaVar},
+Substituting in the expressions from \cref{eq:ZvarphiVar},
 \begin{align}
   \mathscr{T}_i^{(\nabla), global} 
     = -\frac{1}{2}\sum_{jk} \sum_\xi \varepsilon_{ijk} \int\mathrm{d}^3\vc r\text{   } 
     \nabla_\xi \rho^j(\vc r)
     &\left(
-      \nabla_\xi\rho^S(\vc r) H^k(\vc r)  \left( \dfrac{\partial f}{\partial \gamma^{++}(\vc r)} - \dfrac{\partial f}{\partial \gamma^{--}(\vc r)} \right) 
+      \nabla_\xi\rho^S(\vc r) \mathfrak H^k(\vc r)  \left( \dfrac{\partial f}{\partial \varphi^{++}(\vc r)} - \dfrac{\partial f}{\partial \varphi^{--}(\vc r)} \right) 
        \right. +\nonumber\\ & \quad \left. \nabla_\xi\rho^k(\vc r)
-      \left(\dfrac{\partial f}{\partial \gamma^{++}(\vc r)} - \dfrac{\partial f}{\partial \gamma^{+-}(\vc r)} + \dfrac{\partial f}{\partial \gamma^{--}(\vc r)} \right)
+      \left(\dfrac{\partial f}{\partial \varphi^{++}(\vc r)} - \dfrac{\partial f}{\partial \varphi^{+-}(\vc r)} + \dfrac{\partial f}{\partial \varphi^{--}(\vc r)} \right)
     \right) \nonumber \\
    % &= -\frac{1}{2}\sum_{jk} \sum_\xi \varepsilon_{ijk} \left(
-   %   \int\mathrm{d}^3r\text{   } \left( \dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{--}} \right) 
-   %     \nabla_\xi\rho^S \nabla_\xi \rho^j H^k + 
-   %   \int\mathrm{d}^3r\text{   } \left(\dfrac{\partial f}{\partial \gamma^{++}} - \dfrac{\partial f}{\partial \gamma^{+-}} + \dfrac{\partial f}{\partial \gamma^{--}} \right)
+   %   \int\mathrm{d}^3r\text{   } \left( \dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{--}} \right) 
+   %     \nabla_\xi\rho^S \nabla_\xi \rho^j \mathfrak H^k + 
+   %   \int\mathrm{d}^3r\text{   } \left(\dfrac{\partial f}{\partial \varphi^{++}} - \dfrac{\partial f}{\partial \varphi^{+-}} + \dfrac{\partial f}{\partial \varphi^{--}} \right)
    %     \nabla_\xi \rho^j \nabla_\xi\rho^k
    % \right) \nonumber \\
     &= 0,
 \end{align}
 where we have used the following relations
 \begin{align}
-&\nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) H^k(\vc r) = \nabla \rho^S(\vc r) \cdot \nabla \rho^k (\vc r)H^j(\vc r)  \quad \Longrightarrow \quad
-  \sum_{jk} \varepsilon_{ijk} \nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) H^k(\vc r) = 0, \\
+&\nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) \mathfrak H^k(\vc r) = \nabla \rho^S(\vc r) \cdot \nabla \rho^k (\vc r)H^j(\vc r)  \quad \Longrightarrow \quad
+  \sum_{jk} \varepsilon_{ijk} \nabla \rho^S(\vc r) \cdot \nabla \rho^j(\vc r) \mathfrak H^k(\vc r) = 0, \\
 & \sum_{jk}\varepsilon_{ijk} \nabla \rho^j(\vc r) \cdot \nabla \rho^k(\vc r) = 0.
 \end{align}
  
