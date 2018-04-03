@@ -174,7 +174,7 @@ This scaling method
 has become the field standard for approximately accounting for many--body relativistic effects in effective
 2C relativistic methods.
 
-With our restriction from the DCB to DC Hamiltonian,
+With our utilization of the DC Hamiltonian,
 the two--body part of the electronic Hamiltonian in the effective 2C framework
 is the same as it was in the non--relativistic case, i.e. the mean--field operators
 $\op J$, $\op K$ and $\op V^{xc}$ and their basis representations $\spvc J$, $\spvc K$ and $\spvc V^{xc}$, are the same as in 
@@ -702,7 +702,7 @@ functions in each list becomes independent of size
 for sufficiently large molecules, given the  spatial localization nature of Gaussian atomic centered basis sets.
 %As such, not every basis function need be evaluated for every batch depending on the distance of the basis function to the points in the
 %batch. Deciding which basis functions need to be evaluated are dependent on the characteristics of the basis set. \todo{explain / cite how we screen}. 
-This reduced list of basis, evaluated for all points in the batch, is stored in contiguous blocks of memory, and used (along with the corresponding submatrices of the density-matrix, when required) for the evaluation of the potential, $\mathbf{Z}$ (see \cref{eq:ZImu}), by exploiting a sub-sequential series of vectorized operations.
+This reduced list of basis, evaluated for all points in the batch, is stored in contiguous blocks of memory, and used (along with the corresponding submatrices of the density-matrix, when required) for the evaluation of the potential, $\mathbf{Z}$ (see \cref{eq:ZKmu}), by exploiting a sub-sequential series of vectorized operations.
 An important note here is that the maximum values for the batch of basis functions, $\chi_{max}(batch)$, and potential, $Z_{max}(batch)$, can be used to screen the entire contribution of the points in the batch to the integration. In this case, the integration can move to the next batch, avoiding the rank-2k update, that is the computationally most expensive part of the process,  without loosing accuracy.
 Otherwise, recognizing that $\mathbf{Z}$ and $\mathbf{X}$ exhibit the same sparsity pattern, we may define
 \begin{equation}
@@ -804,7 +804,7 @@ shown in \cref{fig:radicals}. These systems were chosen as they exhibit highly
 delocalized spin--density across their entire spatial extent. This allows for
 a true comparison between UKS and X2C-KS as UKS will only support a particular
 ($z$) orientation of the magnetization vector while X2C-KS will not have this
-restriction. Wall timings for single node (28 CPU core) performance on these systems are presented in \cref{fig:timings}.
+restriction. Wall timings for single node (28 CPU core) performance on these systems are presented in \cref{fig:timing}.
 As can be seen, the scaling of UKS and X2C-KS is identical with X2C-KS
 having a slightly larger prefactor. In terms of raw wall timings, this increase in prefactor
 does not ammount to a significant computational overhead over UKS. This is to be expected as there are (linearly)
@@ -1076,7 +1076,7 @@ work cannot be further simplified.
 \label{sec:ppX2CResults}
 
 All calculations were performed with a locally modified version of the Gaussian
-quantum chemistry suite of programs \cite{GDVI06}, and employed the
+quantum chemistry suite of programs \cite{GDVI04}, and employed the
 taug-cc-pVTZ-DK Gaussian basis set \cite{Dixon01_48} with the diffuse \emph{f}-functions
 removed.  Relativistic effects were accounted for by means of the variational
 X2C method outlined in \cref{sec:X2C,sec:MF2C}.
