@@ -1,9 +1,9 @@
 \prelimpages
 
 
-\Title{Towards Scalable Relativistic Electronic\\
-  Structure Methods for the Treatment of Molecular
-  Response}
+\Title{Towards Efficient and Scalable Electronic\\
+  Structure Methods for the Treatment of Relativistic Effects and
+  Molecular Response}
 \Author{David Williams--Young}
 \Year{2018}
 \Program{Chemistry}
@@ -21,7 +21,24 @@
 
 \setcounter{page}{-1}
 \abstract{%
-Abstract to go here
+In the context of electronic structure theory, formal theoretical development
+must be accompanied by efficient and scalable computer implementation in order
+to study molecular systems at experimentally relevant scales. Thus, this work
+outlines several advances in the development of efficient and scalable
+electronic structure methods for the treatment of relativistic effects and
+molecular response.  As such, the first chapter outlines the theoretical
+underpinnings from which the rest of the original work is built upon. The
+second chapter outlines, several contributions to the field of relativistic
+electronic structure.  While relativistic effects are generally considered to
+only be of consequence only in heavy elements, they can be of profound effect
+even in light elements.  However, implementation of these methods pose several
+non-trivial complications over their non-relativistic counterparts, and
+scalable implementation of relativistic electronic structure methods 
+are scarce. The final chapter outlines a contribution to the field of molecular
+response theory. In electronic structure theory, the problem of molecular response 
+is cast into a large numerical linear algebra problem suitable for modern
+high--performance computing architectures. This chapter outlines a highly scalable
+method which allows for rapid evaluation of response function in a reduced dimension.
 }
  
 %
@@ -40,7 +57,7 @@ Abstract to go here
 \thispagestyle{plain}
 %
 \begin{glossary}
-  \item[$\mu$-op]    Microarchitechture specific operations
+  \item[$\mu$-op]    Microarchitecture specific operations
   \item[1PDM]        One--particle density matrix
   \item[1RDM]        One--particle reduced density matrix
   \item[2C]          Two--component
@@ -67,7 +84,7 @@ Abstract to go here
   \item[GGA]         Generalized gradient approximation
   \item[GHF]         Generalized Hartree--Fock
   \item[GKS]         Generalized Kohn--Sham
-  \item[GMRES]       Generalized minimum resudual method
+  \item[GMRES]       Generalized minimum residual method
   \item[GSCF]        Generalized self--consistent field
   \item[HF-MO]       Hartree--Fock   molecular orbital
   \item[HF]          Hartree--Fock
@@ -97,13 +114,13 @@ Abstract to go here
   \item[RSCF]        Restricted self--consistent field
   \item[SCF]         Self--consistent field
   \item[SIMD]        Single--instruction multiple--data
-  \item[SYR2K]       Symmetrix rank-2k update
+  \item[SYR2K]       Symmetric rank-2k update
   \item[SYR2]        Symmetric rank-2 update
   \item[TDA]         The Tamm--Dancoff approximation
   \item[TDDFT]       Time--dependent density functional theory
   \item[TDHF]        Time--dependent Hartree--Fock
-  \item[UHF]         Unestricted Hartree--Fock
-  \item[UKS]         Unestricted Kohn--Sham
+  \item[UHF]         Unrestricted Hartree--Fock
+  \item[UKS]         Unrestricted Kohn--Sham
   \item[USCF]        Unrestricted self--consistent field
   \item[X2C-HF]      Exact two--component Hartree--Fock
   \item[X2C-KS]      Exact two--component Kohn--Sham
