@@ -1,0 +1,377 @@
+\documentclass[usepdftitle=false]{beamer}
+\usetheme{Singapore}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{bbding}
+\usepackage[algo2e,ruled]{algorithm2e}
+
+%\newcommand\blfootnote[1]{%
+%  \begingroup
+%  \renewcommand\thefootnote{}\footnote{#1}%
+%  \addtocounter{footnote}{-1}%
+%  \endgroup
+%}
+%\renewcommand*\footnoterule{}
+
+\usepackage{etoolbox,setspace}
+\AtBeginEnvironment{quote}{\singlespacing\small}
+
+\newcommand{\gcheck}{{\color{green} \Checkmark}}
+\newcommand{\rx}{{\color{red} \XSolidBrush}}
+
+\newcommand{\ii}{\check{\text{\i}}}
+\newcommand{\jj}{\check{\text{\j}}}
+\newcommand{\kk}{\check{\text{k}}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\vc}[1]{\boldsymbol{#1}}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\bra}[1]{\langle #1 \vert}         % bra
+\newcommand{\ket}[1]{\vert #1 \rangle}         % ket
+
+\newcommand{\HAXX}{$\mathbb H\mathrm{AXX}$}
+\newcommand{\HBLAS}{$\mathbb H\mathrm{BLAS}$}
+
+\newcommand{\CSJ} {{ \color{blue}   \mathrm{CSJ} }}
+\newcommand{\CSJt}{{ \color{red}    \mathrm{CSJ2}}}
+\newcommand{\CST} {{ \color{blue}   \mathrm{CST} }}
+\newcommand{\CSTt}{{ \color{red}    \mathrm{CST2}}}
+\newcommand{\CJ}{\mathrm{CJ}}
+\newcommand{\CT}{\mathrm{CT}}
+\newcommand{\CS}{ {\color{red} \mathrm{CS}}}
+\newcommand{\CSJJ}{{\color{red} \mathrm{CSJJ}}}
+\newcommand{\CSTJ}{{\color{red} \mathrm{CSTJ}}}
+\newcommand{\CSTT}{{\color{red} \mathrm{CSTT}}}
+\newcommand{\CSJI}{{\color{red} \mathrm{CSJI}}}
+
+
+\title[]{Towards Scalable Electronic Structure Methods for the Treatment
+  of Relativistic Effects and Molecular Response}
+\author[]{
+\\[2\baselineskip]
+David Williams-Young \\
+Department of Chemistry\\
+University of Washington\\
+Li Research Group
+}
+\date{\today}
+
+\newcommand{\me}[0]{{\bf DBWY}}
+
+%\setbeamertemplate{itemize/enumerate subbody begin}{\tiny}
+
+\newcommand\Wider[2][3em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+    \raggedright#2
+      \end{minipage}%
+        }%
+	}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+
+  \begin{center} 
+    \LARGE \bf What is it that I do exactly?
+  \end{center}
+
+\end{frame}
+
+\begin{frame}
+
+  \frametitle{Electronic Structure Theory (EST)}
+
+  Solve the electronic wave equation for molecular systems within
+  the Born-Oppenheimer approximation
+  \begin{equation*}
+    \op H_e(t) \ket{\Psi_e (t)} = i\partial_t \ket{\Psi_e (t)},
+  \end{equation*}
+
+  \begin{align*}
+    &\op H_e(t) = \op H_0 + \op V^\mathrm{ext}(t),\\
+    &\op H_0 = \sum_{j=1}^{N} 
+        \op H_e^\mathrm{free}(j) + \op V^\mathrm{nuc}(j)  + 
+	\frac{1}{2} \sum_{j \neq k}^N \op G_{ee}(j,k)
+  \end{align*}
+
+  \vspace{0.5cm}
+
+  {\bf Presence of $\op G_{ee}(j,k)$ renders direct solution impossible}
+  
+
+\end{frame}
+
+\begin{frame}
+
+  \frametitle{Electronic Structure Theory (EST)}
+
+  Fundamentally, EST attempts to answer two questions:
+
+  \begin{enumerate}
+
+    \item What are the properties of $\ket{\Psi_e(t)}$ when 
+      $\op V^\mathrm{ext}(t) = c$?
+
+    \begin{itemize}
+      \item Stationary solutions
+      \item Electronic ground and excited states, molecular geometries,
+      thermochemistry, etc.
+    \end{itemize}
+
+    \item What are the properties of $\ket{\Psi_e(t)}$ when 
+      $\op V^\mathrm{ext}(t) \neq c$?
+    \begin{itemize}
+      \item Dynamical solutions
+      \item Light-matter interaction, 
+    \end{itemize}
+
+  \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+  \frametitle{Software Development}
+
+  \Wider{
+  \begin{minipage}{0.6\textwidth} 
+  {\bf Chronus Quantum (ChronusQ)}
+  {\footnotesize
+  \begin{itemize}
+    \item Quantum chemistry software specializing in relativistic and time-dependent
+    electronic structure methods.
+    \item GPLv3: Free software (as in \emph{free beer} \textbf{and} \emph{free speech})
+    \item C++11
+    \item SMP + MPI
+  \end{itemize}
+  }
+
+  {\bf HAXX}
+  {\footnotesize
+  \begin{itemize}
+    \item Optimized C++14 library for quaternion arithmetic
+    \item BSD
+    \item $\mathbb H$BLAS: Optimized quaternionic BLAS functionality
+    \item Intrinsics + Assembly kernels
+  \end{itemize}
+  }
+  \end{minipage}~
+  \begin{minipage}{0.39\textwidth} 
+    \includegraphics[width=\textwidth]{chronus_quantum_logo}\\~\\~\\
+
+    \includegraphics[width=\textwidth]{HAXX_logo}
+  \end{minipage}
+  }
+\end{frame}
+
+
+
+\begin{frame}
+
+  \frametitle{Scientific Publications}
+  \Wider{
+      {\bf \footnotesize Relativistic Theory}
+      {\tiny
+      
+      [1] \me, F. Egidi, X. Li. 
+      ``Relativistic Two-Component Particle-Particle Tamm-Dancoff Approximation",
+      \emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(11), 5379--5384.
+
+      [2] A. Petrone$^*$, \me$^*$, S. Sun, T. Stetina, X. Li.
+      ``An Efficient Implementation of Two-Component Relativistic Density
+      Functional Theory with Torque-Free Auxiliary Variables",
+      \emph{Eur. Phys. J. B}, \textbf{2018}, Submitted.
+
+      }~\\
+
+      {\bf \footnotesize Response Theory}
+      {\tiny
+
+      [3] R. van Beeuman$^*$, \me$^*$, J. Kasper, C. Yang, E. Ng, X. Li.
+      ``A Model Order Reduction Algorithm for Estimating the Absorption
+      Spectrum", 
+      \emph{J. Chem. Theory Comput.} \textbf{2017}, 13(10),
+      4950--4961.
+
+      }~\\
+
+      {\bf \footnotesize Numerical Linear Algebra}
+      { \tiny
+
+      [4] J. Kasper, \me, E. Vecharynski, C. Yang, X. Li.
+      ``A Well-Tempered Hybrid Method for Solving Challenging TDDFT Systems",
+      \emph{J. Chem. Theory Comput.} \textbf{2018}, Just Accepted.
+
+      [5] \me, X. Li.
+      ``On the Efficient Implementation of Quaternionic Linear Algebra",
+      In Preparation.
+
+      }~\\
+  {\bf \footnotesize Vibrational / Dynamical Theory }
+
+      { \tiny 
+
+      [6] D.B. Lingerfelt, \me, A. Petrone, X. Li. 
+	%``Direct ab initio (Meta-)Surface Hopping Dynamics", 
+	\emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(3), 935--945.
+
+      [7] \me, J.J. Goings, X. Li. 
+        %``Accelerating Real-Time Time-Dependent Density Functional Theory with a 
+        %Chebyshev Expansion of the Quantum Propagator", 
+	\emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(11), 5333--5338.
+
+      [8] A. Petrone, D.B. Lingerfelt, \me, X. Li.
+        %``Ab Initio Transient Vibrational Spectral Analysis",
+	\emph{J. Phys. Chem. Lett.}, \textbf{2016}, 7, 4501--4508.
+
+      [9] A. Petrone, \me, D.B. Lingerfelt,  X. Li.
+        %``Ab Initio Transient Raman Analysis",
+	\emph{J. Phys. Chem. A}, \textbf{2017}, 7, 4501--4508.
+      
+      [10] F. Egidi$^*$, \me$^*$, A. Baiardi$^*$, J. Bloino, G. Scalmani, M. Frisch, X. Li,
+      V. Barone.
+        %``Effective Inclusion of Mechanical and Electrical Anharmonicity
+	%in Excited Electronic States: the VPT2-TDDFT Route",
+	\emph{J. Chem. Theory Comput.}, \textbf{2017}, 13(6), 2789--2803.
+
+      [11] M.S. Barclay, T.J. Quincy, \me, M. Caricato, C.G. Elles.
+        %``Accurate Assignments of Excited-State Resonance Raman Spectra:
+	%A Benchmark Study Combining Experiment and Theory",
+	\emph{J. Phys. Chem. A}, \textbf{2017}, 121(41), 7937--7946.
+
+      [12] P. Lestrange, \me, C. Jimenez-Hoyos, X. Li.
+        %``An Efficient Implementation of Variation After Projection Generalized
+	%Hartree--Fock",
+	\emph{J. Chem. Theory Comput.}, \textbf{2018}, 14(2), 588--596.
+
+      }
+
+  \vspace{0.5cm}
+  \begin{minipage}[b]{\textwidth}
+    \tiny $^*$ Accredited as either equally contributing or corresponding
+    author
+  \end{minipage}
+    }
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+  \frametitle{Scientific Publications}
+  \Wider{
+      {\bf \footnotesize Relativistic Theory}
+      {\tiny
+      
+      [1] \me, F. Egidi, X. Li. 
+      ``Relativistic Two-Component Particle-Particle Tamm-Dancoff Approximation",
+      \emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(11), 5379--5384.
+
+      {\color{red}
+      [2] A. Petrone$^*$, \me$^*$, S. Sun, T. Stetina, X. Li.
+      ``An Efficient Implementation of Two-Component Relativistic Density
+      Functional Theory with Torque-Free Auxiliary Variables",
+      \emph{Eur. Phys. J. B}, \textbf{2018}, Submitted.
+      }
+
+      }~\\
+
+      {\bf \footnotesize Response Theory}
+      {\tiny
+
+      {\color{red}
+      [3] R. van Beeuman$^*$, \me$^*$, J. Kasper, C. Yang, E. Ng, X. Li.
+      ``A Model Order Reduction Algorithm for Estimating the Absorption
+      Spectrum", 
+      \emph{J. Chem. Theory Comput.} \textbf{2017}, 13(10),
+      4950--4961.
+      }
+
+      }~\\
+
+      {\bf \footnotesize Numerical Linear Algebra}
+      { \tiny
+
+      [4] J. Kasper, \me, E. Vecharynski, C. Yang, X. Li.
+      ``A Well-Tempered Hybrid Method for Solving Challenging TDDFT Systems",
+      \emph{J. Chem. Theory Comput.} \textbf{2018}, Just Accepted.
+
+      [5] \me, X. Li.
+      ``On the Efficient Implementation of Quaternionic Linear Algebra",
+       In Preparation.
+
+      }~\\
+  {\bf \footnotesize Vibrational / Dynamical Theory }
+
+      { \tiny 
+
+      [6] D.B. Lingerfelt, \me, A. Petrone, X. Li. 
+	%``Direct ab initio (Meta-)Surface Hopping Dynamics", 
+	\emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(3), 935--945.
+
+      [7] \me, J.J. Goings, X. Li. 
+        %``Accelerating Real-Time Time-Dependent Density Functional Theory with a 
+        %Chebyshev Expansion of the Quantum Propagator", 
+	\emph{J. Chem. Theory Comput.}, \textbf{2016}, 12(11), 5333--5338.
+
+      [8] A. Petrone, D.B. Lingerfelt, \me, X. Li.
+        %``Ab Initio Transient Vibrational Spectral Analysis",
+	\emph{J. Phys. Chem. Lett.}, \textbf{2016}, 7, 4501--4508.
+
+      [9] A. Petrone, \me, D.B. Lingerfelt,  X. Li.
+        %``Ab Initio Transient Raman Analysis",
+	\emph{J. Phys. Chem. A}, \textbf{2017}, 7, 4501--4508.
+      
+      [10] F. Egidi$^*$, \me$^*$, A. Baiardi$^*$, J. Bloino, G. Scalmani, M. Frisch, X. Li,
+      V. Barone.
+        %``Effective Inclusion of Mechanical and Electrical Anharmonicity
+	%in Excited Electronic States: the VPT2-TDDFT Route",
+	\emph{J. Chem. Theory Comput.}, \textbf{2017}, 13(6), 2789--2803.
+
+      [11] M.S. Barclay, T.J. Quincy, \me, M. Caricato, C.G. Elles.
+        %``Accurate Assignments of Excited-State Resonance Raman Spectra:
+	%A Benchmark Study Combining Experiment and Theory",
+	\emph{J. Phys. Chem. A}, \textbf{2017}, 121(41), 7937--7946.
+
+      [12] P. Lestrange, \me, C. Jimenez-Hoyos, X. Li.
+        %``An Efficient Implementation of Variation After Projection Generalized
+	%Hartree--Fock",
+	\emph{J. Chem. Theory Comput.}, \textbf{2018}, 14(2), 588--596.
+
+      }
+
+  \vspace{0.5cm}
+  \begin{minipage}[b]{\textwidth}
+    \tiny $^*$ Accredited as either equally contributing or corresponding
+    author
+  \end{minipage}
+
+    }
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
